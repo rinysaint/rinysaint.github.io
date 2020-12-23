@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Python实现简单的API接口 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="get方法代码实现 coding:utf-8import jsonfrom urlparse import parse_qsfrom wsgiref.simple_server import make_server 定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。def application(environ, start_response): 定义文件请求的类型和当前请求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python实现简单的API接口">
+<meta property="og:url" content="http://example.com/2020/12/23/Python%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84API%E6%8E%A5%E5%8F%A3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="get方法代码实现 coding:utf-8import jsonfrom urlparse import parse_qsfrom wsgiref.simple_server import make_server 定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。def application(environ, start_response): 定义文件请求的类型和当前请求">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-23T13:06:36.000Z">
+<meta property="article:modified_time" content="2020-12-23T13:06:41.625Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Python实现简单的API接口" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/12/23/Python%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84API%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time class="dt-published" datetime="2020-12-23T13:06:36.000Z" itemprop="datePublished">2020-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Python实现简单的API接口
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>get方法<br>代码实现</p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="coding:utf-8"></a>coding:utf-8</h1><p>import json<br>from urlparse import parse_qs<br>from wsgiref.simple_server import make_server</p>
+<h1 id="定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。"><a href="#定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。" class="headerlink" title="定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。"></a>定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。</h1><p>def application(environ, start_response):</p>
+<h1 id="定义文件请求的类型和当前请求成功的code"><a href="#定义文件请求的类型和当前请求成功的code" class="headerlink" title="定义文件请求的类型和当前请求成功的code"></a>定义文件请求的类型和当前请求成功的code</h1><p>start_response(‘200 OK’, [(‘Content-Type’, ‘text/html’)])</p>
+<h1 id="environ是当前请求的所有数据，包括Header和URL，body，这里只涉及到get"><a href="#environ是当前请求的所有数据，包括Header和URL，body，这里只涉及到get" class="headerlink" title="environ是当前请求的所有数据，包括Header和URL，body，这里只涉及到get"></a>environ是当前请求的所有数据，包括Header和URL，body，这里只涉及到get</h1><h1 id="获取当前get请求的所有数据，返回是string类型"><a href="#获取当前get请求的所有数据，返回是string类型" class="headerlink" title="获取当前get请求的所有数据，返回是string类型"></a>获取当前get请求的所有数据，返回是string类型</h1><p>params = parse_qs(environ[‘QUERY_STRING’])</p>
+<h1 id="获取get中key为name的值"><a href="#获取get中key为name的值" class="headerlink" title="获取get中key为name的值"></a>获取get中key为name的值</h1><p>name = params.get(‘name’, [‘’])[0]<br>no = params.get(‘no’, [‘’])[0]</p>
+<h1 id="组成一个数组，数组中只有一个字典"><a href="#组成一个数组，数组中只有一个字典" class="headerlink" title="组成一个数组，数组中只有一个字典"></a>组成一个数组，数组中只有一个字典</h1><p>dic = {‘name’: name, ‘no’: no}</p>
+<p>return [json.dumps(dic)]</p>
+<p>if <strong>name</strong> == “<strong>main</strong>“:<br>port = 5088<br>httpd = make_server(“0.0.0.0”, port, application)<br>print “serving http on port {0}…”.format(str(port))<br>httpd.serve_forever()</p>
+<p>请求实例<br>这里写图片描述</p>
+<p>post方法<br>代码实现</p>
+<h1 id="coding-utf-8-1"><a href="#coding-utf-8-1" class="headerlink" title="coding:utf-8"></a>coding:utf-8</h1><p>import json<br>from wsgiref.simple_server import make_server</p>
+<h1 id="定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。-1"><a href="#定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。-1" class="headerlink" title="定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。"></a>定义函数，参数是函数的两个参数，都是python本身定义的，默认就行了。</h1><p>def application(environ, start_response):</p>
+<h1 id="定义文件请求的类型和当前请求成功的code-1"><a href="#定义文件请求的类型和当前请求成功的code-1" class="headerlink" title="定义文件请求的类型和当前请求成功的code"></a>定义文件请求的类型和当前请求成功的code</h1><p>start_response(‘200 OK’, [(‘Content-Type’, ‘application/json’)])</p>
+<h1 id="environ是当前请求的所有数据，包括Header和URL，body"><a href="#environ是当前请求的所有数据，包括Header和URL，body" class="headerlink" title="environ是当前请求的所有数据，包括Header和URL，body"></a>environ是当前请求的所有数据，包括Header和URL，body</h1><p>request_body = environ[“wsgi.input”].read(int(environ.get(“CONTENT_LENGTH”, 0)))<br>request_body = json.loads(request_body)</p>
+<p>name = request_body[“name”]<br>no = request_body[“no”]</p>
+<h1 id="input-your-method-here"><a href="#input-your-method-here" class="headerlink" title="input your method here"></a>input your method here</h1><h1 id="for-instance"><a href="#for-instance" class="headerlink" title="for instance:"></a>for instance:</h1><h1 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h1><p>dic = {‘myNameIs’: name, ‘myNoIs’: no}</p>
+<p>return [json.dumps(dic)]</p>
+<p>if <strong>name</strong> == “<strong>main</strong>“:<br>port = 6088<br>httpd = make_server(“0.0.0.0”, port, application)<br>print “serving http on port {0}…”.format(str(port))<br>httpd.serve_forever()</p>
+<p>请求实例这里写图片描述</p>
+<p>疑问</p>
+<p>怎么实现请求的路径限制？<br>怎么限制接口调用方的headers？</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/12/23/Python%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84API%E6%8E%A5%E5%8F%A3/" data-id="ckj1g0s6b0000okvi74m7hck4" data-title="Python实现简单的API接口" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/12/23/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          【数据可视化】电视产品精准营销推荐
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/23/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">遗传算法详解（GA）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/23/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/">【数据可视化】电视产品精准营销推荐</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/23/Python%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84API%E6%8E%A5%E5%8F%A3/">Python实现简单的API接口</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/23/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/">遗传算法详解（GA）</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/23/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%B6%85%E8%AF%A6%E7%BB%86%E7%9A%84%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95-Genetic-Algorithm-%E8%A7%A3%E6%9E%90/">【算法】超详细的遗传算法(Genetic Algorithm)解析</a>
+          </li>
+        
+          <li>
+            <a href="/2020/12/23/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9B%9B%E7%A7%8D%E7%AE%97%E6%B3%95/">人工智能神经网络四种算法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2020 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
