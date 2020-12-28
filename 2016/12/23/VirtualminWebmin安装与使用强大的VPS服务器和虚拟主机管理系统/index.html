@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统 | 君子兰肖日宁的博客</title><meta name="keywords" content="linux,VirtualminWebmin,vps,服务器和虚拟主机"><meta name="author" content="肖日宁"><meta name="copyright" content="肖日宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="Webmin是一个开源免费并且功能非常强大的基于Web的Unix系统管理工具，支持绝大多数的Unix系统，另外还包括：AIX、HPUX、Solaris、Unixware、Irix和FreeBSD等，Webmin可以对服务器、磁盘、网络、硬件等进行全方位的管理，功能媲美地WHM。 Virtualmin是Webmin一个模块，是一个功能强大的虚拟主机管理系统，包括了DNS、数据库、用户、网络配置、配额">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统">
+<meta property="og:url" content="http://kingsalnding.cn/2016/12/23/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="君子兰肖日宁的博客">
+<meta property="og:description" content="Webmin是一个开源免费并且功能非常强大的基于Web的Unix系统管理工具，支持绝大多数的Unix系统，另外还包括：AIX、HPUX、Solaris、Unixware、Irix和FreeBSD等，Webmin可以对服务器、磁盘、网络、硬件等进行全方位的管理，功能媲美地WHM。 Virtualmin是Webmin一个模块，是一个功能强大的虚拟主机管理系统，包括了DNS、数据库、用户、网络配置、配额">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://kingsalnding.cn/images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_10-500x240.gif">
+<meta property="article:published_time" content="2016-12-23T13:06:36.000Z">
+<meta property="article:modified_time" content="2020-12-28T16:46:43.135Z">
+<meta property="article:author" content="肖日宁">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="VirtualminWebmin">
+<meta property="article:tag" content="vps">
+<meta property="article:tag" content="服务器和虚拟主机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kingsalnding.cn/images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_10-500x240.gif"><link rel="shortcut icon" href="/../img/favicon.png"><link rel="canonical" href="http://kingsalnding.cn/2016/12/23/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2020-12-29 00:46:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">45</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_10-500x240.gif)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰肖日宁的博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-12-28T16:46:43.135Z" title="更新于 2020-12-29 00:46:43">2020-12-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/">linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Webmin是一个开源免费并且功能非常强大的基于Web的Unix系统管理工具，支持绝大多数的Unix系统，另外还包括：AIX、HPUX、Solaris、Unixware、Irix和FreeBSD等，Webmin可以对服务器、磁盘、网络、硬件等进行全方位的管理，功能媲美地WHM。</p>
+<p>Virtualmin是<a target="_blank" rel="noopener" href="https://www.freehao123.com/tag/webmin/">Webmin</a>一个模块，是一个功能强大的虚拟主机管理系统，包括了DNS、数据库、用户、网络配置、配额限制、邮局等等，甚至是整个服务器都可以使用Virtualmin来管理，Virtualmin可以很好与Webmin配合，实现全方位地管理VPS和服务器。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/tag/virtualminwebmin/">Virtualmin/Webmin</a>搭配起来就相当于WHM/Cpanel面板了，如果再搭上WHMCS，就可以实现在线销售和自助管理虚拟空间了。本篇文章就来分享一下<a target="_blank" rel="noopener" href="https://www.freehao123.com/tag/virtualmin/">Virtualmin</a>/Webmin安装与使用，由于Virtualmin/Webmin功能非常地多，有兴趣的朋友还需要深入地研究一下。</p>
+<p>如果你对搭建虚拟主机管理平台和VPS主机管理面板有兴趣，可以看看：</p>
+<ul>
+<li>1、合租方案：<a target="_blank" rel="noopener" href="https://www.freehao123.com/vps-hezu/">VPS主机多人合租使用或多用户共享服务器使用方案-权限分配管理</a></li>
+<li>2、免费VPS面板：<a target="_blank" rel="noopener" href="https://www.freehao123.com/vestacp-whmcs/">Vestacp整合WHMCS实现自动销售开通虚拟主机服务</a></li>
+<li>3、流行的组合：<a target="_blank" rel="noopener" href="https://www.freehao123.com/whm-cpanel/">WHM使用教程:管理Cpanel账户,服务器配置和基本操作方法</a></li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://www.freehao123.com/tag/virtualmin/">Virtualmin</a>/Webmin安装与使用:强大的VPS服务器和虚拟主机管理系统</strong></p>
+<p><strong>一、Virtualmin/Webmin安装方法</strong></p>
+<p>1、Virtualmin/Webmin官网：</p>
+<ul>
+<li>1、<a target="_blank" rel="noopener" href="https://www.freehao123.com/tag/webmin/">Webmin</a>：<a href="http://www.[webmin](https://www.freehao123.com/tag/webmin/).com/">http://www.[webmin](https://www.freehao123.com/tag/webmin/).com/</a></li>
+<li>2、Virtualmin：<a target="_blank" rel="noopener" href="https://www.virtualmin.com/">https://www.virtualmin.com/</a></li>
+</ul>
+<p>2、Virtualmin/Webmin安装只要执行以下命令就可以了，安装时间也很短，大概只要十几分钟。</p>
+<table>
+<thead>
+<tr>
+<th><code>1 2 3 </code></th>
+<th><code>wget http://software.virtualmin.com/gpl/scripts/install.sh   chmod +x install.sh    ./install.sh</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>3、安装好了Virtualmin/Webmin后，使用<a href="https://ip:10000或者https://域名:10000来登录你的管理面板后台，用户名是root，密码是你的VPS的root密码。">https://ip:10000或者https://域名:10000来登录你的管理面板后台，用户名是root，密码是你的VPS的root密码。</a></p>
+<p>4、第一次登录使用Virtualmin/Webmin时，会提示让你选择相关的配置，主要是以省内存为优先还是以效率为优先。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_01.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_01.gif" alt="Virtualmin/Webmin启动配置"></a></p>
+<p>5、另外还会要求设置好MysqL数据库管理员密码。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_02.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_02.gif" alt="Virtualmin/Webmin设置MysqL密码"></a></p>
+<p>6、如果有自己的NS服务器，这时可以填写，否则可以直接跳过。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_03.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_03.gif" alt="Virtualmin/Webmin直接跳过"></a></p>
+<p>7、进入了Virtualmin/Webmin后，点击webmin下的Change Language And Theme。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_05.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_05.gif" alt="Virtualmin/Webmin设置语言"></a></p>
+<p>8、在这里选择语言为中文简体，重新加载，Virtualmin/Webmin就变成了中文了。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_06.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_06.gif" alt="Virtualmin/Webmin切换为中文"></a></p>
+<p>9、这就是Virtualmin的管理面板。（点击放大）</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_09.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_09-500x240.gif" alt="Virtualmin控制面板"></a></p>
+<p>10、这是Webmin的管理面板。（点击放大）</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_10.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_10-500x240.gif" alt="Webmin控制面板"></a></p>
+<p><strong>二、Virtualmin/Webmin新建虚拟主机</strong></p>
+<p>1、在创建虚拟主机前，先可以设置用户权限的“服务器模板”，否则直接使用默认的服务器模板权限和Root是一样大。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_13.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_13.gif" alt="Virtualmin/Webmin新建服务器模板"></a></p>
+<p>2、在编辑服务器模板中可以对子目录权限、计划任务、端口号、SSL证书等进行相关的设置。（点击放大）</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_14.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_14-500x240.gif" alt="Virtualmin/Webmin编辑模板"></a></p>
+<p>3、另外记得添加一个主机套餐模板，主要是规定新开通的主机的绑定域名数量、空间大小、流量大小和相关的服务器权限等等。（点击放大）</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_15.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_15-500x240.gif" alt="Virtualmin/Webmin设置主机套餐"></a></p>
+<p>4、现在我们就可以点击Virtualmin下的“Create Virtual Server”来开通新的主机了。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_12.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_12.gif" alt="Virtualmin/Webmin开通新的主机"></a></p>
+<p>5、填写域名、密码，选择好服务器模板和主机套餐，确定后即可开通新的虚拟主机。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_16.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_16.gif" alt="Virtualmin/Webmin主机配额"></a></p>
+<p><strong>三、Virtualmin/Webmin添加FTP和邮局账户</strong></p>
+<p>1、在新添加的虚拟主机下方，会有一个“编辑用户”选项。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_17.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_17.gif" alt="Virtualmin/Webmin编辑用户"></a></p>
+<p>2、在这里我们就可以创建新的FTP账户和邮箱账户了，创建账户时可以对账户的权限进行相应的调整。（点击放大）</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_18.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_18-500x240.gif" alt="Virtualmin/Webmin新建FTP账户"></a></p>
+<p><strong>四、Virtualmin/Webmin管理MysqL数据库</strong></p>
+<p>1、点击Virtualmin，在新添加的虚拟主机下方会有“编辑数据库”选项。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_21.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_21.gif" alt="Virtualmin/Webmin管理数据库"></a></p>
+<p>2、在这里就可以创建新的数据库。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_22.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_22.gif" alt="Virtualmin/Webmin新建MysqL"></a></p>
+<p>3、管理MysqL数据库密码、导入与导出数据库。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_23.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_23.gif" alt="Virtualmin/Webmin导入与导出"></a></p>
+<p><strong>五、强大的Virtualmin/Webmin主机备份功能</strong></p>
+<p>1、在Virtualmin中会有一个“备份和恢复”功能，这里即可以备份整个服务器相关的设置，也可以备份单个虚拟主机的文件。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_24.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_24.gif" alt="Virtualmin/Webmin备份"></a></p>
+<p>2、选择你的备份文件、格式、存储目标等即可执行自动与定时备份。（点击放大）</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_25.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_25-500x240.gif" alt="Virtualmin/Webmin定时自动备份"></a></p>
+<p><strong>六、Virtualmin/Webmin管理多个IP地址</strong></p>
+<p>1、第一步：添加新的IP地址。如果想给Virtualmin/Webmin增加新的IP地址，进入Webmin-&gt;网络-&gt;网络配置-&gt;增加接口，如图：</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_26.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_26.gif" alt="Virtualmin/Webmin增加新的IP"></a></p>
+<p>2、在这里可以看到服务器上已经有的IP地址，点击增加接口就是新增加IP地址。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_27.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_27.gif" alt="Virtualmin/Webmin新建端口"></a></p>
+<p>3、填入名称、IP地址等，点击新建并应用，如果IP地址正确的话就会添加成功。（点击放大）</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_28.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_28-500x240.gif" alt="Virtualmin/Webmin添加IP成功"></a></p>
+<p>4、第二步：增加虚拟主机共享IP。进入Virtualmin-&gt;Addresses and Networking。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_29.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_29.gif" alt="Virtualmin/Webmin增加共享IP"></a></p>
+<p>5、在共享的IP地址中填入需要增加的IP，并保存。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_30.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_30.gif" alt="Virtualmin/Webmin输入IP地址"></a></p>
+<p>6、第三步：绑定IP到虚拟主机上。要想将IP单独给某一个域名或者虚拟主机使用，需要进入Virtualmin-&gt;服务器配置的修改IP地址。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_31.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_31.gif" alt="Virtualmin/Webmin进入虚拟主机IP管理页面"></a></p>
+<p>7、在Shared address的下拉菜单选择新增加的IP地址即可。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_32.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_32.gif" alt="Virtualmin/Webmin绑定IP到域名"></a></p>
+<p><strong>七、Virtualmin/Webmin对服务器相关管理操作</strong></p>
+<p>1、Virtualmin/Webmin升级也很简单，如果有新的升级会在控制面板中看到提示。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_07.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_07.gif" alt="Virtualmin/Webmin自动升级"></a></p>
+<p>2、点击自动升级后，Virtualmin/Webmin会自动下载安装包执行安装命令，最后升级完成。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_08.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_08.gif" alt="Virtualmin/Webmin升级更新完成"></a></p>
+<p>3、在Webmin-&gt;系统-&gt;引导和关机中，可以查看并管理Virtualmin/Webmin的相关进程，甚至可以重启VPS和关闭整个系统。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_34.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_34.gif" alt="Virtualmin/Webmin重启关闭服务器"></a></p>
+<p>4、另外在检查服务器配置时，会提示“The mailman queue processor /usr/lib/mailman/bin/qrunner is not running on your system. It can be started in the Bootup and Shutdown module… your system is not ready for use by Virtualmin.”</p>
+<p>5、我们只要在引导和关机中启动Mailman进程即可。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_11.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_11.gif" alt="Mailman启动进程"></a></p>
+<p><strong>八、Virtualmin/Webmin安装使用小结</strong></p>
+<p>1、Virtualmin/Webmin安装很简单，功能很强大，几乎整个服务器可以使用Virtualmin/Webmin来管理，适合搭建多用户共享使用VPS服务器的平台，个人使用感觉是有点复杂了。</p>
+<p><a target="_blank" rel="noopener" href="https://www.freehao123.com/wp-content/uploads/2014/05/Virtualmin_20.gif"><img src="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_20.gif" alt="Virtualmin/Webmin限制资源连接"></a></p>
+<p>2、Virtualmin/Webmin的中文语言包汉化不完全，Virtualmin和Webmin在功能分类上有些模糊，有时想要进行某项操作往往会感觉找不到地方。如果有一套免费的财务系统就更完美了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">肖日宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://kingsalnding.cn/2016/12/23/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">http://kingsalnding.cn/2016/12/23/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://kingsalnding.cn" target="_blank">君子兰肖日宁的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a><a class="post-meta__tags" href="/tags/VirtualminWebmin/">VirtualminWebmin</a><a class="post-meta__tags" href="/tags/vps/">vps</a><a class="post-meta__tags" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA/">服务器和虚拟主机</a></div><div class="post_share"><div class="social-share" data-image="/../images/VirtualminWebmin%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%BC%BA%E5%A4%A7%E7%9A%84VPS%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/Virtualmin_10-500x240.gif" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2016/12/23/FreeNas%E5%8F%91%E5%B8%83%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">FreeNas发布共享存储的三种方法</div></div></a></div><div class="next-post pull-right"><a href="/2016/12/23/win10%20%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A50x80070035/"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">win10 网络连接0x80070035</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2016/12/23/在FreeNASBSD搭建基于Nginx+FastCGI+MySQL+PHP的WebServer/" title="VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统</div></div></a></div><div><a href="/2016/12/23/linux文件共享之nfs和smaba/" title="linux文件共享之nfs和smaba"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">linux文件共享之nfs和smaba</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">肖日宁</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">45</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">60</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">欢迎来到肖日宁的博客</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2020/12/23/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/" title="【数据可视化】电视产品精准营销推荐"><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-882533662c432170019ffeeab963aee8_hd.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【数据可视化】电视产品精准营销推荐"/></a><div class="content"><a class="title" href="/2020/12/23/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/" title="【数据可视化】电视产品精准营销推荐">【数据可视化】电视产品精准营销推荐</a><time datetime="2020-12-23T13:07:00.000Z" title="发表于 2020-12-23 21:07:00">2020-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2019/12/23/%E5%9F%BA%E4%BA%8ETensorFlow%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84CNN%E6%A1%86%E6%9E%B6/" title="基于TensorFlow框架搭建一个最简单的CNN框架"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于TensorFlow框架搭建一个最简单的CNN框架"/></a><div class="content"><a class="title" href="/2019/12/23/%E5%9F%BA%E4%BA%8ETensorFlow%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84CNN%E6%A1%86%E6%9E%B6/" title="基于TensorFlow框架搭建一个最简单的CNN框架">基于TensorFlow框架搭建一个最简单的CNN框架</a><time datetime="2019-12-23T13:01:27.000Z" title="发表于 2019-12-23 21:01:27">2019-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2019/12/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/" title="机器学习10个最佳人工智能开发框架和AI库（优缺点总结）"><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726843672650.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习10个最佳人工智能开发框架和AI库（优缺点总结）"/></a><div class="content"><a class="title" href="/2019/12/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/" title="机器学习10个最佳人工智能开发框架和AI库（优缺点总结）">机器学习10个最佳人工智能开发框架和AI库（优缺点总结）</a><time datetime="2019-12-23T13:01:27.000Z" title="发表于 2019-12-23 21:01:27">2019-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2018/12/23/JS%E6%95%A3%E5%BA%A6/" title="JS散度"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JS散度"/></a><div class="content"><a class="title" href="/2018/12/23/JS%E6%95%A3%E5%BA%A6/" title="JS散度">JS散度</a><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2018/12/23/%E4%BA%A4%E5%8F%89%E7%86%B5/" title="交叉熵"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="交叉熵"/></a><div class="content"><a class="title" href="/2018/12/23/%E4%BA%A4%E5%8F%89%E7%86%B5/" title="交叉熵">交叉熵</a><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2020 By 肖日宁</div><div class="framework-info"><span>框架 by </span><a target="_blank" rel="noopener" href="http://kingslanding.cn">kingslanding.cn</a><span class="footer-separator">|</span><span>主题 by </span><a target="_blank" rel="noopener" href="http://kingslanding.cn">肖日宁的博客</a></div><div class="icp"><a href="http://www.beian.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
