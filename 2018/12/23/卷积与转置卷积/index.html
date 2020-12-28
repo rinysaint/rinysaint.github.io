@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>交叉熵 | 君子兰肖日宁的博客</title><meta name="keywords" content="君子兰,肖日宁,博客,人工智能,大数据"><meta name="author" content="肖日宁"><meta name="copyright" content="肖日宁"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="得益于神经网络崛起，卷积成为近些年大热的数学词汇，不再只是待在信号处理这门要命的课程之中。 关于卷积在图像处理中的应用，操作部分看上图就明白了：假设输入图像的大小为 5 x 5，局部感受野（或称卷积核）的大小为 3 x 3，那么输出层一个神经元所对应的计算过程如上图所示。动态一点的话也可以看下面的动图。而为什么要这么算，如果学过一点图像处理就很好说明，图像处理的经典边缘提取算法如canny，sob">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交叉熵">
+<meta property="og:url" content="http://kingsalnding.cn/2018/12/23/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/index.html">
+<meta property="og:site_name" content="君子兰肖日宁的博客">
+<meta property="og:description" content="得益于神经网络崛起，卷积成为近些年大热的数学词汇，不再只是待在信号处理这门要命的课程之中。 关于卷积在图像处理中的应用，操作部分看上图就明白了：假设输入图像的大小为 5 x 5，局部感受野（或称卷积核）的大小为 3 x 3，那么输出层一个神经元所对应的计算过程如上图所示。动态一点的话也可以看下面的动图。而为什么要这么算，如果学过一点图像处理就很好说明，图像处理的经典边缘提取算法如canny，sob">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2018-12-23T13:06:36.000Z">
+<meta property="article:modified_time" content="2020-12-28T08:21:40.086Z">
+<meta property="article:author" content="肖日宁">
+<meta property="article:tag" content="君子兰,肖日宁,博客,人工智能,大数据">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://kingsalnding.cn/2018/12/23/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2020-12-28 16:21:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">35</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰肖日宁的博客</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">交叉熵</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2018-12-23T13:06:36.000Z" title="Created 2018-12-23 21:06:36">2018-12-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-12-28T08:21:40.086Z" title="Updated 2020-12-28 16:21:40">2020-12-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171022961.jpg" alt="在这里插入图片描述"><br>得益于神经网络崛起，卷积成为近些年大热的数学词汇，不再只是待在信号处理这门要命的课程之中。</p>
+<p>关于卷积在图像处理中的应用，操作部分看上图就明白了：假设输入图像的大小为 5 x 5，局部感受野（或称<strong>卷积核</strong>）的大小为 3 x 3，那么输出层一个神经元所对应的计算过程如上图所示。动态一点的话也可以看下面的动图。<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171546140.gif" alt="在这里插入图片描述"><br>而为什么要这么算，如果学过一点图像处理就很好说明，图像处理的经典边缘提取算法如canny，sobel等，或者其他一些经典算法，其实归根结底就是一个卷积过程，只不过里面的卷积核是人为设定的而已。相比于神经网络的全连接层，用卷积层更加能够快速提取到图像的局部信息，也因此更有旋转不变性等的优势，此外需要训练的参数量相比全连接也要少的多。</p>
+<p>在实做方面，为了效率，往往会把卷积计算用矩阵来做。</p>
+<p>假设一个卷积操作，它的输入是 4x4，卷积核大小是 3x3，步长为 1x1，输出则为 2x2，如下所示：</p>
+<p>我们将其从左往右，从上往下以的方式展开，</p>
+<ul>
+<li>输入矩阵可以展开成维数为 [16, 1] 的矩阵，记作 xx</li>
+<li>输出矩阵可以展开成维数为 [4, 1] 的矩阵，记作 yy</li>
+<li>卷积核可以表示为 [4, 16] 的矩阵，记作 C，其中非 0 的值表示卷积对应的第 i 行 j 列的权重。<img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171627110.png" alt="在这里插入图片描述"></li>
+<li>所以卷积可以用 y = C * x = [4, 16] * [16, 1]=[4, 1]y=C∗x=[4,16]∗[16,1]=[4,1]来表示</li>
+</ul>
+<p>那卷积就说完了（padding那些并没提及，后面再补吧，比较简单）。</p>
+<p>下面看看转置卷积。它火起来应该是从FCN（Fully Convolutional Networks for Semantic Segmentation）这篇论文开始的。该论文提出了一种全卷积神经网络，然后通过转置卷积对最后一层（或者倒数几层）进行上采样，将图像的大小恢复到与输入图像一样，该文章为语义分割指出了一条明路，也使得转置卷积看起来非常高大上。但其实，这个东西并没有什么神奇的。。。</p>
+<p>首先再看一下<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171717569.png" alt="在这里插入图片描述"><br>卷积的示意图，下面的1只参与生成上面的1，而下面的2参与生成上面的1、2。那么我们能不能反过来，把这一过程逆向呢？答案是可以的，就是下面这张图：<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171753705.png" alt="在这里插入图片描述"><br>我们把小图像按照需要扩展一下（下面虚线部分），然后其他部分按照卷积那么算就可以了。它得到的大小会跟卷积前的一样。巧妙的是上面的1只受下面的1影响，而上面的2受到下面的1、2影响，刚刚好就是一对逆向关系。如果把现在的小图像写在右边，卷积核矩阵写在左边，那么该卷积核矩阵写出来刚刚好就是正常卷积的卷积核矩阵的转置。所以这种卷积叫做转置卷积。</p>
+<p>这里面有个问题可以稍微看下，那就是对原图做卷积然后再做转置卷积的过程是一个从大到小再到大的过程，那么开始和结束是一样的吗？</p>
+<p>答案是不一样的，这个过程会丢失图像信息。至于丢多少主要取决于中间的”小”能保存多少。但这对于语义分割是OK的，因为我们最终要得到的信息会比原图少的多。</p>
+<p>另外在本人看来，因为神经网络的权重都是要训练之后得出来的，因此其实转置卷积和正常卷积看起来真的没有多大的不同，不过就是在正常卷积不填充的情况下会把图像变小，而转置卷积一定会填充而把图像变大罢了。</p>
+<p>在pytorch中使用转置卷积的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># coding:utf-8</span><br><span class="line">from PIL import Image</span><br><span class="line">import numpy as np</span><br><span class="line">import torchvision.transforms as transforms</span><br><span class="line">import torch</span><br><span class="line">from torch import nn</span><br><span class="line"></span><br><span class="line">x&#x3D;Image.open(&quot;demo.jpg&quot;)</span><br><span class="line">x.show()</span><br><span class="line">x&#x3D;transforms.ToTensor()(x)</span><br><span class="line">x&#x3D;torch.unsqueeze(x,0)#添加一个维度</span><br><span class="line">conv_trans &#x3D; nn.ConvTranspose2d(3, 3,(12,12), 2)# 定义转置卷积</span><br><span class="line">y&#x3D;conv_trans(x)#转置卷积计算</span><br><span class="line">y&#x3D;torch.squeeze(y)#扔掉一个维度</span><br><span class="line">#结果显示</span><br><span class="line">imgout&#x3D;transforms.ToPILImage()(y)</span><br><span class="line">print(x.shape)</span><br><span class="line">print(y.shape)</span><br><span class="line">imgout.show()</span><br></pre></td></tr></table></figure>
+<p>原图<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190111094531172.png" alt="在这里插入图片描述"><br>结果：<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/2019011109465584.png" alt="在这里插入图片描述"></p>
+<p>从图上可以看到，pytorch在初始化的时候应该已经将转置卷积核参数设置成特征提取的形式了。</p>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/09ea4df7a788?utm_source=oschina-app">https://www.jianshu.com/p/09ea4df7a788?utm_source=oschina-app</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1363619">https://cloud.tencent.com/developer/article/1363619</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">肖日宁</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://kingsalnding.cn/2018/12/23/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/">http://kingsalnding.cn/2018/12/23/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2018/12/23/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">共轭函数</div></div></a></div><div class="next-post pull-right"><a href="/2018/12/23/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">拷贝网页上的公式到本地</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">肖日宁</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">35</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2020/12/28/Python%203%20%E5%88%A9%E7%94%A8%20Dlib%20%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/12/28/Python%203%20%E5%88%A9%E7%94%A8%20Dlib%20%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" title="No title">No title</a><time datetime="2020-12-28T07:34:05.747Z" title="Created 2020-12-28 15:34:05">2020-12-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/28/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/12/28/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/" title="No title">No title</a><time datetime="2020-12-28T07:10:10.498Z" title="Created 2020-12-28 15:10:10">2020-12-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/23/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2020/12/23/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/" title="No title">No title</a><time datetime="2020-12-23T13:08:21.756Z" title="Created 2020-12-23 21:08:21">2020-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2019/12/23/%E5%9F%BA%E4%BA%8ETensorFlow%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84CNN%E6%A1%86%E6%9E%B6/" title="为什么交叉熵能作为损失函数及其弥补了平方差损失什么缺陷"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="为什么交叉熵能作为损失函数及其弥补了平方差损失什么缺陷"/></a><div class="content"><a class="title" href="/2019/12/23/%E5%9F%BA%E4%BA%8ETensorFlow%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84CNN%E6%A1%86%E6%9E%B6/" title="为什么交叉熵能作为损失函数及其弥补了平方差损失什么缺陷">为什么交叉熵能作为损失函数及其弥补了平方差损失什么缺陷</a><time datetime="2019-12-23T13:01:27.000Z" title="Created 2019-12-23 21:01:27">2019-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2019/12/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/" title="机器学习10个最佳人工智能开发框架和AI库（优缺点总结）"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习10个最佳人工智能开发框架和AI库（优缺点总结）"/></a><div class="content"><a class="title" href="/2019/12/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/" title="机器学习10个最佳人工智能开发框架和AI库（优缺点总结）">机器学习10个最佳人工智能开发框架和AI库（优缺点总结）</a><time datetime="2019-12-23T13:01:27.000Z" title="Created 2019-12-23 21:01:27">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By 肖日宁</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
