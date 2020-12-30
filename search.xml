@@ -449,6 +449,36 @@
       </tags>
   </entry>
   <entry>
+    <title>【君子兰】如何强制刷新MSI的VBIOS让Clevo蓝天的5870M支持Powerplay自动降频,Overdrive超频教程</title>
+    <url>/post/945e81c2.html</url>
+    <content><![CDATA[<p>对于买到了Clevo蓝天的5870M这张卡准备给自己的M15X或者M17X的兄弟们应该非常郁闷吧<br>这张Clevo蓝天的卡真是巨雷无比,不支持overdrive超频,更可怕的是不能支持powerplay自动降频降压…<br>GPU全天候的工作在700 1000 1.15V的电压下<br>电池撑不了多久,温度也非常的高</p>
+<p>不过前一阵子MSI给GX740发布了新的VBIOS 0.31版 (2011年5月16号)<br>经过测试,Clevo蓝天的5870M强刷了MSI的这个VBIOS后可以非常完美的支持powerplay降频降压,以及overdrive超频了<br>同时,3D模式下的电压被控制在1.05V 2D被控制在0.9V,温度也降低了很多</p>
+<p>刷新显卡VBIOS有风险,而且只适合Clevo蓝天的5870m一款显卡,其他的牌子请勿尝试!!!<br>如果刷新了MSI的VBIOS之后发现有闪屏情况,请刷回原始的VBIOS(工具包里面有)</p>
+<p>现在来说说步骤<br>需要的工具以及软件:<br>\1. U盘一个<br>\2. USBoot<br>\3. MSI已经Clevo蓝天的BIOS<br>(2和3都可以在附件里面下载)</p>
+<p>步骤:<br>\1. 首先将U盘插入电脑,格式化,接着打开USBoot,点击U盘,在”点击此处选择工作模式”里面选择”ZIP模式” (中间会要求你拔出U盘,接着重新插入,制作成功会有提示)</p>
+<p>\2. 将工具包里面的VBIOS文件夹复制到U盘的根目录, 里面应该有 “5870mmsi.rom” “5870mstock.rom” “atiflash.chg” “atiflash” 和 “VFalsh” 这几个文件</p>
+<p>\3. 重新启动机器,开机按F12,选择USB Device启动项,或者进入BIOS吧USB Device设置成最先启动</p>
+<p>\4. 这时候你应该已经进入DOS了,<br>先输入 cd vbios<br>接着输入 atiflash -p -f 0 5870mmsi.rom<br>等待VBIOS刷新完成,系统会提示reboot,也就是重启电脑</p>
+<p>重启电脑之后,进系统,进入CCC里面,你应该会发现overdrive出现了,而且你现在2D运行在 100 150 0.90V下面了<br>我在overdrive里面只能超频到 750 1050,运行甜甜圈1920X1080 4X MSAA近1小时,温度稳定在74-75度</p>
+<p>来张刷完后的图图</p>
+<p>![img](../images/[君子兰] 如何强制刷新MSI的VBIOS让Clevo蓝天的5870M支持Powerplay自动降频,Overdrive超频教程/1004403rvrvyvrbrvr2by2.jpg)</p>
+<p>PS: 刷新到了MSI这个VBIOS之后是无法修改VBIOS的电压,以及频率,因此在1.05的电压下我的显卡最多也只能超到750 1050绝对稳定(也许个别同学的神卡可以超到860 1200),看个人RP了. 所以不用尝试的调节VBIOS的各种设定了,即使刷上去了还是原始的设置</p>
+<p>还有关于屏幕闪动问题<br>进CCC里面的powerplay设置,把接电源改成,电池最大化(原始应该是性能最大化),这样2D频率就会从100 150变成200 1000了……(虽然很奇怪,但是这样之后屏幕就不会闪动了)</p>
+<p>驱动请下D大的驱动: <a href="http://dell.benyouhui.it168.com/thread-1920699-1-1.html">http://dell.benyouhui.it168.com/thread-1920699-1-1.html</a></p>
+<p>分割线————————————————————————————————————————————————–</p>
+<p>如果你不幸的刷黑屏了,工具包里面还有一个Clevo蓝天我备份的原始VBIOS, 文件名是 5870mstock.rom</p>
+<p>\1. 插入优盘,启动电脑,一直按F12,差不多感觉ok了按一下下键,接着按ENTER (个人建议一开始就把USB Device设置成最先启动)</p>
+<p>\2. 输入 cd vbios<br>  输入 atiflash -p -f 0 5870mstock.rom<br>  等待2分钟之后重启电脑,应该就能亮了,如果没亮,再重新开始一次<br>  如果试过好几次都不行那就是显卡烧掉了或者其他的问题了</p>
+<p>![img](../images/[君子兰] 如何强制刷新MSI的VBIOS让Clevo蓝天的5870M支持Powerplay自动降频,Overdrive超频教程/rar.gif) <a href="http://dell.benyouhui.it168.com/forum.php?mod=misc&action=attachpay&aid=2092791&tid=1927022">工具包.rar</a> <em>(764.29 KB, 下载次数: 84,)</em> </p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>-技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【刷机教程】 【四核RK3128芯迪优美特X5】4个最新安卓固件（附详细教程)</title>
     <url>/post/a50b72fa.html</url>
     <content><![CDATA[<p>（1月24日更新添加2个固件，3月6日再增加一个最快固件，共4个固件供大家选择)四核RK3128芯片刷安卓最新刷机包教程和固件：</p>
@@ -489,36 +519,6 @@
 <p>![img](../images/[刷机教程] 【四核RK3128芯迪优美特X5】4个最新安卓固件（附详细教程)/clip_image008.jpg)</p>
 <p>![img](../images/[刷机教程] 【四核RK3128芯迪优美特X5】4个最新安卓固件（附详细教程)/clip_image009.jpg)</p>
 <p>4、四核RK3128芯片刷安卓16年最流畅极速版刷机包16年3月6日发布，版本介绍：是色彩艳丽，最流畅不会卡，速度最快的版本。 固件下载地址：<a href="http://www.tvapk.net/forum.php?mod=viewthread&amp;tid=1626995&amp;extra=page=1&amp;page=1">http://www.tvapk.net/forum.php?mod=viewthread&amp;tid=1626995&amp;extra=page%3D1&amp;page=1</a></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>-技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【君子兰】如何强制刷新MSI的VBIOS让Clevo蓝天的5870M支持Powerplay自动降频,Overdrive超频教程</title>
-    <url>/post/945e81c2.html</url>
-    <content><![CDATA[<p>对于买到了Clevo蓝天的5870M这张卡准备给自己的M15X或者M17X的兄弟们应该非常郁闷吧<br>这张Clevo蓝天的卡真是巨雷无比,不支持overdrive超频,更可怕的是不能支持powerplay自动降频降压…<br>GPU全天候的工作在700 1000 1.15V的电压下<br>电池撑不了多久,温度也非常的高</p>
-<p>不过前一阵子MSI给GX740发布了新的VBIOS 0.31版 (2011年5月16号)<br>经过测试,Clevo蓝天的5870M强刷了MSI的这个VBIOS后可以非常完美的支持powerplay降频降压,以及overdrive超频了<br>同时,3D模式下的电压被控制在1.05V 2D被控制在0.9V,温度也降低了很多</p>
-<p>刷新显卡VBIOS有风险,而且只适合Clevo蓝天的5870m一款显卡,其他的牌子请勿尝试!!!<br>如果刷新了MSI的VBIOS之后发现有闪屏情况,请刷回原始的VBIOS(工具包里面有)</p>
-<p>现在来说说步骤<br>需要的工具以及软件:<br>\1. U盘一个<br>\2. USBoot<br>\3. MSI已经Clevo蓝天的BIOS<br>(2和3都可以在附件里面下载)</p>
-<p>步骤:<br>\1. 首先将U盘插入电脑,格式化,接着打开USBoot,点击U盘,在”点击此处选择工作模式”里面选择”ZIP模式” (中间会要求你拔出U盘,接着重新插入,制作成功会有提示)</p>
-<p>\2. 将工具包里面的VBIOS文件夹复制到U盘的根目录, 里面应该有 “5870mmsi.rom” “5870mstock.rom” “atiflash.chg” “atiflash” 和 “VFalsh” 这几个文件</p>
-<p>\3. 重新启动机器,开机按F12,选择USB Device启动项,或者进入BIOS吧USB Device设置成最先启动</p>
-<p>\4. 这时候你应该已经进入DOS了,<br>先输入 cd vbios<br>接着输入 atiflash -p -f 0 5870mmsi.rom<br>等待VBIOS刷新完成,系统会提示reboot,也就是重启电脑</p>
-<p>重启电脑之后,进系统,进入CCC里面,你应该会发现overdrive出现了,而且你现在2D运行在 100 150 0.90V下面了<br>我在overdrive里面只能超频到 750 1050,运行甜甜圈1920X1080 4X MSAA近1小时,温度稳定在74-75度</p>
-<p>来张刷完后的图图</p>
-<p>![img](../images/[君子兰] 如何强制刷新MSI的VBIOS让Clevo蓝天的5870M支持Powerplay自动降频,Overdrive超频教程/1004403rvrvyvrbrvr2by2.jpg)</p>
-<p>PS: 刷新到了MSI这个VBIOS之后是无法修改VBIOS的电压,以及频率,因此在1.05的电压下我的显卡最多也只能超到750 1050绝对稳定(也许个别同学的神卡可以超到860 1200),看个人RP了. 所以不用尝试的调节VBIOS的各种设定了,即使刷上去了还是原始的设置</p>
-<p>还有关于屏幕闪动问题<br>进CCC里面的powerplay设置,把接电源改成,电池最大化(原始应该是性能最大化),这样2D频率就会从100 150变成200 1000了……(虽然很奇怪,但是这样之后屏幕就不会闪动了)</p>
-<p>驱动请下D大的驱动: <a href="http://dell.benyouhui.it168.com/thread-1920699-1-1.html">http://dell.benyouhui.it168.com/thread-1920699-1-1.html</a></p>
-<p>分割线————————————————————————————————————————————————–</p>
-<p>如果你不幸的刷黑屏了,工具包里面还有一个Clevo蓝天我备份的原始VBIOS, 文件名是 5870mstock.rom</p>
-<p>\1. 插入优盘,启动电脑,一直按F12,差不多感觉ok了按一下下键,接着按ENTER (个人建议一开始就把USB Device设置成最先启动)</p>
-<p>\2. 输入 cd vbios<br>  输入 atiflash -p -f 0 5870mstock.rom<br>  等待2分钟之后重启电脑,应该就能亮了,如果没亮,再重新开始一次<br>  如果试过好几次都不行那就是显卡烧掉了或者其他的问题了</p>
-<p>![img](../images/[君子兰] 如何强制刷新MSI的VBIOS让Clevo蓝天的5870M支持Powerplay自动降频,Overdrive超频教程/rar.gif) <a href="http://dell.benyouhui.it168.com/forum.php?mod=misc&action=attachpay&aid=2092791&tid=1927022">工具包.rar</a> <em>(764.29 KB, 下载次数: 84,)</em> </p>
 ]]></content>
       <categories>
         <category>其他</category>
@@ -1170,6 +1170,33 @@
       </categories>
       <tags>
         <tag>-大数据</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【解决方案】WordPress无法建立到WordPress。org的安全连接</title>
+    <url>/post/17062.html</url>
+    <content><![CDATA[<p>服务器一直使用03系统，为了更好的满足需求决定升级系统，然而升级的路程的坎坷的，各种问题不曾间断，经过一夜努力终于在第二天的天明前完成了系统的各项配置。</p>
+<p>自以为风雨过后能见彩虹了，没想到这才是开始…</p>
+<p>安装好wordpress后发现许多需要跟wordpress.org进行连接的页面都无法打开了。</p>
+<p>期初以为是因为程序卡导致链接超时无法打开，于是就想到WordPress 的主题还有它的后台都会用到 Google 字体，在国内访问 Google 会遇到问题，这就是打开 WordPress 网站慢的主要原因。</p>
+<p>解决的办法是去安装一个叫 useso-take-over-google 的插件，它会用国内的 useso 替换 google，但是安装好后之前的问题仍然存在。</p>
+<p>于是又想到 WordPress 默认为用户使用的是 Gravatar 头像，我们访问这个网站也会遇到问题，虽然已经有现成的解决方案但仍然不太理想。</p>
+<p>解决办法：我们可以先禁用掉用户的头像功能，打开 <em>设置 – 讨论 – 头像显示</em>，去掉勾选显示头像，保存更改。</p>
+<p>OK 现在应该不会卡慢了，但是问题依旧，没办法自己的能力有限只能搜搜往上看有没有人遇到同样的问题。</p>
+<p>结果搜到了很多同样的问题，但是都没有得到解决，只有个别说到是因为空间商屏蔽了wordpress服务器IP，还有个别说要修改DNS为谷歌的DNS。</p>
+<p>但在尝试过后发现都不可用，于是我的脑细胞又开始了疯狂的自杀…</p>
+<p>想到曾经谷歌翻译不能用的时候会在host文件里添加记录就可以使用谷歌翻译了，于是开始尝试向host文件添加记录，首先ping一下api.wordpress.org的服务器IP得到66.155.40.249 打开host文件添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">66.155.40.249 api.wordpress.org</span><br></pre></td></tr></table></figure>
+<p>保存，刷新后台，完美！！</p>
+<p>win系统下host文件路径：c:\windows\system32\drivers\etc</p>
+<p>linux系统的host文件路径？</p>
+<p>施主请百度去吧，贫僧没搞过啊！！！</p>
+]]></content>
+      <categories>
+        <category>建站</category>
+      </categories>
+      <tags>
+        <tag>-技术</tag>
       </tags>
   </entry>
   <entry>
@@ -2937,7 +2964,7 @@
 <p># Author:  coneypo</p>
 <p># Blog:   <a href="http://www.cnblogs.com/AdaminXie">http://www.cnblogs.com/AdaminXie</a></p>
 <p># GitHub:  <a href="https://github.com/coneypo/Dlib_face_recognition_from_camera">https://github.com/coneypo/Dlib_face_recognition_from_camera</a></p>
-<p># Mail:   <a href="mailto:&#99;&#x6f;&#110;&#101;&#121;&#112;&#111;&#x40;&#102;&#111;&#x78;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#99;&#x6f;&#110;&#101;&#121;&#112;&#111;&#x40;&#102;&#111;&#x78;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
+<p># Mail:   <a href="mailto:&#x63;&#111;&#x6e;&#x65;&#x79;&#x70;&#111;&#x40;&#102;&#111;&#120;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#x63;&#111;&#x6e;&#x65;&#x79;&#x70;&#111;&#x40;&#102;&#111;&#120;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
 <p># Created at 2018-05-11</p>
 <p># Updated at 2018-10-29</p>
 <p>import dlib     # 人脸处理的库 Dlib</p>
@@ -3063,7 +3090,7 @@
 <p># Author:  coneypo</p>
 <p># Blog:   <a href="http://www.cnblogs.com/AdaminXie">http://www.cnblogs.com/AdaminXie</a></p>
 <p># GitHub:  <a href="https://github.com/coneypo/Dlib_face_recognition_from_camera">https://github.com/coneypo/Dlib_face_recognition_from_camera</a></p>
-<p># Mail:   <a href="mailto:&#x63;&#111;&#x6e;&#101;&#121;&#x70;&#111;&#x40;&#102;&#111;&#120;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x63;&#111;&#x6e;&#101;&#121;&#x70;&#111;&#x40;&#102;&#111;&#120;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p># Mail:   <a href="mailto:&#99;&#x6f;&#x6e;&#101;&#121;&#x70;&#x6f;&#64;&#102;&#x6f;&#x78;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#99;&#x6f;&#x6e;&#101;&#121;&#x70;&#x6f;&#64;&#102;&#x6f;&#x78;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
 <p># Created at 2018-05-11</p>
 <p># Updated at 2018-10-29</p>
 <p># 增加录入多张人脸到 CSV 的功能</p>
@@ -5631,33 +5658,6 @@
       </categories>
       <tags>
         <tag>-神经网络 -人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【解决方案】WordPress无法建立到WordPress。org的安全连接</title>
-    <url>/post/17062.html</url>
-    <content><![CDATA[<p>服务器一直使用03系统，为了更好的满足需求决定升级系统，然而升级的路程的坎坷的，各种问题不曾间断，经过一夜努力终于在第二天的天明前完成了系统的各项配置。</p>
-<p>自以为风雨过后能见彩虹了，没想到这才是开始…</p>
-<p>安装好wordpress后发现许多需要跟wordpress.org进行连接的页面都无法打开了。</p>
-<p>期初以为是因为程序卡导致链接超时无法打开，于是就想到WordPress 的主题还有它的后台都会用到 Google 字体，在国内访问 Google 会遇到问题，这就是打开 WordPress 网站慢的主要原因。</p>
-<p>解决的办法是去安装一个叫 useso-take-over-google 的插件，它会用国内的 useso 替换 google，但是安装好后之前的问题仍然存在。</p>
-<p>于是又想到 WordPress 默认为用户使用的是 Gravatar 头像，我们访问这个网站也会遇到问题，虽然已经有现成的解决方案但仍然不太理想。</p>
-<p>解决办法：我们可以先禁用掉用户的头像功能，打开 <em>设置 – 讨论 – 头像显示</em>，去掉勾选显示头像，保存更改。</p>
-<p>OK 现在应该不会卡慢了，但是问题依旧，没办法自己的能力有限只能搜搜往上看有没有人遇到同样的问题。</p>
-<p>结果搜到了很多同样的问题，但是都没有得到解决，只有个别说到是因为空间商屏蔽了wordpress服务器IP，还有个别说要修改DNS为谷歌的DNS。</p>
-<p>但在尝试过后发现都不可用，于是我的脑细胞又开始了疯狂的自杀…</p>
-<p>想到曾经谷歌翻译不能用的时候会在host文件里添加记录就可以使用谷歌翻译了，于是开始尝试向host文件添加记录，首先ping一下api.wordpress.org的服务器IP得到66.155.40.249 打开host文件添加</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">66.155.40.249 api.wordpress.org</span><br></pre></td></tr></table></figure>
-<p>保存，刷新后台，完美！！</p>
-<p>win系统下host文件路径：c:\windows\system32\drivers\etc</p>
-<p>linux系统的host文件路径？</p>
-<p>施主请百度去吧，贫僧没搞过啊！！！</p>
-]]></content>
-      <categories>
-        <category>建站</category>
-      </categories>
-      <tags>
-        <tag>-技术</tag>
       </tags>
   </entry>
 </search>
