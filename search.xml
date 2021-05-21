@@ -14,26 +14,6 @@
       </tags>
   </entry>
   <entry>
-    <title>A Song of Ice and Fire冰与火之歌Game of Thrones权力的游戏</title>
-    <url>/post/bec41196.html</url>
-    <content><![CDATA[<p><img src="/../images/%E6%9D%83%E5%8A%9B%E7%9A%84%E6%B8%B8%E6%88%8F/ac6eddc451da81cb97a797275866d01608243192.jpg" alt="img"> </p>
-<p>《权力的游戏第六季》</p>
-<p><a href="http://www.zxba.cc/ju/oumeiju/14138/">http://www.zxba.cc/ju/oumeiju/14138/</a></p>
-<p>《权力的游戏第六季》</p>
-<p><a href="http://ftgherys3.top/dsj/oumei/quanlideyouxidiliuji/index.html">http://ftgherys3.top/dsj/oumei/quanlideyouxidiliuji/index.html</a></p>
-<p>权力的游戏第六季1-7集下载_权力的游戏无删减版下载_权力的游戏第六季未删减版下载_追剧_游魂岛</p>
-<p><a href="http://www.youhundao.com/zhuiju/quanli/">http://www.youhundao.com/zhuiju/quanli/</a></p>
-<p>《权力的游戏》</p>
-<p><a href="http://www.ttmeiju.com/meiju/Game.of.Thrones.html">http://www.ttmeiju.com/meiju/Game.of.Thrones.html</a></p>
-]]></content>
-      <categories>
-        <category>电影</category>
-      </categories>
-      <tags>
-        <tag>-电影</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>EFI系统分区设定盘符 取消盘符</title>
     <url>/post/7f94f96a.html</url>
     <content><![CDATA[<p>给EFI系统分区设定盘符Win7 64bit安装后的出现EFI分区，在磁盘管理中右键点击无法指定盘符，可以进行下面的操作。</p>
@@ -54,18 +34,23 @@
       </tags>
   </entry>
   <entry>
-    <title>JS散度</title>
-    <url>/post/c7d146d6.html</url>
-    <content><![CDATA[<p>前面我们介绍了<a href="https://aichn.cn/index/article/show/id/81.html">相对熵（KL散度）</a>的概念，知道了它可以用来表示两个概率分布之间的差异，但有个不大好的地方是它并不是对称的，因此有时用它来训练神经网络会有顺序不同造成不一样的训练结果的情况（其实个人觉得也就是训练时间差异罢了，也没那么严重）。为了克服这个问题，有人就提出了一个新的衡量公式，叫做JS散度，式子如下：<br>$$<br>J S \left( P _ { 1 } | P _ { 2 } \right) = \frac { 1 } { 2 } K L \left( P _ { 1 } | \frac { P _ { 1 } + P _ { 2 } } { 2 } \right) + \frac { 1 } { 2 } K L \left( P _ { 2 } | \frac { P _ { 1 } + P _ { 2 } } { 2 } \right)JS(P1∥P2)=21KL(P1∥2P1+P2)+21KL(P2∥2P1+P2)<br>$$<br>如果有一点数学功底的人可以轻易看出这个公式对于<br>$$<br>P _ { 1 }和P _ { 2 }<br>$$<br>是对称的，而且因为是两个KL的叠加，由相对熵的文章我们知道KL的值一定是大于等于0的，因此这个公式也一定大于等于0。</p>
-<p>现在只剩下一个关键问题，就是什么时候等于0的问题了。同样参考相对熵的文章我们知道当两个分布相同的时候等于0，那么换到这里，也就是：<br>$$<br>P _ { 1 }=\frac { P _ { 1 } + P _ { 2 } }{ 2 }\ \qquad 且 \qquad P _ { 2 }=\frac { P _ { 1 } + P _ { 2 } } { 2 }P_ { 1 }=2P_ { 1 }+P_ { 2 } 且P_ { 2 }=2P_ { 1 }+P_ { 2 }<br>$$<br>的时候。可以轻易看出来，JS散度等于0的时候跟KL散度一样，就是<br>$$<br>P _ { 1 }和P _ { 2 }<br>$$<br>完全一样的时候。那么推到这里，用JS散度来表达两个概率分布的差异就问题不大了。</p>
-<p>其实本人在看相对熵和JS散度的时候一直有疑问，就是当两个概率分布不一样的时候，它们的值是不是会随着距离的变大而变大，也就是说这两个公式跟概率分布的距离到底是不是一个单调的关系，但我没有看到别人在说这件事情。我自己想了半天之后得出的结论是不一定，可能随着概率分布的表达式不一样而有所变化。</p>
-<p>当然因为没有人讲这件事我至今也不知道这样想是不是对的，因此有老哥想明白了麻烦留个言告诉我。</p>
+    <title>A Song of Ice and Fire冰与火之歌Game of Thrones权力的游戏</title>
+    <url>/post/bec41196.html</url>
+    <content><![CDATA[<p><img src="/../images/%E6%9D%83%E5%8A%9B%E7%9A%84%E6%B8%B8%E6%88%8F/ac6eddc451da81cb97a797275866d01608243192.jpg" alt="img"> </p>
+<p>《权力的游戏第六季》</p>
+<p><a href="http://www.zxba.cc/ju/oumeiju/14138/">http://www.zxba.cc/ju/oumeiju/14138/</a></p>
+<p>《权力的游戏第六季》</p>
+<p><a href="http://ftgherys3.top/dsj/oumei/quanlideyouxidiliuji/index.html">http://ftgherys3.top/dsj/oumei/quanlideyouxidiliuji/index.html</a></p>
+<p>权力的游戏第六季1-7集下载_权力的游戏无删减版下载_权力的游戏第六季未删减版下载_追剧_游魂岛</p>
+<p><a href="http://www.youhundao.com/zhuiju/quanli/">http://www.youhundao.com/zhuiju/quanli/</a></p>
+<p>《权力的游戏》</p>
+<p><a href="http://www.ttmeiju.com/meiju/Game.of.Thrones.html">http://www.ttmeiju.com/meiju/Game.of.Thrones.html</a></p>
 ]]></content>
       <categories>
-        <category>人工智能</category>
+        <category>电影</category>
       </categories>
       <tags>
-        <tag>-人工智能 -大数据</tag>
+        <tag>-电影</tag>
       </tags>
   </entry>
   <entry>
@@ -157,6 +142,21 @@
       </categories>
       <tags>
         <tag>-linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JS散度</title>
+    <url>/post/c7d146d6.html</url>
+    <content><![CDATA[<p>前面我们介绍了<a href="https://aichn.cn/index/article/show/id/81.html">相对熵（KL散度）</a>的概念，知道了它可以用来表示两个概率分布之间的差异，但有个不大好的地方是它并不是对称的，因此有时用它来训练神经网络会有顺序不同造成不一样的训练结果的情况（其实个人觉得也就是训练时间差异罢了，也没那么严重）。为了克服这个问题，有人就提出了一个新的衡量公式，叫做JS散度，式子如下：<br>$$<br>J S \left( P _ { 1 } | P _ { 2 } \right) = \frac { 1 } { 2 } K L \left( P _ { 1 } | \frac { P _ { 1 } + P _ { 2 } } { 2 } \right) + \frac { 1 } { 2 } K L \left( P _ { 2 } | \frac { P _ { 1 } + P _ { 2 } } { 2 } \right)JS(P1∥P2)=21KL(P1∥2P1+P2)+21KL(P2∥2P1+P2)<br>$$<br>如果有一点数学功底的人可以轻易看出这个公式对于<br>$$<br>P _ { 1 }和P _ { 2 }<br>$$<br>是对称的，而且因为是两个KL的叠加，由相对熵的文章我们知道KL的值一定是大于等于0的，因此这个公式也一定大于等于0。</p>
+<p>现在只剩下一个关键问题，就是什么时候等于0的问题了。同样参考相对熵的文章我们知道当两个分布相同的时候等于0，那么换到这里，也就是：<br>$$<br>P _ { 1 }=\frac { P _ { 1 } + P _ { 2 } }{ 2 }\ \qquad 且 \qquad P _ { 2 }=\frac { P _ { 1 } + P _ { 2 } } { 2 }P_ { 1 }=2P_ { 1 }+P_ { 2 } 且P_ { 2 }=2P_ { 1 }+P_ { 2 }<br>$$<br>的时候。可以轻易看出来，JS散度等于0的时候跟KL散度一样，就是<br>$$<br>P _ { 1 }和P _ { 2 }<br>$$<br>完全一样的时候。那么推到这里，用JS散度来表达两个概率分布的差异就问题不大了。</p>
+<p>其实本人在看相对熵和JS散度的时候一直有疑问，就是当两个概率分布不一样的时候，它们的值是不是会随着距离的变大而变大，也就是说这两个公式跟概率分布的距离到底是不是一个单调的关系，但我没有看到别人在说这件事情。我自己想了半天之后得出的结论是不一定，可能随着概率分布的表达式不一样而有所变化。</p>
+<p>当然因为没有人讲这件事我至今也不知道这样想是不是对的，因此有老哥想明白了麻烦留个言告诉我。</p>
+]]></content>
+      <categories>
+        <category>人工智能</category>
+      </categories>
+      <tags>
+        <tag>-人工智能 -大数据</tag>
       </tags>
   </entry>
   <entry>
@@ -366,6 +366,76 @@
       </tags>
   </entry>
   <entry>
+    <title>WNMPA一键环境 1.0.0.0 正式版发布</title>
+    <url>/post/b5e8cb00.html</url>
+    <content><![CDATA[<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/wnmpa.png" alt="wnmpa"></p>
+<p>　　呼呼～～说好的WNMPA终于发布了，先简要说下WNMPA是什么吧。WNMPA是(Windows Nginx MySQL PHP Apache的一个集合包)以Nginx作为前端处理静态文件，Apache后端处理动态文件。当然如果你不需要这种结构，你也可以把A去掉，WNMP就够了。</p>
+<p>最新动态：</p>
+<p>今天无意中登陆了一下博客，发现居然还有人在下载WNMPA，这其实让我很意外。不过回头想想，我其实还是很欣慰的。</p>
+<p>不过呢，其实我觉得大家可能其实根本用不到这么庞大的一个东西，毕竟光是各种软件的32位数跟64位就比同类集成环境大了一倍多，真正的实用性并不强，如果大家不喜欢折腾的话，我还是推荐XAMPP，毕竟那个已经稳定运行了那么久。我也动手将其汉化了一下，<a href="https://csharp.love/xampp_cn.html">点我查看</a>，实用性应该还是很强的。</p>
+<p>好了说回正题，如果您打算继续使用wnmpa的话，那么你可能需要更新一下，</p>
+<p>因为之前的版本好像有一些bug，比如在win7下关闭会报错什么的。</p>
+<p>只不过我是个单文件控，所以我还是用软件加了个壳然后把附带的dll打了个包，可是杀毒软件又开始不乐意了……真难伺候，我自己把它排除了，大家就随意吧。</p>
+<p>直接覆盖安装包里面的wnmpa.exe就行了。</p>
+<p>下载：<a href="https://static.pzhacm.org/wp-upload/2012/07/wnmpa.7z">wnmpa</a>(密码wnmpa)</p>
+<p>说在前面：</p>
+<p>首先，要说明一点，我写这个东西并不是为了造福人类，而是因为我自己要用到，不小心被朋友看见了，觉得不错，让我分享，所以嘛，大家就别把这个软件看得这么严重，如果有Bug什么的，顺便告诉我一声，感激不尽。</p>
+<p>说到这，可能各位看官又会问了：你说这种东西网上一抓一大把，比如<a href="http://go.ccc.xxx/fwlink/xampp">XAMPP</a>，你为啥要自己整个，你不有病么？——其实呢，不是我有病， 我肯定不会去搞一个一模一样的东西出来。怎么说呢，XAMPP的确很优秀，不过XAMPP侧重集成环境，连FTP服务端、邮件服务端都给准备了，而我平时用不到这些，所以干脆按照自己的需求整一个自己喜欢的。</p>
+<p>其实我写的这个程序只有1.9M左右而已，但是安装包却有90多M左右，解压出来大概765M，那么为什么会这么大呢？原因很简单，我肯定不会让各位那么幸苦去自己下载服务端来安装的，我在这里一共准备了三个版本的php(32位的Non Thread Safe的、32位的Thread Safe的、64位的Thread Safe的)，和两个版本的Apache(32位版、64位版)、MySQL(32位版、64位版)、Tomcat(32位版、64位版)，这些玩意占了很大的空间。</p>
+<p>一些小疑问：</p>
+<ul>
+<li>人家都用的5.2老版本php，你为啥非得用5.4，还有什么mysql啊，nginx啊，什么都用最新版的，多不稳定啊！<pre><code> 答：这个怎么说呢， 有个很简单的比喻：Win7和XP，Win7在发布正式版的时候，很多人不习惯，认为Win7“不稳定”，然后坚守XP阵营。而直到现在，依然有很大一批的老一辈革命家认为XP还能再战20年。
+ 那么各位再仔细回忆一下，当年Win98盛行的时候，又是怎么看待XP的呢？
+ 有些人一定有过这样的想法：这个破Win7，连XX软件都不支持，还有什么用，我还是换回XP吧。
+ 可是直到最后，依然摆脱不了换新版操作系统的命运。
+ 操作系统是这样的，那么同理php、mysql、apache也是这样， 我们当然可以等到周围所有人都用上新版本了，我们才慢慢悠悠更新。但是我个人却是个急性子，我可忍受不了新特性对我的诱惑。</code></pre>
+</li>
+<li>我电脑上有JDK啊，为啥Tomcat无法运行呢？<pre><code> 因为JDK默认是没有注册到环境变量里的，Tomcat是以系统里的%JAVA_HOME%作为JDK是否存在的判断依据的。</code></pre>
+</li>
+<li>为啥Nginx已经停止了，按钮却还是显示的“正在停止”或者“停止”呢？<pre><code> 因为Nginx本身不提供注册到系统服务这项功能，所以我使用了 instsrv.exe和srvany.exe来使Nginx注册为Windows服务，有时候Nginx的确停掉了，但是他的宿主进程没有被停掉，所以嘛……打开services.msc手动重启下呗～</code></pre>
+</li>
+<li>为啥我自己localhost访问可以，别人访问我就403呢？<pre><code> 亲，因为你访问的这个网站绑定的域名就是localhost，为了防止你服务器被人恶意指向(国内某些云主机，如果你的服务器被未备案的域名指向了，他们会关掉你的服务器)，我特地将Nginx的默认站点设置为直接返回403。如果想绑定域名，请在主界面添加虚拟站点。</code></pre>
+</li>
+<li>为什么你的这个WNMPA环境不能拿去作为生产环境呢？<pre><code> 因为我是个开发者，所以我使用的都是最新版的服务端，php也打开了所有函数，连有些可能会导致出问题的函数都被打开了。所以从一定角度上来说，直接解压出来以后，这个东西的确不应该用做生产环境，如果真的需要的话，就建议去百度一下php的php.ini、mysql的my.ini、apache和nginx的conf文件构成，然后自己改写一个安全而又适合自己的生产环境。</code></pre>
+</li>
+</ul>
+<p>软件截图：</p>
+<p>安装界面：</p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image002.jpg" alt="img"></p>
+<p>初始化调查界面：</p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image003.jpg" alt="img"></p>
+<p>主界面：</p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image004.jpg" alt="img"></p>
+<p>虚拟主机管理：</p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image005.jpg" alt="img"></p>
+<p>添加虚拟主机信息收集：</p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image006.jpg" alt="img"></p>
+<p>非线程安全php的phpinfo()：</p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image008.jpg" alt="img"></p>
+<p>线程安全php的phpinfo():</p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image010.jpg" alt="img"></p>
+<p>非线程安全的php(配合nginx fcgi方式运行)，加载了Zend Optimizer+：</p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image012.jpg" alt="img"></p>
+<p>退出之前询问：</p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image001.png" alt="img"></p>
+<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image014.jpg" alt="img"></p>
+<p> OK，下面放出下载地址：<br> <a href="http://down.pzhacm.org/wnmpa.exe">本地下载</a>、<a href="http://pan.baidu.com/share/link?shareid=104427&uk=2415932059">百度网盘</a>、<a href="http://dl.vmall.com/c0qghxr725">华为网盘</a></p>
+<p>此版本存在一个已知问题：如果将Nginx注册成服务，则在主界面无法重启，需要进入services.msc找到Nginx_wnmpa手动重启。</p>
+<p>测试过的操作系统：<br> Windows XP Professional SP3<br> Windows Server 2003 Enterprise SP2<br> Windows Server 2008 R2 Enterprise SP1<br> Windows 7 Ultimate x86 SP1</p>
+<p>依赖的框架：<br> .NET Framework 2.0<br> Visual C++ 9.0 Runtime<br> Visual C++ 10.0 Runtime<br> 以上框架的所有安装包下载地址记录在安装目录下的[请先阅读.txt]中。</p>
+<p>如果您想帮助WNMPA发展：</p>
+<p><strong>&gt;**</strong>放心吧，不会让您捐赠的。我的意思是，如果您可以提供下载节点；**<br> <strong>&gt;**</strong>或者说是您的英语、日语、XXXXXXX语不错，可以帮忙翻译翻译这个软件；**<br> <strong>&gt;**</strong>或者您可以当一当小白，来测试这个软件。**</p>
+<p><strong>都是对WNMPA最大的帮助！</strong> </p>
+<p>最后唠叨一句：由于本环境使用程序版本较新，所以强烈建议只将本环境作为开发学习研究用，请勿用于生产环境！仅供学习交流！另外，还请那些高得我看不见的高射炮高抬贵手，不要用高傲的眼神来蔑视我。我只接受合理的意见、建议和指导。在我的博客里，请收回自己的优越感，谢谢合作！</p>
+]]></content>
+      <categories>
+        <category>建站</category>
+      </categories>
+      <tags>
+        <tag>-WNMPA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统</title>
     <url>/post/8ff6ed20.html</url>
     <content><![CDATA[<p>Webmin是一个开源免费并且功能非常强大的基于Web的Unix系统管理工具，支持绝大多数的Unix系统，另外还包括：AIX、HPUX、Solaris、Unixware、Irix和FreeBSD等，Webmin可以对服务器、磁盘、网络、硬件等进行全方位的管理，功能媲美地WHM。</p>
@@ -478,103 +548,45 @@
       </tags>
   </entry>
   <entry>
-    <title>f-gan生成对抗神经网络进阶第一级</title>
-    <url>/post/49c94cd0.html</url>
-    <content><![CDATA[<p>在之前我们做始祖Gan的数学推导的时候，其实留下了一堆坑（不知道你注意到了没有哈哈）。当然，牛逼的人就是这样的，指明了一条光明大道，让人知道从哪里走，然后剩下的一些坑坑洼洼刚刚好就能帮助一些博士、硕士毕业或者一些人评副教授、教授啥的。</p>
-<p>这篇文章介绍的f-gan就是填的其中一个坑，那就是给V(G,D)这个函数一个更加通用的描述。在始祖文章里面，这个函数是直接写出来的，虽然知道它巧妙得令人窒息，而且也确实是在算拟合网络和实际数据之间的数据分布距离（JS），但具体为什么能那么列式，那么列式之后为什么就刚刚好算的是分布间的某种距离其实我们是不大知道的，这导致的结果就是我们只能用它的，不能改进。而f-gan要解决的就是这个问题，它将告诉我们一道通用公式。在这道公式的约束下，你爱咋整咋整。</p>
-<p>首先我们看怎么一般化的表述两个分布之间的距离，f-gan告诉我们是这样的：<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) f \left( \frac { p ( x ) } { q ( x ) } \right) d x<br>$$<br>这里有两个约束，第一：f是凸函数；第二：f(1)=0</p>
-<p>由始祖文章的数学推导我们知道，对于神经网络而言，我们去衡量两个分布之间的差距其实不需要那么准，只要当他们有差距的时候，损失函数输出一个正值，而没差距的时候输出一个0就OK。那么f(1)=0就很好理解，当两个分布相同，只要满足这一约束就能使得最后的<br>$$<br>D _ { f } ( P | Q )<br>$$<br>也等于0。剩下我们就只需要证明在两个分布不完全相等的情况下，<br>$$<br>D _ { f } ( P | Q )<br>$$<br>大于0，就可以认为这道式子在表达两个分布之间的某种距离。</p>
-<p>证明的过程我们会用到<a href="https://aichn.cn/post/96895f36.html">琴生不等式</a>（要求f是凸函数也跟用到它有关，证明请移步链接所指文章），该不等式告诉我们：<br>$$<br>E ( f ( x ) ) \geq f ( E ( x ) )<br>$$<br>我们可以把<br>$$<br>f \left( \frac { p ( x ) } { q ( x ) } \right)看成f(x)，q(x)看成x的分布，那么D _ { f } ( P | Q )直接就变成E ( f ( x ) )E(f(x))<br>$$<br>，故：<br>$$<br>D _ { f } ( P | Q ) \geq f(\int _ { x } q ( x )  \left( \frac { p ( x ) } { q ( x ) } \right) d x)=f(1)=0<br>$$<br>注意，由于琴生不等式等于号只有在x分布完全均匀的时候取得（在这个应用中几乎不可能发生），因此基本可以判定除非<br>$$<br>D _ { f } ( P | Q )<br>$$<br>中的两个分布完全相等，不然不会取得等于号，这是极好的！避免了我们训练突然因为loss等于0而没反应的情况。</p>
-<p>完成了上面的推理，我们得到了两个分布的某种距离的一般表达式。但它还不是V(G,D)，原因是这里面既没有G也没有D（其实有D就好了,G在D里面），也就是说这是道看起来很美但对于Gan完全没用的式子。</p>
-<p>那怎么让这道式子跟D网络有关呢？我们可以想D是一个评价数据是不是真实分布的东西，当我们在训练D的时候，我们希望整个距离表达式最大。那么，能不能找到一个式子，当D使得距离表达式取最大值的时候，式子刚刚好就等于上面的<br>$$<br>D _ { f } ( P | Q )= \int _ { x } q ( x ) f \left( \frac { p ( x ) } { q ( x ) } \right) d x<br>$$<br>呢？</p>
-<p>要求有点多，但还真有办法实现！</p>
-<p>那就是利用<a href="https://aichn.cn/post/e66f8853.html">共轭函数</a>（具体见链接所指博客或自行google），它的定义如下：<br>$$<br>f ^ { * } ( t ) = \max _ { x \in \operatorname { dom } ( f ) } { x t - f ( x ) }<br>$$<br>它告诉我们，假设f(x)是一个凸函数，那么它存在一个共轭函数长上面描述的那样，写作<br>$$<br>f ^ { * } ( t )。<br>$$</p>
-<p>$$<br>f ^ { * } ( t )<br>$$</p>
-<p>本身也是凸函数，且它的共轭函数是f(x)。也就有：<br>$$<br>f( x ) = \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { x t - f  ^ { * } ( t ) }<br>$$<br>假设这个时候我们把<br>$$<br>f \left( \frac { p ( x ) } { q ( x ) } \right)<br>$$<br>看成是f(x)（前提是，<br>$$<br>f( 1 ) = \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { t - f  ^ { * } ( t ) }=0<br>$$<br>，这样f(x)就完全符合<br>$$<br>$D _ { f } ( P | Q ) $<br>$$<br>的要求），可得到：<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { \frac { p ( x ) } { q ( x ) } t - f  ^ { * } ( t ) } d x<br>$$<br>这个时候的公式其实还是跟D和G网络没什么关系，接着的这一步闪瞎眼，因为它做出了一个神之假设，假设有个神经网络D，输入是x，然后输出是t，这样上面的式子直接就变成<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) \max _ { D(x) \in \operatorname { dom } ( f  ^ { * } ) } { \frac { p ( x ) } { q ( x ) } D(x) - f  ^ { * } ( D(x) ) } d x<br>$$</p>
-<p>$$<br>\geq\int _ { x } q ( x ) { \frac { p ( x ) } { q ( x ) } D(x) - f  ^ { * } ( D(x) ) } d x<br>$$</p>
-<p>等于号在D(x)刚刚好等于使得积分中的全部式子最大的t的集合时取得。将式子进一步化简得到<br>$$<br>=\int _ { x } p ( x )D(x) - q ( x )f  ^ { * } ( D(x) )  d x<br>$$<br>这道式子牛逼的地方不知道你看出来了没有，它就在于这个≥号，回忆一下始祖gan，D网络的目标是最大化距离式子。而上面这道式子，我们恰恰好就能训练D网络来使得式子取得最大值。这个时候，式子可以写成下面的形式：</p>
-<p><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/HxmWegThKvG1sNjwAnfobKQJWGk8c_rBCTiWt8DHgfY.original.fullsize.png" alt="img"></p>
-<p>对于G网络而言，我们目的是最小化距离式子，则写成如下形式：</p>
-<p><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/image-20210102233819152.png" alt="image-20210102233819152"></p>
-<p>不知各位看出来没有，它就是通用版本的gan距离计算公式。真的对弄出这个东西的数学家跪服，太牛逼了！</p>
-<p>有了这个公式，我们只要找出一个凸函数（这里文章是这么写的，但其实非凸函数的共轭函数也是凸函数，因此不太清楚为什么要有这一条件，先存疑吧，有老哥知道麻烦留意告诉我）符合正实数域上有取值且是连续的，满足t−f(1)=0就可以作为<br>$$<br>f^*。<br>$$<br>文章中也列举了个可选的函数：<br><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/20190204011004991.png" alt="在这里插入图片描述"><br>经过该篇文章，我们解放了距离函数的限制，让它可以带着镣铐跳舞了，而不是一动不动的木乃伊。</p>
-<p>但其实它证明了一个让人哭笑不得的结论，始祖gan之所以效果不太好，跟我们选用的距离函数没有太大关系。也就是说，它的贡献主要在于帮助我们排除了一个错误答案。。。</p>
+    <title>iPhone6/6 Plus怎么换电池</title>
+    <url>/post/24717.html</url>
+    <content><![CDATA[<p>苹果手机越来越不耐用：用着用着就自动关机，或者一天充2、3次电。这时也许你会有是不是该换手机电池的疑问，外面换个电池不懂好不好、价钱也高！于是迷就试着自己换了电池！整个过程可谓惊心动魄啊！（不小心拆坏了一个配件）换电池看教程好像很简单，但是这绝对不是手残星人的专利，除非你是维修大能，不然iPhone的手机电池绝非网上标榜的能轻轻松松随意更换。自己动手，等待你的可能是更大的损失！所以换不换自己掂量咯！PS：迷的iPhone6自行换的淘宝所谓的原装拆机电池，到现在不到三个月就已经不行了！建议大家还是买第三方牌子有保修的正规电池更换！**</p>
+<p>详细步骤：第1步：出门左拐马云家获取下列工具和零件——iPhone 6电池和iPhone维修工具包。主要需要购买一块新电池，一个专用螺丝刀，一个撬片，和一个屏幕吸盘。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/TB2JTvEiKtTMeFjSZFOXXaTiVXa_70246596.jpg" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第2步：找到手机充电接口两侧的两颗五角形螺丝。打开iPhone 6你只需要拧开这两颗螺丝。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/ab701685e416b4bcf7a26a0902b4b12f.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第3步：关掉手机电源，使用工具包里的五角形螺丝刀拧下螺丝。螺丝刀的头部很小，但它跟 iPhone 6底部的小螺丝是匹配的。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/4c5288512ddfe7a4f34f131390346720.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第4步：使用吸盘在主页键(Home)上方拉出屏幕。把吸盘固定在主页键的正上方，另一只手握住机身，然后往外拉。你只需要在屏幕和机身之间撬开足以塞进一个塑料片的空间。（如果有贴钢化膜记得撕掉）</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/0d40969027ed29d20dc228ae736d481b.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第5步：使用撬片撬出屏幕。从主页键开始绕着屏幕一点一点向上撬。切记不可暴力从下方直接拉开！</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/814366689d16a385343ed0ea8d765639.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第6步：把屏幕部分立起呈90度，但不要超过这个角度。屏幕顶部仍然跟机身连接在一起，所以不要用力拉扯。如图所示，你最多可以把屏幕立起呈90度。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/8b739a449f362670fb8fac96d9f07ced.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第7步：找到并拧下固定屏幕连线的螺丝。在移除电池的时候取下屏幕是一个好主意，因为电池是用胶水固定的，要移除它可能很费事。拧下保护盖上的螺丝，然后把保护盖也取下来。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/4107bad4b76eec5ec63c7a58b0582411.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第8步：拆开屏幕的连接器。屏幕和机身之间的连接器有好几个，你可以用小拨子或薄指甲锉把它们从端口中挑出来。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/7247a4071e0154d5ad157bd461069f64.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第9步：取下电池连接器保护盖。电池连接器保护盖由两个螺丝固定，把它们拧下来，然后把金属保护盖也取走。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/39312a278dfbd924cc0d21f4fdfa00c4.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第10步：拆开电池连接器。电池跟电路板之间的连接器只有一个，你可以用小拨子或薄指甲锉把它挑开。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/4a4143bb484614bf838d29c60021ecc2.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第11步：用电吹风加热后盖，把胶水吹软。iPhone 6使用了大量胶水来固定电池，它们需要软化才能把电池取下来。你可以用电吹风加热手机后盖，达到软化胶水的目的。不要使用温度比这更高的加热工具，要以加热时仍能舒服将把手机拿在手中为度。加热过程大概五分钟左右就可以了！或者把胶片拔出来，参考<a href="http://www.usbmi.com/2025.html">自己动手给iPhone5s更换电池详细图文教程</a>的第16个步骤！</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/ff6b1e7cde7220c584d09cb06ba49c39.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第12步：使用信用卡或塑料拨片慢慢撬开电池。你可以使用银行卡、薄拨片或矬子在底部一点一点撬开电池。避开顶部靠近屏幕连接器的部分，因为下面还藏着连接器。另外，不要拿手机零部件当撬电池的支点。尽量让胶水附着在机壳之上，这样你在之后还能将其重新利用起来。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/b0a9608517f9c198bedc81e2bcba87af.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第13步：连上新电池，并折下连接器。如果没剩下太多胶水，那可以使用超薄双面胶来固定新电池。连接器只需要用一点点力就能回到槽位，但对齐位置可能有点繁琐，需要你花些时间。原来的电池连接器是折叠下来的，所以现在也是一样。如图所示，你可以用小拨子或薄金属锉把它压下去。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/411431bb76b5d9840163062072110536.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第14步：重新连上屏幕连接器，重新安装电池和屏幕连接器的金属保护盖。按照跟刚才相反的顺序连上屏幕连接器，首先从机身顶部的连接器开始，然后重新安装金属保护盖。</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/eb7b6defe6f08e05b2a9802e69ee09ad.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+<p>第15步：合上机壳，安装螺丝。大功告成，开机！</p>
+<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/e01d564fda1800d67657b76e9482eb20.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
 ]]></content>
       <categories>
-        <category>人工智能</category>
+        <category>其他</category>
       </categories>
       <tags>
-        <tag>-人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>WNMPA一键环境 1.0.0.0 正式版发布</title>
-    <url>/post/b5e8cb00.html</url>
-    <content><![CDATA[<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/wnmpa.png" alt="wnmpa"></p>
-<p>　　呼呼～～说好的WNMPA终于发布了，先简要说下WNMPA是什么吧。WNMPA是(Windows Nginx MySQL PHP Apache的一个集合包)以Nginx作为前端处理静态文件，Apache后端处理动态文件。当然如果你不需要这种结构，你也可以把A去掉，WNMP就够了。</p>
-<p>最新动态：</p>
-<p>今天无意中登陆了一下博客，发现居然还有人在下载WNMPA，这其实让我很意外。不过回头想想，我其实还是很欣慰的。</p>
-<p>不过呢，其实我觉得大家可能其实根本用不到这么庞大的一个东西，毕竟光是各种软件的32位数跟64位就比同类集成环境大了一倍多，真正的实用性并不强，如果大家不喜欢折腾的话，我还是推荐XAMPP，毕竟那个已经稳定运行了那么久。我也动手将其汉化了一下，<a href="https://csharp.love/xampp_cn.html">点我查看</a>，实用性应该还是很强的。</p>
-<p>好了说回正题，如果您打算继续使用wnmpa的话，那么你可能需要更新一下，</p>
-<p>因为之前的版本好像有一些bug，比如在win7下关闭会报错什么的。</p>
-<p>只不过我是个单文件控，所以我还是用软件加了个壳然后把附带的dll打了个包，可是杀毒软件又开始不乐意了……真难伺候，我自己把它排除了，大家就随意吧。</p>
-<p>直接覆盖安装包里面的wnmpa.exe就行了。</p>
-<p>下载：<a href="https://static.pzhacm.org/wp-upload/2012/07/wnmpa.7z">wnmpa</a>(密码wnmpa)</p>
-<p>说在前面：</p>
-<p>首先，要说明一点，我写这个东西并不是为了造福人类，而是因为我自己要用到，不小心被朋友看见了，觉得不错，让我分享，所以嘛，大家就别把这个软件看得这么严重，如果有Bug什么的，顺便告诉我一声，感激不尽。</p>
-<p>说到这，可能各位看官又会问了：你说这种东西网上一抓一大把，比如<a href="http://go.ccc.xxx/fwlink/xampp">XAMPP</a>，你为啥要自己整个，你不有病么？——其实呢，不是我有病， 我肯定不会去搞一个一模一样的东西出来。怎么说呢，XAMPP的确很优秀，不过XAMPP侧重集成环境，连FTP服务端、邮件服务端都给准备了，而我平时用不到这些，所以干脆按照自己的需求整一个自己喜欢的。</p>
-<p>其实我写的这个程序只有1.9M左右而已，但是安装包却有90多M左右，解压出来大概765M，那么为什么会这么大呢？原因很简单，我肯定不会让各位那么幸苦去自己下载服务端来安装的，我在这里一共准备了三个版本的php(32位的Non Thread Safe的、32位的Thread Safe的、64位的Thread Safe的)，和两个版本的Apache(32位版、64位版)、MySQL(32位版、64位版)、Tomcat(32位版、64位版)，这些玩意占了很大的空间。</p>
-<p>一些小疑问：</p>
-<ul>
-<li>人家都用的5.2老版本php，你为啥非得用5.4，还有什么mysql啊，nginx啊，什么都用最新版的，多不稳定啊！<pre><code> 答：这个怎么说呢， 有个很简单的比喻：Win7和XP，Win7在发布正式版的时候，很多人不习惯，认为Win7“不稳定”，然后坚守XP阵营。而直到现在，依然有很大一批的老一辈革命家认为XP还能再战20年。
- 那么各位再仔细回忆一下，当年Win98盛行的时候，又是怎么看待XP的呢？
- 有些人一定有过这样的想法：这个破Win7，连XX软件都不支持，还有什么用，我还是换回XP吧。
- 可是直到最后，依然摆脱不了换新版操作系统的命运。
- 操作系统是这样的，那么同理php、mysql、apache也是这样， 我们当然可以等到周围所有人都用上新版本了，我们才慢慢悠悠更新。但是我个人却是个急性子，我可忍受不了新特性对我的诱惑。</code></pre>
-</li>
-<li>我电脑上有JDK啊，为啥Tomcat无法运行呢？<pre><code> 因为JDK默认是没有注册到环境变量里的，Tomcat是以系统里的%JAVA_HOME%作为JDK是否存在的判断依据的。</code></pre>
-</li>
-<li>为啥Nginx已经停止了，按钮却还是显示的“正在停止”或者“停止”呢？<pre><code> 因为Nginx本身不提供注册到系统服务这项功能，所以我使用了 instsrv.exe和srvany.exe来使Nginx注册为Windows服务，有时候Nginx的确停掉了，但是他的宿主进程没有被停掉，所以嘛……打开services.msc手动重启下呗～</code></pre>
-</li>
-<li>为啥我自己localhost访问可以，别人访问我就403呢？<pre><code> 亲，因为你访问的这个网站绑定的域名就是localhost，为了防止你服务器被人恶意指向(国内某些云主机，如果你的服务器被未备案的域名指向了，他们会关掉你的服务器)，我特地将Nginx的默认站点设置为直接返回403。如果想绑定域名，请在主界面添加虚拟站点。</code></pre>
-</li>
-<li>为什么你的这个WNMPA环境不能拿去作为生产环境呢？<pre><code> 因为我是个开发者，所以我使用的都是最新版的服务端，php也打开了所有函数，连有些可能会导致出问题的函数都被打开了。所以从一定角度上来说，直接解压出来以后，这个东西的确不应该用做生产环境，如果真的需要的话，就建议去百度一下php的php.ini、mysql的my.ini、apache和nginx的conf文件构成，然后自己改写一个安全而又适合自己的生产环境。</code></pre>
-</li>
-</ul>
-<p>软件截图：</p>
-<p>安装界面：</p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image002.jpg" alt="img"></p>
-<p>初始化调查界面：</p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image003.jpg" alt="img"></p>
-<p>主界面：</p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image004.jpg" alt="img"></p>
-<p>虚拟主机管理：</p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image005.jpg" alt="img"></p>
-<p>添加虚拟主机信息收集：</p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image006.jpg" alt="img"></p>
-<p>非线程安全php的phpinfo()：</p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image008.jpg" alt="img"></p>
-<p>线程安全php的phpinfo():</p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image010.jpg" alt="img"></p>
-<p>非线程安全的php(配合nginx fcgi方式运行)，加载了Zend Optimizer+：</p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image012.jpg" alt="img"></p>
-<p>退出之前询问：</p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image001.png" alt="img"></p>
-<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/clip_image014.jpg" alt="img"></p>
-<p> OK，下面放出下载地址：<br> <a href="http://down.pzhacm.org/wnmpa.exe">本地下载</a>、<a href="http://pan.baidu.com/share/link?shareid=104427&uk=2415932059">百度网盘</a>、<a href="http://dl.vmall.com/c0qghxr725">华为网盘</a></p>
-<p>此版本存在一个已知问题：如果将Nginx注册成服务，则在主界面无法重启，需要进入services.msc找到Nginx_wnmpa手动重启。</p>
-<p>测试过的操作系统：<br> Windows XP Professional SP3<br> Windows Server 2003 Enterprise SP2<br> Windows Server 2008 R2 Enterprise SP1<br> Windows 7 Ultimate x86 SP1</p>
-<p>依赖的框架：<br> .NET Framework 2.0<br> Visual C++ 9.0 Runtime<br> Visual C++ 10.0 Runtime<br> 以上框架的所有安装包下载地址记录在安装目录下的[请先阅读.txt]中。</p>
-<p>如果您想帮助WNMPA发展：</p>
-<p><strong>&gt;**</strong>放心吧，不会让您捐赠的。我的意思是，如果您可以提供下载节点；**<br> <strong>&gt;**</strong>或者说是您的英语、日语、XXXXXXX语不错，可以帮忙翻译翻译这个软件；**<br> <strong>&gt;**</strong>或者您可以当一当小白，来测试这个软件。**</p>
-<p><strong>都是对WNMPA最大的帮助！</strong> </p>
-<p>最后唠叨一句：由于本环境使用程序版本较新，所以强烈建议只将本环境作为开发学习研究用，请勿用于生产环境！仅供学习交流！另外，还请那些高得我看不见的高射炮高抬贵手，不要用高傲的眼神来蔑视我。我只接受合理的意见、建议和指导。在我的博客里，请收回自己的优越感，谢谢合作！</p>
-]]></content>
-      <categories>
-        <category>建站</category>
-      </categories>
-      <tags>
-        <tag>-WNMPA</tag>
+        <tag>-技术</tag>
       </tags>
   </entry>
   <entry>
@@ -638,45 +650,33 @@
       </tags>
   </entry>
   <entry>
-    <title>iPhone6/6 Plus怎么换电池</title>
-    <url>/post/24717.html</url>
-    <content><![CDATA[<p>苹果手机越来越不耐用：用着用着就自动关机，或者一天充2、3次电。这时也许你会有是不是该换手机电池的疑问，外面换个电池不懂好不好、价钱也高！于是迷就试着自己换了电池！整个过程可谓惊心动魄啊！（不小心拆坏了一个配件）换电池看教程好像很简单，但是这绝对不是手残星人的专利，除非你是维修大能，不然iPhone的手机电池绝非网上标榜的能轻轻松松随意更换。自己动手，等待你的可能是更大的损失！所以换不换自己掂量咯！PS：迷的iPhone6自行换的淘宝所谓的原装拆机电池，到现在不到三个月就已经不行了！建议大家还是买第三方牌子有保修的正规电池更换！**</p>
-<p>详细步骤：第1步：出门左拐马云家获取下列工具和零件——iPhone 6电池和iPhone维修工具包。主要需要购买一块新电池，一个专用螺丝刀，一个撬片，和一个屏幕吸盘。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/TB2JTvEiKtTMeFjSZFOXXaTiVXa_70246596.jpg" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第2步：找到手机充电接口两侧的两颗五角形螺丝。打开iPhone 6你只需要拧开这两颗螺丝。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/ab701685e416b4bcf7a26a0902b4b12f.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第3步：关掉手机电源，使用工具包里的五角形螺丝刀拧下螺丝。螺丝刀的头部很小，但它跟 iPhone 6底部的小螺丝是匹配的。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/4c5288512ddfe7a4f34f131390346720.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第4步：使用吸盘在主页键(Home)上方拉出屏幕。把吸盘固定在主页键的正上方，另一只手握住机身，然后往外拉。你只需要在屏幕和机身之间撬开足以塞进一个塑料片的空间。（如果有贴钢化膜记得撕掉）</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/0d40969027ed29d20dc228ae736d481b.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第5步：使用撬片撬出屏幕。从主页键开始绕着屏幕一点一点向上撬。切记不可暴力从下方直接拉开！</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/814366689d16a385343ed0ea8d765639.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第6步：把屏幕部分立起呈90度，但不要超过这个角度。屏幕顶部仍然跟机身连接在一起，所以不要用力拉扯。如图所示，你最多可以把屏幕立起呈90度。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/8b739a449f362670fb8fac96d9f07ced.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第7步：找到并拧下固定屏幕连线的螺丝。在移除电池的时候取下屏幕是一个好主意，因为电池是用胶水固定的，要移除它可能很费事。拧下保护盖上的螺丝，然后把保护盖也取下来。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/4107bad4b76eec5ec63c7a58b0582411.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第8步：拆开屏幕的连接器。屏幕和机身之间的连接器有好几个，你可以用小拨子或薄指甲锉把它们从端口中挑出来。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/7247a4071e0154d5ad157bd461069f64.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第9步：取下电池连接器保护盖。电池连接器保护盖由两个螺丝固定，把它们拧下来，然后把金属保护盖也取走。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/39312a278dfbd924cc0d21f4fdfa00c4.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第10步：拆开电池连接器。电池跟电路板之间的连接器只有一个，你可以用小拨子或薄指甲锉把它挑开。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/4a4143bb484614bf838d29c60021ecc2.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第11步：用电吹风加热后盖，把胶水吹软。iPhone 6使用了大量胶水来固定电池，它们需要软化才能把电池取下来。你可以用电吹风加热手机后盖，达到软化胶水的目的。不要使用温度比这更高的加热工具，要以加热时仍能舒服将把手机拿在手中为度。加热过程大概五分钟左右就可以了！或者把胶片拔出来，参考<a href="http://www.usbmi.com/2025.html">自己动手给iPhone5s更换电池详细图文教程</a>的第16个步骤！</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/ff6b1e7cde7220c584d09cb06ba49c39.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第12步：使用信用卡或塑料拨片慢慢撬开电池。你可以使用银行卡、薄拨片或矬子在底部一点一点撬开电池。避开顶部靠近屏幕连接器的部分，因为下面还藏着连接器。另外，不要拿手机零部件当撬电池的支点。尽量让胶水附着在机壳之上，这样你在之后还能将其重新利用起来。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/b0a9608517f9c198bedc81e2bcba87af.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第13步：连上新电池，并折下连接器。如果没剩下太多胶水，那可以使用超薄双面胶来固定新电池。连接器只需要用一点点力就能回到槽位，但对齐位置可能有点繁琐，需要你花些时间。原来的电池连接器是折叠下来的，所以现在也是一样。如图所示，你可以用小拨子或薄金属锉把它压下去。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/411431bb76b5d9840163062072110536.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第14步：重新连上屏幕连接器，重新安装电池和屏幕连接器的金属保护盖。按照跟刚才相反的顺序连上屏幕连接器，首先从机身顶部的连接器开始，然后重新安装金属保护盖。</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/eb7b6defe6f08e05b2a9802e69ee09ad.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
-<p>第15步：合上机壳，安装螺丝。大功告成，开机！</p>
-<p><img src="/../images/iPhone66Plus%E6%80%8E%E4%B9%88%E6%8D%A2%E7%94%B5%E6%B1%A0/e01d564fda1800d67657b76e9482eb20.png" alt="自己动手给iphone6/6 plus更换电池详细图文步骤"></p>
+    <title>f-gan生成对抗神经网络进阶第一级</title>
+    <url>/post/49c94cd0.html</url>
+    <content><![CDATA[<p>在之前我们做始祖Gan的数学推导的时候，其实留下了一堆坑（不知道你注意到了没有哈哈）。当然，牛逼的人就是这样的，指明了一条光明大道，让人知道从哪里走，然后剩下的一些坑坑洼洼刚刚好就能帮助一些博士、硕士毕业或者一些人评副教授、教授啥的。</p>
+<p>这篇文章介绍的f-gan就是填的其中一个坑，那就是给V(G,D)这个函数一个更加通用的描述。在始祖文章里面，这个函数是直接写出来的，虽然知道它巧妙得令人窒息，而且也确实是在算拟合网络和实际数据之间的数据分布距离（JS），但具体为什么能那么列式，那么列式之后为什么就刚刚好算的是分布间的某种距离其实我们是不大知道的，这导致的结果就是我们只能用它的，不能改进。而f-gan要解决的就是这个问题，它将告诉我们一道通用公式。在这道公式的约束下，你爱咋整咋整。</p>
+<p>首先我们看怎么一般化的表述两个分布之间的距离，f-gan告诉我们是这样的：<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) f \left( \frac { p ( x ) } { q ( x ) } \right) d x<br>$$<br>这里有两个约束，第一：f是凸函数；第二：f(1)=0</p>
+<p>由始祖文章的数学推导我们知道，对于神经网络而言，我们去衡量两个分布之间的差距其实不需要那么准，只要当他们有差距的时候，损失函数输出一个正值，而没差距的时候输出一个0就OK。那么f(1)=0就很好理解，当两个分布相同，只要满足这一约束就能使得最后的<br>$$<br>D _ { f } ( P | Q )<br>$$<br>也等于0。剩下我们就只需要证明在两个分布不完全相等的情况下，<br>$$<br>D _ { f } ( P | Q )<br>$$<br>大于0，就可以认为这道式子在表达两个分布之间的某种距离。</p>
+<p>证明的过程我们会用到<a href="https://aichn.cn/post/96895f36.html">琴生不等式</a>（要求f是凸函数也跟用到它有关，证明请移步链接所指文章），该不等式告诉我们：<br>$$<br>E ( f ( x ) ) \geq f ( E ( x ) )<br>$$<br>我们可以把<br>$$<br>f \left( \frac { p ( x ) } { q ( x ) } \right)看成f(x)，q(x)看成x的分布，那么D _ { f } ( P | Q )直接就变成E ( f ( x ) )E(f(x))<br>$$<br>，故：<br>$$<br>D _ { f } ( P | Q ) \geq f(\int _ { x } q ( x )  \left( \frac { p ( x ) } { q ( x ) } \right) d x)=f(1)=0<br>$$<br>注意，由于琴生不等式等于号只有在x分布完全均匀的时候取得（在这个应用中几乎不可能发生），因此基本可以判定除非<br>$$<br>D _ { f } ( P | Q )<br>$$<br>中的两个分布完全相等，不然不会取得等于号，这是极好的！避免了我们训练突然因为loss等于0而没反应的情况。</p>
+<p>完成了上面的推理，我们得到了两个分布的某种距离的一般表达式。但它还不是V(G,D)，原因是这里面既没有G也没有D（其实有D就好了,G在D里面），也就是说这是道看起来很美但对于Gan完全没用的式子。</p>
+<p>那怎么让这道式子跟D网络有关呢？我们可以想D是一个评价数据是不是真实分布的东西，当我们在训练D的时候，我们希望整个距离表达式最大。那么，能不能找到一个式子，当D使得距离表达式取最大值的时候，式子刚刚好就等于上面的<br>$$<br>D _ { f } ( P | Q )= \int _ { x } q ( x ) f \left( \frac { p ( x ) } { q ( x ) } \right) d x<br>$$<br>呢？</p>
+<p>要求有点多，但还真有办法实现！</p>
+<p>那就是利用<a href="https://aichn.cn/post/e66f8853.html">共轭函数</a>（具体见链接所指博客或自行google），它的定义如下：<br>$$<br>f ^ { * } ( t ) = \max _ { x \in \operatorname { dom } ( f ) } { x t - f ( x ) }<br>$$<br>它告诉我们，假设f(x)是一个凸函数，那么它存在一个共轭函数长上面描述的那样，写作<br>$$<br>f ^ { * } ( t )。<br>$$</p>
+<p>$$<br>f ^ { * } ( t )<br>$$</p>
+<p>本身也是凸函数，且它的共轭函数是f(x)。也就有：<br>$$<br>f( x ) = \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { x t - f  ^ { * } ( t ) }<br>$$<br>假设这个时候我们把<br>$$<br>f \left( \frac { p ( x ) } { q ( x ) } \right)<br>$$<br>看成是f(x)（前提是，<br>$$<br>f( 1 ) = \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { t - f  ^ { * } ( t ) }=0<br>$$<br>，这样f(x)就完全符合<br>$$<br>$D _ { f } ( P | Q ) $<br>$$<br>的要求），可得到：<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { \frac { p ( x ) } { q ( x ) } t - f  ^ { * } ( t ) } d x<br>$$<br>这个时候的公式其实还是跟D和G网络没什么关系，接着的这一步闪瞎眼，因为它做出了一个神之假设，假设有个神经网络D，输入是x，然后输出是t，这样上面的式子直接就变成<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) \max _ { D(x) \in \operatorname { dom } ( f  ^ { * } ) } { \frac { p ( x ) } { q ( x ) } D(x) - f  ^ { * } ( D(x) ) } d x<br>$$</p>
+<p>$$<br>\geq\int _ { x } q ( x ) { \frac { p ( x ) } { q ( x ) } D(x) - f  ^ { * } ( D(x) ) } d x<br>$$</p>
+<p>等于号在D(x)刚刚好等于使得积分中的全部式子最大的t的集合时取得。将式子进一步化简得到<br>$$<br>=\int _ { x } p ( x )D(x) - q ( x )f  ^ { * } ( D(x) )  d x<br>$$<br>这道式子牛逼的地方不知道你看出来了没有，它就在于这个≥号，回忆一下始祖gan，D网络的目标是最大化距离式子。而上面这道式子，我们恰恰好就能训练D网络来使得式子取得最大值。这个时候，式子可以写成下面的形式：</p>
+<p><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/HxmWegThKvG1sNjwAnfobKQJWGk8c_rBCTiWt8DHgfY.original.fullsize.png" alt="img"></p>
+<p>对于G网络而言，我们目的是最小化距离式子，则写成如下形式：</p>
+<p><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/image-20210102233819152.png" alt="image-20210102233819152"></p>
+<p>不知各位看出来没有，它就是通用版本的gan距离计算公式。真的对弄出这个东西的数学家跪服，太牛逼了！</p>
+<p>有了这个公式，我们只要找出一个凸函数（这里文章是这么写的，但其实非凸函数的共轭函数也是凸函数，因此不太清楚为什么要有这一条件，先存疑吧，有老哥知道麻烦留意告诉我）符合正实数域上有取值且是连续的，满足t−f(1)=0就可以作为<br>$$<br>f^*。<br>$$<br>文章中也列举了个可选的函数：<br><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/20190204011004991.png" alt="在这里插入图片描述"><br>经过该篇文章，我们解放了距离函数的限制，让它可以带着镣铐跳舞了，而不是一动不动的木乃伊。</p>
+<p>但其实它证明了一个让人哭笑不得的结论，始祖gan之所以效果不太好，跟我们选用的距离函数没有太大关系。也就是说，它的贡献主要在于帮助我们排除了一个错误答案。。。</p>
 ]]></content>
       <categories>
-        <category>其他</category>
+        <category>人工智能</category>
       </categories>
       <tags>
-        <tag>-技术</tag>
+        <tag>-人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -1070,6 +1070,40 @@
       </tags>
   </entry>
   <entry>
+    <title>【教程】自制解锁bios，加slic，改logo和添加序列号</title>
+    <url>/post/89080ece.html</url>
+    <content><![CDATA[<p>今日放假，给大家发些我的心得，其实技术就是一层纸，一捅就破解锁bios什么的听起来高大上，其实没什么难度。我现在就给大家分享一下。（各种电脑bios解锁原理大同小异，今天以p775dm2g为例）</p>
+<p>用到的工具有rw everything，AMIBCP5.01.0014 ，UEFITool ， ChangeLogo 5.0.0.2 ，phoenixtool 。</p>
+<p>教程开始</p>
+<p>首先根据电脑型号在<a href="http://jump.bdimg.com/safecheck/index?url=rN3wPs8te/qbcLzWBl/RW4zMiwubX/xvWaradDzoQEzXjPfwV/i0jfMRfhec8gePPLBQPbWwUIJiRR7/sVRYQw7xFUSAhTAdBah3aBIyVP8ZkoQYdFPNPPXl0gK0SNcDzgGXzQWatLPKq8EYKcRO9DA8Zu4mdgY0">https://repo.palkeo.com/clevo-mirror </a>里找到对应bios刷新包并下载，我的775下载后得到一个P7xxDM3G_B10602.zip文件，解压后找到到一个8m的P7xxDM3.bin和一个5m的P7xxDM3.rom因为要修改序列号（bios文件中没有序列号，需要我们自己添加，否则会导致修改后的bios刷入后没有序列号的问题，各种用了大神的解锁bios的已经中枪，因为fpt刷新bios会覆盖原来所以block，如果刷入的bios没有序列号，那么刷完就没有）所以我们用8m的P7xxDM3.bin进行修改。</p>
+<p>用AMIBCP打开P7xxDM3.bin打开DMI Tables</p>
+<p><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/142bd243ad4bd113fdb0fa6e53afa40f4afb05af.jpg" alt="img"></p>
+<p>再打开rw everything</p>
+<p><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/5d753adbb6fd5266ac527048a218972bd50736ab.jpg" alt="img"><br>点击上面的倒数第八项sm bios会出现上图，这时点击左侧第三项 bios board information<br>会出现下图<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/6080b23533fa828be9e3d2bff41f4134950a5aec.jpg" alt="img"><br>我们可以看到 serial number 对应的是string4 </p>
+<p>再到rw everything左侧点击第二项system information，也会看到一个 serial number条目，对应的也是string4，这时可以关闭rw everything了回到AMIBCP 我们之前就已经在DMI Tables选项卡了 如下图所示<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/82618eb1cb13495434f9a1385f4e9258d3094ac1.jpg" alt="img"></p>
+<p>右下角的第四条就是string4 但是我们需要修改2条这个号码，一个是左边第二个选项卡system information的string4 一个是左边第三个选项卡base board的string4，把它替换为自己的序列号，一般电脑后面都有贴，那些刷过大神制作的解锁bios的人可以通过这个补救（刚才在rw everything中serial number后面的引号里就是序列号，这里可以直接粘贴过来要是显示为Not Applicable说明序列号被刷掉了）然后点击上面的保存即可。</p>
+<p>下面开始解锁bios在AMIBCP中打开setup configuration选项卡<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/155416ce36d3d53942bc459f3387e950342ab02c.jpg" alt="img"><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/aab74836acaf2eddb38ffcb5841001e9380193aa.jpg" alt="img">点击上图所示加号弹出下图<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/8b9212dfa9ec8a13a10ae3bcfe03918fa1ecc09d.jpg" alt="img"></p>
+<p>打开setup的加号我这里为了示范打开main选项卡后弹出下图<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/ed13c8ef76094b36a109afb1aacc7cd98c109d15.jpg" alt="img"></p>
+<p>所谓解锁就是有些选项卡的Access/Use默认是Default可能是不开放的，我们把权限强制调整为user在低权限下开放就行这个bios有好多可以调整的地方，方便起见我解锁上面那页。<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/4bb4334e251f95ca9f9524eac0177f3e6609524c.jpg" alt="img"></p>
+<p>总之要解锁什么就把对应条目的Access/Use由Default改成user即可（有的Default在默认状态下也是显示的，不用改。还有些空条目如第十四行，这些保持Default就好，不用动了。）解锁完保存就行。添加slic模块<br>添加slic模块可以oem激活windows，除了win10 win8以外windows都可以激活，但是win10 可以用windows server 2016代替，win8可以用server 2012代替，所以其实变相激活了win10 win8 而且服务器版本windows更加稳定，功能齐全。就是有些繁琐。适合能琢磨的人。</p>
+<p>打开phoenixtool（最新版本2.66）用phoenixtool打开修改好的bios文件P7xxDM3.bin，选好主板厂商（主板厂商没有clevo，直接选个dell 戴尔）和slic文件这里我们刷dell的slic2.4（等下会提供地址）<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/d069922397dda1445019d1eebbb7d0a20df4869d.jpg" alt="img"><br>点击高级，并勾除常规选项里的2，3，5项<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/68318f5494eef01f1ce3a599e9fe9925bd317d31.jpg" alt="img"></p>
+<p>点击完成后回到主页面再点击执行，会生成一个P7xxDM3_SLIC.bin的文件，我们下面就用这个文件进行操作。</p>
+<p>为了安全起见，我们还需要再向P7xxDM3_SLIC.bin中加一个slic头文件来确保成功（不添加没试过，这里不评论，此处引用<a href="http://jump.bdimg.com/safecheck/index?url=x+Z5mMbGPAsDFYW2HqnwkaDRjkrD11q/cYQkE10N22RcMgJTrvpu7I8isJhwUWTPGmT1ugAiyeQYQSBtpbfyfjywUD21sFCCYkUe/7FUWEMO8RVEgIUwHQWod2gSMlT/GZKEGHRTzTz15dICtEjXA84Bl80FmrSzyqvBGCnETvQwPGbuJnYGNA==">http://bbs.bios.net.cn/thread-4527211-1-1.html</a>)打开UEFItool，并用UEFItool打开P7xxDM3_SLIC.bin按照上面的引用贴的方法找到需要添加的位置（由于我们之前用了phoenixtool，会含有pubkey模块和marker模块所以我们直接搜索这些模块的GUID就可以直接确定位置）我们打开搜索框转到搜索GUID选项卡输入69009842<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/bf9961d0f703918f0c359396583d26975beec4c1.jpg" alt="img"><br>摁ok下面的messages框里会出现上面的消息，点击第二条消息，会把你直接带到要找的模块。<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/be6ef403918fa0eca523ca512f9759ee3f6ddbc1.jpg" alt="img"></p>
+<p>在那个模块上摁右键点击insert before，插入4C494E55-5849-5342-4554-544552212121.ffs文件（等下提供，这个不能用引用贴的slic表头文件，这里是slic2.4，引用贴是slic2.3，表头文件不同。然后点击UEFItool左上角的file，点save image file保存，这时软件会自动重新构架这个bios文件，并提示你是否打开修改过的文件，我们选择是，下面就是重点了。</p>
+<p>注意，这步很重要，要删除8m的bios文件中多余的部分，有些人会问为什么不直接用5m的P7xxDM3.rom，因为5m的bios可以解锁bios（有些不能），可以加slic2.4，可以改logo，但是不能改序列号，因此不选用。</p>
+<p>如图展开intel image项<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/a74a09d162d9f2d3f6868fb3a0ec8a136227cc12.jpg" alt="img"></p>
+<p>在bios region上摁右键点击extract as is…会让你保存。随便保存一个名字，但是扩展名为.rgn我们直接把.rgn改成.rom就行。这样提取的bios就是5m了，前面3m是校验用的。下面更改logo<br>用ChangeLogo 5.0.0.2打开上面的文件，直接用想用的logo替换里面的logo就行，但是要注意logo文件大小和画面大小还有文件格式，这里不做太多说明。</p>
+<p>最后就是刷入了，我们选用fpt方法刷入，用<a href="http://tieba.baidu.com/p/4936939406">@827270744</a><br>大神提供的工具<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/e994c55c103853432156137d9a13b07ecb808814.jpg" alt="img"></p>
+<p>做好启动盘后把我们修改完的bios重命名为P7DM2G.ROM，替换原来启动盘里的P7DM2G.ROM，然后重启进入dos，执行fpt.bat刷新就行。<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/6d8b30fa828ba61e8ee259734834970a314e5998.jpg" alt="img"> 下面提供所用工具和各种文件<br><img src="http://imgsrc.baidu.com/forum/w%3D580/sign=f76968d36581800a6ee58906813433d6/6d8b30fa828ba61e8ee259734834970a314e5998.jpg" alt="img"></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>-技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【数据可视化】电视产品精准营销推荐</title>
     <url>/post/89c41659.html</url>
     <content><![CDATA[<p>获奖经历：</p>
@@ -1241,40 +1275,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【教程】自制解锁bios，加slic，改logo和添加序列号</title>
-    <url>/post/89080ece.html</url>
-    <content><![CDATA[<p>今日放假，给大家发些我的心得，其实技术就是一层纸，一捅就破解锁bios什么的听起来高大上，其实没什么难度。我现在就给大家分享一下。（各种电脑bios解锁原理大同小异，今天以p775dm2g为例）</p>
-<p>用到的工具有rw everything，AMIBCP5.01.0014 ，UEFITool ， ChangeLogo 5.0.0.2 ，phoenixtool 。</p>
-<p>教程开始</p>
-<p>首先根据电脑型号在<a href="http://jump.bdimg.com/safecheck/index?url=rN3wPs8te/qbcLzWBl/RW4zMiwubX/xvWaradDzoQEzXjPfwV/i0jfMRfhec8gePPLBQPbWwUIJiRR7/sVRYQw7xFUSAhTAdBah3aBIyVP8ZkoQYdFPNPPXl0gK0SNcDzgGXzQWatLPKq8EYKcRO9DA8Zu4mdgY0">https://repo.palkeo.com/clevo-mirror </a>里找到对应bios刷新包并下载，我的775下载后得到一个P7xxDM3G_B10602.zip文件，解压后找到到一个8m的P7xxDM3.bin和一个5m的P7xxDM3.rom因为要修改序列号（bios文件中没有序列号，需要我们自己添加，否则会导致修改后的bios刷入后没有序列号的问题，各种用了大神的解锁bios的已经中枪，因为fpt刷新bios会覆盖原来所以block，如果刷入的bios没有序列号，那么刷完就没有）所以我们用8m的P7xxDM3.bin进行修改。</p>
-<p>用AMIBCP打开P7xxDM3.bin打开DMI Tables</p>
-<p><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/142bd243ad4bd113fdb0fa6e53afa40f4afb05af.jpg" alt="img"></p>
-<p>再打开rw everything</p>
-<p><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/5d753adbb6fd5266ac527048a218972bd50736ab.jpg" alt="img"><br>点击上面的倒数第八项sm bios会出现上图，这时点击左侧第三项 bios board information<br>会出现下图<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/6080b23533fa828be9e3d2bff41f4134950a5aec.jpg" alt="img"><br>我们可以看到 serial number 对应的是string4 </p>
-<p>再到rw everything左侧点击第二项system information，也会看到一个 serial number条目，对应的也是string4，这时可以关闭rw everything了回到AMIBCP 我们之前就已经在DMI Tables选项卡了 如下图所示<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/82618eb1cb13495434f9a1385f4e9258d3094ac1.jpg" alt="img"></p>
-<p>右下角的第四条就是string4 但是我们需要修改2条这个号码，一个是左边第二个选项卡system information的string4 一个是左边第三个选项卡base board的string4，把它替换为自己的序列号，一般电脑后面都有贴，那些刷过大神制作的解锁bios的人可以通过这个补救（刚才在rw everything中serial number后面的引号里就是序列号，这里可以直接粘贴过来要是显示为Not Applicable说明序列号被刷掉了）然后点击上面的保存即可。</p>
-<p>下面开始解锁bios在AMIBCP中打开setup configuration选项卡<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/155416ce36d3d53942bc459f3387e950342ab02c.jpg" alt="img"><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/aab74836acaf2eddb38ffcb5841001e9380193aa.jpg" alt="img">点击上图所示加号弹出下图<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/8b9212dfa9ec8a13a10ae3bcfe03918fa1ecc09d.jpg" alt="img"></p>
-<p>打开setup的加号我这里为了示范打开main选项卡后弹出下图<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/ed13c8ef76094b36a109afb1aacc7cd98c109d15.jpg" alt="img"></p>
-<p>所谓解锁就是有些选项卡的Access/Use默认是Default可能是不开放的，我们把权限强制调整为user在低权限下开放就行这个bios有好多可以调整的地方，方便起见我解锁上面那页。<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/4bb4334e251f95ca9f9524eac0177f3e6609524c.jpg" alt="img"></p>
-<p>总之要解锁什么就把对应条目的Access/Use由Default改成user即可（有的Default在默认状态下也是显示的，不用改。还有些空条目如第十四行，这些保持Default就好，不用动了。）解锁完保存就行。添加slic模块<br>添加slic模块可以oem激活windows，除了win10 win8以外windows都可以激活，但是win10 可以用windows server 2016代替，win8可以用server 2012代替，所以其实变相激活了win10 win8 而且服务器版本windows更加稳定，功能齐全。就是有些繁琐。适合能琢磨的人。</p>
-<p>打开phoenixtool（最新版本2.66）用phoenixtool打开修改好的bios文件P7xxDM3.bin，选好主板厂商（主板厂商没有clevo，直接选个dell 戴尔）和slic文件这里我们刷dell的slic2.4（等下会提供地址）<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/d069922397dda1445019d1eebbb7d0a20df4869d.jpg" alt="img"><br>点击高级，并勾除常规选项里的2，3，5项<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/68318f5494eef01f1ce3a599e9fe9925bd317d31.jpg" alt="img"></p>
-<p>点击完成后回到主页面再点击执行，会生成一个P7xxDM3_SLIC.bin的文件，我们下面就用这个文件进行操作。</p>
-<p>为了安全起见，我们还需要再向P7xxDM3_SLIC.bin中加一个slic头文件来确保成功（不添加没试过，这里不评论，此处引用<a href="http://jump.bdimg.com/safecheck/index?url=x+Z5mMbGPAsDFYW2HqnwkaDRjkrD11q/cYQkE10N22RcMgJTrvpu7I8isJhwUWTPGmT1ugAiyeQYQSBtpbfyfjywUD21sFCCYkUe/7FUWEMO8RVEgIUwHQWod2gSMlT/GZKEGHRTzTz15dICtEjXA84Bl80FmrSzyqvBGCnETvQwPGbuJnYGNA==">http://bbs.bios.net.cn/thread-4527211-1-1.html</a>)打开UEFItool，并用UEFItool打开P7xxDM3_SLIC.bin按照上面的引用贴的方法找到需要添加的位置（由于我们之前用了phoenixtool，会含有pubkey模块和marker模块所以我们直接搜索这些模块的GUID就可以直接确定位置）我们打开搜索框转到搜索GUID选项卡输入69009842<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/bf9961d0f703918f0c359396583d26975beec4c1.jpg" alt="img"><br>摁ok下面的messages框里会出现上面的消息，点击第二条消息，会把你直接带到要找的模块。<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/be6ef403918fa0eca523ca512f9759ee3f6ddbc1.jpg" alt="img"></p>
-<p>在那个模块上摁右键点击insert before，插入4C494E55-5849-5342-4554-544552212121.ffs文件（等下提供，这个不能用引用贴的slic表头文件，这里是slic2.4，引用贴是slic2.3，表头文件不同。然后点击UEFItool左上角的file，点save image file保存，这时软件会自动重新构架这个bios文件，并提示你是否打开修改过的文件，我们选择是，下面就是重点了。</p>
-<p>注意，这步很重要，要删除8m的bios文件中多余的部分，有些人会问为什么不直接用5m的P7xxDM3.rom，因为5m的bios可以解锁bios（有些不能），可以加slic2.4，可以改logo，但是不能改序列号，因此不选用。</p>
-<p>如图展开intel image项<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/a74a09d162d9f2d3f6868fb3a0ec8a136227cc12.jpg" alt="img"></p>
-<p>在bios region上摁右键点击extract as is…会让你保存。随便保存一个名字，但是扩展名为.rgn我们直接把.rgn改成.rom就行。这样提取的bios就是5m了，前面3m是校验用的。下面更改logo<br>用ChangeLogo 5.0.0.2打开上面的文件，直接用想用的logo替换里面的logo就行，但是要注意logo文件大小和画面大小还有文件格式，这里不做太多说明。</p>
-<p>最后就是刷入了，我们选用fpt方法刷入，用<a href="http://tieba.baidu.com/p/4936939406">@827270744</a><br>大神提供的工具<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/e994c55c103853432156137d9a13b07ecb808814.jpg" alt="img"></p>
-<p>做好启动盘后把我们修改完的bios重命名为P7DM2G.ROM，替换原来启动盘里的P7DM2G.ROM，然后重启进入dos，执行fpt.bat刷新就行。<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/6d8b30fa828ba61e8ee259734834970a314e5998.jpg" alt="img"> 下面提供所用工具和各种文件<br><img src="http://imgsrc.baidu.com/forum/w%3D580/sign=f76968d36581800a6ee58906813433d6/6d8b30fa828ba61e8ee259734834970a314e5998.jpg" alt="img"></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>-技术</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>一条短信直接崩溃iPhone，几乎所有iOS设备躺枪</title>
     <url>/post/3420606c.html</url>
     <content><![CDATA[<p>iPhone 又出 Bug 了！国外有网友发现，只要给用 iPhone 的好友发送一段含有特殊字符的短信或者是 iMessage 消息，就会让对方的 iPhone 崩溃重启，这条信息最先出现在 Reddit 网站。这段字符信息包含了英文、阿拉伯文、中文和特殊符号：</p>
@@ -1293,6 +1293,33 @@
       </categories>
       <tags>
         <tag>-其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【解决方案】WordPress无法建立到WordPress。org的安全连接</title>
+    <url>/post/17062.html</url>
+    <content><![CDATA[<p>服务器一直使用03系统，为了更好的满足需求决定升级系统，然而升级的路程的坎坷的，各种问题不曾间断，经过一夜努力终于在第二天的天明前完成了系统的各项配置。</p>
+<p>自以为风雨过后能见彩虹了，没想到这才是开始…</p>
+<p>安装好wordpress后发现许多需要跟wordpress.org进行连接的页面都无法打开了。</p>
+<p>期初以为是因为程序卡导致链接超时无法打开，于是就想到WordPress 的主题还有它的后台都会用到 Google 字体，在国内访问 Google 会遇到问题，这就是打开 WordPress 网站慢的主要原因。</p>
+<p>解决的办法是去安装一个叫 useso-take-over-google 的插件，它会用国内的 useso 替换 google，但是安装好后之前的问题仍然存在。</p>
+<p>于是又想到 WordPress 默认为用户使用的是 Gravatar 头像，我们访问这个网站也会遇到问题，虽然已经有现成的解决方案但仍然不太理想。</p>
+<p>解决办法：我们可以先禁用掉用户的头像功能，打开 <em>设置 – 讨论 – 头像显示</em>，去掉勾选显示头像，保存更改。</p>
+<p>OK 现在应该不会卡慢了，但是问题依旧，没办法自己的能力有限只能搜搜往上看有没有人遇到同样的问题。</p>
+<p>结果搜到了很多同样的问题，但是都没有得到解决，只有个别说到是因为空间商屏蔽了wordpress服务器IP，还有个别说要修改DNS为谷歌的DNS。</p>
+<p>但在尝试过后发现都不可用，于是我的脑细胞又开始了疯狂的自杀…</p>
+<p>想到曾经谷歌翻译不能用的时候会在host文件里添加记录就可以使用谷歌翻译了，于是开始尝试向host文件添加记录，首先ping一下api.wordpress.org的服务器IP得到66.155.40.249 打开host文件添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">66.155.40.249 api.wordpress.org</span><br></pre></td></tr></table></figure>
+<p>保存，刷新后台，完美！！</p>
+<p>win系统下host文件路径：c:\windows\system32\drivers\etc</p>
+<p>linux系统的host文件路径？</p>
+<p>施主请百度去吧，贫僧没搞过啊！！！</p>
+]]></content>
+      <categories>
+        <category>建站</category>
+      </categories>
+      <tags>
+        <tag>-技术</tag>
       </tags>
   </entry>
   <entry>
@@ -1359,30 +1386,16 @@
       </tags>
   </entry>
   <entry>
-    <title>【解决方案】WordPress无法建立到WordPress。org的安全连接</title>
-    <url>/post/17062.html</url>
-    <content><![CDATA[<p>服务器一直使用03系统，为了更好的满足需求决定升级系统，然而升级的路程的坎坷的，各种问题不曾间断，经过一夜努力终于在第二天的天明前完成了系统的各项配置。</p>
-<p>自以为风雨过后能见彩虹了，没想到这才是开始…</p>
-<p>安装好wordpress后发现许多需要跟wordpress.org进行连接的页面都无法打开了。</p>
-<p>期初以为是因为程序卡导致链接超时无法打开，于是就想到WordPress 的主题还有它的后台都会用到 Google 字体，在国内访问 Google 会遇到问题，这就是打开 WordPress 网站慢的主要原因。</p>
-<p>解决的办法是去安装一个叫 useso-take-over-google 的插件，它会用国内的 useso 替换 google，但是安装好后之前的问题仍然存在。</p>
-<p>于是又想到 WordPress 默认为用户使用的是 Gravatar 头像，我们访问这个网站也会遇到问题，虽然已经有现成的解决方案但仍然不太理想。</p>
-<p>解决办法：我们可以先禁用掉用户的头像功能，打开 <em>设置 – 讨论 – 头像显示</em>，去掉勾选显示头像，保存更改。</p>
-<p>OK 现在应该不会卡慢了，但是问题依旧，没办法自己的能力有限只能搜搜往上看有没有人遇到同样的问题。</p>
-<p>结果搜到了很多同样的问题，但是都没有得到解决，只有个别说到是因为空间商屏蔽了wordpress服务器IP，还有个别说要修改DNS为谷歌的DNS。</p>
-<p>但在尝试过后发现都不可用，于是我的脑细胞又开始了疯狂的自杀…</p>
-<p>想到曾经谷歌翻译不能用的时候会在host文件里添加记录就可以使用谷歌翻译了，于是开始尝试向host文件添加记录，首先ping一下api.wordpress.org的服务器IP得到66.155.40.249 打开host文件添加</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">66.155.40.249 api.wordpress.org</span><br></pre></td></tr></table></figure>
-<p>保存，刷新后台，完美！！</p>
-<p>win系统下host文件路径：c:\windows\system32\drivers\etc</p>
-<p>linux系统的host文件路径？</p>
-<p>施主请百度去吧，贫僧没搞过啊！！！</p>
+    <title>交叉熵</title>
+    <url>/post/ea101373.html</url>
+    <content><![CDATA[<p>我们简单介绍了相对熵的概念，知道了相对熵可以用来表达真实事件和理论拟合出来的事件之间的差异。</p>
+<p>相对熵的公式如下：<br>$$<br>D _ { K L } ( p | q ) = \sum _ { i = 1 } ^ { N }p \left( x _ { i } \right)\log p \left( x _ { i } \right)-\sum _ { i = 1 } ^ { N }p \left( x _ { i } \right)\log q \left( x _ { i } \right)<br>$$<br>可以看到前面一项是真实事件的信息熵取反，我们可以直接写成<br>$$<br>D _ { K L } ( p | q ) = -H(p)-\sum _ { i = 1 } ^ { N }p \left( x _ { i } \right)\log q \left( x _ { i } \right)<br>$$<br>在神经网络训练中，我们要训练的是<br>$$<br>q ( x _ { i })<br>$$<br>使得其与真实事件的分布越接近越好，也就是说在神经网络的训练中，相对熵会变的部分只有后面的部分，我们希望它越小越好，而前面的那部分是不变的。因此我们可以把后面的部分单独取出来，那部分就是交叉熵，写作：<br>$$<br>H(p，q) = -\sum _ { i = 1 } ^ { N }p \left( x _ { i } \right)\log q \left( x _ { i } \right)<br>$$<br>这就是我们经常在神经网络训练中看到的交叉熵损失函数。如果要了解它的内涵，要回头去看相对熵。</p>
 ]]></content>
       <categories>
-        <category>建站</category>
+        <category>人工智能</category>
       </categories>
       <tags>
-        <tag>-技术</tag>
+        <tag>-人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -1410,19 +1423,6 @@
 <p>因为y求导为y(y-1)所以趋近于0或1时上述倒数趋近于零，梯度弥散。</p>
 <p><img src="/../images/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BA%A4%E5%8F%89%E7%86%B5%E8%83%BD%E4%BD%9C%E4%B8%BA%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E5%BC%A5%E8%A1%A5%E4%BA%86%E5%B9%B3%E6%96%B9%E5%B7%AE%E6%8D%9F%E5%A4%B1%E4%BB%80%E4%B9%88%E7%BC%BA%E9%99%B7/20180924084812961" alt="img"></p>
 <p>与sigmoid导数无关，从而避免了梯度弥散。</p>
-]]></content>
-      <categories>
-        <category>人工智能</category>
-      </categories>
-      <tags>
-        <tag>-人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>交叉熵</title>
-    <url>/post/ea101373.html</url>
-    <content><![CDATA[<p>我们简单介绍了相对熵的概念，知道了相对熵可以用来表达真实事件和理论拟合出来的事件之间的差异。</p>
-<p>相对熵的公式如下：<br>$$<br>D _ { K L } ( p | q ) = \sum _ { i = 1 } ^ { N }p \left( x _ { i } \right)\log p \left( x _ { i } \right)-\sum _ { i = 1 } ^ { N }p \left( x _ { i } \right)\log q \left( x _ { i } \right)<br>$$<br>可以看到前面一项是真实事件的信息熵取反，我们可以直接写成<br>$$<br>D _ { K L } ( p | q ) = -H(p)-\sum _ { i = 1 } ^ { N }p \left( x _ { i } \right)\log q \left( x _ { i } \right)<br>$$<br>在神经网络训练中，我们要训练的是<br>$$<br>q ( x _ { i })<br>$$<br>使得其与真实事件的分布越接近越好，也就是说在神经网络的训练中，相对熵会变的部分只有后面的部分，我们希望它越小越好，而前面的那部分是不变的。因此我们可以把后面的部分单独取出来，那部分就是交叉熵，写作：<br>$$<br>H(p，q) = -\sum _ { i = 1 } ^ { N }p \left( x _ { i } \right)\log q \left( x _ { i } \right)<br>$$<br>这就是我们经常在神经网络训练中看到的交叉熵损失函数。如果要了解它的内涵，要回头去看相对熵。</p>
 ]]></content>
       <categories>
         <category>人工智能</category>
@@ -1497,22 +1497,6 @@
       </tags>
   </entry>
   <entry>
-    <title>信息熵</title>
-    <url>/post/4c350e9d.html</url>
-    <content><![CDATA[<p>我们简单介绍了<a href="https://aichn.cn/post/6375c8f0.html">香农信息量</a>的概念，由香农信息量我们可以知道对于一个已知概率的事件，我们需要多少的数据量能完整地把它表达清楚，不与外界产生歧义。但对于整个系统而言，其实我们更加关心的是表达系统整体所需要的信息量。比如我们上面举例的aaBaaaVaaaaa这段字母，虽然B和V的香农信息量比较大，但他们出现的次数明显要比a少很多，因此我们需要有一个方法来评估整体系统的信息量。</p>
-<p>相信你可以很容易想到利用期望这个东西，因此评估的方法可以是：“事件香农信息量×事件概率”的累加。这也正是信息熵的概念。</p>
-<p>如aaBaaaVaaaaa这段字母，信息熵为：<br>$$<br>-\frac{5}{6}log_2\frac{5}{6}-2×\frac{1}{12}log_2\frac{1}{12}=0.817<br>$$<br>abBcdeVfhgim这段字母，信息熵为：<br>$$<br>-12×\frac{1}{12}log_2\frac{1}{12}=3.585<br>$$<br>从数值上可以很直观地看出，第二段字母信息量大，和观察相一致。</p>
-<p>对于连续型随机变量，信息熵公式变为积分的形式，如下：</p>
-<p>$$<br>H ( p ) = H ( X ) = \mathrm { E } _ { x \sim p ( x ) } [ - \log p ( x ) ] = - \int p ( x ) \log p ( x ) d x<br>$$</p>
-]]></content>
-      <categories>
-        <category>人工智能</category>
-      </categories>
-      <tags>
-        <tag>-人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用python来访问Hadoop HDFS存储实现文件的操作</title>
     <url>/post/2073f49.html</url>
     <content><![CDATA[<h2 id="使用python来访问Hadoop-HDFS存储实现文件的操作"><a href="#使用python来访问Hadoop-HDFS存储实现文件的操作" class="headerlink" title="使用python来访问Hadoop HDFS存储实现文件的操作"></a>使用python来访问Hadoop HDFS存储实现文件的操作</h2><p>在调试环境下，咱们用hadoop提供的shell接口测试增加删除查看，但是不利于复杂的逻辑编程</p>
@@ -1560,30 +1544,68 @@
       </tags>
   </entry>
   <entry>
-    <title>共轭函数</title>
-    <url>/post/e66f8853.html</url>
-    <content><![CDATA[<p>共轭函数在最近火的不行的Gan生成对抗神经网络进阶版本的数学推理中有着神奇的作用，因此在这边记录下。</p>
-<p>共轭函数的定义为：<br>$$<br>f ^ { * } ( t ) = \max _ { x \in \operatorname { dom } ( f ) } { x t - f ( x ) }<br>$$<br>当然如果去百度它不是这么写的，但这么写和一般的写法等价。</p>
-<p>这个公式的<br>$$<br>x \in \operatorname { dom } ( f )<br>$$<br>表示x要在f的定义域内取值，这个蛮好理解的，不在定义域内就算不了。</p>
-<p>那它具体在干一件什么事情呢？</p>
-<p>可以看到式子的自变量是t，而当t定住后，式子希望在定义域内找到一个x使得右边大括号内的式子取得最大值。</p>
-<p>它的物理意义是什么呢？</p>
-<p>可以看到当t定住的时候，式子其实变成了y=xt−f(x)，如果高兴也可以再把左右拆开，这样就会发现左边其实是以t为斜率的一根直线，而右边则是x的函数，那么max这货就是要找到原函数f(x)和以t为斜率的直线的最大距离点对应的<br>$$<br>x ^ { * }。<br>$$</p>
-<p>说实在的，上面的解释我一看就懂，但完全不知所谓，心中十万只草泥马。最核心的问题在于，这个物理意义一点都不直观，而且这个公式怎么来的也不大清楚，感觉就是数学家随便写出来，然后脑袋一拍发现这东西有奇效！后面百度发现错怪了数学家，是物理学家搞出来的。。。我相信肯定有原因让他们把式子列成这样，但没查到，如果有知道的老哥请告诉我，万分感谢！</p>
-<p>那么来看看它有什么性质好了。有两个比较重要的：</p>
-<p>1.无论f(t)是不是凸函数，<br>$$<br>f ^ { * } ( t )<br>$$<br>是凸函数。</p>
-<p>2.凸函数的共轭函数的共轭函数是它自己。</p>
-<p>第一点其实蛮不明显的，尤其是看着<br>$$<br>f ^ { * } ( t )<br>$$<br>的表达式一晚上我也没想到怎么证明，但看到百度百科直接写”很明显能看出它是凸函数”然后半句解释都没有，而有些博客文章直接把这句话就抄了。。。给跪了。</p>
-<p>那为什么呢？<br><img src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108162456372.png" alt="在这里插入图片描述"><br>上面是李宏毅大神的视频给出的图，因为在式子中tt是自变量，因此{xt−f(x)}其实是一堆的直线。而我们取定一个t要使得式子最大，其实就是做t轴的垂线，看看和垂线相交的最上面的点是哪个那就是最大值。<br><img src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108163002916.png" alt="在这里插入图片描述"></p>
-<p>这样当我们跑完整个t之后，就可以得到<br>$$<br>f ^ { * } ( t )<br>$$<br>的表达式。</p>
-<p><img src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108163103218.png" alt="在这里插入图片描述"><br>这个时候通过观察可以直接看出，<br>$$<br>f ^ { * } ( t )<br>$$<br>的斜率一定是不断增大的！那么它就是凸函数。当然从图上看可能会觉得虽然斜率是一直在增大，但在有些地方是不变的，这里无法直接从图上看出它是严格的凸函数，因此在这里存疑。但凸函数这点是一定的。</p>
-<p>再来看第二点。假设现在t固定，而我们要求xt−f(x)的最大值其实就是要求式子对x求导后为0的位置。很容易可以算出最大值在f′(x)=t时取得。而因为f(x)是凸函数，因此只有唯一的一个x使得f′(x)=t，也就是说从原函数到其共轭函数x和t是一对一一对应关系。又从性质一我们知道反过来也是成立的。结合两个函数都是凸函数且变量互相一一对应，可以得出凸函数的共轭函数的共轭函数一定是它自己，如下图：<br><img src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108163723173.png" alt="在这里插入图片描述"><br>假设<br>$$<br>x_?\not=x_1<br>$$<br>则虚线部分将存在无映射的情况，与已知相背。当然这解释有点抽象，但实在是水平有限，不知道怎么从公式本身来证明这件事情。</p>
+    <title>同时使用gitee和github</title>
+    <url>/post/22309.html</url>
+    <content><![CDATA[<p>Git共有三个级别的config文件，分别是：</p>
+<ul>
+<li><strong>system</strong> ：%GitPath%\mingw64\etc\gitconfig文件</li>
+<li><strong>global</strong>：$home.gitconfig文件</li>
+<li><strong>local</strong>：%RepoPath%.git\config文件</li>
+</ul>
+<p>其中<code>%GitPath%</code>为Git的安装路径，<code>%RepoPath%</code>为某仓库的本地路径。</p>
+<ol>
+<li>删掉全局配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global --list</span><br><span class="line">$ git config --global --unset user.name &quot;你的名字&quot;</span><br><span class="line">$ git config --global --unset user.email &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>为不同账户配置ssh秘钥</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;.ssh 														# cd到当前用户的.ssh文件夹</span><br><span class="line">ssh-keygen -t rsa -f ~&#x2F;.ssh&#x2F;id_rsa.gitee -C &quot;注册gitee邮箱&quot;		#为不同秘钥指定名称</span><br><span class="line">ssh-keygen -t rsa -f ~&#x2F;.ssh&#x2F;id_rsa.github -C &quot;注册github邮箱&quot;</span><br></pre></td></tr></table></figure>
+<p>完成后会在~/.ssh / 目录下生成以下文件：</p>
+<ul>
+<li>id_rsa.github</li>
+<li>id_rsa.github.pub</li>
+<li>id_rsa.gitee</li>
+<li>id_rsa.gitee.pub</li>
+</ul>
+<p>复制公钥分别在github和gitee中设置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat id_rsa.github.pub</span><br><span class="line">cat id_rsa.gitee.pub</span><br></pre></td></tr></table></figure>
+<p>添加新的私钥</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ ssh-agent bash</span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa.github</span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa.gitee	</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>进行全局配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">touch ~&#x2F;.ssh&#x2F;config    </span><br><span class="line"></span><br><span class="line"># gitee</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;id_rsa.gitee</span><br><span class="line"></span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;id_rsa.github</span><br></pre></td></tr></table></figure>
+<p>Host 它涵盖了下面一个段的配置，我们可以通过他来替代将要连接的服务器地址。 这里可以使用任意字段或通配符。 当ssh的时候如果服务器地址能匹配上这里Host指定的值，则Host下面指定的HostName将被作为最终的服务器地址使用，并且将使用该Host字段下面配置的所有自定义配置来覆盖默认的/etc/ssh/ssh_config配置信息。</p>
+<p>Port 自定义的端口。默认为22，可不配置</p>
+<p>User 自定义的用户名，默认为git，可不配置</p>
+<p>HostName 真正连接的服务器地址</p>
+<p>PreferredAuthentications 指定优先使用哪种方式验证，支持密码和秘钥验证方式</p>
+<p>IdentityFile 指定本次连接使用的密钥文件</p>
+<ol start="4">
+<li>测试连接</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line">Hi yourname! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line">ssh -T git@gitee.com</span><br><span class="line">Hi yourname! You&#39;ve successfully authenticated, but GITEE.COM does not provide shell access.</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>hexo博客仓库</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi .depoly_git&#x2F;.git&#x2F;config 增加</span><br><span class="line"></span><br><span class="line">[user]</span><br><span class="line">	name &#x3D; username</span><br><span class="line">	email &#x3D; email</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>针对不同的项目仓库</li>
+</ol>
+<p>增加本地配置，在每个仓库的<code>.git/config</code>中进行配置不同的用户，以及其他的配置信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --local user.name &#39;github&#x2F;gitee账号名&#39;</span><br><span class="line">$ git config --local user.email &#39;github&#x2F;gitee账号邮箱&#39;</span><br></pre></td></tr></table></figure>
+<p>–global是在全局配置文件中设置</p>
+<p>–local 是针对当前仓库的项目进行设置</p>
+<p>参考文章：</p>
+<p><a href="https://juejin.im/post/6844904180633600007">https://juejin.im/post/6844904180633600007</a></p>
+<p><a href="https://www.jianshu.com/p/68578d52470c">https://www.jianshu.com/p/68578d52470c</a></p>
 ]]></content>
       <categories>
-        <category>人工智能</category>
+        <category>其他</category>
       </categories>
       <tags>
-        <tag>-人工智能</tag>
+        <tag>-其他</tag>
       </tags>
   </entry>
   <entry>
@@ -1764,68 +1786,40 @@
       </tags>
   </entry>
   <entry>
-    <title>同时使用gitee和github</title>
-    <url>/post/22309.html</url>
-    <content><![CDATA[<p>Git共有三个级别的config文件，分别是：</p>
-<ul>
-<li><strong>system</strong> ：%GitPath%\mingw64\etc\gitconfig文件</li>
-<li><strong>global</strong>：$home.gitconfig文件</li>
-<li><strong>local</strong>：%RepoPath%.git\config文件</li>
-</ul>
-<p>其中<code>%GitPath%</code>为Git的安装路径，<code>%RepoPath%</code>为某仓库的本地路径。</p>
-<ol>
-<li>删掉全局配置</li>
+    <title>如何让Win7开机不输入密码直接登录的方法</title>
+    <url>/post/65be3812.html</url>
+    <content><![CDATA[<p>电脑是win7的系统，然而也很少别人来玩，但是为了安全还是设置了一个密码，但是每次开机后都需要在本地登录的时候填写密码，那么该如何让Win7开机不输入密码直接登录呢？</p>
+<h2 id="方法-步骤"><a href="#方法-步骤" class="headerlink" title="方法/步骤"></a>方法/步骤</h2><ol>
+<li><p>点击屏幕左下角开始菜单</p>
+<p> 点击运行，若没有运行，那么按win+R键也可以</p>
+<p> 在运行的“打开”一行中输入“netplwiz” 点击”确定“</p>
+<p> 在弹出的窗口中点中你需要输入密码的那个账号，默认是Administrator 点中之后该帐户背景会变为蓝色</p>
+<p> 去掉”要使用本机，用户必须输入用户名和密码“前面框框中的勾。</p>
+<p> 最后点击”应用“–在弹出的窗口中输入你电脑的登录密码   最后点击”确定“—“确定” 重启后生效。</p>
+</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global --list</span><br><span class="line">$ git config --global --unset user.name &quot;你的名字&quot;</span><br><span class="line">$ git config --global --unset user.email &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>为不同账户配置ssh秘钥</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ~&#x2F;.ssh 														# cd到当前用户的.ssh文件夹</span><br><span class="line">ssh-keygen -t rsa -f ~&#x2F;.ssh&#x2F;id_rsa.gitee -C &quot;注册gitee邮箱&quot;		#为不同秘钥指定名称</span><br><span class="line">ssh-keygen -t rsa -f ~&#x2F;.ssh&#x2F;id_rsa.github -C &quot;注册github邮箱&quot;</span><br></pre></td></tr></table></figure>
-<p>完成后会在~/.ssh / 目录下生成以下文件：</p>
-<ul>
-<li>id_rsa.github</li>
-<li>id_rsa.github.pub</li>
-<li>id_rsa.gitee</li>
-<li>id_rsa.gitee.pub</li>
-</ul>
-<p>复制公钥分别在github和gitee中设置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat id_rsa.github.pub</span><br><span class="line">cat id_rsa.gitee.pub</span><br></pre></td></tr></table></figure>
-<p>添加新的私钥</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ ssh-agent bash</span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa.github</span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa.gitee	</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>进行全局配置</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">touch ~&#x2F;.ssh&#x2F;config    </span><br><span class="line"></span><br><span class="line"># gitee</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;id_rsa.gitee</span><br><span class="line"></span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;id_rsa.github</span><br></pre></td></tr></table></figure>
-<p>Host 它涵盖了下面一个段的配置，我们可以通过他来替代将要连接的服务器地址。 这里可以使用任意字段或通配符。 当ssh的时候如果服务器地址能匹配上这里Host指定的值，则Host下面指定的HostName将被作为最终的服务器地址使用，并且将使用该Host字段下面配置的所有自定义配置来覆盖默认的/etc/ssh/ssh_config配置信息。</p>
-<p>Port 自定义的端口。默认为22，可不配置</p>
-<p>User 自定义的用户名，默认为git，可不配置</p>
-<p>HostName 真正连接的服务器地址</p>
-<p>PreferredAuthentications 指定优先使用哪种方式验证，支持密码和秘钥验证方式</p>
-<p>IdentityFile 指定本次连接使用的密钥文件</p>
-<ol start="4">
-<li>测试连接</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line">Hi yourname! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line">ssh -T git@gitee.com</span><br><span class="line">Hi yourname! You&#39;ve successfully authenticated, but GITEE.COM does not provide shell access.</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>hexo博客仓库</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi .depoly_git&#x2F;.git&#x2F;config 增加</span><br><span class="line"></span><br><span class="line">[user]</span><br><span class="line">	name &#x3D; username</span><br><span class="line">	email &#x3D; email</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li>针对不同的项目仓库</li>
-</ol>
-<p>增加本地配置，在每个仓库的<code>.git/config</code>中进行配置不同的用户，以及其他的配置信息</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --local user.name &#39;github&#x2F;gitee账号名&#39;</span><br><span class="line">$ git config --local user.email &#39;github&#x2F;gitee账号邮箱&#39;</span><br></pre></td></tr></table></figure>
-<p>–global是在全局配置文件中设置</p>
-<p>–local 是针对当前仓库的项目进行设置</p>
-<p>参考文章：</p>
-<p><a href="https://juejin.im/post/6844904180633600007">https://juejin.im/post/6844904180633600007</a></p>
-<p><a href="https://www.jianshu.com/p/68578d52470c">https://www.jianshu.com/p/68578d52470c</a></p>
 ]]></content>
       <categories>
-        <category>其他</category>
+        <category>win7</category>
       </categories>
       <tags>
-        <tag>-其他</tag>
+        <tag>-win7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>信息熵</title>
+    <url>/post/4c350e9d.html</url>
+    <content><![CDATA[<p>我们简单介绍了<a href="https://aichn.cn/post/6375c8f0.html">香农信息量</a>的概念，由香农信息量我们可以知道对于一个已知概率的事件，我们需要多少的数据量能完整地把它表达清楚，不与外界产生歧义。但对于整个系统而言，其实我们更加关心的是表达系统整体所需要的信息量。比如我们上面举例的aaBaaaVaaaaa这段字母，虽然B和V的香农信息量比较大，但他们出现的次数明显要比a少很多，因此我们需要有一个方法来评估整体系统的信息量。</p>
+<p>相信你可以很容易想到利用期望这个东西，因此评估的方法可以是：“事件香农信息量×事件概率”的累加。这也正是信息熵的概念。</p>
+<p>如aaBaaaVaaaaa这段字母，信息熵为：<br>$$<br>-\frac{5}{6}log_2\frac{5}{6}-2×\frac{1}{12}log_2\frac{1}{12}=0.817<br>$$<br>abBcdeVfhgim这段字母，信息熵为：<br>$$<br>-12×\frac{1}{12}log_2\frac{1}{12}=3.585<br>$$<br>从数值上可以很直观地看出，第二段字母信息量大，和观察相一致。</p>
+<p>对于连续型随机变量，信息熵公式变为积分的形式，如下：</p>
+<p>$$<br>H ( p ) = H ( X ) = \mathrm { E } _ { x \sim p ( x ) } [ - \log p ( x ) ] = - \int p ( x ) \log p ( x ) d x<br>$$</p>
+]]></content>
+      <categories>
+        <category>人工智能</category>
+      </categories>
+      <tags>
+        <tag>-人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -1873,27 +1867,6 @@
       </tags>
   </entry>
   <entry>
-    <title>如何让Win7开机不输入密码直接登录的方法</title>
-    <url>/post/65be3812.html</url>
-    <content><![CDATA[<p>电脑是win7的系统，然而也很少别人来玩，但是为了安全还是设置了一个密码，但是每次开机后都需要在本地登录的时候填写密码，那么该如何让Win7开机不输入密码直接登录呢？</p>
-<h2 id="方法-步骤"><a href="#方法-步骤" class="headerlink" title="方法/步骤"></a>方法/步骤</h2><ol>
-<li><p>点击屏幕左下角开始菜单</p>
-<p> 点击运行，若没有运行，那么按win+R键也可以</p>
-<p> 在运行的“打开”一行中输入“netplwiz” 点击”确定“</p>
-<p> 在弹出的窗口中点中你需要输入密码的那个账号，默认是Administrator 点中之后该帐户背景会变为蓝色</p>
-<p> 去掉”要使用本机，用户必须输入用户名和密码“前面框框中的勾。</p>
-<p> 最后点击”应用“–在弹出的窗口中输入你电脑的登录密码   最后点击”确定“—“确定” 重启后生效。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>win7</category>
-      </categories>
-      <tags>
-        <tag>-win7</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安装 - LNMP一键安装包</title>
     <url>/post/398958a0.html</url>
     <content><![CDATA[<p> <a href="https://lnmp.org/install.html">https://lnmp.org/install.html</a></p>
@@ -1926,6 +1899,21 @@
 <p><strong>6、eAccelerator、xcache、memcached、imageMagick、ionCube、redis、opcache的安装</strong><br><a href="https://lnmp.org/faq/addons.html">https://lnmp.org/faq/addons.html</a></p>
 <p><strong>7、LNMP相关软件目录及文件位置</strong><br><a href="https://lnmp.org/faq/lnmp-software-list.html">https://lnmp.org/faq/lnmp-software-list.html</a></p>
 <p><strong>8、LNMP状态管理命令</strong><br><a href="https://lnmp.org/faq/lnmp-status-manager.html">https://lnmp.org/faq/lnmp-status-manager.html</a></p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>-技术</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>拷贝网页上的公式到本地</title>
+    <url>/post/d1234036.html</url>
+    <content><![CDATA[<h3 id="有时在写文章或者搞别的东西的时候需要用到别人的公式，然而一般这些公式都是复制不了的，如果这个时候一个个去打可以说相当要命。然而我们可以通过：mathpix这个神器轻轻松松解决这个问题。有了它之后，在哪看到公式直接截图就可以帮我们翻译成latex公式。"><a href="#有时在写文章或者搞别的东西的时候需要用到别人的公式，然而一般这些公式都是复制不了的，如果这个时候一个个去打可以说相当要命。然而我们可以通过：mathpix这个神器轻轻松松解决这个问题。有了它之后，在哪看到公式直接截图就可以帮我们翻译成latex公式。" class="headerlink" title="有时在写文章或者搞别的东西的时候需要用到别人的公式，然而一般这些公式都是复制不了的，如果这个时候一个个去打可以说相当要命。然而我们可以通过：mathpix这个神器轻轻松松解决这个问题。有了它之后，在哪看到公式直接截图就可以帮我们翻译成latex公式。"></a>有时在写文章或者搞别的东西的时候需要用到别人的公式，然而一般这些公式都是复制不了的，如果这个时候一个个去打可以说相当要命。然而我们可以通过：mathpix这个神器轻轻松松解决这个问题。有了它之后，在哪看到公式直接截图就可以帮我们翻译成latex公式。<img src="/../images/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/20190227174410743.png" alt="img"></h3><h3 id="就像上面这个，一截就变成了下面的这一串latex公式描述"><a href="#就像上面这个，一截就变成了下面的这一串latex公式描述" class="headerlink" title="就像上面这个，一截就变成了下面的这一串latex公式描述"></a>就像上面这个，一截就变成了下面的这一串latex公式描述</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\alpha &#x3D; - \arctan \left( \frac &#123; z _ &#123; 2 &#125; \sin \vartheta _ &#123; 2 &#125; - z _ &#123; 1 &#125; \sin \vartheta _ &#123; 1 &#125; &#125; &#123; z _ &#123; 2 &#125; \cos \vartheta _ &#123; 2 &#125; - z _ &#123; 1 &#125; \cos \vartheta _ &#123; 1 &#125; &#125; \right)</span><br></pre></td></tr></table></figure>
+<h3 id="接着，我们可以把这段描述放到Typora等markdown工具中，公式又将美好的出现在我们面前。"><a href="#接着，我们可以把这段描述放到Typora等markdown工具中，公式又将美好的出现在我们面前。" class="headerlink" title="接着，我们可以把这段描述放到Typora等markdown工具中，公式又将美好的出现在我们面前。"></a>接着，我们可以把这段描述放到Typora等markdown工具中，公式又将美好的出现在我们面前。</h3><h3 id="当然到这里其实是不完整的。因为word虽然也可以支持latex公式，但还是比较麻烦。有没有方法能直接将上面的代码转成word直接能识别的格式呢？"><a href="#当然到这里其实是不完整的。因为word虽然也可以支持latex公式，但还是比较麻烦。有没有方法能直接将上面的代码转成word直接能识别的格式呢？" class="headerlink" title="当然到这里其实是不完整的。因为word虽然也可以支持latex公式，但还是比较麻烦。有没有方法能直接将上面的代码转成word直接能识别的格式呢？"></a>当然到这里其实是不完整的。因为word虽然也可以支持latex公式，但还是比较麻烦。有没有方法能直接将上面的代码转成word直接能识别的格式呢？</h3><h3 id="有。还是以Typora为例，如下图所示选择“复制到-MS-Word”"><a href="#有。还是以Typora为例，如下图所示选择“复制到-MS-Word”" class="headerlink" title="有。还是以Typora为例，如下图所示选择“复制到 MS Word”"></a>有。还是以Typora为例，如下图所示选择“复制到 MS Word”</h3><p><img src="/../images/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/20190227174837162.png" alt="img"></p>
+<h3 id="在word或者PowerPoint中右键选择"><a href="#在word或者PowerPoint中右键选择" class="headerlink" title="在word或者PowerPoint中右键选择"></a>在word或者PowerPoint中右键选择</h3><p><img src="/../images/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/20190227175130769.png" alt="img"></p>
+<h3 id="公式就优雅的过来啦！！！"><a href="#公式就优雅的过来啦！！！" class="headerlink" title="公式就优雅的过来啦！！！"></a>公式就优雅的过来啦！！！</h3><p><img src="/../images/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/20190227175214295.png" alt="img"></p>
 ]]></content>
       <categories>
         <category>其他</category>
@@ -1990,36 +1978,6 @@
       </tags>
   </entry>
   <entry>
-    <title>拷贝网页上的公式到本地</title>
-    <url>/post/d1234036.html</url>
-    <content><![CDATA[<h3 id="有时在写文章或者搞别的东西的时候需要用到别人的公式，然而一般这些公式都是复制不了的，如果这个时候一个个去打可以说相当要命。然而我们可以通过：mathpix这个神器轻轻松松解决这个问题。有了它之后，在哪看到公式直接截图就可以帮我们翻译成latex公式。"><a href="#有时在写文章或者搞别的东西的时候需要用到别人的公式，然而一般这些公式都是复制不了的，如果这个时候一个个去打可以说相当要命。然而我们可以通过：mathpix这个神器轻轻松松解决这个问题。有了它之后，在哪看到公式直接截图就可以帮我们翻译成latex公式。" class="headerlink" title="有时在写文章或者搞别的东西的时候需要用到别人的公式，然而一般这些公式都是复制不了的，如果这个时候一个个去打可以说相当要命。然而我们可以通过：mathpix这个神器轻轻松松解决这个问题。有了它之后，在哪看到公式直接截图就可以帮我们翻译成latex公式。"></a>有时在写文章或者搞别的东西的时候需要用到别人的公式，然而一般这些公式都是复制不了的，如果这个时候一个个去打可以说相当要命。然而我们可以通过：mathpix这个神器轻轻松松解决这个问题。有了它之后，在哪看到公式直接截图就可以帮我们翻译成latex公式。<img src="/../images/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/20190227174410743.png" alt="img"></h3><h3 id="就像上面这个，一截就变成了下面的这一串latex公式描述"><a href="#就像上面这个，一截就变成了下面的这一串latex公式描述" class="headerlink" title="就像上面这个，一截就变成了下面的这一串latex公式描述"></a>就像上面这个，一截就变成了下面的这一串latex公式描述</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\alpha &#x3D; - \arctan \left( \frac &#123; z _ &#123; 2 &#125; \sin \vartheta _ &#123; 2 &#125; - z _ &#123; 1 &#125; \sin \vartheta _ &#123; 1 &#125; &#125; &#123; z _ &#123; 2 &#125; \cos \vartheta _ &#123; 2 &#125; - z _ &#123; 1 &#125; \cos \vartheta _ &#123; 1 &#125; &#125; \right)</span><br></pre></td></tr></table></figure>
-<h3 id="接着，我们可以把这段描述放到Typora等markdown工具中，公式又将美好的出现在我们面前。"><a href="#接着，我们可以把这段描述放到Typora等markdown工具中，公式又将美好的出现在我们面前。" class="headerlink" title="接着，我们可以把这段描述放到Typora等markdown工具中，公式又将美好的出现在我们面前。"></a>接着，我们可以把这段描述放到Typora等markdown工具中，公式又将美好的出现在我们面前。</h3><h3 id="当然到这里其实是不完整的。因为word虽然也可以支持latex公式，但还是比较麻烦。有没有方法能直接将上面的代码转成word直接能识别的格式呢？"><a href="#当然到这里其实是不完整的。因为word虽然也可以支持latex公式，但还是比较麻烦。有没有方法能直接将上面的代码转成word直接能识别的格式呢？" class="headerlink" title="当然到这里其实是不完整的。因为word虽然也可以支持latex公式，但还是比较麻烦。有没有方法能直接将上面的代码转成word直接能识别的格式呢？"></a>当然到这里其实是不完整的。因为word虽然也可以支持latex公式，但还是比较麻烦。有没有方法能直接将上面的代码转成word直接能识别的格式呢？</h3><h3 id="有。还是以Typora为例，如下图所示选择“复制到-MS-Word”"><a href="#有。还是以Typora为例，如下图所示选择“复制到-MS-Word”" class="headerlink" title="有。还是以Typora为例，如下图所示选择“复制到 MS Word”"></a>有。还是以Typora为例，如下图所示选择“复制到 MS Word”</h3><p><img src="/../images/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/20190227174837162.png" alt="img"></p>
-<h3 id="在word或者PowerPoint中右键选择"><a href="#在word或者PowerPoint中右键选择" class="headerlink" title="在word或者PowerPoint中右键选择"></a>在word或者PowerPoint中右键选择</h3><p><img src="/../images/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/20190227175130769.png" alt="img"></p>
-<h3 id="公式就优雅的过来啦！！！"><a href="#公式就优雅的过来啦！！！" class="headerlink" title="公式就优雅的过来啦！！！"></a>公式就优雅的过来啦！！！</h3><p><img src="/../images/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/20190227175214295.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>-技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>整套1208-20160109_免费高速下载百度云 斐讯PSG1208刷机大合集</title>
-    <url>/post/fb16d405.html</url>
-    <content><![CDATA[<p>整套1208-20160109_免费高速下载|百度云 网盘-分享无限制</p>
-<p><a href="http://pan.baidu.com/s/1ges68Jx#path=%2F%E6%95%B4%E5%A5%971208-20160109">http://pan.baidu.com/s/1ges68Jx#path=%252F%25E6%2595%25B4%25E5%25A5%25971208-20160109</a></p>
-<p>斐讯PSG1208刷机教程<br><a href="http://pan.baidu.com/s/1bpXKlS%E9%87%8C%E9%9D%A2%E6%9C%89%E8%A7%86%E9%A2%91%E9%87%8C%E7%9A%84%E5%85%A8%E9%83%A8%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E5%B7%A5%E5%85%B7%E5%92%8Cbreed%E8%BF%98%E6%9C%89%E4%B8%80%E4%B8%AA%E5%8D%8E%E7%A1%95%E8%80%81%E6%AF%9B%E5%AD%90%E5%9B%BA%E4%BB%B6">http://pan.baidu.com/s/1bpXKlS里面有视频里的全部所需要的工具和breed还有一个华硕老毛子固件</a><br>原帖  <a href="http://forum.anywlan.com/forum.php?mod=viewthread&tid=384522&extra=page=1&filter=author&orderby=dateline">http://forum.anywlan.com/forum.p … 6orderby%3Ddateline</a><br>刷完潘多拉后</p>
-<p>在浏览器中输入192.168.1.1 密码admin 点击登入 OK 进入到路由页面<br>1 进入路由管理界面后点击左侧的“接口”，选择“WAN”。<br>2 点击“协议”选项栏里的“DHCP客户端”改为“PPPoE”,点击“切换协议”。<br>3 在“PAP/CHAP用户名”输入你宽带的用户名，“PAP/CHAP密码”输入你宽带的密码。<br>4 在当前页面点击“高级设置”,“使用网关跃点”输入“40”，点击右下角的“保存并应用”。<br>上面的是潘多拉固件普通拨号方法，接下来才是怎么多播。如果不需要多播，到此步即可结束操作。<br>5 点击左侧的”虚拟WAN接口“，“启用”前面打对钩，“虚拟接口”数量建议输入“10”，“断线自动重连”打对钩，最低在线数输入“1”，“保存并应用”。<br>6 等待15S后，点击“重新并发拨号”。<br>7 检查多拨状态，点左侧“负载均衡”，等1分钟，看看你下图的接口绿了几个就是成功多拨了几个。<br>原帖  <a href="http://www.52pojie.cn/thread-409698-1-1.html">http://www.52pojie.cn/thread-409698-1-1.html</a><br>不需要多拨的，可以刷华硕的，感觉比原厂固件好<br>地址 <a href="http://www.right.com.cn/forum/thread-161324-1-1.html">http://www.right.com.cn/forum/thread-161324-1-1.html</a><br>更新更多斐讯k1 斐讯1208固件  <a href="http://www.right.com.cn/forum/forum.php?mod=viewthread&tid=181006&highlight=1208">http://www.right.com.cn/forum/fo … &amp;highlight=1208</a><br> 下载地址 <a href="http://pan.baidu.com/s/1skl0VIP">http://pan.baidu.com/s/1skl0VIP</a></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>-技术</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>教你如何修改win7旗舰版系统远程桌面端口</title>
     <url>/post/6e092dae.html</url>
     <content><![CDATA[<p>**<a href="http://www.windows7en.com/">win7旗舰版</a>**系统中的远程终端服务是一项功能非常强大的服务，同时也成了入侵者长驻主机的通道，入侵者可以利用一些手段得到管理员账号和密码并入侵主机。下面，墨染暖心教你如何通过修改win7旗舰版远程桌面默认端口，防范黑客入侵。</p>
@@ -2042,6 +2000,21 @@
       </categories>
       <tags>
         <tag>-win7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>整套1208-20160109_免费高速下载百度云 斐讯PSG1208刷机大合集</title>
+    <url>/post/fb16d405.html</url>
+    <content><![CDATA[<p>整套1208-20160109_免费高速下载|百度云 网盘-分享无限制</p>
+<p><a href="http://pan.baidu.com/s/1ges68Jx#path=%2F%E6%95%B4%E5%A5%971208-20160109">http://pan.baidu.com/s/1ges68Jx#path=%252F%25E6%2595%25B4%25E5%25A5%25971208-20160109</a></p>
+<p>斐讯PSG1208刷机教程<br><a href="http://pan.baidu.com/s/1bpXKlS%E9%87%8C%E9%9D%A2%E6%9C%89%E8%A7%86%E9%A2%91%E9%87%8C%E7%9A%84%E5%85%A8%E9%83%A8%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E5%B7%A5%E5%85%B7%E5%92%8Cbreed%E8%BF%98%E6%9C%89%E4%B8%80%E4%B8%AA%E5%8D%8E%E7%A1%95%E8%80%81%E6%AF%9B%E5%AD%90%E5%9B%BA%E4%BB%B6">http://pan.baidu.com/s/1bpXKlS里面有视频里的全部所需要的工具和breed还有一个华硕老毛子固件</a><br>原帖  <a href="http://forum.anywlan.com/forum.php?mod=viewthread&tid=384522&extra=page=1&filter=author&orderby=dateline">http://forum.anywlan.com/forum.p … 6orderby%3Ddateline</a><br>刷完潘多拉后</p>
+<p>在浏览器中输入192.168.1.1 密码admin 点击登入 OK 进入到路由页面<br>1 进入路由管理界面后点击左侧的“接口”，选择“WAN”。<br>2 点击“协议”选项栏里的“DHCP客户端”改为“PPPoE”,点击“切换协议”。<br>3 在“PAP/CHAP用户名”输入你宽带的用户名，“PAP/CHAP密码”输入你宽带的密码。<br>4 在当前页面点击“高级设置”,“使用网关跃点”输入“40”，点击右下角的“保存并应用”。<br>上面的是潘多拉固件普通拨号方法，接下来才是怎么多播。如果不需要多播，到此步即可结束操作。<br>5 点击左侧的”虚拟WAN接口“，“启用”前面打对钩，“虚拟接口”数量建议输入“10”，“断线自动重连”打对钩，最低在线数输入“1”，“保存并应用”。<br>6 等待15S后，点击“重新并发拨号”。<br>7 检查多拨状态，点左侧“负载均衡”，等1分钟，看看你下图的接口绿了几个就是成功多拨了几个。<br>原帖  <a href="http://www.52pojie.cn/thread-409698-1-1.html">http://www.52pojie.cn/thread-409698-1-1.html</a><br>不需要多拨的，可以刷华硕的，感觉比原厂固件好<br>地址 <a href="http://www.right.com.cn/forum/thread-161324-1-1.html">http://www.right.com.cn/forum/thread-161324-1-1.html</a><br>更新更多斐讯k1 斐讯1208固件  <a href="http://www.right.com.cn/forum/forum.php?mod=viewthread&tid=181006&highlight=1208">http://www.right.com.cn/forum/fo … &amp;highlight=1208</a><br> 下载地址 <a href="http://pan.baidu.com/s/1skl0VIP">http://pan.baidu.com/s/1skl0VIP</a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>-技术</tag>
       </tags>
   </entry>
   <entry>
@@ -2088,32 +2061,30 @@
       </tags>
   </entry>
   <entry>
-    <title>机器学习经典算法之-----最小二乘法</title>
-    <url>/post/46e20187.html</url>
-    <content><![CDATA[<p>最小二乘法</p>
-<p>  我们以最简单的一元线性模型来解释最小二乘法。什么是一元线性模型呢？ 监督学习中，如果预测的变量是离散的，我们称其为分类（如决策树，支持向量机等），如果预测的变量是连续的，我们称其为回归。回归分析中，如果只包括一个自变量和一个因变量，且二者的关系可用一条直线近似表示，这种回归分析称为一元线性回归分析。如果回归分析中包括两个或两个以上的自变量，且因变量和自变量之间是线性关系，则称为多元线性回归分析。对于二维空间线性是一条直线；对于三维空间线性是一个平面，对于多维空间线性是一个超平面…</p>
-<p>  对于一元线性回归模型, 假设从总体中获取了n组观察值（X1，Y1），（X2，Y2）， …，（Xn，Yn）。对于平面中的这n个点，可以使用无数条曲线来拟合。要求样本回归函数尽可能好地拟合这组值。综合起来看，这条直线处于样本数据的中心位置最合理。 选择最佳拟合曲线的标准可以确定为：使总的拟合误差（即总残差）达到最小。有以下三个标准可以选择：</p>
-<p>​    （1）用“残差和最小”确定直线位置是一个途径。但很快发现计算“残差和”存在相互抵消的问题。<br>​    （2）用“残差绝对值和最小”确定直线位置也是一个途径。但绝对值的计算比较麻烦。<br>​    （3）最小二乘法的原则是以“残差平方和最小”确定直线位置。用最小二乘法除了计算比较方便外，得到的估计量还具有优良特性。这种方法对异常值非常敏感。</p>
-<p>　 最常用的是普通最小二乘法（ Ordinary  Least Square，OLS）：所选择的回归模型应该使所有观察值的残差平方和达到最小。（Q为残差平方和）- 即采用平方损失函数。</p>
-<p> 样本回归模型：</p>
-<p>​         <img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428434_7303.jpg" alt="img">          其中ei为样本（Xi, Yi）的误差</p>
-<p>  平方损失函数：</p>
-<p>​           <img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428515_1582.jpg" alt="img"></p>
-<p>  则通过Q最小确定这条直线，即确定<img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428590_9906.jpg" alt="img">，以<img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428601_4150.jpg" alt="img">为变量，把它们看作是Q的函数，就变成了一个求极值的问题，可以通过求导数得到。求Q对两个待估参数的偏导数：</p>
-<p>​          <img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428700_9699.jpg" alt="img">  </p>
-<p>  根据数学知识我们知道，函数的极值点为偏导为0的点。</p>
-<p>  解得：</p>
-<p>​          <img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428824_3244.jpg" alt="img"></p>
-<p>这就是最小二乘法的解法，就是求得平方损失函数的极值点。</p>
-<p>下面通过一个例子来说明最小二乘法：</p>
-<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/20160926100546115" alt="img"></p>
-<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/20160926100605037" alt="img"></p>
+    <title>共轭函数</title>
+    <url>/post/e66f8853.html</url>
+    <content><![CDATA[<p>共轭函数在最近火的不行的Gan生成对抗神经网络进阶版本的数学推理中有着神奇的作用，因此在这边记录下。</p>
+<p>共轭函数的定义为：<br>$$<br>f ^ { * } ( t ) = \max _ { x \in \operatorname { dom } ( f ) } { x t - f ( x ) }<br>$$<br>当然如果去百度它不是这么写的，但这么写和一般的写法等价。</p>
+<p>这个公式的<br>$$<br>x \in \operatorname { dom } ( f )<br>$$<br>表示x要在f的定义域内取值，这个蛮好理解的，不在定义域内就算不了。</p>
+<p>那它具体在干一件什么事情呢？</p>
+<p>可以看到式子的自变量是t，而当t定住后，式子希望在定义域内找到一个x使得右边大括号内的式子取得最大值。</p>
+<p>它的物理意义是什么呢？</p>
+<p>可以看到当t定住的时候，式子其实变成了y=xt−f(x)，如果高兴也可以再把左右拆开，这样就会发现左边其实是以t为斜率的一根直线，而右边则是x的函数，那么max这货就是要找到原函数f(x)和以t为斜率的直线的最大距离点对应的<br>$$<br>x ^ { * }。<br>$$</p>
+<p>说实在的，上面的解释我一看就懂，但完全不知所谓，心中十万只草泥马。最核心的问题在于，这个物理意义一点都不直观，而且这个公式怎么来的也不大清楚，感觉就是数学家随便写出来，然后脑袋一拍发现这东西有奇效！后面百度发现错怪了数学家，是物理学家搞出来的。。。我相信肯定有原因让他们把式子列成这样，但没查到，如果有知道的老哥请告诉我，万分感谢！</p>
+<p>那么来看看它有什么性质好了。有两个比较重要的：</p>
+<p>1.无论f(t)是不是凸函数，<br>$$<br>f ^ { * } ( t )<br>$$<br>是凸函数。</p>
+<p>2.凸函数的共轭函数的共轭函数是它自己。</p>
+<p>第一点其实蛮不明显的，尤其是看着<br>$$<br>f ^ { * } ( t )<br>$$<br>的表达式一晚上我也没想到怎么证明，但看到百度百科直接写”很明显能看出它是凸函数”然后半句解释都没有，而有些博客文章直接把这句话就抄了。。。给跪了。</p>
+<p>那为什么呢？<br><img src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108162456372.png" alt="在这里插入图片描述"><br>上面是李宏毅大神的视频给出的图，因为在式子中tt是自变量，因此{xt−f(x)}其实是一堆的直线。而我们取定一个t要使得式子最大，其实就是做t轴的垂线，看看和垂线相交的最上面的点是哪个那就是最大值。<br><img src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108163002916.png" alt="在这里插入图片描述"></p>
+<p>这样当我们跑完整个t之后，就可以得到<br>$$<br>f ^ { * } ( t )<br>$$<br>的表达式。</p>
+<p><img src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108163103218.png" alt="在这里插入图片描述"><br>这个时候通过观察可以直接看出，<br>$$<br>f ^ { * } ( t )<br>$$<br>的斜率一定是不断增大的！那么它就是凸函数。当然从图上看可能会觉得虽然斜率是一直在增大，但在有些地方是不变的，这里无法直接从图上看出它是严格的凸函数，因此在这里存疑。但凸函数这点是一定的。</p>
+<p>再来看第二点。假设现在t固定，而我们要求xt−f(x)的最大值其实就是要求式子对x求导后为0的位置。很容易可以算出最大值在f′(x)=t时取得。而因为f(x)是凸函数，因此只有唯一的一个x使得f′(x)=t，也就是说从原函数到其共轭函数x和t是一对一一对应关系。又从性质一我们知道反过来也是成立的。结合两个函数都是凸函数且变量互相一一对应，可以得出凸函数的共轭函数的共轭函数一定是它自己，如下图：<br><img src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108163723173.png" alt="在这里插入图片描述"><br>假设<br>$$<br>x_?\not=x_1<br>$$<br>则虚线部分将存在无映射的情况，与已知相背。当然这解释有点抽象，但实在是水平有限，不知道怎么从公式本身来证明这件事情。</p>
 ]]></content>
       <categories>
-        <category>大数据</category>
+        <category>人工智能</category>
       </categories>
       <tags>
-        <tag>-大数据 -机器学习</tag>
+        <tag>-人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -2310,6 +2281,35 @@
       </tags>
   </entry>
   <entry>
+    <title>机器学习经典算法之-----最小二乘法</title>
+    <url>/post/46e20187.html</url>
+    <content><![CDATA[<p>最小二乘法</p>
+<p>  我们以最简单的一元线性模型来解释最小二乘法。什么是一元线性模型呢？ 监督学习中，如果预测的变量是离散的，我们称其为分类（如决策树，支持向量机等），如果预测的变量是连续的，我们称其为回归。回归分析中，如果只包括一个自变量和一个因变量，且二者的关系可用一条直线近似表示，这种回归分析称为一元线性回归分析。如果回归分析中包括两个或两个以上的自变量，且因变量和自变量之间是线性关系，则称为多元线性回归分析。对于二维空间线性是一条直线；对于三维空间线性是一个平面，对于多维空间线性是一个超平面…</p>
+<p>  对于一元线性回归模型, 假设从总体中获取了n组观察值（X1，Y1），（X2，Y2）， …，（Xn，Yn）。对于平面中的这n个点，可以使用无数条曲线来拟合。要求样本回归函数尽可能好地拟合这组值。综合起来看，这条直线处于样本数据的中心位置最合理。 选择最佳拟合曲线的标准可以确定为：使总的拟合误差（即总残差）达到最小。有以下三个标准可以选择：</p>
+<p>​    （1）用“残差和最小”确定直线位置是一个途径。但很快发现计算“残差和”存在相互抵消的问题。<br>​    （2）用“残差绝对值和最小”确定直线位置也是一个途径。但绝对值的计算比较麻烦。<br>​    （3）最小二乘法的原则是以“残差平方和最小”确定直线位置。用最小二乘法除了计算比较方便外，得到的估计量还具有优良特性。这种方法对异常值非常敏感。</p>
+<p>　 最常用的是普通最小二乘法（ Ordinary  Least Square，OLS）：所选择的回归模型应该使所有观察值的残差平方和达到最小。（Q为残差平方和）- 即采用平方损失函数。</p>
+<p> 样本回归模型：</p>
+<p>​         <img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428434_7303.jpg" alt="img">          其中ei为样本（Xi, Yi）的误差</p>
+<p>  平方损失函数：</p>
+<p>​           <img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428515_1582.jpg" alt="img"></p>
+<p>  则通过Q最小确定这条直线，即确定<img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428590_9906.jpg" alt="img">，以<img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428601_4150.jpg" alt="img">为变量，把它们看作是Q的函数，就变成了一个求极值的问题，可以通过求导数得到。求Q对两个待估参数的偏导数：</p>
+<p>​          <img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428700_9699.jpg" alt="img">  </p>
+<p>  根据数学知识我们知道，函数的极值点为偏导为0的点。</p>
+<p>  解得：</p>
+<p>​          <img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/1354428824_3244.jpg" alt="img"></p>
+<p>这就是最小二乘法的解法，就是求得平方损失函数的极值点。</p>
+<p>下面通过一个例子来说明最小二乘法：</p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/20160926100546115" alt="img"></p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95%E4%B9%8B-----%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/20160926100605037" alt="img"></p>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>-大数据 -机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>极大似然估计（MLE）</title>
     <url>/post/107224d5.html</url>
     <content><![CDATA[<p>我们已经了解了似然函数是什么，但怎么去把里面的θ给求出来是个更加关键的问题。这篇我们将来探讨下这个问题。</p>
@@ -2406,81 +2406,6 @@
       </categories>
       <tags>
         <tag>-其他</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>英国广播公司：《人类星球 第一季》(BBC Human Planet Season 1)【YYeTs人人影视出品】【中英双语字幕】【更新番外篇III】【完结】【BDRip】</title>
-    <url>/post/e9b1e83d.html</url>
-    <content><![CDATA[<p><a href="http://www.ed2000.com/ShowFile/250303.html">http://www.ed2000.com/ShowFile/250303.html</a> </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E01.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|733350684|71ba1fbf1a5ff5d536e33b50310620c6|h=zmfa2fgth6udm4kjckjr6lbzzz7f6uvn|/">人类星球.Human.Planet.S01E01.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
-<td>699.38 MB</td>
-</tr>
-<tr>
-<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E02.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|733204896|973e503a87128d16366608ae882bbbfe|/">人类星球.Human.Planet.S01E02.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
-<td>699.24 MB</td>
-</tr>
-<tr>
-<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E03.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|733417791|f9decbb04c2cf3204f86d5b6b29b41bd|/">人类星球.Human.Planet.S01E03.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
-<td>699.44 MB</td>
-</tr>
-<tr>
-<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E04.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|732792914|9ad5d6528ba68db778dd57e94dfd3160|/">人类星球.Human.Planet.S01E04.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
-<td>698.85 MB</td>
-</tr>
-<tr>
-<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E05.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|732790791|aa4271a0d52ab560446f448e9556ac13|/">人类星球.Human.Planet.S01E05.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
-<td>698.84 MB</td>
-</tr>
-<tr>
-<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E06.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|732563535|4ccae7973262bcca6e64ab28c1105a32|/">人类星球.Human.Planet.S01E06.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
-<td>698.63 MB</td>
-</tr>
-<tr>
-<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E07.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|732735197|5c60d64595b8237bd3cefb9c878c1418|/">人类星球.Human.Planet.S01E07.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
-<td>698.79 MB</td>
-</tr>
-<tr>
-<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E08.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|733064183|84778ea88dd75856b8e26932e9811ac4|/">人类星球.Human.Planet.S01E08.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
-<td>699.10 MB</td>
-</tr>
-<tr>
-<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.%E7%95%AA%E5%A4%96%E7%AF%87.Human.Planet.Extra.3.Chi_Eng.WEBRip.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|243302285|45fea0c54d42772300a2f5f867511f7d|/">人类星球.番外篇.Human.Planet.Extra.3.Chi_Eng.WEBRip.1024X576.x264-YYeTs人人影视.mkv</a></td>
-<td>232.03 MB</td>
-</tr>
-</tbody></table>
-<p> <strong>中文名</strong>: 英国广播公司：人类星球 第一季</p>
-<p><strong>英文名</strong>: BBC: Human Planet Season 1</p>
-<p><strong>资源格式</strong>: BDRip</p>
-<p><strong>版本</strong>: [YYeTs人人影视出品][中英双语字幕][更新番外篇III][完结]</p>
-<p><strong>发行时间</strong>: 2011年01月03日</p>
-<p><strong>制作发行</strong>: 英国广播公司</p>
-<p><strong>地区</strong>: 英国</p>
-<p><strong>语言</strong>: 英语</p>
-<p><strong>简介</strong>:</p>
-<p> <img src="/../images/%E8%8B%B1%E5%9B%BD%E5%B9%BF%E6%92%AD%E5%85%AC%E5%8F%B8%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83%E7%AC%AC%E4%B8%80%E5%AD%A3/thumb.jpg" alt="img"></p>
-<p>【类型】: 科教 【影片长度】: 60 Minutes 【集数】: 8集 【字幕】: 无 【服务器】: 随机 【分享时间】: 全天</p>
-<blockquote>
-<p><strong>多版本下载：</strong><a href="http://yyets.com/showresource-juji-793.html">http://yyets.com/showresource-juji-793.html</a></p>
-</blockquote>
-<p>【内容介绍】： BBC8集大型电视系列片 - Human Planet （人类星球），探讨人与自然的关系。8集节目分别探讨极地、山区、海洋、丛林、草原、河流、沙漠和城市的人类活动。世界一流的自然与人类专家以及摄影师，从空中、陆地和水下抓拍珍贵镜头。BBC摄制组前往世界80个地方，抓拍了从未在电视屏幕上出现过的罕见精彩的人类活动。 Human Planet is is narrated by John Hurt and also features original music by composer Nitin Sawhney. The series looks at how human beings have been the only animals that have been able to adapt to life in every habitat on Earth. The series looks at man’s ability to survive in the most extreme environments on the planet. </p>
-]]></content>
-      <categories>
-        <category>电影</category>
-      </categories>
-      <tags>
-        <tag>-电影</tag>
       </tags>
   </entry>
   <entry>
@@ -2668,6 +2593,93 @@
       </tags>
   </entry>
   <entry>
+    <title>英国广播公司：《人类星球 第一季》(BBC Human Planet Season 1)【YYeTs人人影视出品】【中英双语字幕】【更新番外篇III】【完结】【BDRip】</title>
+    <url>/post/e9b1e83d.html</url>
+    <content><![CDATA[<p><a href="http://www.ed2000.com/ShowFile/250303.html">http://www.ed2000.com/ShowFile/250303.html</a> </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E01.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|733350684|71ba1fbf1a5ff5d536e33b50310620c6|h=zmfa2fgth6udm4kjckjr6lbzzz7f6uvn|/">人类星球.Human.Planet.S01E01.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
+<td>699.38 MB</td>
+</tr>
+<tr>
+<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E02.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|733204896|973e503a87128d16366608ae882bbbfe|/">人类星球.Human.Planet.S01E02.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
+<td>699.24 MB</td>
+</tr>
+<tr>
+<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E03.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|733417791|f9decbb04c2cf3204f86d5b6b29b41bd|/">人类星球.Human.Planet.S01E03.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
+<td>699.44 MB</td>
+</tr>
+<tr>
+<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E04.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|732792914|9ad5d6528ba68db778dd57e94dfd3160|/">人类星球.Human.Planet.S01E04.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
+<td>698.85 MB</td>
+</tr>
+<tr>
+<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E05.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|732790791|aa4271a0d52ab560446f448e9556ac13|/">人类星球.Human.Planet.S01E05.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
+<td>698.84 MB</td>
+</tr>
+<tr>
+<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E06.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|732563535|4ccae7973262bcca6e64ab28c1105a32|/">人类星球.Human.Planet.S01E06.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
+<td>698.63 MB</td>
+</tr>
+<tr>
+<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E07.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|732735197|5c60d64595b8237bd3cefb9c878c1418|/">人类星球.Human.Planet.S01E07.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
+<td>698.79 MB</td>
+</tr>
+<tr>
+<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.Human.Planet.S01E08.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|733064183|84778ea88dd75856b8e26932e9811ac4|/">人类星球.Human.Planet.S01E08.Chi_Eng.BDRip.AC3.1024X576.x264-YYeTs人人影视.mkv</a></td>
+<td>699.10 MB</td>
+</tr>
+<tr>
+<td><a href="http://ed2k//|file|%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83.%E7%95%AA%E5%A4%96%E7%AF%87.Human.Planet.Extra.3.Chi_Eng.WEBRip.1024X576.x264-YYeTs%E4%BA%BA%E4%BA%BA%E5%BD%B1%E8%A7%86(ED2000.COM).mkv|243302285|45fea0c54d42772300a2f5f867511f7d|/">人类星球.番外篇.Human.Planet.Extra.3.Chi_Eng.WEBRip.1024X576.x264-YYeTs人人影视.mkv</a></td>
+<td>232.03 MB</td>
+</tr>
+</tbody></table>
+<p> <strong>中文名</strong>: 英国广播公司：人类星球 第一季</p>
+<p><strong>英文名</strong>: BBC: Human Planet Season 1</p>
+<p><strong>资源格式</strong>: BDRip</p>
+<p><strong>版本</strong>: [YYeTs人人影视出品][中英双语字幕][更新番外篇III][完结]</p>
+<p><strong>发行时间</strong>: 2011年01月03日</p>
+<p><strong>制作发行</strong>: 英国广播公司</p>
+<p><strong>地区</strong>: 英国</p>
+<p><strong>语言</strong>: 英语</p>
+<p><strong>简介</strong>:</p>
+<p> <img src="/../images/%E8%8B%B1%E5%9B%BD%E5%B9%BF%E6%92%AD%E5%85%AC%E5%8F%B8%E4%BA%BA%E7%B1%BB%E6%98%9F%E7%90%83%E7%AC%AC%E4%B8%80%E5%AD%A3/thumb.jpg" alt="img"></p>
+<p>【类型】: 科教 【影片长度】: 60 Minutes 【集数】: 8集 【字幕】: 无 【服务器】: 随机 【分享时间】: 全天</p>
+<blockquote>
+<p><strong>多版本下载：</strong><a href="http://yyets.com/showresource-juji-793.html">http://yyets.com/showresource-juji-793.html</a></p>
+</blockquote>
+<p>【内容介绍】： BBC8集大型电视系列片 - Human Planet （人类星球），探讨人与自然的关系。8集节目分别探讨极地、山区、海洋、丛林、草原、河流、沙漠和城市的人类活动。世界一流的自然与人类专家以及摄影师，从空中、陆地和水下抓拍珍贵镜头。BBC摄制组前往世界80个地方，抓拍了从未在电视屏幕上出现过的罕见精彩的人类活动。 Human Planet is is narrated by John Hurt and also features original music by composer Nitin Sawhney. The series looks at how human beings have been the only animals that have been able to adapt to life in every habitat on Earth. The series looks at man’s ability to survive in the most extreme environments on the planet. </p>
+]]></content>
+      <categories>
+        <category>电影</category>
+      </categories>
+      <tags>
+        <tag>-电影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>进远景论坛方法</title>
+    <url>/post/edb70a23.html</url>
+    <content><![CDATA[<p>修改hosts<br>218.93.127.136 pcbeta.com<br>218.93.127.136 uc.pcbeta.com<br>218.93.127.136 m.pcbeta.com<br>218.93.127.136 web.pcbeta.com<br>218.93.127.136 i.pcbeta.com<br>218.93.127.136 bbs.pcbeta.com<br>218.93.127.136 <a href="http://jump.bdimg.com/safecheck/index?url=x+Z5mMbGPAu6psTyi+uBNSwM5kbsgXOExclEQBwqCNr7LAYdITHoVOgaj8AbWjZRMVJWer8MmNrc99WDfAa0fDx0jpvVAOecZVybKVEXRvGgj6bhyjG6iHY9qHh6BM0y">http://www.pcbeta.com</a><br>218.93.127.136 cdn.pcbeta.attachment.inimc.com<br>218.93.127.136 cdn.pcbeta.static.inimc.com<br>218.93.127.136 cdn.pcbeta.css.inimc.com<br>218.93.127.136 static.template.pcbeta.com</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>-其他</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>西部数据 NAS 红盘 WD20EFRX 假货识别</title>
     <url>/post/36149d23.html</url>
     <content><![CDATA[<p>电脑外设鱼龙混杂，尤其像网上购买硬件，很多不懂得消费者很容易被JS得小伎俩欺骗。下面介绍简单的购买技巧来识别买到的硬盘是否为假货。</p>
@@ -2713,18 +2725,6 @@
       </categories>
       <tags>
         <tag>-技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>进远景论坛方法</title>
-    <url>/post/edb70a23.html</url>
-    <content><![CDATA[<p>修改hosts<br>218.93.127.136 pcbeta.com<br>218.93.127.136 uc.pcbeta.com<br>218.93.127.136 m.pcbeta.com<br>218.93.127.136 web.pcbeta.com<br>218.93.127.136 i.pcbeta.com<br>218.93.127.136 bbs.pcbeta.com<br>218.93.127.136 <a href="http://jump.bdimg.com/safecheck/index?url=x+Z5mMbGPAu6psTyi+uBNSwM5kbsgXOExclEQBwqCNr7LAYdITHoVOgaj8AbWjZRMVJWer8MmNrc99WDfAa0fDx0jpvVAOecZVybKVEXRvGgj6bhyjG6iHY9qHh6BM0y">http://www.pcbeta.com</a><br>218.93.127.136 cdn.pcbeta.attachment.inimc.com<br>218.93.127.136 cdn.pcbeta.static.inimc.com<br>218.93.127.136 cdn.pcbeta.css.inimc.com<br>218.93.127.136 static.template.pcbeta.com</p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>-其他</tag>
       </tags>
   </entry>
   <entry>
@@ -2795,6 +2795,30 @@
       </categories>
       <tags>
         <tag>-技术</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>香农信息量</title>
+    <url>/post/6375c8f0.html</url>
+    <content><![CDATA[<p>如果是连续型随机变量的情况，设p为随机变量X的概率分布，即p(x)为随机变量X在X=x处的概率密度函数值，则随机变量X在X=x处的香农信息量定义为：-<br>$$<br>log_2p(x)=log_2\frac{1}{p(x)}<br>$$<br>这时香农信息量的单位为比特。（如果非连续型随机变量，则为某一具体随机事件的概率，其他的同上）</p>
+<p>香农信息量用于刻画消除随机变量在处的不确定性所需的信息量的大小。</p>
+<p>上面是香农信息量的完整而严谨的表达，基本上读完就只剩下一个问题，为什么是这个式子？为了方便理解我们先看一下香农信息量在数据压缩应用的一般流程。</p>
+<p>假设我们有一段数据长下面这样：aaBaaaVaaaaa</p>
+<p>可以算出三个字母出现的概率分别为：</p>
+<p>$$<br>a:\frac{10}{12}，B:\frac{1}{12}，V:\frac{1}{12}<br>$$<br>香农信息量为：a:0.263，B:3.585，V:3.585</p>
+<p>也就是说如果我们要用比特来表述这几个字母，分别需要0.263，3.585，3.585个这样的比特。当然，由于比特是整数的，因此应该向上取整，变为1，4，4个比特。</p>
+<p>这个时候我们就可以按照这个指导对字母进行编码，比如把a编码为”00”，把B编码为”10001000”，V编码为”10011001”，然后用编码替换掉字母来完成压缩编码，数据压缩结果为：001000000100100000。</p>
+<p>上面例子看起来有点不合理，因为如果我们去搞，我们会编码出不一样的东西，如a编码为”00”，B编码为”1010”，V编码为”1111”，因此可以把数据压缩的更小。那么问题出现在哪呢？</p>
+<p>出现在这里的B和V这两个字母只用两个比特进行编码对于他们自身而言并不是充分的。在另外一个压缩的例子中，可以一下子就看出来：abBcdeVfhgim</p>
+<p>上面的每一个字母出现的概率都为<br>$$<br>\frac{1}{12}<br>$$<br>，假设我们还是以两个比特去编码B和V，那么就无法完全区分出12个字母。而如果是4个比特，便有16种可能性，可以足够区分这12个字母。</p>
+<p>现在回过头来看香农信息量的公式，它正是告诉我们，如果已经知道一个事件出现的概率，至少需要多少的比特数才能完整描绘这个事件（无论外部其他事件的概率怎么变化），其中为底的2就是比特的两种可能性，而因为二分是一个除的关系，因此自变量是概率分之一而不是概率本身。</p>
+<p>感性的看，如果我们知道a出现的概率为<br>$$<br>\frac{5}{6}<br>$$<br>，那么用比特中的”0”状态来表述它是完全合理的，因为其他事件的概率总和只有<br>$$<br>\frac{1}{6}<br>$$<br>，但我们给这<br>$$<br>\frac{1}{6}<br>$$<br>空出了比特的”1”这<br>$$<br>\frac{1}{2}<br>$$<br>的空间来表达他们，是完全足够的。</p>
+]]></content>
+      <categories>
+        <category>人工智能</category>
+      </categories>
+      <tags>
+        <tag>-人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -2881,30 +2905,6 @@
       </categories>
       <tags>
         <tag>-python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>香农信息量</title>
-    <url>/post/6375c8f0.html</url>
-    <content><![CDATA[<p>如果是连续型随机变量的情况，设p为随机变量X的概率分布，即p(x)为随机变量X在X=x处的概率密度函数值，则随机变量X在X=x处的香农信息量定义为：-<br>$$<br>log_2p(x)=log_2\frac{1}{p(x)}<br>$$<br>这时香农信息量的单位为比特。（如果非连续型随机变量，则为某一具体随机事件的概率，其他的同上）</p>
-<p>香农信息量用于刻画消除随机变量在处的不确定性所需的信息量的大小。</p>
-<p>上面是香农信息量的完整而严谨的表达，基本上读完就只剩下一个问题，为什么是这个式子？为了方便理解我们先看一下香农信息量在数据压缩应用的一般流程。</p>
-<p>假设我们有一段数据长下面这样：aaBaaaVaaaaa</p>
-<p>可以算出三个字母出现的概率分别为：</p>
-<p>$$<br>a:\frac{10}{12}，B:\frac{1}{12}，V:\frac{1}{12}<br>$$<br>香农信息量为：a:0.263，B:3.585，V:3.585</p>
-<p>也就是说如果我们要用比特来表述这几个字母，分别需要0.263，3.585，3.585个这样的比特。当然，由于比特是整数的，因此应该向上取整，变为1，4，4个比特。</p>
-<p>这个时候我们就可以按照这个指导对字母进行编码，比如把a编码为”00”，把B编码为”10001000”，V编码为”10011001”，然后用编码替换掉字母来完成压缩编码，数据压缩结果为：001000000100100000。</p>
-<p>上面例子看起来有点不合理，因为如果我们去搞，我们会编码出不一样的东西，如a编码为”00”，B编码为”1010”，V编码为”1111”，因此可以把数据压缩的更小。那么问题出现在哪呢？</p>
-<p>出现在这里的B和V这两个字母只用两个比特进行编码对于他们自身而言并不是充分的。在另外一个压缩的例子中，可以一下子就看出来：abBcdeVfhgim</p>
-<p>上面的每一个字母出现的概率都为<br>$$<br>\frac{1}{12}<br>$$<br>，假设我们还是以两个比特去编码B和V，那么就无法完全区分出12个字母。而如果是4个比特，便有16种可能性，可以足够区分这12个字母。</p>
-<p>现在回过头来看香农信息量的公式，它正是告诉我们，如果已经知道一个事件出现的概率，至少需要多少的比特数才能完整描绘这个事件（无论外部其他事件的概率怎么变化），其中为底的2就是比特的两种可能性，而因为二分是一个除的关系，因此自变量是概率分之一而不是概率本身。</p>
-<p>感性的看，如果我们知道a出现的概率为<br>$$<br>\frac{5}{6}<br>$$<br>，那么用比特中的”0”状态来表述它是完全合理的，因为其他事件的概率总和只有<br>$$<br>\frac{1}{6}<br>$$<br>，但我们给这<br>$$<br>\frac{1}{6}<br>$$<br>空出了比特的”1”这<br>$$<br>\frac{1}{2}<br>$$<br>的空间来表达他们，是完全足够的。</p>
-]]></content>
-      <categories>
-        <category>人工智能</category>
-      </categories>
-      <tags>
-        <tag>-人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -4448,6 +4448,31 @@
       </tags>
   </entry>
   <entry>
+    <title>深度学习2---任意结点数的三层全连接神经网络</title>
+    <url>/post/ee239b41.html</url>
+    <content><![CDATA[<p>上一篇文章：<a href="https://aichn.cn/post/74e51a6a.html">深度学习1—最简单的全连接神经网络</a>　<br>　　我们完成了一个三层（输入+隐含+输出）且每层都具有两个节点的全连接神经网络的原理分析和代码编写。本篇文章将进一步探讨如何把每层固定的两个节点变成任意个节点，以方便我们下一篇文章用本篇文章完成的网络来训练手写字符集“mnist”。<br>　　对于前向传播，基本上没有什么变化，就不用说了。主要看看后向传播的梯度下降公式。先放上上篇文章的网络图。<br><img src="/../images/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02---%E4%BB%BB%E6%84%8F%E7%BB%93%E7%82%B9%E6%95%B0%E7%9A%84%E4%B8%89%E5%B1%82%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/20180928134419558" alt="在这里插入图片描述"><br>　　上篇文章我们推知，含有两个节点的隐含层到输出层的权值对误差的偏导数，公式如下：<br>　<br>$$<br>　\frac{\partial E_{总}}{\partial W_{11}^{(２)}}=(O_{1}-T_{1})*O_{1}(1-O_{1})*Y_{1}<br>$$<br>　　而含有两个节点的输入层到隐含层的权值对于误差梯度的偏导数公式如下：<br>　　<br>$$<br>\frac{\partial E_{总}}{\partial W_{11}^{(1)}}=((O_{1}-T_{1})*O_{1}(1-O_{1})*W_{11}^{(2)}+(O_{2}-T_{2})*O_{2}(1-O_{2})*W_{21}^{(2)})*Y_{1}(1-Y_{1})*X_{1}<br>$$<br>　　现在我们来总结规律，先看第一道公式：<br>　　<br>$$<br>W_{11}^{(2)}<br>$$<br>位于输出层第一个结点的后方，与隐含层第一个结点相连接，其对总误差求偏导的式子结果也只与这两个节点的相关参数有关，与输入层、隐含层的第二个节点、输出层的第二个节点均无关。因此，也可以说，无论各层的节点数怎么样变化，隐含层到输出层的权值只与它连接的两个节点的参数相关。上式可以写成：<br>　　<br>$$<br>\frac{\partial E_{总}}{\partial W_{xy}^{(2)}}=(O_{x}-T_{x})*O_{x}(1-O_{x})*Y_{y}<br>$$<br>　　再看第二道公式：<br>　　<br>$$<br>W_{11}^{(1)}<br>$$<br>位于隐含层第一个节点的后方，与输入层第一个节点相连接，第一个隐含层节点又与输出层所有节点相连接。公式中出现的项与上面描述到的节点相关，因此如果输出层节点增加，则表达式需要增加对增加节点的计算。而隐含层和输入层增加则无所谓。因此表达式可以写成：<br>　　<br>$$<br>\frac{\partial E_{总}}{\partial W_{xy}^{(1)}}=[\sum_{k=1}^{n}(O_{k}-T_{k})*O_{k}(1-O_{k})*W_{kx}^{(2)}]*Y_{x}(1-Y_{x})*X_{y}<br>$$<br>　　大功告成！规律总结完了，下面就只剩下写代码了。不得不承认，这一篇原理部分蛮少的，应该只能算是上一篇文章的补充。但从固定到任意还是挺重要的，因此独立出来写。<br>　　下面我们用代码来实现一个任意节点数（代码中取的输入层、隐含层、输出层分别为5、10、5个节点，当然你高兴的话可以随意改动）的三层全连接神经网络。</p>
+<h2 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a><strong>C++实现</strong></h2><hr>
+<p>直接上代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;cmath&gt;</span><br><span class="line">#include&lt;ctime&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define IPNNUM 5     &#x2F;&#x2F;输入层节点数</span><br><span class="line">#define HDNNUM 10    &#x2F;&#x2F;隐含层节点数</span><br><span class="line">#define OPNNUM 5     &#x2F;&#x2F;输出层节点数</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;结点类，用以构成网络</span><br><span class="line">class node </span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	double value; &#x2F;&#x2F;数值，存储结点最后的状态</span><br><span class="line">	double *W&#x3D;NULL;    &#x2F;&#x2F;结点到下一层的权值</span><br><span class="line"></span><br><span class="line">	void initNode(int num);&#x2F;&#x2F;初始化函数，必须调用以初始化权值个数</span><br><span class="line">	~node();	  &#x2F;&#x2F;析构函数，释放掉权值占用内存</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void node::initNode(int num)</span><br><span class="line">&#123;</span><br><span class="line">	W &#x3D; new double[num];</span><br><span class="line">	srand((unsigned)time(NULL));</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; num; i++)&#x2F;&#x2F;给权值赋一个随机值</span><br><span class="line">	&#123;</span><br><span class="line">		W[i]&#x3D; (rand() % 100)&#x2F;(double)100;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">node::~node()</span><br><span class="line">&#123;</span><br><span class="line">	if (W!&#x3D;NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		delete[]W;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;网络类，描述神经网络的结构并实现前向传播以及后向传播</span><br><span class="line">class net </span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	node inlayer[IPNNUM]; &#x2F;&#x2F;输入层</span><br><span class="line">	node hidlayer[HDNNUM];&#x2F;&#x2F;隐含层</span><br><span class="line">	node outlayer[OPNNUM];&#x2F;&#x2F;输出层</span><br><span class="line"></span><br><span class="line">	double yita &#x3D; 0.1;&#x2F;&#x2F;学习率η</span><br><span class="line">	double k1;&#x2F;&#x2F;输入层偏置项权重</span><br><span class="line">	double k2;&#x2F;&#x2F;隐含层偏置项权重</span><br><span class="line">	double Tg[OPNNUM];&#x2F;&#x2F;训练目标</span><br><span class="line">	double O[OPNNUM];&#x2F;&#x2F;网络实际输出</span><br><span class="line"></span><br><span class="line">	net();&#x2F;&#x2F;构造函数，用于初始化各层和偏置项权重</span><br><span class="line">	double sigmoid(double z);&#x2F;&#x2F;激活函数</span><br><span class="line">	double getLoss();&#x2F;&#x2F;损失函数，输入为目标值</span><br><span class="line">	void forwardPropagation(double *input);&#x2F;&#x2F;前向传播,输入为输入层节点的值</span><br><span class="line">	void backPropagation(double *T);&#x2F;&#x2F;反向传播，输入为目标输出值</span><br><span class="line">	void printresual(int trainingTimes);&#x2F;&#x2F;打印信息</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">net::net()</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;初始化输入层和隐含层偏置项权值，给一个随机值</span><br><span class="line">	srand((unsigned)time(NULL));</span><br><span class="line">	k1&#x3D; (rand() % 100) &#x2F; (double)100;</span><br><span class="line">	k2 &#x3D; (rand() % 100) &#x2F; (double)100;</span><br><span class="line">	&#x2F;&#x2F;初始化输入层到隐含层节点个数</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; IPNNUM; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		inlayer[i].initNode(HDNNUM);</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;初始化隐含层到输出层节点个数</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; HDNNUM; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		hidlayer[i].initNode(OPNNUM);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;激活函数</span><br><span class="line">double net::sigmoid(double z)</span><br><span class="line">&#123;</span><br><span class="line">	return 1&#x2F;(1+ exp(-z));</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;损失函数</span><br><span class="line">double net::getLoss()</span><br><span class="line">&#123;</span><br><span class="line">	double mloss &#x3D; 0;</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; OPNNUM; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		mloss +&#x3D; pow(O[i] - Tg[i], 2);</span><br><span class="line">	&#125;</span><br><span class="line">	return mloss &#x2F; OPNNUM;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;前向传播</span><br><span class="line">void net::forwardPropagation(double *input)</span><br><span class="line">&#123;</span><br><span class="line">	for (size_t iNNum &#x3D; 0; iNNum &lt; IPNNUM; iNNum++)&#x2F;&#x2F;输入层节点赋值</span><br><span class="line">	&#123;</span><br><span class="line">		inlayer[iNNum].value &#x3D; input[iNNum];</span><br><span class="line">	&#125;</span><br><span class="line">	for (size_t hNNum &#x3D; 0; hNNum &lt; HDNNUM; hNNum++)&#x2F;&#x2F;算出隐含层结点的值</span><br><span class="line">	&#123;</span><br><span class="line">		double z &#x3D; 0;</span><br><span class="line">		for (size_t iNNum &#x3D; 0; iNNum &lt; IPNNUM; iNNum++)</span><br><span class="line">		&#123;</span><br><span class="line">			z+&#x3D; inlayer[iNNum].value*inlayer[iNNum].W[hNNum];</span><br><span class="line">		&#125;</span><br><span class="line">		z+&#x3D; k1;&#x2F;&#x2F;加上偏置项</span><br><span class="line">		hidlayer[hNNum].value &#x3D; sigmoid(z);</span><br><span class="line">	&#125;</span><br><span class="line">	for (size_t oNNum &#x3D; 0; oNNum &lt; OPNNUM; oNNum++)&#x2F;&#x2F;算出输出层结点的值</span><br><span class="line">	&#123;</span><br><span class="line">		double z &#x3D; 0;</span><br><span class="line">		for (size_t hNNum &#x3D; 0; hNNum &lt; HDNNUM; hNNum++)</span><br><span class="line">		&#123;</span><br><span class="line">			z +&#x3D; hidlayer[hNNum].value*hidlayer[hNNum].W[oNNum];</span><br><span class="line">		&#125;</span><br><span class="line">		z +&#x3D; k2;&#x2F;&#x2F;加上偏置项</span><br><span class="line">		O[oNNum] &#x3D; outlayer[oNNum].value &#x3D; sigmoid(z);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;反向传播，这里为了公式好看一点多写了一些变量作为中间值</span><br><span class="line">&#x2F;&#x2F;计算过程用到的公式在博文中已经推导过了，如果代码没看明白请看看博文</span><br><span class="line">void net::backPropagation(double *T)</span><br><span class="line">&#123;	</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; OPNNUM; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		Tg[i] &#x3D; T[i];</span><br><span class="line">	&#125;</span><br><span class="line">	for (size_t iNNum &#x3D; 0; iNNum &lt; IPNNUM; iNNum++)&#x2F;&#x2F;更新输入层权重</span><br><span class="line">	&#123;</span><br><span class="line">		for (size_t hNNum &#x3D; 0; hNNum &lt; HDNNUM; hNNum++)</span><br><span class="line">		&#123;</span><br><span class="line">			double y &#x3D; hidlayer[hNNum].value;</span><br><span class="line">			double loss &#x3D; 0;</span><br><span class="line">			for (size_t oNNum &#x3D; 0; oNNum &lt; OPNNUM; oNNum++)</span><br><span class="line">			&#123;</span><br><span class="line">				loss +&#x3D; (O[oNNum] - Tg[oNNum])*O[oNNum] * (1 - O[oNNum])*hidlayer[hNNum].W[oNNum];</span><br><span class="line">			&#125;</span><br><span class="line">			inlayer[iNNum].W[hNNum] -&#x3D; yita*loss*y*(1 - y)*inlayer[iNNum].value;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (size_t hNNum &#x3D; 0; hNNum &lt; HDNNUM; hNNum++)&#x2F;&#x2F;更新隐含层权重</span><br><span class="line">	&#123;</span><br><span class="line">		for (size_t oNNum &#x3D; 0; oNNum &lt; OPNNUM; oNNum++)</span><br><span class="line">		&#123;</span><br><span class="line">			hidlayer[hNNum].W[oNNum]-&#x3D; yita*(O[oNNum] - Tg[oNNum])*</span><br><span class="line">				O[oNNum] *(1- O[oNNum])*hidlayer[hNNum].value;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void net::printresual(int trainingTimes)</span><br><span class="line">&#123;</span><br><span class="line">	double loss &#x3D; getLoss();</span><br><span class="line">	cout &lt;&lt; &quot;训练次数：&quot; &lt;&lt; trainingTimes &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;loss：&quot; &lt;&lt; loss &lt;&lt; endl;</span><br><span class="line">	for (size_t oNNum &#x3D; 0; oNNum &lt; OPNNUM; oNNum++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;输出&quot; &lt;&lt; oNNum+1&lt;&lt; &quot;：&quot; &lt;&lt; O[oNNum] &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">	net mnet;</span><br><span class="line">	double minput[IPNNUM] &#x3D; &#123; 0.1, 0.2, 0.3, 0.4, 0.5 &#125;;</span><br><span class="line">	double mtarget[IPNNUM] &#x3D; &#123; 0.2, 0.4, 0.6, 0.8, 1 &#125;;</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; 10000; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		mnet.forwardPropagation(minput);&#x2F;&#x2F;前向传播</span><br><span class="line">		mnet.backPropagation(mtarget);&#x2F;&#x2F;反向传播</span><br><span class="line">		if (i%1000&#x3D;&#x3D;0)</span><br><span class="line">		&#123;</span><br><span class="line">			mnet.printresual(i);&#x2F;&#x2F;信息打印</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a><strong>python实现</strong></h2><hr>
+<p>直接上代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import math</span><br><span class="line">import random</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">IPNNUM&#x3D;5     #输入层节点数</span><br><span class="line">HDNNUM&#x3D;10    #隐含层节点数</span><br><span class="line">OPNNUM&#x3D;3     #输出层节点数</span><br><span class="line"></span><br><span class="line">class node:</span><br><span class="line">    #结点类，用以构成网络</span><br><span class="line">    def __init__(self,connectNum&#x3D;0):</span><br><span class="line">        self.value&#x3D;0 #数值，存储结点最后的状态，对应到文章示例为X1，Y1等值</span><br><span class="line">        self.W &#x3D; (2*np.random.random_sample(connectNum)-1)*0.01</span><br><span class="line"></span><br><span class="line">class net:</span><br><span class="line">    #网络类，描述神经网络的结构并实现前向传播以及后向传播</span><br><span class="line">    def __init__(self):</span><br><span class="line">        #初始化函数，用于初始化各层间节点和偏置项权重</span><br><span class="line">        #输入层结点</span><br><span class="line">        self.inlayer&#x3D;[node(HDNNUM)];</span><br><span class="line">        for obj in range(1, IPNNUM):</span><br><span class="line">            self.inlayer.append(node(HDNNUM)) </span><br><span class="line">        #隐含层结点</span><br><span class="line">        self.hidlayer&#x3D;[node(OPNNUM)];</span><br><span class="line">        for obj in range(1, HDNNUM):</span><br><span class="line">            self.hidlayer.append(node(OPNNUM))             </span><br><span class="line">        #输出层结点</span><br><span class="line">        self.outlayer&#x3D;[node(0)];</span><br><span class="line">        for obj in range(1, OPNNUM):</span><br><span class="line">            self.outlayer&#x3D;[node(0)]                 </span><br><span class="line"></span><br><span class="line">        self.yita &#x3D; 0.1                                           #学习率η</span><br><span class="line">        self.k1&#x3D;random.random()                       #输入层偏置项权重</span><br><span class="line">        self.k2&#x3D;random.random()                       #隐含层偏置项权重</span><br><span class="line">        self.Tg&#x3D;np.zeros(OPNNUM)                   #训练目标</span><br><span class="line">        self.O&#x3D;np.zeros(OPNNUM)                     #网络实际输出</span><br><span class="line"></span><br><span class="line">    def sigmoid(self,z):</span><br><span class="line">        #激活函数</span><br><span class="line">        return 1 &#x2F; (1 + math.exp(-z))</span><br><span class="line"></span><br><span class="line">    def getLoss(self):</span><br><span class="line">        #损失函数</span><br><span class="line">        loss&#x3D;0</span><br><span class="line">        for num in range(0, OPNNUM):</span><br><span class="line">            loss+&#x3D;pow(self.O[num] -self.Tg[num],2)</span><br><span class="line">        return loss&#x2F;OPNNUM</span><br><span class="line"></span><br><span class="line">    def forwardPropagation(self,input):</span><br><span class="line">        #前向传播</span><br><span class="line">        for i in range(0, IPNNUM):</span><br><span class="line">            #输入层节点赋值</span><br><span class="line">            self.inlayer[i].value &#x3D; input[i]</span><br><span class="line">        for hNNum in range(0,HDNNUM):</span><br><span class="line">             #算出隐含层结点的值</span><br><span class="line">            z &#x3D; 0</span><br><span class="line">            for iNNum in range(0,IPNNUM):</span><br><span class="line">                z+&#x3D;self.inlayer[iNNum].value*self.inlayer[iNNum].W[hNNum]</span><br><span class="line">            #加上偏置项</span><br><span class="line">            z+&#x3D; self.k1</span><br><span class="line">            self.hidlayer[hNNum].value &#x3D; self.sigmoid(z)</span><br><span class="line">        for oNNum in range(0,OPNNUM):</span><br><span class="line">            #算出输出层结点的值</span><br><span class="line">            z &#x3D; 0</span><br><span class="line">            for hNNum in range(0,HDNNUM):</span><br><span class="line">                z +&#x3D; self.hidlayer[hNNum].value* self.hidlayer[hNNum].W[oNNum]</span><br><span class="line">            z +&#x3D; self.k2</span><br><span class="line">            self.O[oNNum] &#x3D; self.sigmoid(z)</span><br><span class="line"></span><br><span class="line">    def backPropagation(self,T):</span><br><span class="line">        #反向传播，这里为了公式好看一点多写了一些变量作为中间值</span><br><span class="line">        for num in range(0, OPNNUM):</span><br><span class="line">            self.Tg[num] &#x3D; T[num]</span><br><span class="line">        for iNNum in range(0,IPNNUM):</span><br><span class="line">            #更新输入层权重</span><br><span class="line">            for hNNum in range(0,HDNNUM):</span><br><span class="line">                y &#x3D; self.hidlayer[hNNum].value</span><br><span class="line">                loss &#x3D; 0</span><br><span class="line">                for oNNum in range(0, OPNNUM):</span><br><span class="line">                    loss+&#x3D;(self.O[oNNum] - self.Tg[oNNum])*self.O[oNNum] * (1 - self.O[oNNum])*self.hidlayer[hNNum].W[oNNum]</span><br><span class="line">                self.inlayer[iNNum].W[hNNum] -&#x3D; self.yita*loss*y*(1- y)*self.inlayer[iNNum].value</span><br><span class="line">        for hNNum in range(0,HDNNUM):</span><br><span class="line">            #更新隐含层权重</span><br><span class="line">            for oNNum in range(0,OPNNUM):</span><br><span class="line">                self.hidlayer[hNNum].W[oNNum]-&#x3D; self.yita*(self.O[oNNum] - self.Tg[oNNum])*self.O[oNNum]*\</span><br><span class="line">                    (1- self.O[oNNum])*self.hidlayer[hNNum].value</span><br><span class="line"></span><br><span class="line">    def printresual(self,trainingTimes):</span><br><span class="line">        #信息打印</span><br><span class="line">        loss &#x3D; self.getLoss()</span><br><span class="line">        print(&quot;训练次数：&quot;, trainingTimes)</span><br><span class="line">        print(&quot;loss&quot;,loss)</span><br><span class="line">        for oNNum in range(0,OPNNUM):</span><br><span class="line">            print(&quot;输出&quot;,oNNum,&quot;:&quot;,self.O[oNNum])</span><br><span class="line"></span><br><span class="line">#主程序</span><br><span class="line">mnet&#x3D;net()</span><br><span class="line">input&#x3D;np.array([0.1,0.2,0.3,0.4,0.5])</span><br><span class="line">target&#x3D;np.array([0.1,0.4,0.5])</span><br><span class="line"></span><br><span class="line">for n in range(0,1000):   </span><br><span class="line">    mnet.forwardPropagation(input)</span><br><span class="line">    mnet.backPropagation(target)</span><br><span class="line">    if (n%200&#x3D;&#x3D;0):</span><br><span class="line">        mnet.printresual(n)</span><br></pre></td></tr></table></figure>
+<h2 id="pytorch的CPU实现"><a href="#pytorch的CPU实现" class="headerlink" title="pytorch的CPU实现"></a><strong>pytorch的CPU实现</strong></h2><hr>
+<p>其实pytorch本身就已经支持任意节点数，所以这里只是随意的改了下上一篇文章中代码的参数部分。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># coding&#x3D;UTF-8</span><br><span class="line">import time</span><br><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">from torch.autograd import Variable</span><br><span class="line"></span><br><span class="line">class Net(nn.Module):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        #定义Net的初始化函数，这个函数定义了该神经网络的基本结构</span><br><span class="line">        super(Net, self).__init__() #复制并使用Net的父类的初始化方法，即先运行nn.Module的初始化函数</span><br><span class="line">        self.intohid_layer &#x3D; nn.Linear(5, 10) #定义输入层到隐含层的连结关系函数</span><br><span class="line">        self.hidtoout_layer &#x3D; nn.Linear(10, 5)#定义隐含层到输出层的连结关系函数</span><br><span class="line"></span><br><span class="line">    def forward(self, input):</span><br><span class="line">        #定义该神经网络的向前传播函数，该函数必须定义，一旦定义成功，向后传播函数也会自动生成</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.intohid_layer(input))    #输入input在输入层经过经过加权和与激活函数后到达隐含层</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.hidtoout_layer(x))       #类似上面</span><br><span class="line">        return x</span><br><span class="line"></span><br><span class="line">mnet &#x3D; Net()</span><br><span class="line">target&#x3D;Variable(torch.FloatTensor([0.2, 0.4, 0.6, 0.8, 1]))   #目标输出</span><br><span class="line">input&#x3D;Variable(torch.FloatTensor([0.1, 0.2, 0.3, 0.4, 0.5]))    #输入</span><br><span class="line"></span><br><span class="line">loss_fn &#x3D; torch.nn.MSELoss()                       #损失函数定义，可修改</span><br><span class="line">optimizer &#x3D; torch.optim.SGD(mnet.parameters(), lr&#x3D;0.5, momentum&#x3D;0.9);</span><br><span class="line"></span><br><span class="line">start &#x3D; time.time()</span><br><span class="line"></span><br><span class="line">for t in range(0,5000):</span><br><span class="line">    optimizer.zero_grad()      #清空节点值</span><br><span class="line">    out&#x3D;mnet(input)            #前向传播</span><br><span class="line">    loss &#x3D; loss_fn(out,target) #损失计算</span><br><span class="line">    loss.backward()            #后向传播</span><br><span class="line">    optimizer.step()           #更新权值</span><br><span class="line">    if (t%1000&#x3D;&#x3D;0):</span><br><span class="line">        print(out)</span><br><span class="line"></span><br><span class="line">end &#x3D; time.time()</span><br><span class="line">print(end - start)</span><br></pre></td></tr></table></figure>
+<h2 id="pytorch的GPU实现"><a href="#pytorch的GPU实现" class="headerlink" title="pytorch的GPU实现"></a><strong>pytorch的GPU实现</strong></h2><hr>
+<p>直接上代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># coding&#x3D;UTF-8</span><br><span class="line">import time</span><br><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">from torch.autograd import Variable</span><br><span class="line"></span><br><span class="line">class Net(nn.Module):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        #定义Net的初始化函数，这个函数定义了该神经网络的基本结构</span><br><span class="line">        super(Net, self).__init__() #复制并使用Net的父类的初始化方法，即先运行nn.Module的初始化函数</span><br><span class="line">        self.intohid_layer &#x3D; nn.Linear(5, 10) #定义输入层到隐含层的连结关系函数</span><br><span class="line">        self.hidtoout_layer &#x3D; nn.Linear(10, 5)#定义隐含层到输出层的连结关系函数</span><br><span class="line"></span><br><span class="line">    def forward(self, input):</span><br><span class="line">        #定义该神经网络的向前传播函数，该函数必须定义，一旦定义成功，向后传播函数也会自动生成</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.intohid_layer(input))    #输入input在输入层经过经过加权和与激活函数后到达隐含层</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.hidtoout_layer(x))       #类似上面</span><br><span class="line">        return x</span><br><span class="line"></span><br><span class="line">mnet &#x3D; Net().cuda()</span><br><span class="line">target&#x3D;Variable(torch.cuda.FloatTensor([0.2, 0.4, 0.6, 0.8, 1]))   #目标输出</span><br><span class="line">input&#x3D;Variable(torch.cuda.FloatTensor([0.1, 0.2, 0.3, 0.4, 0.5]))    #输入</span><br><span class="line"></span><br><span class="line">loss_fn &#x3D; torch.nn.MSELoss()                       #损失函数定义，可修改</span><br><span class="line">optimizer &#x3D; torch.optim.SGD(mnet.parameters(), lr&#x3D;0.5, momentum&#x3D;0.9);</span><br><span class="line"></span><br><span class="line">start &#x3D; time.time()</span><br><span class="line"></span><br><span class="line">for t in range(0,5000):</span><br><span class="line">    optimizer.zero_grad()      #清空节点值</span><br><span class="line">    out&#x3D;mnet(input)            #前向传播</span><br><span class="line">    loss &#x3D; loss_fn(out,target) #损失计算</span><br><span class="line">    loss.backward()            #后向传播</span><br><span class="line">    optimizer.step()           #更新权值</span><br><span class="line">    if (t%1000&#x3D;&#x3D;0):</span><br><span class="line">        print(out)</span><br><span class="line"></span><br><span class="line">end &#x3D; time.time()</span><br><span class="line">print(end - start)</span><br></pre></td></tr></table></figure>
+<p>到此就用代码实现了任意结点数的三层全连接神经网络，代码运行的结果都是对的，但相对来说pytorch收敛的快一些，可能跟其默认初始化的参数有关(自己写的代码都是用随机数初始化的)。<br>　　下一篇文章我们将用一个输入层、隐含层、输出层分别为784、100、10的三层全连接神经网络来训练闻名已久的MNIST手写数字字符集，然后自己手写一个数字来看看网络是否能比较给力的工作。<br>　　最后再预告下篇文章，<a href="https://aichn.cn/post/abc0fd31.html">深度学习3—用三层全连接神经网络训练MNIST手写数字字符集</a><br>　　另外写文章累人，写代码掉头发，如果觉得文章有帮助，哈哈哈</p>
+]]></content>
+      <categories>
+        <category>人工智能</category>
+      </categories>
+      <tags>
+        <tag>-神经网络 -人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深度学习1---最简单的全连接神经网络</title>
     <url>/post/74e51a6a.html</url>
     <content><![CDATA[<p>本文有一部分内容参考以下两篇文章：<br>　　<a href="https://www.cnblogs.com/charlotte77/p/5629865.html">一文弄懂神经网络中的反向传播法——BackPropagation</a><br>　　<a href="http://ufldl.stanford.edu/wiki/index.php/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">神经网络</a><br>　　<br>　　最简单的全连接神经网络如下图所示(这张图极其重要，本文所有的推导都参照的这张图，如果有兴趣看推导，建议保存下来跟推导一起看)：</p>
@@ -4509,31 +4534,6 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import timeimport torchimport torch.nn as nnfrom torch.autograd import Variableclass Net(nn.Module):    def __init__(self):        #定义Net的初始化函数，这个函数定义了该神经网络的基本结构</span><br><span class="line">        super(Net, self).__init__() #复制并使用Net的父类的初始化方法，即先运行nn.Module的初始化函数</span><br><span class="line">        self.intohid_layer &#x3D; nn.Linear(2, 2); #定义输入层到隐含层的连结关系函数</span><br><span class="line">        self.hidtoout_layer &#x3D; nn.Linear(2, 2);#定义隐含层到输出层的连结关系函数    def forward(self, input):        #定义该神经网络的向前传播函数，该函数必须定义，一旦定义成功，向后传播函数也会自动生成</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.intohid_layer(input))    #输入input在输入层经过经过加权和与激活函数后到达隐含层</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.hidtoout_layer(x))       #类似上面        return x</span><br><span class="line"></span><br><span class="line">mnet &#x3D; Net().cuda()</span><br><span class="line">target&#x3D;Variable(torch.cuda.FloatTensor([0.01, 0.99]));   #目标输出input&#x3D;Variable(torch.cuda.FloatTensor([0.05, 0.01]));    #输入loss_fn &#x3D; torch.nn.MSELoss();                            #损失函数定义，可修改optimizer &#x3D; torch.optim.SGD(mnet.parameters(), lr&#x3D;0.5, momentum&#x3D;0.9);</span><br><span class="line"></span><br><span class="line">start &#x3D; time.time()for t in range(0,5000):</span><br><span class="line">    optimizer.zero_grad();      #清空节点值</span><br><span class="line">    out&#x3D;mnet(input);            #前向传播</span><br><span class="line">    loss &#x3D; loss_fn(out,target); #损失计算</span><br><span class="line">    loss.backward();            #后向传播</span><br><span class="line">    optimizer.step();           #更新权值print(out.cpu());</span><br><span class="line">end &#x3D; time.time()</span><br><span class="line">print(end - start)</span><br></pre></td></tr></table></figure>
 <p>　　上面的代码运行时间是11s左右，比CPU版本的慢，这个比较合理，因为网络比较小，GPU单线程性能又不如CPU，因此有此结果，随着网络不断的复杂，可以想想这个情况会逐渐不一样。</p>
 <p>　　最后再预告下下篇文章，<a href="https://aichn.cn/post/ee239b41.html">深度学习2—任意结点数的三层全连接神经网络</a><br>　　<br>　　另外写文章累人，写代码掉头发，写这篇就大概写了两个星期。。。加个打赏好啦，如果觉得文章有帮助，哈哈哈</p>
-]]></content>
-      <categories>
-        <category>人工智能</category>
-      </categories>
-      <tags>
-        <tag>-神经网络 -人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深度学习2---任意结点数的三层全连接神经网络</title>
-    <url>/post/ee239b41.html</url>
-    <content><![CDATA[<p>上一篇文章：<a href="https://aichn.cn/post/74e51a6a.html">深度学习1—最简单的全连接神经网络</a>　<br>　　我们完成了一个三层（输入+隐含+输出）且每层都具有两个节点的全连接神经网络的原理分析和代码编写。本篇文章将进一步探讨如何把每层固定的两个节点变成任意个节点，以方便我们下一篇文章用本篇文章完成的网络来训练手写字符集“mnist”。<br>　　对于前向传播，基本上没有什么变化，就不用说了。主要看看后向传播的梯度下降公式。先放上上篇文章的网络图。<br><img src="/../images/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02---%E4%BB%BB%E6%84%8F%E7%BB%93%E7%82%B9%E6%95%B0%E7%9A%84%E4%B8%89%E5%B1%82%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/20180928134419558" alt="在这里插入图片描述"><br>　　上篇文章我们推知，含有两个节点的隐含层到输出层的权值对误差的偏导数，公式如下：<br>　<br>$$<br>　\frac{\partial E_{总}}{\partial W_{11}^{(２)}}=(O_{1}-T_{1})*O_{1}(1-O_{1})*Y_{1}<br>$$<br>　　而含有两个节点的输入层到隐含层的权值对于误差梯度的偏导数公式如下：<br>　　<br>$$<br>\frac{\partial E_{总}}{\partial W_{11}^{(1)}}=((O_{1}-T_{1})*O_{1}(1-O_{1})*W_{11}^{(2)}+(O_{2}-T_{2})*O_{2}(1-O_{2})*W_{21}^{(2)})*Y_{1}(1-Y_{1})*X_{1}<br>$$<br>　　现在我们来总结规律，先看第一道公式：<br>　　<br>$$<br>W_{11}^{(2)}<br>$$<br>位于输出层第一个结点的后方，与隐含层第一个结点相连接，其对总误差求偏导的式子结果也只与这两个节点的相关参数有关，与输入层、隐含层的第二个节点、输出层的第二个节点均无关。因此，也可以说，无论各层的节点数怎么样变化，隐含层到输出层的权值只与它连接的两个节点的参数相关。上式可以写成：<br>　　<br>$$<br>\frac{\partial E_{总}}{\partial W_{xy}^{(2)}}=(O_{x}-T_{x})*O_{x}(1-O_{x})*Y_{y}<br>$$<br>　　再看第二道公式：<br>　　<br>$$<br>W_{11}^{(1)}<br>$$<br>位于隐含层第一个节点的后方，与输入层第一个节点相连接，第一个隐含层节点又与输出层所有节点相连接。公式中出现的项与上面描述到的节点相关，因此如果输出层节点增加，则表达式需要增加对增加节点的计算。而隐含层和输入层增加则无所谓。因此表达式可以写成：<br>　　<br>$$<br>\frac{\partial E_{总}}{\partial W_{xy}^{(1)}}=[\sum_{k=1}^{n}(O_{k}-T_{k})*O_{k}(1-O_{k})*W_{kx}^{(2)}]*Y_{x}(1-Y_{x})*X_{y}<br>$$<br>　　大功告成！规律总结完了，下面就只剩下写代码了。不得不承认，这一篇原理部分蛮少的，应该只能算是上一篇文章的补充。但从固定到任意还是挺重要的，因此独立出来写。<br>　　下面我们用代码来实现一个任意节点数（代码中取的输入层、隐含层、输出层分别为5、10、5个节点，当然你高兴的话可以随意改动）的三层全连接神经网络。</p>
-<h2 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a><strong>C++实现</strong></h2><hr>
-<p>直接上代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;cmath&gt;</span><br><span class="line">#include&lt;ctime&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define IPNNUM 5     &#x2F;&#x2F;输入层节点数</span><br><span class="line">#define HDNNUM 10    &#x2F;&#x2F;隐含层节点数</span><br><span class="line">#define OPNNUM 5     &#x2F;&#x2F;输出层节点数</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;结点类，用以构成网络</span><br><span class="line">class node </span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	double value; &#x2F;&#x2F;数值，存储结点最后的状态</span><br><span class="line">	double *W&#x3D;NULL;    &#x2F;&#x2F;结点到下一层的权值</span><br><span class="line"></span><br><span class="line">	void initNode(int num);&#x2F;&#x2F;初始化函数，必须调用以初始化权值个数</span><br><span class="line">	~node();	  &#x2F;&#x2F;析构函数，释放掉权值占用内存</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">void node::initNode(int num)</span><br><span class="line">&#123;</span><br><span class="line">	W &#x3D; new double[num];</span><br><span class="line">	srand((unsigned)time(NULL));</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; num; i++)&#x2F;&#x2F;给权值赋一个随机值</span><br><span class="line">	&#123;</span><br><span class="line">		W[i]&#x3D; (rand() % 100)&#x2F;(double)100;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">node::~node()</span><br><span class="line">&#123;</span><br><span class="line">	if (W!&#x3D;NULL)</span><br><span class="line">	&#123;</span><br><span class="line">		delete[]W;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;网络类，描述神经网络的结构并实现前向传播以及后向传播</span><br><span class="line">class net </span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	node inlayer[IPNNUM]; &#x2F;&#x2F;输入层</span><br><span class="line">	node hidlayer[HDNNUM];&#x2F;&#x2F;隐含层</span><br><span class="line">	node outlayer[OPNNUM];&#x2F;&#x2F;输出层</span><br><span class="line"></span><br><span class="line">	double yita &#x3D; 0.1;&#x2F;&#x2F;学习率η</span><br><span class="line">	double k1;&#x2F;&#x2F;输入层偏置项权重</span><br><span class="line">	double k2;&#x2F;&#x2F;隐含层偏置项权重</span><br><span class="line">	double Tg[OPNNUM];&#x2F;&#x2F;训练目标</span><br><span class="line">	double O[OPNNUM];&#x2F;&#x2F;网络实际输出</span><br><span class="line"></span><br><span class="line">	net();&#x2F;&#x2F;构造函数，用于初始化各层和偏置项权重</span><br><span class="line">	double sigmoid(double z);&#x2F;&#x2F;激活函数</span><br><span class="line">	double getLoss();&#x2F;&#x2F;损失函数，输入为目标值</span><br><span class="line">	void forwardPropagation(double *input);&#x2F;&#x2F;前向传播,输入为输入层节点的值</span><br><span class="line">	void backPropagation(double *T);&#x2F;&#x2F;反向传播，输入为目标输出值</span><br><span class="line">	void printresual(int trainingTimes);&#x2F;&#x2F;打印信息</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">net::net()</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;初始化输入层和隐含层偏置项权值，给一个随机值</span><br><span class="line">	srand((unsigned)time(NULL));</span><br><span class="line">	k1&#x3D; (rand() % 100) &#x2F; (double)100;</span><br><span class="line">	k2 &#x3D; (rand() % 100) &#x2F; (double)100;</span><br><span class="line">	&#x2F;&#x2F;初始化输入层到隐含层节点个数</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; IPNNUM; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		inlayer[i].initNode(HDNNUM);</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;初始化隐含层到输出层节点个数</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; HDNNUM; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		hidlayer[i].initNode(OPNNUM);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;激活函数</span><br><span class="line">double net::sigmoid(double z)</span><br><span class="line">&#123;</span><br><span class="line">	return 1&#x2F;(1+ exp(-z));</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;损失函数</span><br><span class="line">double net::getLoss()</span><br><span class="line">&#123;</span><br><span class="line">	double mloss &#x3D; 0;</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; OPNNUM; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		mloss +&#x3D; pow(O[i] - Tg[i], 2);</span><br><span class="line">	&#125;</span><br><span class="line">	return mloss &#x2F; OPNNUM;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;前向传播</span><br><span class="line">void net::forwardPropagation(double *input)</span><br><span class="line">&#123;</span><br><span class="line">	for (size_t iNNum &#x3D; 0; iNNum &lt; IPNNUM; iNNum++)&#x2F;&#x2F;输入层节点赋值</span><br><span class="line">	&#123;</span><br><span class="line">		inlayer[iNNum].value &#x3D; input[iNNum];</span><br><span class="line">	&#125;</span><br><span class="line">	for (size_t hNNum &#x3D; 0; hNNum &lt; HDNNUM; hNNum++)&#x2F;&#x2F;算出隐含层结点的值</span><br><span class="line">	&#123;</span><br><span class="line">		double z &#x3D; 0;</span><br><span class="line">		for (size_t iNNum &#x3D; 0; iNNum &lt; IPNNUM; iNNum++)</span><br><span class="line">		&#123;</span><br><span class="line">			z+&#x3D; inlayer[iNNum].value*inlayer[iNNum].W[hNNum];</span><br><span class="line">		&#125;</span><br><span class="line">		z+&#x3D; k1;&#x2F;&#x2F;加上偏置项</span><br><span class="line">		hidlayer[hNNum].value &#x3D; sigmoid(z);</span><br><span class="line">	&#125;</span><br><span class="line">	for (size_t oNNum &#x3D; 0; oNNum &lt; OPNNUM; oNNum++)&#x2F;&#x2F;算出输出层结点的值</span><br><span class="line">	&#123;</span><br><span class="line">		double z &#x3D; 0;</span><br><span class="line">		for (size_t hNNum &#x3D; 0; hNNum &lt; HDNNUM; hNNum++)</span><br><span class="line">		&#123;</span><br><span class="line">			z +&#x3D; hidlayer[hNNum].value*hidlayer[hNNum].W[oNNum];</span><br><span class="line">		&#125;</span><br><span class="line">		z +&#x3D; k2;&#x2F;&#x2F;加上偏置项</span><br><span class="line">		O[oNNum] &#x3D; outlayer[oNNum].value &#x3D; sigmoid(z);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;反向传播，这里为了公式好看一点多写了一些变量作为中间值</span><br><span class="line">&#x2F;&#x2F;计算过程用到的公式在博文中已经推导过了，如果代码没看明白请看看博文</span><br><span class="line">void net::backPropagation(double *T)</span><br><span class="line">&#123;	</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; OPNNUM; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		Tg[i] &#x3D; T[i];</span><br><span class="line">	&#125;</span><br><span class="line">	for (size_t iNNum &#x3D; 0; iNNum &lt; IPNNUM; iNNum++)&#x2F;&#x2F;更新输入层权重</span><br><span class="line">	&#123;</span><br><span class="line">		for (size_t hNNum &#x3D; 0; hNNum &lt; HDNNUM; hNNum++)</span><br><span class="line">		&#123;</span><br><span class="line">			double y &#x3D; hidlayer[hNNum].value;</span><br><span class="line">			double loss &#x3D; 0;</span><br><span class="line">			for (size_t oNNum &#x3D; 0; oNNum &lt; OPNNUM; oNNum++)</span><br><span class="line">			&#123;</span><br><span class="line">				loss +&#x3D; (O[oNNum] - Tg[oNNum])*O[oNNum] * (1 - O[oNNum])*hidlayer[hNNum].W[oNNum];</span><br><span class="line">			&#125;</span><br><span class="line">			inlayer[iNNum].W[hNNum] -&#x3D; yita*loss*y*(1 - y)*inlayer[iNNum].value;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for (size_t hNNum &#x3D; 0; hNNum &lt; HDNNUM; hNNum++)&#x2F;&#x2F;更新隐含层权重</span><br><span class="line">	&#123;</span><br><span class="line">		for (size_t oNNum &#x3D; 0; oNNum &lt; OPNNUM; oNNum++)</span><br><span class="line">		&#123;</span><br><span class="line">			hidlayer[hNNum].W[oNNum]-&#x3D; yita*(O[oNNum] - Tg[oNNum])*</span><br><span class="line">				O[oNNum] *(1- O[oNNum])*hidlayer[hNNum].value;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void net::printresual(int trainingTimes)</span><br><span class="line">&#123;</span><br><span class="line">	double loss &#x3D; getLoss();</span><br><span class="line">	cout &lt;&lt; &quot;训练次数：&quot; &lt;&lt; trainingTimes &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;loss：&quot; &lt;&lt; loss &lt;&lt; endl;</span><br><span class="line">	for (size_t oNNum &#x3D; 0; oNNum &lt; OPNNUM; oNNum++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;输出&quot; &lt;&lt; oNNum+1&lt;&lt; &quot;：&quot; &lt;&lt; O[oNNum] &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">	net mnet;</span><br><span class="line">	double minput[IPNNUM] &#x3D; &#123; 0.1, 0.2, 0.3, 0.4, 0.5 &#125;;</span><br><span class="line">	double mtarget[IPNNUM] &#x3D; &#123; 0.2, 0.4, 0.6, 0.8, 1 &#125;;</span><br><span class="line">	for (size_t i &#x3D; 0; i &lt; 10000; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		mnet.forwardPropagation(minput);&#x2F;&#x2F;前向传播</span><br><span class="line">		mnet.backPropagation(mtarget);&#x2F;&#x2F;反向传播</span><br><span class="line">		if (i%1000&#x3D;&#x3D;0)</span><br><span class="line">		&#123;</span><br><span class="line">			mnet.printresual(i);&#x2F;&#x2F;信息打印</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a><strong>python实现</strong></h2><hr>
-<p>直接上代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import math</span><br><span class="line">import random</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">IPNNUM&#x3D;5     #输入层节点数</span><br><span class="line">HDNNUM&#x3D;10    #隐含层节点数</span><br><span class="line">OPNNUM&#x3D;3     #输出层节点数</span><br><span class="line"></span><br><span class="line">class node:</span><br><span class="line">    #结点类，用以构成网络</span><br><span class="line">    def __init__(self,connectNum&#x3D;0):</span><br><span class="line">        self.value&#x3D;0 #数值，存储结点最后的状态，对应到文章示例为X1，Y1等值</span><br><span class="line">        self.W &#x3D; (2*np.random.random_sample(connectNum)-1)*0.01</span><br><span class="line"></span><br><span class="line">class net:</span><br><span class="line">    #网络类，描述神经网络的结构并实现前向传播以及后向传播</span><br><span class="line">    def __init__(self):</span><br><span class="line">        #初始化函数，用于初始化各层间节点和偏置项权重</span><br><span class="line">        #输入层结点</span><br><span class="line">        self.inlayer&#x3D;[node(HDNNUM)];</span><br><span class="line">        for obj in range(1, IPNNUM):</span><br><span class="line">            self.inlayer.append(node(HDNNUM)) </span><br><span class="line">        #隐含层结点</span><br><span class="line">        self.hidlayer&#x3D;[node(OPNNUM)];</span><br><span class="line">        for obj in range(1, HDNNUM):</span><br><span class="line">            self.hidlayer.append(node(OPNNUM))             </span><br><span class="line">        #输出层结点</span><br><span class="line">        self.outlayer&#x3D;[node(0)];</span><br><span class="line">        for obj in range(1, OPNNUM):</span><br><span class="line">            self.outlayer&#x3D;[node(0)]                 </span><br><span class="line"></span><br><span class="line">        self.yita &#x3D; 0.1                                           #学习率η</span><br><span class="line">        self.k1&#x3D;random.random()                       #输入层偏置项权重</span><br><span class="line">        self.k2&#x3D;random.random()                       #隐含层偏置项权重</span><br><span class="line">        self.Tg&#x3D;np.zeros(OPNNUM)                   #训练目标</span><br><span class="line">        self.O&#x3D;np.zeros(OPNNUM)                     #网络实际输出</span><br><span class="line"></span><br><span class="line">    def sigmoid(self,z):</span><br><span class="line">        #激活函数</span><br><span class="line">        return 1 &#x2F; (1 + math.exp(-z))</span><br><span class="line"></span><br><span class="line">    def getLoss(self):</span><br><span class="line">        #损失函数</span><br><span class="line">        loss&#x3D;0</span><br><span class="line">        for num in range(0, OPNNUM):</span><br><span class="line">            loss+&#x3D;pow(self.O[num] -self.Tg[num],2)</span><br><span class="line">        return loss&#x2F;OPNNUM</span><br><span class="line"></span><br><span class="line">    def forwardPropagation(self,input):</span><br><span class="line">        #前向传播</span><br><span class="line">        for i in range(0, IPNNUM):</span><br><span class="line">            #输入层节点赋值</span><br><span class="line">            self.inlayer[i].value &#x3D; input[i]</span><br><span class="line">        for hNNum in range(0,HDNNUM):</span><br><span class="line">             #算出隐含层结点的值</span><br><span class="line">            z &#x3D; 0</span><br><span class="line">            for iNNum in range(0,IPNNUM):</span><br><span class="line">                z+&#x3D;self.inlayer[iNNum].value*self.inlayer[iNNum].W[hNNum]</span><br><span class="line">            #加上偏置项</span><br><span class="line">            z+&#x3D; self.k1</span><br><span class="line">            self.hidlayer[hNNum].value &#x3D; self.sigmoid(z)</span><br><span class="line">        for oNNum in range(0,OPNNUM):</span><br><span class="line">            #算出输出层结点的值</span><br><span class="line">            z &#x3D; 0</span><br><span class="line">            for hNNum in range(0,HDNNUM):</span><br><span class="line">                z +&#x3D; self.hidlayer[hNNum].value* self.hidlayer[hNNum].W[oNNum]</span><br><span class="line">            z +&#x3D; self.k2</span><br><span class="line">            self.O[oNNum] &#x3D; self.sigmoid(z)</span><br><span class="line"></span><br><span class="line">    def backPropagation(self,T):</span><br><span class="line">        #反向传播，这里为了公式好看一点多写了一些变量作为中间值</span><br><span class="line">        for num in range(0, OPNNUM):</span><br><span class="line">            self.Tg[num] &#x3D; T[num]</span><br><span class="line">        for iNNum in range(0,IPNNUM):</span><br><span class="line">            #更新输入层权重</span><br><span class="line">            for hNNum in range(0,HDNNUM):</span><br><span class="line">                y &#x3D; self.hidlayer[hNNum].value</span><br><span class="line">                loss &#x3D; 0</span><br><span class="line">                for oNNum in range(0, OPNNUM):</span><br><span class="line">                    loss+&#x3D;(self.O[oNNum] - self.Tg[oNNum])*self.O[oNNum] * (1 - self.O[oNNum])*self.hidlayer[hNNum].W[oNNum]</span><br><span class="line">                self.inlayer[iNNum].W[hNNum] -&#x3D; self.yita*loss*y*(1- y)*self.inlayer[iNNum].value</span><br><span class="line">        for hNNum in range(0,HDNNUM):</span><br><span class="line">            #更新隐含层权重</span><br><span class="line">            for oNNum in range(0,OPNNUM):</span><br><span class="line">                self.hidlayer[hNNum].W[oNNum]-&#x3D; self.yita*(self.O[oNNum] - self.Tg[oNNum])*self.O[oNNum]*\</span><br><span class="line">                    (1- self.O[oNNum])*self.hidlayer[hNNum].value</span><br><span class="line"></span><br><span class="line">    def printresual(self,trainingTimes):</span><br><span class="line">        #信息打印</span><br><span class="line">        loss &#x3D; self.getLoss()</span><br><span class="line">        print(&quot;训练次数：&quot;, trainingTimes)</span><br><span class="line">        print(&quot;loss&quot;,loss)</span><br><span class="line">        for oNNum in range(0,OPNNUM):</span><br><span class="line">            print(&quot;输出&quot;,oNNum,&quot;:&quot;,self.O[oNNum])</span><br><span class="line"></span><br><span class="line">#主程序</span><br><span class="line">mnet&#x3D;net()</span><br><span class="line">input&#x3D;np.array([0.1,0.2,0.3,0.4,0.5])</span><br><span class="line">target&#x3D;np.array([0.1,0.4,0.5])</span><br><span class="line"></span><br><span class="line">for n in range(0,1000):   </span><br><span class="line">    mnet.forwardPropagation(input)</span><br><span class="line">    mnet.backPropagation(target)</span><br><span class="line">    if (n%200&#x3D;&#x3D;0):</span><br><span class="line">        mnet.printresual(n)</span><br></pre></td></tr></table></figure>
-<h2 id="pytorch的CPU实现"><a href="#pytorch的CPU实现" class="headerlink" title="pytorch的CPU实现"></a><strong>pytorch的CPU实现</strong></h2><hr>
-<p>其实pytorch本身就已经支持任意节点数，所以这里只是随意的改了下上一篇文章中代码的参数部分。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># coding&#x3D;UTF-8</span><br><span class="line">import time</span><br><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">from torch.autograd import Variable</span><br><span class="line"></span><br><span class="line">class Net(nn.Module):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        #定义Net的初始化函数，这个函数定义了该神经网络的基本结构</span><br><span class="line">        super(Net, self).__init__() #复制并使用Net的父类的初始化方法，即先运行nn.Module的初始化函数</span><br><span class="line">        self.intohid_layer &#x3D; nn.Linear(5, 10) #定义输入层到隐含层的连结关系函数</span><br><span class="line">        self.hidtoout_layer &#x3D; nn.Linear(10, 5)#定义隐含层到输出层的连结关系函数</span><br><span class="line"></span><br><span class="line">    def forward(self, input):</span><br><span class="line">        #定义该神经网络的向前传播函数，该函数必须定义，一旦定义成功，向后传播函数也会自动生成</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.intohid_layer(input))    #输入input在输入层经过经过加权和与激活函数后到达隐含层</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.hidtoout_layer(x))       #类似上面</span><br><span class="line">        return x</span><br><span class="line"></span><br><span class="line">mnet &#x3D; Net()</span><br><span class="line">target&#x3D;Variable(torch.FloatTensor([0.2, 0.4, 0.6, 0.8, 1]))   #目标输出</span><br><span class="line">input&#x3D;Variable(torch.FloatTensor([0.1, 0.2, 0.3, 0.4, 0.5]))    #输入</span><br><span class="line"></span><br><span class="line">loss_fn &#x3D; torch.nn.MSELoss()                       #损失函数定义，可修改</span><br><span class="line">optimizer &#x3D; torch.optim.SGD(mnet.parameters(), lr&#x3D;0.5, momentum&#x3D;0.9);</span><br><span class="line"></span><br><span class="line">start &#x3D; time.time()</span><br><span class="line"></span><br><span class="line">for t in range(0,5000):</span><br><span class="line">    optimizer.zero_grad()      #清空节点值</span><br><span class="line">    out&#x3D;mnet(input)            #前向传播</span><br><span class="line">    loss &#x3D; loss_fn(out,target) #损失计算</span><br><span class="line">    loss.backward()            #后向传播</span><br><span class="line">    optimizer.step()           #更新权值</span><br><span class="line">    if (t%1000&#x3D;&#x3D;0):</span><br><span class="line">        print(out)</span><br><span class="line"></span><br><span class="line">end &#x3D; time.time()</span><br><span class="line">print(end - start)</span><br></pre></td></tr></table></figure>
-<h2 id="pytorch的GPU实现"><a href="#pytorch的GPU实现" class="headerlink" title="pytorch的GPU实现"></a><strong>pytorch的GPU实现</strong></h2><hr>
-<p>直接上代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># coding&#x3D;UTF-8</span><br><span class="line">import time</span><br><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">from torch.autograd import Variable</span><br><span class="line"></span><br><span class="line">class Net(nn.Module):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        #定义Net的初始化函数，这个函数定义了该神经网络的基本结构</span><br><span class="line">        super(Net, self).__init__() #复制并使用Net的父类的初始化方法，即先运行nn.Module的初始化函数</span><br><span class="line">        self.intohid_layer &#x3D; nn.Linear(5, 10) #定义输入层到隐含层的连结关系函数</span><br><span class="line">        self.hidtoout_layer &#x3D; nn.Linear(10, 5)#定义隐含层到输出层的连结关系函数</span><br><span class="line"></span><br><span class="line">    def forward(self, input):</span><br><span class="line">        #定义该神经网络的向前传播函数，该函数必须定义，一旦定义成功，向后传播函数也会自动生成</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.intohid_layer(input))    #输入input在输入层经过经过加权和与激活函数后到达隐含层</span><br><span class="line">        x &#x3D; torch.nn.functional.sigmoid(self.hidtoout_layer(x))       #类似上面</span><br><span class="line">        return x</span><br><span class="line"></span><br><span class="line">mnet &#x3D; Net().cuda()</span><br><span class="line">target&#x3D;Variable(torch.cuda.FloatTensor([0.2, 0.4, 0.6, 0.8, 1]))   #目标输出</span><br><span class="line">input&#x3D;Variable(torch.cuda.FloatTensor([0.1, 0.2, 0.3, 0.4, 0.5]))    #输入</span><br><span class="line"></span><br><span class="line">loss_fn &#x3D; torch.nn.MSELoss()                       #损失函数定义，可修改</span><br><span class="line">optimizer &#x3D; torch.optim.SGD(mnet.parameters(), lr&#x3D;0.5, momentum&#x3D;0.9);</span><br><span class="line"></span><br><span class="line">start &#x3D; time.time()</span><br><span class="line"></span><br><span class="line">for t in range(0,5000):</span><br><span class="line">    optimizer.zero_grad()      #清空节点值</span><br><span class="line">    out&#x3D;mnet(input)            #前向传播</span><br><span class="line">    loss &#x3D; loss_fn(out,target) #损失计算</span><br><span class="line">    loss.backward()            #后向传播</span><br><span class="line">    optimizer.step()           #更新权值</span><br><span class="line">    if (t%1000&#x3D;&#x3D;0):</span><br><span class="line">        print(out)</span><br><span class="line"></span><br><span class="line">end &#x3D; time.time()</span><br><span class="line">print(end - start)</span><br></pre></td></tr></table></figure>
-<p>到此就用代码实现了任意结点数的三层全连接神经网络，代码运行的结果都是对的，但相对来说pytorch收敛的快一些，可能跟其默认初始化的参数有关(自己写的代码都是用随机数初始化的)。<br>　　下一篇文章我们将用一个输入层、隐含层、输出层分别为784、100、10的三层全连接神经网络来训练闻名已久的MNIST手写数字字符集，然后自己手写一个数字来看看网络是否能比较给力的工作。<br>　　最后再预告下篇文章，<a href="https://aichn.cn/post/abc0fd31.html">深度学习3—用三层全连接神经网络训练MNIST手写数字字符集</a><br>　　另外写文章累人，写代码掉头发，如果觉得文章有帮助，哈哈哈</p>
 ]]></content>
       <categories>
         <category>人工智能</category>
@@ -4783,7 +4783,7 @@
 <p># Author:  coneypo</p>
 <p># Blog:   <a href="http://www.cnblogs.com/AdaminXie">http://www.cnblogs.com/AdaminXie</a></p>
 <p># GitHub:  <a href="https://github.com/coneypo/Dlib_face_recognition_from_camera">https://github.com/coneypo/Dlib_face_recognition_from_camera</a></p>
-<p># Mail:   <a href="mailto:&#x63;&#111;&#110;&#101;&#x79;&#x70;&#111;&#64;&#102;&#x6f;&#x78;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x63;&#111;&#110;&#101;&#x79;&#x70;&#111;&#64;&#102;&#x6f;&#x78;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
+<p># Mail:   <a href="mailto:&#x63;&#x6f;&#x6e;&#x65;&#x79;&#x70;&#x6f;&#64;&#102;&#111;&#120;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x63;&#x6f;&#x6e;&#x65;&#x79;&#x70;&#x6f;&#64;&#102;&#111;&#120;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
 <p># Created at 2018-05-11</p>
 <p># Updated at 2018-10-29</p>
 <p>import dlib     # 人脸处理的库 Dlib</p>
@@ -4909,7 +4909,7 @@
 <p># Author:  coneypo</p>
 <p># Blog:   <a href="http://www.cnblogs.com/AdaminXie">http://www.cnblogs.com/AdaminXie</a></p>
 <p># GitHub:  <a href="https://github.com/coneypo/Dlib_face_recognition_from_camera">https://github.com/coneypo/Dlib_face_recognition_from_camera</a></p>
-<p># Mail:   <a href="mailto:&#99;&#111;&#110;&#101;&#x79;&#x70;&#111;&#64;&#102;&#111;&#120;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#99;&#111;&#110;&#101;&#x79;&#x70;&#111;&#64;&#102;&#111;&#120;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p># Mail:   <a href="mailto:&#99;&#111;&#x6e;&#101;&#121;&#x70;&#111;&#64;&#x66;&#111;&#120;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#99;&#111;&#x6e;&#101;&#121;&#x70;&#111;&#64;&#x66;&#111;&#120;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
 <p># Created at 2018-05-11</p>
 <p># Updated at 2018-10-29</p>
 <p># 增加录入多张人脸到 CSV 的功能</p>
