@@ -478,66 +478,6 @@
       </tags>
   </entry>
   <entry>
-    <title>【教程固件】 酷比魔方Talk5H刷机指南,解救小白</title>
-    <url>/post/11f986cf.html</url>
-    <content><![CDATA[<p>安卓机最大的乐趣就是刷机了，鉴于很多5H的机油还不会刷机，只有写个教程出手一助了。提醒一句，刷机有风险，变砖的话LZ可不承担责任。</p>
-<p>不过根据LZ多年的刷机经验。要想把手机刷成砖，也是需要一定技术的，大胆的尝试吧。</p>
-<p>Talk5H刷机需要的几个工具下载</p>
-<p><strong>1）一键ROOT工具</strong></p>
-<p><a href="http://pan.baidu.com/share/link?shareid=2646370454&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2646370454&amp;uk=288410357</a></p>
-<p>2）叔叔工具箱**<br><a href="http://pan.baidu.com/share/link?shareid=2650065834&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2650065834&amp;uk=288410357</a></p>
-<p><strong>3）Recovery</strong></p>
-<p>Talk5H第三方Recovery （用于刷<strong>Talk5H第三方ROM</strong>，如MIUI，原生精简版，MUSE UI等等）<br><a href="http://pan.baidu.com/share/link?shareid=2656531356&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2656531356&amp;uk=288410357</a></p>
-<p>Talk5H官方Recovery （用于刷<strong>Talk5H官方ROM</strong>）<br><a href="http://pan.baidu.com/share/link?shareid=4107364334&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=4107364334&amp;uk=288410357</a></p>
-<p><strong>4）rom文件</strong></p>
-<p>目前Talk5H的<strong>第三方rom</strong>有</p>
-<p>作者 <strong>ccfly_89</strong> ；</p>
-<p>完美、稳定、流畅ROM来了，移植Muse UI</p>
-<p><a href="http://bbs.51cube.com/thread-77996-1-1.html">http://bbs.51cube.com/thread-77996-1-1.html</a></p>
-<p>应该是最流畅最省电的ROM：原汁原味原生体验，Talk5H原生版ROM发布</p>
-<p><a href="http://bbs.51cube.com/thread-78401-1-1.html">http://bbs.51cube.com/thread-78401-1-1.html</a></p>
-<p>作者 <strong>米柚真威武</strong> ；</p>
-<p>[MIUI-V5-ROM] <a href="http://bbs.ereadcn.com/forum-21-1.html">酷比魔方</a>Talk 5H【开发版第一期-13.8.16】</p>
-<p><a href="http://bbs.51cube.com/thread-77722-1-1.html">http://bbs.51cube.com/thread-77722-1-1.html</a></p>
-<p>[MIUI-V5-ROM] 酷比魔方Talk 5H【开发版第2期-13.8.23】</p>
-<p><a href="http://bbs.51cube.com/thread-78356-1-1.html">http://bbs.51cube.com/thread-78356-1-1.html</a></p>
-<p>移植红米真正完美MIUI V5稳定版【第一期】，再送近500个漂亮的MIUI收费主题爽到爆</p>
-<p><a href="http://bbs.51cube.com/thread-78477-1-1.html">http://bbs.51cube.com/thread-78477-1-1.html</a></p>
-<p>作者<strong>吉他</strong> ；</p>
-<p>基于官方V1.01版，吉他发布TALK 5H【A5300】精简优化固件</p>
-<p><a href="http://bbs.ereadcn.com/forum.php?mod=viewthread&amp;tid=99166&amp;fromuid=14">http://bbs.ereadcn.com/forum.php?mod=viewthread&amp;tid=99166&amp;fromuid=14</a></p>
-<p>作者 <strong>wuxianlin</strong> ；</p>
-<p>CUBE Talk 5H完美移植红米HBJ2.0 MIUI V5</p>
-<p><a href="http://bbs.51cube.com/thread-78280-1-1.html">http://bbs.51cube.com/thread-78280-1-1.html</a></p>
-<p>官方rom**有 </p>
-<p>比魔方Talk 5H V1.01（出厂固件）发布，反馈BUG请跟帖</p>
-<p><a href="http://bbs.51cube.com/thread-77711-1-1.html">http://bbs.51cube.com/thread-77711-1-1.html</a></p>
-<p>5）如果觉得麻烦还可以下载 Talk 5H刷机工具箱 by wuxianlin V1.1<a href="http://bbs.51cube.com/thread-78236-1-1.html">http://bbs.51cube.com/thread-78236-1-1.html</a></p>
-<p>这只工具箱集合了一键root，一键刷入recovery，一键安装谷歌服务套件等功能，非常强大，适合没有刷机经验的使用，配合PC鼠标点击操作，非常方便。</p>
-<p>下面教程需要下载工具</p>
-<p><strong>1）一键ROOT工具</strong></p>
-<p><a href="http://pan.baidu.com/share/link?shareid=2646370454&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2646370454&amp;uk=288410357</a></p>
-<p>2）叔叔工具箱**<br><a href="http://pan.baidu.com/share/link?shareid=2650065834&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2650065834&amp;uk=288410357</a></p>
-<p>3）Recovery**</p>
-<p>Talk5H第三方Recovery （用于刷<strong>Talk5H第三方ROM</strong>，如MIUI，原生精简版，MUSE UI等等）<br><a href="http://pan.baidu.com/share/link?shareid=2656531356&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2656531356&amp;uk=288410357</a></p>
-<p><strong>4）rom文件</strong><br>第三方ROM任选</p>
-<p><strong>一键ROOT工具在PC解压使用</strong></p>
-<p>叔叔工具箱安装到5H中使用**</p>
-<p>第三方Recovery放到手机根目录**</p>
-<p>rom文件,放到手机或者卡中**</p>
-<p>刷机教程；<br>1）root<br>2）安装 recovery</p>
-<p>3）刷机<img src="http://www.ereadcn.com/data/attachment/forum/201308/31/0050009a1t1nzzn6aqw2a2.jpg" alt="img"><br><img src="http://www.ereadcn.com/data/attachment/forum/201308/31/005003ev5qe5pw3vvle0ua.jpg" alt="img"><br><img src="http://www.ereadcn.com/data/attachment/forum/201308/31/0050060jzjtt7bqscuf0mm.jpg" alt="img"> </p>
-<p>要刷回官方ROM<br>需要安装官方recovery进行上述的操作</p>
-<p><strong>3）Recovery</strong><br>Talk5H官方Recovery （用于刷<strong>Talk5H官方ROM</strong>）<br><a href="http://pan.baidu.com/share/link?shareid=4107364334&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=4107364334&amp;uk=288410357</a></p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>-技术</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>WNMPA一键环境 1.0.0.0 正式版发布</title>
     <url>/post/b5e8cb00.html</url>
     <content><![CDATA[<p><img src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/wnmpa.png" alt="wnmpa"></p>
@@ -608,33 +548,63 @@
       </tags>
   </entry>
   <entry>
-    <title>f-gan生成对抗神经网络进阶第一级</title>
-    <url>/post/49c94cd0.html</url>
-    <content><![CDATA[<p>在之前我们做始祖Gan的数学推导的时候，其实留下了一堆坑（不知道你注意到了没有哈哈）。当然，牛逼的人就是这样的，指明了一条光明大道，让人知道从哪里走，然后剩下的一些坑坑洼洼刚刚好就能帮助一些博士、硕士毕业或者一些人评副教授、教授啥的。</p>
-<p>这篇文章介绍的f-gan就是填的其中一个坑，那就是给V(G,D)这个函数一个更加通用的描述。在始祖文章里面，这个函数是直接写出来的，虽然知道它巧妙得令人窒息，而且也确实是在算拟合网络和实际数据之间的数据分布距离（JS），但具体为什么能那么列式，那么列式之后为什么就刚刚好算的是分布间的某种距离其实我们是不大知道的，这导致的结果就是我们只能用它的，不能改进。而f-gan要解决的就是这个问题，它将告诉我们一道通用公式。在这道公式的约束下，你爱咋整咋整。</p>
-<p>首先我们看怎么一般化的表述两个分布之间的距离，f-gan告诉我们是这样的：<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) f \left( \frac { p ( x ) } { q ( x ) } \right) d x<br>$$<br>这里有两个约束，第一：f是凸函数；第二：f(1)=0</p>
-<p>由始祖文章的数学推导我们知道，对于神经网络而言，我们去衡量两个分布之间的差距其实不需要那么准，只要当他们有差距的时候，损失函数输出一个正值，而没差距的时候输出一个0就OK。那么f(1)=0就很好理解，当两个分布相同，只要满足这一约束就能使得最后的<br>$$<br>D _ { f } ( P | Q )<br>$$<br>也等于0。剩下我们就只需要证明在两个分布不完全相等的情况下，<br>$$<br>D _ { f } ( P | Q )<br>$$<br>大于0，就可以认为这道式子在表达两个分布之间的某种距离。</p>
-<p>证明的过程我们会用到<a href="https://aichn.cn/post/96895f36.html">琴生不等式</a>（要求f是凸函数也跟用到它有关，证明请移步链接所指文章），该不等式告诉我们：<br>$$<br>E ( f ( x ) ) \geq f ( E ( x ) )<br>$$<br>我们可以把<br>$$<br>f \left( \frac { p ( x ) } { q ( x ) } \right)看成f(x)，q(x)看成x的分布，那么D _ { f } ( P | Q )直接就变成E ( f ( x ) )E(f(x))<br>$$<br>，故：<br>$$<br>D _ { f } ( P | Q ) \geq f(\int _ { x } q ( x )  \left( \frac { p ( x ) } { q ( x ) } \right) d x)=f(1)=0<br>$$<br>注意，由于琴生不等式等于号只有在x分布完全均匀的时候取得（在这个应用中几乎不可能发生），因此基本可以判定除非<br>$$<br>D _ { f } ( P | Q )<br>$$<br>中的两个分布完全相等，不然不会取得等于号，这是极好的！避免了我们训练突然因为loss等于0而没反应的情况。</p>
-<p>完成了上面的推理，我们得到了两个分布的某种距离的一般表达式。但它还不是V(G,D)，原因是这里面既没有G也没有D（其实有D就好了,G在D里面），也就是说这是道看起来很美但对于Gan完全没用的式子。</p>
-<p>那怎么让这道式子跟D网络有关呢？我们可以想D是一个评价数据是不是真实分布的东西，当我们在训练D的时候，我们希望整个距离表达式最大。那么，能不能找到一个式子，当D使得距离表达式取最大值的时候，式子刚刚好就等于上面的<br>$$<br>D _ { f } ( P | Q )= \int _ { x } q ( x ) f \left( \frac { p ( x ) } { q ( x ) } \right) d x<br>$$<br>呢？</p>
-<p>要求有点多，但还真有办法实现！</p>
-<p>那就是利用<a href="https://aichn.cn/post/e66f8853.html">共轭函数</a>（具体见链接所指博客或自行google），它的定义如下：<br>$$<br>f ^ { * } ( t ) = \max _ { x \in \operatorname { dom } ( f ) } { x t - f ( x ) }<br>$$<br>它告诉我们，假设f(x)是一个凸函数，那么它存在一个共轭函数长上面描述的那样，写作<br>$$<br>f ^ { * } ( t )。<br>$$</p>
-<p>$$<br>f ^ { * } ( t )<br>$$</p>
-<p>本身也是凸函数，且它的共轭函数是f(x)。也就有：<br>$$<br>f( x ) = \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { x t - f  ^ { * } ( t ) }<br>$$<br>假设这个时候我们把<br>$$<br>f \left( \frac { p ( x ) } { q ( x ) } \right)<br>$$<br>看成是f(x)（前提是，<br>$$<br>f( 1 ) = \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { t - f  ^ { * } ( t ) }=0<br>$$<br>，这样f(x)就完全符合<br>$$<br>$D _ { f } ( P | Q ) $<br>$$<br>的要求），可得到：<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { \frac { p ( x ) } { q ( x ) } t - f  ^ { * } ( t ) } d x<br>$$<br>这个时候的公式其实还是跟D和G网络没什么关系，接着的这一步闪瞎眼，因为它做出了一个神之假设，假设有个神经网络D，输入是x，然后输出是t，这样上面的式子直接就变成<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) \max _ { D(x) \in \operatorname { dom } ( f  ^ { * } ) } { \frac { p ( x ) } { q ( x ) } D(x) - f  ^ { * } ( D(x) ) } d x<br>$$</p>
-<p>$$<br>\geq\int _ { x } q ( x ) { \frac { p ( x ) } { q ( x ) } D(x) - f  ^ { * } ( D(x) ) } d x<br>$$</p>
-<p>等于号在D(x)刚刚好等于使得积分中的全部式子最大的t的集合时取得。将式子进一步化简得到<br>$$<br>=\int _ { x } p ( x )D(x) - q ( x )f  ^ { * } ( D(x) )  d x<br>$$<br>这道式子牛逼的地方不知道你看出来了没有，它就在于这个≥号，回忆一下始祖gan，D网络的目标是最大化距离式子。而上面这道式子，我们恰恰好就能训练D网络来使得式子取得最大值。这个时候，式子可以写成下面的形式：</p>
-<p><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/HxmWegThKvG1sNjwAnfobKQJWGk8c_rBCTiWt8DHgfY.original.fullsize.png" alt="img"></p>
-<p>对于G网络而言，我们目的是最小化距离式子，则写成如下形式：</p>
-<p><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/image-20210102233819152.png" alt="image-20210102233819152"></p>
-<p>不知各位看出来没有，它就是通用版本的gan距离计算公式。真的对弄出这个东西的数学家跪服，太牛逼了！</p>
-<p>有了这个公式，我们只要找出一个凸函数（这里文章是这么写的，但其实非凸函数的共轭函数也是凸函数，因此不太清楚为什么要有这一条件，先存疑吧，有老哥知道麻烦留意告诉我）符合正实数域上有取值且是连续的，满足t−f(1)=0就可以作为<br>$$<br>f^*。<br>$$<br>文章中也列举了个可选的函数：<br><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/20190204011004991.png" alt="在这里插入图片描述"><br>经过该篇文章，我们解放了距离函数的限制，让它可以带着镣铐跳舞了，而不是一动不动的木乃伊。</p>
-<p>但其实它证明了一个让人哭笑不得的结论，始祖gan之所以效果不太好，跟我们选用的距离函数没有太大关系。也就是说，它的贡献主要在于帮助我们排除了一个错误答案。。。</p>
+    <title>【教程固件】 酷比魔方Talk5H刷机指南,解救小白</title>
+    <url>/post/11f986cf.html</url>
+    <content><![CDATA[<p>安卓机最大的乐趣就是刷机了，鉴于很多5H的机油还不会刷机，只有写个教程出手一助了。提醒一句，刷机有风险，变砖的话LZ可不承担责任。</p>
+<p>不过根据LZ多年的刷机经验。要想把手机刷成砖，也是需要一定技术的，大胆的尝试吧。</p>
+<p>Talk5H刷机需要的几个工具下载</p>
+<p><strong>1）一键ROOT工具</strong></p>
+<p><a href="http://pan.baidu.com/share/link?shareid=2646370454&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2646370454&amp;uk=288410357</a></p>
+<p>2）叔叔工具箱**<br><a href="http://pan.baidu.com/share/link?shareid=2650065834&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2650065834&amp;uk=288410357</a></p>
+<p><strong>3）Recovery</strong></p>
+<p>Talk5H第三方Recovery （用于刷<strong>Talk5H第三方ROM</strong>，如MIUI，原生精简版，MUSE UI等等）<br><a href="http://pan.baidu.com/share/link?shareid=2656531356&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2656531356&amp;uk=288410357</a></p>
+<p>Talk5H官方Recovery （用于刷<strong>Talk5H官方ROM</strong>）<br><a href="http://pan.baidu.com/share/link?shareid=4107364334&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=4107364334&amp;uk=288410357</a></p>
+<p><strong>4）rom文件</strong></p>
+<p>目前Talk5H的<strong>第三方rom</strong>有</p>
+<p>作者 <strong>ccfly_89</strong> ；</p>
+<p>完美、稳定、流畅ROM来了，移植Muse UI</p>
+<p><a href="http://bbs.51cube.com/thread-77996-1-1.html">http://bbs.51cube.com/thread-77996-1-1.html</a></p>
+<p>应该是最流畅最省电的ROM：原汁原味原生体验，Talk5H原生版ROM发布</p>
+<p><a href="http://bbs.51cube.com/thread-78401-1-1.html">http://bbs.51cube.com/thread-78401-1-1.html</a></p>
+<p>作者 <strong>米柚真威武</strong> ；</p>
+<p>[MIUI-V5-ROM] <a href="http://bbs.ereadcn.com/forum-21-1.html">酷比魔方</a>Talk 5H【开发版第一期-13.8.16】</p>
+<p><a href="http://bbs.51cube.com/thread-77722-1-1.html">http://bbs.51cube.com/thread-77722-1-1.html</a></p>
+<p>[MIUI-V5-ROM] 酷比魔方Talk 5H【开发版第2期-13.8.23】</p>
+<p><a href="http://bbs.51cube.com/thread-78356-1-1.html">http://bbs.51cube.com/thread-78356-1-1.html</a></p>
+<p>移植红米真正完美MIUI V5稳定版【第一期】，再送近500个漂亮的MIUI收费主题爽到爆</p>
+<p><a href="http://bbs.51cube.com/thread-78477-1-1.html">http://bbs.51cube.com/thread-78477-1-1.html</a></p>
+<p>作者<strong>吉他</strong> ；</p>
+<p>基于官方V1.01版，吉他发布TALK 5H【A5300】精简优化固件</p>
+<p><a href="http://bbs.ereadcn.com/forum.php?mod=viewthread&amp;tid=99166&amp;fromuid=14">http://bbs.ereadcn.com/forum.php?mod=viewthread&amp;tid=99166&amp;fromuid=14</a></p>
+<p>作者 <strong>wuxianlin</strong> ；</p>
+<p>CUBE Talk 5H完美移植红米HBJ2.0 MIUI V5</p>
+<p><a href="http://bbs.51cube.com/thread-78280-1-1.html">http://bbs.51cube.com/thread-78280-1-1.html</a></p>
+<p>官方rom**有 </p>
+<p>比魔方Talk 5H V1.01（出厂固件）发布，反馈BUG请跟帖</p>
+<p><a href="http://bbs.51cube.com/thread-77711-1-1.html">http://bbs.51cube.com/thread-77711-1-1.html</a></p>
+<p>5）如果觉得麻烦还可以下载 Talk 5H刷机工具箱 by wuxianlin V1.1<a href="http://bbs.51cube.com/thread-78236-1-1.html">http://bbs.51cube.com/thread-78236-1-1.html</a></p>
+<p>这只工具箱集合了一键root，一键刷入recovery，一键安装谷歌服务套件等功能，非常强大，适合没有刷机经验的使用，配合PC鼠标点击操作，非常方便。</p>
+<p>下面教程需要下载工具</p>
+<p><strong>1）一键ROOT工具</strong></p>
+<p><a href="http://pan.baidu.com/share/link?shareid=2646370454&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2646370454&amp;uk=288410357</a></p>
+<p>2）叔叔工具箱**<br><a href="http://pan.baidu.com/share/link?shareid=2650065834&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2650065834&amp;uk=288410357</a></p>
+<p>3）Recovery**</p>
+<p>Talk5H第三方Recovery （用于刷<strong>Talk5H第三方ROM</strong>，如MIUI，原生精简版，MUSE UI等等）<br><a href="http://pan.baidu.com/share/link?shareid=2656531356&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=2656531356&amp;uk=288410357</a></p>
+<p><strong>4）rom文件</strong><br>第三方ROM任选</p>
+<p><strong>一键ROOT工具在PC解压使用</strong></p>
+<p>叔叔工具箱安装到5H中使用**</p>
+<p>第三方Recovery放到手机根目录**</p>
+<p>rom文件,放到手机或者卡中**</p>
+<p>刷机教程；<br>1）root<br>2）安装 recovery</p>
+<p>3）刷机<img src="http://www.ereadcn.com/data/attachment/forum/201308/31/0050009a1t1nzzn6aqw2a2.jpg" alt="img"><br><img src="http://www.ereadcn.com/data/attachment/forum/201308/31/005003ev5qe5pw3vvle0ua.jpg" alt="img"><br><img src="http://www.ereadcn.com/data/attachment/forum/201308/31/0050060jzjtt7bqscuf0mm.jpg" alt="img"> </p>
+<p>要刷回官方ROM<br>需要安装官方recovery进行上述的操作</p>
+<p><strong>3）Recovery</strong><br>Talk5H官方Recovery （用于刷<strong>Talk5H官方ROM</strong>）<br><a href="http://pan.baidu.com/share/link?shareid=4107364334&amp;uk=288410357">http://pan.baidu.com/share/link?shareid=4107364334&amp;uk=288410357</a></p>
 ]]></content>
       <categories>
-        <category>人工智能</category>
+        <category>其他</category>
       </categories>
       <tags>
-        <tag>-人工智能</tag>
+        <tag>-技术</tag>
       </tags>
   </entry>
   <entry>
@@ -677,6 +647,36 @@
       </categories>
       <tags>
         <tag>-技术</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>f-gan生成对抗神经网络进阶第一级</title>
+    <url>/post/49c94cd0.html</url>
+    <content><![CDATA[<p>在之前我们做始祖Gan的数学推导的时候，其实留下了一堆坑（不知道你注意到了没有哈哈）。当然，牛逼的人就是这样的，指明了一条光明大道，让人知道从哪里走，然后剩下的一些坑坑洼洼刚刚好就能帮助一些博士、硕士毕业或者一些人评副教授、教授啥的。</p>
+<p>这篇文章介绍的f-gan就是填的其中一个坑，那就是给V(G,D)这个函数一个更加通用的描述。在始祖文章里面，这个函数是直接写出来的，虽然知道它巧妙得令人窒息，而且也确实是在算拟合网络和实际数据之间的数据分布距离（JS），但具体为什么能那么列式，那么列式之后为什么就刚刚好算的是分布间的某种距离其实我们是不大知道的，这导致的结果就是我们只能用它的，不能改进。而f-gan要解决的就是这个问题，它将告诉我们一道通用公式。在这道公式的约束下，你爱咋整咋整。</p>
+<p>首先我们看怎么一般化的表述两个分布之间的距离，f-gan告诉我们是这样的：<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) f \left( \frac { p ( x ) } { q ( x ) } \right) d x<br>$$<br>这里有两个约束，第一：f是凸函数；第二：f(1)=0</p>
+<p>由始祖文章的数学推导我们知道，对于神经网络而言，我们去衡量两个分布之间的差距其实不需要那么准，只要当他们有差距的时候，损失函数输出一个正值，而没差距的时候输出一个0就OK。那么f(1)=0就很好理解，当两个分布相同，只要满足这一约束就能使得最后的<br>$$<br>D _ { f } ( P | Q )<br>$$<br>也等于0。剩下我们就只需要证明在两个分布不完全相等的情况下，<br>$$<br>D _ { f } ( P | Q )<br>$$<br>大于0，就可以认为这道式子在表达两个分布之间的某种距离。</p>
+<p>证明的过程我们会用到<a href="https://aichn.cn/post/96895f36.html">琴生不等式</a>（要求f是凸函数也跟用到它有关，证明请移步链接所指文章），该不等式告诉我们：<br>$$<br>E ( f ( x ) ) \geq f ( E ( x ) )<br>$$<br>我们可以把<br>$$<br>f \left( \frac { p ( x ) } { q ( x ) } \right)看成f(x)，q(x)看成x的分布，那么D _ { f } ( P | Q )直接就变成E ( f ( x ) )E(f(x))<br>$$<br>，故：<br>$$<br>D _ { f } ( P | Q ) \geq f(\int _ { x } q ( x )  \left( \frac { p ( x ) } { q ( x ) } \right) d x)=f(1)=0<br>$$<br>注意，由于琴生不等式等于号只有在x分布完全均匀的时候取得（在这个应用中几乎不可能发生），因此基本可以判定除非<br>$$<br>D _ { f } ( P | Q )<br>$$<br>中的两个分布完全相等，不然不会取得等于号，这是极好的！避免了我们训练突然因为loss等于0而没反应的情况。</p>
+<p>完成了上面的推理，我们得到了两个分布的某种距离的一般表达式。但它还不是V(G,D)，原因是这里面既没有G也没有D（其实有D就好了,G在D里面），也就是说这是道看起来很美但对于Gan完全没用的式子。</p>
+<p>那怎么让这道式子跟D网络有关呢？我们可以想D是一个评价数据是不是真实分布的东西，当我们在训练D的时候，我们希望整个距离表达式最大。那么，能不能找到一个式子，当D使得距离表达式取最大值的时候，式子刚刚好就等于上面的<br>$$<br>D _ { f } ( P | Q )= \int _ { x } q ( x ) f \left( \frac { p ( x ) } { q ( x ) } \right) d x<br>$$<br>呢？</p>
+<p>要求有点多，但还真有办法实现！</p>
+<p>那就是利用<a href="https://aichn.cn/post/e66f8853.html">共轭函数</a>（具体见链接所指博客或自行google），它的定义如下：<br>$$<br>f ^ { * } ( t ) = \max _ { x \in \operatorname { dom } ( f ) } { x t - f ( x ) }<br>$$<br>它告诉我们，假设f(x)是一个凸函数，那么它存在一个共轭函数长上面描述的那样，写作<br>$$<br>f ^ { * } ( t )。<br>$$</p>
+<p>$$<br>f ^ { * } ( t )<br>$$</p>
+<p>本身也是凸函数，且它的共轭函数是f(x)。也就有：<br>$$<br>f( x ) = \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { x t - f  ^ { * } ( t ) }<br>$$<br>假设这个时候我们把<br>$$<br>f \left( \frac { p ( x ) } { q ( x ) } \right)<br>$$<br>看成是f(x)（前提是，<br>$$<br>f( 1 ) = \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { t - f  ^ { * } ( t ) }=0<br>$$<br>，这样f(x)就完全符合<br>$$<br>$D _ { f } ( P | Q ) $<br>$$<br>的要求），可得到：<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) \max _ { t \in \operatorname { dom } ( f  ^ { * } ) } { \frac { p ( x ) } { q ( x ) } t - f  ^ { * } ( t ) } d x<br>$$<br>这个时候的公式其实还是跟D和G网络没什么关系，接着的这一步闪瞎眼，因为它做出了一个神之假设，假设有个神经网络D，输入是x，然后输出是t，这样上面的式子直接就变成<br>$$<br>D _ { f } ( P | Q ) = \int _ { x } q ( x ) \max _ { D(x) \in \operatorname { dom } ( f  ^ { * } ) } { \frac { p ( x ) } { q ( x ) } D(x) - f  ^ { * } ( D(x) ) } d x<br>$$</p>
+<p>$$<br>\geq\int _ { x } q ( x ) { \frac { p ( x ) } { q ( x ) } D(x) - f  ^ { * } ( D(x) ) } d x<br>$$</p>
+<p>等于号在D(x)刚刚好等于使得积分中的全部式子最大的t的集合时取得。将式子进一步化简得到<br>$$<br>=\int _ { x } p ( x )D(x) - q ( x )f  ^ { * } ( D(x) )  d x<br>$$<br>这道式子牛逼的地方不知道你看出来了没有，它就在于这个≥号，回忆一下始祖gan，D网络的目标是最大化距离式子。而上面这道式子，我们恰恰好就能训练D网络来使得式子取得最大值。这个时候，式子可以写成下面的形式：</p>
+<p><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/HxmWegThKvG1sNjwAnfobKQJWGk8c_rBCTiWt8DHgfY.original.fullsize.png" alt="img"></p>
+<p>对于G网络而言，我们目的是最小化距离式子，则写成如下形式：</p>
+<p><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/image-20210102233819152.png" alt="image-20210102233819152"></p>
+<p>不知各位看出来没有，它就是通用版本的gan距离计算公式。真的对弄出这个东西的数学家跪服，太牛逼了！</p>
+<p>有了这个公式，我们只要找出一个凸函数（这里文章是这么写的，但其实非凸函数的共轭函数也是凸函数，因此不太清楚为什么要有这一条件，先存疑吧，有老哥知道麻烦留意告诉我）符合正实数域上有取值且是连续的，满足t−f(1)=0就可以作为<br>$$<br>f^*。<br>$$<br>文章中也列举了个可选的函数：<br><img src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/20190204011004991.png" alt="在这里插入图片描述"><br>经过该篇文章，我们解放了距离函数的限制，让它可以带着镣铐跳舞了，而不是一动不动的木乃伊。</p>
+<p>但其实它证明了一个让人哭笑不得的结论，始祖gan之所以效果不太好，跟我们选用的距离函数没有太大关系。也就是说，它的贡献主要在于帮助我们排除了一个错误答案。。。</p>
+]]></content>
+      <categories>
+        <category>人工智能</category>
+      </categories>
+      <tags>
+        <tag>-人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -802,21 +802,6 @@
       </tags>
   </entry>
   <entry>
-    <title>win10 网络连接0x80070035</title>
-    <url>/post/afa9daf5.html</url>
-    <content><![CDATA[<p>按window+R键输入gpedit.msc 来启动本地组策略编辑器。</p>
-<p>依次找到“计算机配置-管理模板-网络-Lanman工作站”这个节点，在右侧内容区可以看到“启用不安全的来宾登录”这一条策略设置。状态是“未配置”。</p>
-<p>双击“启用不安全的来宾登录”这一条策略设置，将其状态修改为“已启用”并单击确定按钮。</p>
-<p>设置完成再次尝试访问发现可以正常访问了。</p>
-]]></content>
-      <categories>
-        <category>win10</category>
-      </categories>
-      <tags>
-        <tag>-win10</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python三步实现人脸识别</title>
     <url>/post/e86121cf.html</url>
     <content><![CDATA[<p>Face Recognition软件包</p>
@@ -903,6 +888,21 @@
       </categories>
       <tags>
         <tag>-Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>win10 网络连接0x80070035</title>
+    <url>/post/afa9daf5.html</url>
+    <content><![CDATA[<p>按window+R键输入gpedit.msc 来启动本地组策略编辑器。</p>
+<p>依次找到“计算机配置-管理模板-网络-Lanman工作站”这个节点，在右侧内容区可以看到“启用不安全的来宾登录”这一条策略设置。状态是“未配置”。</p>
+<p>双击“启用不安全的来宾登录”这一条策略设置，将其状态修改为“已启用”并单击确定按钮。</p>
+<p>设置完成再次尝试访问发现可以正常访问了。</p>
+]]></content>
+      <categories>
+        <category>win10</category>
+      </categories>
+      <tags>
+        <tag>-win10</tag>
       </tags>
   </entry>
   <entry>
@@ -1104,6 +1104,33 @@
       </tags>
   </entry>
   <entry>
+    <title>【解决方案】WordPress无法建立到WordPress。org的安全连接</title>
+    <url>/post/17062.html</url>
+    <content><![CDATA[<p>服务器一直使用03系统，为了更好的满足需求决定升级系统，然而升级的路程的坎坷的，各种问题不曾间断，经过一夜努力终于在第二天的天明前完成了系统的各项配置。</p>
+<p>自以为风雨过后能见彩虹了，没想到这才是开始…</p>
+<p>安装好wordpress后发现许多需要跟wordpress.org进行连接的页面都无法打开了。</p>
+<p>期初以为是因为程序卡导致链接超时无法打开，于是就想到WordPress 的主题还有它的后台都会用到 Google 字体，在国内访问 Google 会遇到问题，这就是打开 WordPress 网站慢的主要原因。</p>
+<p>解决的办法是去安装一个叫 useso-take-over-google 的插件，它会用国内的 useso 替换 google，但是安装好后之前的问题仍然存在。</p>
+<p>于是又想到 WordPress 默认为用户使用的是 Gravatar 头像，我们访问这个网站也会遇到问题，虽然已经有现成的解决方案但仍然不太理想。</p>
+<p>解决办法：我们可以先禁用掉用户的头像功能，打开 <em>设置 – 讨论 – 头像显示</em>，去掉勾选显示头像，保存更改。</p>
+<p>OK 现在应该不会卡慢了，但是问题依旧，没办法自己的能力有限只能搜搜往上看有没有人遇到同样的问题。</p>
+<p>结果搜到了很多同样的问题，但是都没有得到解决，只有个别说到是因为空间商屏蔽了wordpress服务器IP，还有个别说要修改DNS为谷歌的DNS。</p>
+<p>但在尝试过后发现都不可用，于是我的脑细胞又开始了疯狂的自杀…</p>
+<p>想到曾经谷歌翻译不能用的时候会在host文件里添加记录就可以使用谷歌翻译了，于是开始尝试向host文件添加记录，首先ping一下api.wordpress.org的服务器IP得到66.155.40.249 打开host文件添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">66.155.40.249 api.wordpress.org</span><br></pre></td></tr></table></figure>
+<p>保存，刷新后台，完美！！</p>
+<p>win系统下host文件路径：c:\windows\system32\drivers\etc</p>
+<p>linux系统的host文件路径？</p>
+<p>施主请百度去吧，贫僧没搞过啊！！！</p>
+]]></content>
+      <categories>
+        <category>建站</category>
+      </categories>
+      <tags>
+        <tag>-技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【数据可视化】电视产品精准营销推荐</title>
     <url>/post/89c41659.html</url>
     <content><![CDATA[<p>获奖经历：</p>
@@ -1275,6 +1302,90 @@
       </tags>
   </entry>
   <entry>
+    <title>一条短信直接崩溃iPhone，几乎所有iOS设备躺枪</title>
+    <url>/post/3420606c.html</url>
+    <content><![CDATA[<p>iPhone 又出 Bug 了！国外有网友发现，只要给用 iPhone 的好友发送一段含有特殊字符的短信或者是 iMessage 消息，就会让对方的 iPhone 崩溃重启，这条信息最先出现在 Reddit 网站。这段字符信息包含了英文、阿拉伯文、中文和特殊符号：</p>
+<p><img src="/" alt="messagescrashingbug.jpg"></p>
+<blockquote>
+<p>Power<br>لُلُصّبُلُلصّبُررً ॣ ॣh ॣ ॣ<br>冗</p>
+</blockquote>
+<p>如果用户接收到这条短信，就会导致短信程序崩溃，手机重启。如果以短信应用的消息列表打开收到的短信，则会发生再次崩溃，如果进入了这条包含特殊字符的消息列表，这个对话窗口并不会崩溃，但如果再跳转到其他对话，消息应用又会崩溃，进入一个死循环。</p>
+<p>这个 BUG 目前影响苹果运行 iOS 8.3 的设备，包括 iPhone 和 iPad，也包括其他版本的 iOS 系统。如果 iPhone 处于安全模式下，则攻击不会生效，如果 iPhone 已经越狱，则越狱的 iPhone 会转入到安全模式。</p>
+<p>这可能是 iOS 通知中心预览功能处理 Unicode 字符时存在的一个 BUG，通知中心会在推送时会直接打开预览功能，所以会导致整个系统崩溃。</p>
+<p>如果收到这种短信，解决的办法有以下几种，例如能够在短信应用打开这条短信，可以回复对方一条短信来解决崩溃（例如再发送一条同样的短信进行报复 XD），如果是在消息列表中收到这种短信，可以尝试使用其他方法例如语音控制或者是社交软件分享一条消息给自己来解决崩溃。</p>
+<p>目前苹果已经知道了这个问题，正在进行修复，会不会提前发布小更新或者让 iOS 8.4 提前发布暂时还未清楚。</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>-其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>不拆机仅用SD卡为Thinkpad E450 E460作磁盘永久缓存加速</title>
+    <url>/post/c234aa14.html</url>
+    <content><![CDATA[<p>**Thinkpad E450 E460 的特点：<br>**一般标配机械硬盘，没有多余的光驱和内置硬盘接口。<br>ngff M.2接口被阉割，截至目前，有人尝试自行焊接M.2插槽，失败。可能是BIOS里面的问题，而不是仅仅焊接一个插槽这么简单。个人猜测，未经验证。</p>
+<p><strong>Windows Superfetch：</strong><br>将你经常运行的程序、经常读写的文件建立一个磁盘缓存，在系统预测的时刻读进内存。并且，将用户使用过程中的文件在内存复制一份，下次读写，只要文件内容没改，直接在内存中读取。<br>缺点：开机后才有效，不能加速启动过程。</p>
+<p><strong>Windows ReadyBoost：</strong><br>利用闪存盘的随机读写远大于机械硬盘特点，将superfetch的文件放置在优盘等闪存上，实现硬盘读写的加速。<br>注意ReadyBoost不是扩展内存。<br>缺点：<br>ReadyBoost每次关机都会清除缓存文件，每次开机再次从C盘将缓存文件读出来在闪存中重建。</p>
+<p><strong>联想ExpressCache：</strong><br>本来是用在固态硬盘为机械硬盘作高速缓存的机型上。它是将磁盘经常都写的文件在缓存盘（原装SSD）作永久缓存，开关机不会消失。<br>在启动过程中，只要ExpressCache的驱动载入后，即可享受缓存加速的效果，此时系统还未完全启动完毕，用户还未登录。所以，加速启动是有效果的。</p>
+<p><strong>使用SD卡做为ExpressCache的载体：</strong> Thinkpad E450 E460既然不能加装SSD，作为高速缓存或者RAID。那么结合Readyboost闪存读写快读和Express永久缓存的优点，绕过了readyboost关机后缓存消失的缺点，提出使用SD卡做为ExpressCache的载体方案。</p>
+<p><strong>购买一个SD卡：</strong><br>我用的是Sandisk 8GB Class10<br>插入内置读卡器，在左手掌托下。不要用外置读卡器。</p>
+<p><strong>软件下载：</strong><br>ExpressCache Software for Windows 10 (64bit) - Laptop, ThinkCentre联想官方下载：<br><a href="http://support.lenovo.com/us/en/downloads/ds104444">http://support.lenovo.com/us/en/downloads/ds104444</a><br>正常安装。重启。</p>
+<p><strong>准备磁盘：</strong></p>
+<ol>
+<li>Microsoft Windows [Version 10.0.10586]</li>
+<li>(c) 2015 Microsoft Corporation. All rights reserved.</li>
+<li>C:\Windows\system32&gt;diskpart</li>
+<li>Microsoft DiskPart version 10.0.10586</li>
+<li>Copyright (C) 1999-2013 Microsoft Corporation.</li>
+<li>On computer: ***</li>
+<li>DISKPART&gt; list disk</li>
+<li> Disk ### Status      Size   Free   Dyn Gpt</li>
+<li><hr>
+</li>
+<li> Disk 0  Online      465 GB 6144 KB     *</li>
+<li> Disk 1  Online     7580 M    0 B</li>
+<li>DISKPART&gt; select disk 1</li>
+<li>Disk 1 is now the selected disk.</li>
+<li>DISKPART&gt; list partition</li>
+<li> Partition ### Type         Size   Offset</li>
+<li><hr>
+</li>
+<li> Partition 1  Primary     7578 M 1024 KB</li>
+<li>DISKPART&gt; select partition 1</li>
+<li>Partition 1 is now the selected partition.</li>
+<li>DISKPART&gt;</li>
+</ol>
+<p><em>复制代码</em></p>
+<p>记住7578 MB这个数字，下一步会用到。这是你的SD卡磁盘分区格式化最大可用空间，不是7580 MB那个数字。</p>
+<p>windows10 系统下，管理员权限运行命令提示符，Win+X，A。<br>eccmd命令查看用法</p>
+<ol>
+<li>eccmd /?</li>
+</ol>
+<p><em>复制代码</em></p>
+<p>作者默认读者机器上没有其它硬盘优盘，只有内置硬盘和一个SD卡。</p>
+<ol>
+<li>eccmd -partition 1 7578</li>
+<li>eccmd -format</li>
+</ol>
+<p><em>复制代码</em></p>
+<p>格式化后用DiskGennius查看分区格式为73，是HFS么？求证。如果后期不小心把SD卡弹出了，或格式化为fat、ntfs，再插进去是没法用的，必须再次执行eccmd的分区与格式化。<br>此时使用以下命令可以查看SD卡里的缓存情况</p>
+<ol>
+<li>eccmd -info</li>
+</ol>
+<p><em>复制代码</em></p>
+<p>刚建立，什么都没有，运行一段时间再次查看，Cache Read Percent  : x.xx% Cache Write Percent : x.xx%这两组数字应该变大。<br>多重启几次，这个数字应该更大，作者的情况是，缓存读取比例可大于80%。<br>完毕。</p>
+<p><strong>讨论：</strong><br>SD卡毕竟不是SSD，加速效果有限，但仍然比内置机械硬盘快，在4K随机读写性能上。</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>-技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>为什么交叉熵能作为损失函数及其弥补了平方差损失什么缺陷</title>
     <url>/post/7c5ef9ec.html</url>
     <content><![CDATA[<p>在很多二分类问题中，特别是正负样本不均衡的分类问题中，常使用交叉熵作为loss对模型的参数求梯度进行更新，那为何交叉熵能作为损失函数呢，我也是带着这个问题去找解析的。</p>
@@ -1305,33 +1416,6 @@
       </categories>
       <tags>
         <tag>-人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【解决方案】WordPress无法建立到WordPress。org的安全连接</title>
-    <url>/post/17062.html</url>
-    <content><![CDATA[<p>服务器一直使用03系统，为了更好的满足需求决定升级系统，然而升级的路程的坎坷的，各种问题不曾间断，经过一夜努力终于在第二天的天明前完成了系统的各项配置。</p>
-<p>自以为风雨过后能见彩虹了，没想到这才是开始…</p>
-<p>安装好wordpress后发现许多需要跟wordpress.org进行连接的页面都无法打开了。</p>
-<p>期初以为是因为程序卡导致链接超时无法打开，于是就想到WordPress 的主题还有它的后台都会用到 Google 字体，在国内访问 Google 会遇到问题，这就是打开 WordPress 网站慢的主要原因。</p>
-<p>解决的办法是去安装一个叫 useso-take-over-google 的插件，它会用国内的 useso 替换 google，但是安装好后之前的问题仍然存在。</p>
-<p>于是又想到 WordPress 默认为用户使用的是 Gravatar 头像，我们访问这个网站也会遇到问题，虽然已经有现成的解决方案但仍然不太理想。</p>
-<p>解决办法：我们可以先禁用掉用户的头像功能，打开 <em>设置 – 讨论 – 头像显示</em>，去掉勾选显示头像，保存更改。</p>
-<p>OK 现在应该不会卡慢了，但是问题依旧，没办法自己的能力有限只能搜搜往上看有没有人遇到同样的问题。</p>
-<p>结果搜到了很多同样的问题，但是都没有得到解决，只有个别说到是因为空间商屏蔽了wordpress服务器IP，还有个别说要修改DNS为谷歌的DNS。</p>
-<p>但在尝试过后发现都不可用，于是我的脑细胞又开始了疯狂的自杀…</p>
-<p>想到曾经谷歌翻译不能用的时候会在host文件里添加记录就可以使用谷歌翻译了，于是开始尝试向host文件添加记录，首先ping一下api.wordpress.org的服务器IP得到66.155.40.249 打开host文件添加</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">66.155.40.249 api.wordpress.org</span><br></pre></td></tr></table></figure>
-<p>保存，刷新后台，完美！！</p>
-<p>win系统下host文件路径：c:\windows\system32\drivers\etc</p>
-<p>linux系统的host文件路径？</p>
-<p>施主请百度去吧，贫僧没搞过啊！！！</p>
-]]></content>
-      <categories>
-        <category>建站</category>
-      </categories>
-      <tags>
-        <tag>-技术</tag>
       </tags>
   </entry>
   <entry>
@@ -1392,27 +1476,6 @@
       </categories>
       <tags>
         <tag>-人工智能 -神经网络 -算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一条短信直接崩溃iPhone，几乎所有iOS设备躺枪</title>
-    <url>/post/3420606c.html</url>
-    <content><![CDATA[<p>iPhone 又出 Bug 了！国外有网友发现，只要给用 iPhone 的好友发送一段含有特殊字符的短信或者是 iMessage 消息，就会让对方的 iPhone 崩溃重启，这条信息最先出现在 Reddit 网站。这段字符信息包含了英文、阿拉伯文、中文和特殊符号：</p>
-<p><img src="/" alt="messagescrashingbug.jpg"></p>
-<blockquote>
-<p>Power<br>لُلُصّبُلُلصّبُررً ॣ ॣh ॣ ॣ<br>冗</p>
-</blockquote>
-<p>如果用户接收到这条短信，就会导致短信程序崩溃，手机重启。如果以短信应用的消息列表打开收到的短信，则会发生再次崩溃，如果进入了这条包含特殊字符的消息列表，这个对话窗口并不会崩溃，但如果再跳转到其他对话，消息应用又会崩溃，进入一个死循环。</p>
-<p>这个 BUG 目前影响苹果运行 iOS 8.3 的设备，包括 iPhone 和 iPad，也包括其他版本的 iOS 系统。如果 iPhone 处于安全模式下，则攻击不会生效，如果 iPhone 已经越狱，则越狱的 iPhone 会转入到安全模式。</p>
-<p>这可能是 iOS 通知中心预览功能处理 Unicode 字符时存在的一个 BUG，通知中心会在推送时会直接打开预览功能，所以会导致整个系统崩溃。</p>
-<p>如果收到这种短信，解决的办法有以下几种，例如能够在短信应用打开这条短信，可以回复对方一条短信来解决崩溃（例如再发送一条同样的短信进行报复 XD），如果是在消息列表中收到这种短信，可以尝试使用其他方法例如语音控制或者是社交软件分享一条消息给自己来解决崩溃。</p>
-<p>目前苹果已经知道了这个问题，正在进行修复，会不会提前发布小更新或者让 iOS 8.4 提前发布暂时还未清楚。</p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>-其他</tag>
       </tags>
   </entry>
   <entry>
@@ -1584,69 +1647,6 @@
       </categories>
       <tags>
         <tag>-人工智能 -神经网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>不拆机仅用SD卡为Thinkpad E450 E460作磁盘永久缓存加速</title>
-    <url>/post/c234aa14.html</url>
-    <content><![CDATA[<p>**Thinkpad E450 E460 的特点：<br>**一般标配机械硬盘，没有多余的光驱和内置硬盘接口。<br>ngff M.2接口被阉割，截至目前，有人尝试自行焊接M.2插槽，失败。可能是BIOS里面的问题，而不是仅仅焊接一个插槽这么简单。个人猜测，未经验证。</p>
-<p><strong>Windows Superfetch：</strong><br>将你经常运行的程序、经常读写的文件建立一个磁盘缓存，在系统预测的时刻读进内存。并且，将用户使用过程中的文件在内存复制一份，下次读写，只要文件内容没改，直接在内存中读取。<br>缺点：开机后才有效，不能加速启动过程。</p>
-<p><strong>Windows ReadyBoost：</strong><br>利用闪存盘的随机读写远大于机械硬盘特点，将superfetch的文件放置在优盘等闪存上，实现硬盘读写的加速。<br>注意ReadyBoost不是扩展内存。<br>缺点：<br>ReadyBoost每次关机都会清除缓存文件，每次开机再次从C盘将缓存文件读出来在闪存中重建。</p>
-<p><strong>联想ExpressCache：</strong><br>本来是用在固态硬盘为机械硬盘作高速缓存的机型上。它是将磁盘经常都写的文件在缓存盘（原装SSD）作永久缓存，开关机不会消失。<br>在启动过程中，只要ExpressCache的驱动载入后，即可享受缓存加速的效果，此时系统还未完全启动完毕，用户还未登录。所以，加速启动是有效果的。</p>
-<p><strong>使用SD卡做为ExpressCache的载体：</strong> Thinkpad E450 E460既然不能加装SSD，作为高速缓存或者RAID。那么结合Readyboost闪存读写快读和Express永久缓存的优点，绕过了readyboost关机后缓存消失的缺点，提出使用SD卡做为ExpressCache的载体方案。</p>
-<p><strong>购买一个SD卡：</strong><br>我用的是Sandisk 8GB Class10<br>插入内置读卡器，在左手掌托下。不要用外置读卡器。</p>
-<p><strong>软件下载：</strong><br>ExpressCache Software for Windows 10 (64bit) - Laptop, ThinkCentre联想官方下载：<br><a href="http://support.lenovo.com/us/en/downloads/ds104444">http://support.lenovo.com/us/en/downloads/ds104444</a><br>正常安装。重启。</p>
-<p><strong>准备磁盘：</strong></p>
-<ol>
-<li>Microsoft Windows [Version 10.0.10586]</li>
-<li>(c) 2015 Microsoft Corporation. All rights reserved.</li>
-<li>C:\Windows\system32&gt;diskpart</li>
-<li>Microsoft DiskPart version 10.0.10586</li>
-<li>Copyright (C) 1999-2013 Microsoft Corporation.</li>
-<li>On computer: ***</li>
-<li>DISKPART&gt; list disk</li>
-<li> Disk ### Status      Size   Free   Dyn Gpt</li>
-<li><hr>
-</li>
-<li> Disk 0  Online      465 GB 6144 KB     *</li>
-<li> Disk 1  Online     7580 M    0 B</li>
-<li>DISKPART&gt; select disk 1</li>
-<li>Disk 1 is now the selected disk.</li>
-<li>DISKPART&gt; list partition</li>
-<li> Partition ### Type         Size   Offset</li>
-<li><hr>
-</li>
-<li> Partition 1  Primary     7578 M 1024 KB</li>
-<li>DISKPART&gt; select partition 1</li>
-<li>Partition 1 is now the selected partition.</li>
-<li>DISKPART&gt;</li>
-</ol>
-<p><em>复制代码</em></p>
-<p>记住7578 MB这个数字，下一步会用到。这是你的SD卡磁盘分区格式化最大可用空间，不是7580 MB那个数字。</p>
-<p>windows10 系统下，管理员权限运行命令提示符，Win+X，A。<br>eccmd命令查看用法</p>
-<ol>
-<li>eccmd /?</li>
-</ol>
-<p><em>复制代码</em></p>
-<p>作者默认读者机器上没有其它硬盘优盘，只有内置硬盘和一个SD卡。</p>
-<ol>
-<li>eccmd -partition 1 7578</li>
-<li>eccmd -format</li>
-</ol>
-<p><em>复制代码</em></p>
-<p>格式化后用DiskGennius查看分区格式为73，是HFS么？求证。如果后期不小心把SD卡弹出了，或格式化为fat、ntfs，再插进去是没法用的，必须再次执行eccmd的分区与格式化。<br>此时使用以下命令可以查看SD卡里的缓存情况</p>
-<ol>
-<li>eccmd -info</li>
-</ol>
-<p><em>复制代码</em></p>
-<p>刚建立，什么都没有，运行一段时间再次查看，Cache Read Percent  : x.xx% Cache Write Percent : x.xx%这两组数字应该变大。<br>多重启几次，这个数字应该更大，作者的情况是，缓存读取比例可大于80%。<br>完毕。</p>
-<p><strong>讨论：</strong><br>SD卡毕竟不是SSD，加速效果有限，但仍然比内置机械硬盘快，在4K随机读写性能上。</p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>-技术</tag>
       </tags>
   </entry>
   <entry>
@@ -1829,6 +1829,27 @@
       </tags>
   </entry>
   <entry>
+    <title>如何让Win7开机不输入密码直接登录的方法</title>
+    <url>/post/65be3812.html</url>
+    <content><![CDATA[<p>电脑是win7的系统，然而也很少别人来玩，但是为了安全还是设置了一个密码，但是每次开机后都需要在本地登录的时候填写密码，那么该如何让Win7开机不输入密码直接登录呢？</p>
+<h2 id="方法-步骤"><a href="#方法-步骤" class="headerlink" title="方法/步骤"></a>方法/步骤</h2><ol>
+<li><p>点击屏幕左下角开始菜单</p>
+<p> 点击运行，若没有运行，那么按win+R键也可以</p>
+<p> 在运行的“打开”一行中输入“netplwiz” 点击”确定“</p>
+<p> 在弹出的窗口中点中你需要输入密码的那个账号，默认是Administrator 点中之后该帐户背景会变为蓝色</p>
+<p> 去掉”要使用本机，用户必须输入用户名和密码“前面框框中的勾。</p>
+<p> 最后点击”应用“–在弹出的窗口中输入你电脑的登录密码   最后点击”确定“—“确定” 重启后生效。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>win7</category>
+      </categories>
+      <tags>
+        <tag>-win7</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于TensorFlow框架搭建一个最简单的CNN框架</title>
     <url>/post/85ca40.html</url>
     <content><![CDATA[<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本文将使用python，并借助TensorFlow框架搭建一个最简单的CNN框架，来实现对手写数字的识别。</p>
@@ -1870,27 +1891,6 @@
       </categories>
       <tags>
         <tag>-人工智能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何让Win7开机不输入密码直接登录的方法</title>
-    <url>/post/65be3812.html</url>
-    <content><![CDATA[<p>电脑是win7的系统，然而也很少别人来玩，但是为了安全还是设置了一个密码，但是每次开机后都需要在本地登录的时候填写密码，那么该如何让Win7开机不输入密码直接登录呢？</p>
-<h2 id="方法-步骤"><a href="#方法-步骤" class="headerlink" title="方法/步骤"></a>方法/步骤</h2><ol>
-<li><p>点击屏幕左下角开始菜单</p>
-<p> 点击运行，若没有运行，那么按win+R键也可以</p>
-<p> 在运行的“打开”一行中输入“netplwiz” 点击”确定“</p>
-<p> 在弹出的窗口中点中你需要输入密码的那个账号，默认是Administrator 点中之后该帐户背景会变为蓝色</p>
-<p> 去掉”要使用本机，用户必须输入用户名和密码“前面框框中的勾。</p>
-<p> 最后点击”应用“–在弹出的窗口中输入你电脑的登录密码   最后点击”确定“—“确定” 重启后生效。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>win7</category>
-      </categories>
-      <tags>
-        <tag>-win7</tag>
       </tags>
   </entry>
   <entry>
@@ -2281,6 +2281,31 @@
       </tags>
   </entry>
   <entry>
+    <title>极大似然估计（MLE）</title>
+    <url>/post/107224d5.html</url>
+    <content><![CDATA[<p>我们已经了解了似然函数是什么，但怎么去把里面的θ给求出来是个更加关键的问题。这篇我们将来探讨下这个问题。</p>
+<p>还是先举一个例子，假设有一个造币厂生产某种硬币，现在我们拿到了一枚这种硬币，想试试这硬币是不是均匀的。即想知道抛这枚硬币，正反面出现的概率（记为θ）各是多少？</p>
+<p>这是一个统计问题，回想一下，解决统计问题需要什么？ 数据！</p>
+<p>于是我们拿这枚硬币抛了10次，得到的数据x_0x0是：反正正正正反正正正反。我们想求的正面概率θ是模型参数，而抛硬币模型是二项分布(除非硬币立起来，那么这个时候要马上去买彩票，还搞什么算法)。</p>
+<p>那么，出现实验结果x0（即反正正正正反正正正反）的似然函数是多少呢？我们是这样列式的：<br>$$<br>f \left( x _ { 0 } , \theta \right) = ( 1 - \theta ) \times \theta \times \theta \times \theta \times \theta \times ( 1 - \theta ) \times \theta \times \theta \times \theta \times ( 1 - \theta ) = \theta ^ { 7 } ( 1 - \theta ) ^ { 3 } = f ( \theta )<br>$$<br>求出来函数的最大值是θ=0.7时取得的。这样，我们已经完成了对θ的极大似然估计。即抛10次硬币，发现7次硬币正面向上，最大似然估计认为正面向上的概率是0.7。</p>
+<p>看完上面的公式相信很多人跟我一样是一脸懵逼的。懵逼的点就在于这他妈公式是哪里来的？为什么这样列式然后求其最大值时θ的取值就是极大似然估计的值，也就是根据给出样本的情况模型参数最有可能的取值？Why?</p>
+<p>这里需要另外一个例子来告诉我们：</p>
+<p>假设有一批产品，根据以往的经验知道它的次品率可能是0.1或0.3。生产这批产品的厂家认为该批产品很好，次品率大约为0.1，而收购产品的商业部门表示产品质量有问题，次品率可能为0.3。现在从这批产品中随机抽取15件，发现其中有5件是次品。问：生产厂家与收购部分谁的估计更加可靠？</p>
+<p>解：记次品数为X，则<br>$$<br>X \sim B ( n , p )<br>$$<br>(这式子的意思是X服从二项分布)</p>
+<p>若次品率<br>$$<br>p _ { 1 } = 0.1，<br>$$<br>则15件产品中有5件是次品的概率为：<br>$$<br>P ( X = 5 ) = C _ { 15 } ^ { 5 } 0.1 ^ { 5 } 0.9 ^ { 10 } = 0.0105<br>$$<br>若次品率<br>$$<br>p _ { 2 } = 0.3，<br>$$<br>则15件产品中有5件是次品的概率为：<br>$$<br>P ( X = 5 ) = C _ { 15 } ^ { 5 } 0.3 ^ { 5 } 0.7 ^ { 10 } = 0.2061<br>$$<br>后面的概率显然高于前面的，因此用0.3作为次品率的估计值更为可靠一些。</p>
+<p>OK，解题结束，到这里相信你已经恍然大悟了。为什么极大似然估计公式是连乘。那不就是上面两道公式<br>$$<br>C _ { 15 } ^ { 5 }的右边部分吗？仔细看来，对比上下两道公式，可以发现C _ { 15 } ^ { 5 }这个部分是一样的，不同的就是C _ { 15 } ^ { 5 }的右边部分。<br>$$<br>而我们要让评估更正确，其实是要求让<br>$$<br>P ( X = 5 )这道公式取最大值的pp的值。又因为C _ { 15 } ^ { 5 }<br>$$<br>这部分写不写都不影响求解结果，它相当于一个常数，因此忽略掉那部分后，就得到了极大似然估计公式。</p>
+<p>我们用更加严谨的公式把似然函数和极大似然估计都用数学表达出来如下（其中argmaxθ表示当右边函数取得最大值时θ的取值）：<br>似然函数：<br>$$<br>l ( \theta ) = P ( x | \theta ) = p \left( x _ { 1 } , x _ { 2 } , \cdots , x _ { N } | \theta \right) = \prod _ { i = 1 } ^ { N } p \left( x _ { i } | \theta \right)<br>$$</p>
+<p>极大似然估计：<br>$$<br>\hat { \theta } = \arg \max _ { \theta } l ( \theta ) = \arg \max _ { \theta } \prod _ { i = 1 } ^ { N } p \left( x _ { i } | \theta \right)<br>$$</p>
+<p>当然这个公式看起来虽好，但有个问题，算起来比较要命，因为是连乘啊！这求个导能把人求哭。怎么办？两边取对数（因为lnx是随着x增大而单调增大的，也就是说当lnx取得最大值的时候x也取得最大值），这个时候极大似然估计变成这样：<br>$$<br>\hat { \theta } = \arg \max _ { \theta } H ( \theta ) = \arg \max _ { \theta } \ln l ( \theta ) = \arg \max _ { \theta } \sum _ { i = 1 } ^ { N } \ln p \left( x _ { i } | \theta \right)<br>$$<br>连乘变成累加，世界瞬间清净了！</p>
+]]></content>
+      <categories>
+        <category>人工智能</category>
+      </categories>
+      <tags>
+        <tag>-人工智能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习经典算法之-----最小二乘法</title>
     <url>/post/46e20187.html</url>
     <content><![CDATA[<p>最小二乘法</p>
@@ -2307,31 +2332,6 @@
       </categories>
       <tags>
         <tag>-大数据 -机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>极大似然估计（MLE）</title>
-    <url>/post/107224d5.html</url>
-    <content><![CDATA[<p>我们已经了解了似然函数是什么，但怎么去把里面的θ给求出来是个更加关键的问题。这篇我们将来探讨下这个问题。</p>
-<p>还是先举一个例子，假设有一个造币厂生产某种硬币，现在我们拿到了一枚这种硬币，想试试这硬币是不是均匀的。即想知道抛这枚硬币，正反面出现的概率（记为θ）各是多少？</p>
-<p>这是一个统计问题，回想一下，解决统计问题需要什么？ 数据！</p>
-<p>于是我们拿这枚硬币抛了10次，得到的数据x_0x0是：反正正正正反正正正反。我们想求的正面概率θ是模型参数，而抛硬币模型是二项分布(除非硬币立起来，那么这个时候要马上去买彩票，还搞什么算法)。</p>
-<p>那么，出现实验结果x0（即反正正正正反正正正反）的似然函数是多少呢？我们是这样列式的：<br>$$<br>f \left( x _ { 0 } , \theta \right) = ( 1 - \theta ) \times \theta \times \theta \times \theta \times \theta \times ( 1 - \theta ) \times \theta \times \theta \times \theta \times ( 1 - \theta ) = \theta ^ { 7 } ( 1 - \theta ) ^ { 3 } = f ( \theta )<br>$$<br>求出来函数的最大值是θ=0.7时取得的。这样，我们已经完成了对θ的极大似然估计。即抛10次硬币，发现7次硬币正面向上，最大似然估计认为正面向上的概率是0.7。</p>
-<p>看完上面的公式相信很多人跟我一样是一脸懵逼的。懵逼的点就在于这他妈公式是哪里来的？为什么这样列式然后求其最大值时θ的取值就是极大似然估计的值，也就是根据给出样本的情况模型参数最有可能的取值？Why?</p>
-<p>这里需要另外一个例子来告诉我们：</p>
-<p>假设有一批产品，根据以往的经验知道它的次品率可能是0.1或0.3。生产这批产品的厂家认为该批产品很好，次品率大约为0.1，而收购产品的商业部门表示产品质量有问题，次品率可能为0.3。现在从这批产品中随机抽取15件，发现其中有5件是次品。问：生产厂家与收购部分谁的估计更加可靠？</p>
-<p>解：记次品数为X，则<br>$$<br>X \sim B ( n , p )<br>$$<br>(这式子的意思是X服从二项分布)</p>
-<p>若次品率<br>$$<br>p _ { 1 } = 0.1，<br>$$<br>则15件产品中有5件是次品的概率为：<br>$$<br>P ( X = 5 ) = C _ { 15 } ^ { 5 } 0.1 ^ { 5 } 0.9 ^ { 10 } = 0.0105<br>$$<br>若次品率<br>$$<br>p _ { 2 } = 0.3，<br>$$<br>则15件产品中有5件是次品的概率为：<br>$$<br>P ( X = 5 ) = C _ { 15 } ^ { 5 } 0.3 ^ { 5 } 0.7 ^ { 10 } = 0.2061<br>$$<br>后面的概率显然高于前面的，因此用0.3作为次品率的估计值更为可靠一些。</p>
-<p>OK，解题结束，到这里相信你已经恍然大悟了。为什么极大似然估计公式是连乘。那不就是上面两道公式<br>$$<br>C _ { 15 } ^ { 5 }的右边部分吗？仔细看来，对比上下两道公式，可以发现C _ { 15 } ^ { 5 }这个部分是一样的，不同的就是C _ { 15 } ^ { 5 }的右边部分。<br>$$<br>而我们要让评估更正确，其实是要求让<br>$$<br>P ( X = 5 )这道公式取最大值的pp的值。又因为C _ { 15 } ^ { 5 }<br>$$<br>这部分写不写都不影响求解结果，它相当于一个常数，因此忽略掉那部分后，就得到了极大似然估计公式。</p>
-<p>我们用更加严谨的公式把似然函数和极大似然估计都用数学表达出来如下（其中argmaxθ表示当右边函数取得最大值时θ的取值）：<br>似然函数：<br>$$<br>l ( \theta ) = P ( x | \theta ) = p \left( x _ { 1 } , x _ { 2 } , \cdots , x _ { N } | \theta \right) = \prod _ { i = 1 } ^ { N } p \left( x _ { i } | \theta \right)<br>$$</p>
-<p>极大似然估计：<br>$$<br>\hat { \theta } = \arg \max _ { \theta } l ( \theta ) = \arg \max _ { \theta } \prod _ { i = 1 } ^ { N } p \left( x _ { i } | \theta \right)<br>$$</p>
-<p>当然这个公式看起来虽好，但有个问题，算起来比较要命，因为是连乘啊！这求个导能把人求哭。怎么办？两边取对数（因为lnx是随着x增大而单调增大的，也就是说当lnx取得最大值的时候x也取得最大值），这个时候极大似然估计变成这样：<br>$$<br>\hat { \theta } = \arg \max _ { \theta } H ( \theta ) = \arg \max _ { \theta } \ln l ( \theta ) = \arg \max _ { \theta } \sum _ { i = 1 } ^ { N } \ln p \left( x _ { i } | \theta \right)<br>$$<br>连乘变成累加，世界瞬间清净了！</p>
-]]></content>
-      <categories>
-        <category>人工智能</category>
-      </categories>
-      <tags>
-        <tag>-人工智能</tag>
       </tags>
   </entry>
   <entry>
@@ -2668,6 +2668,67 @@
       </tags>
   </entry>
   <entry>
+    <title>进远景论坛方法</title>
+    <url>/post/edb70a23.html</url>
+    <content><![CDATA[<p>修改hosts<br>218.93.127.136 pcbeta.com<br>218.93.127.136 uc.pcbeta.com<br>218.93.127.136 m.pcbeta.com<br>218.93.127.136 web.pcbeta.com<br>218.93.127.136 i.pcbeta.com<br>218.93.127.136 bbs.pcbeta.com<br>218.93.127.136 <a href="http://jump.bdimg.com/safecheck/index?url=x+Z5mMbGPAu6psTyi+uBNSwM5kbsgXOExclEQBwqCNr7LAYdITHoVOgaj8AbWjZRMVJWer8MmNrc99WDfAa0fDx0jpvVAOecZVybKVEXRvGgj6bhyjG6iHY9qHh6BM0y">http://www.pcbeta.com</a><br>218.93.127.136 cdn.pcbeta.attachment.inimc.com<br>218.93.127.136 cdn.pcbeta.static.inimc.com<br>218.93.127.136 cdn.pcbeta.css.inimc.com<br>218.93.127.136 static.template.pcbeta.com</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>-其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>通过广域网(Intelnet)进行远程唤醒[或开机] 图解</title>
+    <url>/post/c004a920.html</url>
+    <content><![CDATA[<p>WAN远程唤醒与LAN远程唤醒有着诸多不同，WAN远程唤醒首先需要主板、网卡等硬件的支持，需要一条有效的Intelnet连接，与Lan远程唤醒不同的是，WAN远程唤醒需要经过路由器，因此下面我就来详细讲解如何在路由器上进行设置，以支持WAN远程唤醒，前提是，你已经成功进行了LAN远程唤醒。</p>
+<p><strong>一、WOL（远程唤醒）工具介绍</strong></p>
+<p>实现远程唤醒的软件有很多，原理都是相同的。下面列出几款常用的WOL软件：</p>
+<p>■ LanHelper</p>
+<p>■ Magic Packet Utility</p>
+<p>■ NetWaker for windows</p>
+<p>■ WakeOnLanGui（<a href="http://www.depicus.com/">http://www.depicus.com</a>）</p>
+<p><strong>二、准备</strong></p>
+<p>WAN与LAN在不同在于在广域网上，有许多的路由器等网络设备，这些设备可能会使Magic Packet的包不能到达我们想唤醒的电脑网卡上。因此，要实现通过internet来唤醒，必须得到路由器的支持。下面就以我的TP-Link WR841N无线路由为例来说明配置过程。</p>
+<p>首先确保路由器可以正常接入internet，即通过服务商得到一个公网IP（对于家庭来说ADSL、Cable Modem是常见的上网方式），进入路由器WEB配置页面<a href="http://192.168.1.1/">http://192.168.1.1。</a></p>
+<p><strong>三、端口映射（虚拟服务器）</strong></p>
+<p>依次点击“转发规则”-&gt;“虚拟服务器”，添加一新条目，端口为2301（2301是默认的端口号，也可以是其它端口号，只要不和其它的冲突），IP地址为需要唤醒电脑网卡所使用的IP地址（比如192.168.1.250），协议为UDP，并使之处于“生效”状态。</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122153904700)</p>
+<p>这一步使得当路由器收到发到它2301端口的数据都会转发到IP地址为192.168.1.250的这台电脑上。</p>
+<p><strong>四、IP地址与MAC地址之间的绑定</strong></p>
+<p>依次点击“IP与MAC绑定”-&gt;“静态ARP绑定设置”，添加一新条目，MAC地址添为网卡（被唤醒电脑上的）MAC，如50-E5-60-CA-1A-4A，IP为上一步设置的IP地址：192.168.1.250。</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154246829)</p>
+<p>注意：记住要启用路由器的“ARP绑定”功能（图片中的红圈部分），不然此步的设置是不生效的。</p>
+<p>当路由器收到从internet发往2301端口的Magic Packet包时，由于设了端口映射，路由器就直接将该Magic Packet包转发到192.168.1.250上。但是由于电脑是处理关机状态，ARP无法通过广播找到192.168.1.250这台电脑，Magic Packet包将被路由器丢弃，因此进行静态的IP-MAC绑定，使数据包可以直接发往MAC地址为50-E5-60-CA-1A-4A的网卡上。</p>
+<p>此时，从理论上来说，通过internet的远程唤醒就可以成功了。但是，如果远程主机没有配置静态IP地址，而是通过DHCP方式获取动态IP地址的，那么还有一些工作需要做，以确保万无一失。</p>
+<p><strong>五、静态IP地址分配</strong></p>
+<p>大家都清楚，DHCP租约协议是有有效期的，TP-Link上的DHCP租约有效期默认是2小时，为了确保远程电脑在启动后可以获得192.168.1.250这个IP地址，需要在DHCP服务器中设置一个静态地址分配，即为MAC地址50-E5-60-CA-1A-4A静态分配192.168.1.250这个IP地址，而且永不过期。</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154757301)</p>
+<p><strong>六、使用动态DNS功能</strong></p>
+<p>在路由器上使用动态DNS功能，这样可以用一个域名来访问而不用查看经常改变的公网IP（ADSL拨号上网的IP是经常变的）。同时，允许路由器可以进行无端WEB管理，以方便当我们在任何地方都可以检查路由器的状态。</p>
+<p>说到DDNS，不得不提到大名鼎鼎的花生壳了，TP-LINK路由器默认就内嵌了动态DNS功能，只需要到花生壳的官网注册一个护照，并申请一个免费域名，然后在路由器上登录。登录成功后，会看到域名，这样花生壳就将域名和路由器上的公网IP地址绑定在一起了。</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154957702)</p>
+<p><strong>七、使用第三方工具进行远程唤醒</strong></p>
+<p>访问<a href="http://www.depicus.com/wake-on-lan/woli.aspx%E8%BF%99%E4%B8%AA%E9%A1%B5%E9%9D%A2%EF%BC%8C%E8%BF%99%E6%98%AFdepicus%E6%8F%90%E4%BE%9B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9C%A8%E7%BA%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E5%B7%A5%E5%85%B7%E9%A1%B5%E9%9D%A2%EF%BC%8C%E4%BD%BF%E7%94%A8%E8%B5%B7%E6%9D%A5%E5%BE%88%E6%96%B9%E4%BE%BF%E3%80%82%E5%B7%A5%E4%BD%9C%E7%95%8C%E9%9D%A2%E5%A6%82%E4%B8%8B%EF%BC%9A">http://www.depicus.com/wake-on-lan/woli.aspx这个页面，这是depicus提供的一个在线的远程唤醒工具页面，使用起来很方便。工作界面如下：</a></p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122155050140)</p>
+<p>下面就进行远程唤醒的四个参数作下说明：</p>
+<ul>
+<li><strong>Your Network Cards Mac Address：</strong>（内部局域网）远程主机的网卡MAC地址，不是路由器的MAC地址。[一开始我这里搞错了，填的是路由器的MAC地址，怎么也不能远程唤醒]</li>
+<li><strong>Any Computers Ip Number or FQDN：</strong>路由器获取到的公网IP地址或使用花生壳DDNS进行绑定的合法域名。这里最好使用DDNS功能绑定一个域名，因为域名是不变的，而你不清楚你的路由器什么时候会重新从ISP服务商那里获取公网IP地址。但如果使用了DDNS，即使路由器的IP地址变了，会自动更新到花生壳服务器上。</li>
+<li><strong>Your Subnet Mask：</strong>子网掩码。这个很重要，因为路由器是动态地从ISP服务商那里获取IP地址的，你根本不知道该IP地址所对应的子网掩码，所以索性就填写255.255.255.255，这表示是唯一一个IP地址，而不是一个网段。</li>
+<li><strong>Any Port Number：</strong>网络端口，路由器会一直侦听该网络端口，一旦侦测到有数据包发往该端口，就进行转发。</li>
+</ul>
+<p>经过上述配置，我已经通过Internet成功远程唤醒了我的服务器。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>-技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>西部数据 NAS 红盘 WD20EFRX 假货识别</title>
     <url>/post/36149d23.html</url>
     <content><![CDATA[<p>电脑外设鱼龙混杂，尤其像网上购买硬件，很多不懂得消费者很容易被JS得小伎俩欺骗。下面介绍简单的购买技巧来识别买到的硬盘是否为假货。</p>
@@ -2716,18 +2777,6 @@
       </tags>
   </entry>
   <entry>
-    <title>进远景论坛方法</title>
-    <url>/post/edb70a23.html</url>
-    <content><![CDATA[<p>修改hosts<br>218.93.127.136 pcbeta.com<br>218.93.127.136 uc.pcbeta.com<br>218.93.127.136 m.pcbeta.com<br>218.93.127.136 web.pcbeta.com<br>218.93.127.136 i.pcbeta.com<br>218.93.127.136 bbs.pcbeta.com<br>218.93.127.136 <a href="http://jump.bdimg.com/safecheck/index?url=x+Z5mMbGPAu6psTyi+uBNSwM5kbsgXOExclEQBwqCNr7LAYdITHoVOgaj8AbWjZRMVJWer8MmNrc99WDfAa0fDx0jpvVAOecZVybKVEXRvGgj6bhyjG6iHY9qHh6BM0y">http://www.pcbeta.com</a><br>218.93.127.136 cdn.pcbeta.attachment.inimc.com<br>218.93.127.136 cdn.pcbeta.static.inimc.com<br>218.93.127.136 cdn.pcbeta.css.inimc.com<br>218.93.127.136 static.template.pcbeta.com</p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>-其他</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>迪优美特rk3128刷机时“测试设备失败”或“低格失败”解决办法</title>
     <url>/post/ee993d94.html</url>
     <content><![CDATA[<p><strong>此解决方法同样适用于芯片为Rk3128的**</strong>其它**<strong>型号的**</strong>机顶**<strong>盒</strong></p>
@@ -2743,55 +2792,6 @@
 ]]></content>
       <categories>
         <category>其他</category>
-      </categories>
-      <tags>
-        <tag>-技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>通过广域网(Intelnet)进行远程唤醒[或开机] 图解</title>
-    <url>/post/c004a920.html</url>
-    <content><![CDATA[<p>WAN远程唤醒与LAN远程唤醒有着诸多不同，WAN远程唤醒首先需要主板、网卡等硬件的支持，需要一条有效的Intelnet连接，与Lan远程唤醒不同的是，WAN远程唤醒需要经过路由器，因此下面我就来详细讲解如何在路由器上进行设置，以支持WAN远程唤醒，前提是，你已经成功进行了LAN远程唤醒。</p>
-<p><strong>一、WOL（远程唤醒）工具介绍</strong></p>
-<p>实现远程唤醒的软件有很多，原理都是相同的。下面列出几款常用的WOL软件：</p>
-<p>■ LanHelper</p>
-<p>■ Magic Packet Utility</p>
-<p>■ NetWaker for windows</p>
-<p>■ WakeOnLanGui（<a href="http://www.depicus.com/">http://www.depicus.com</a>）</p>
-<p><strong>二、准备</strong></p>
-<p>WAN与LAN在不同在于在广域网上，有许多的路由器等网络设备，这些设备可能会使Magic Packet的包不能到达我们想唤醒的电脑网卡上。因此，要实现通过internet来唤醒，必须得到路由器的支持。下面就以我的TP-Link WR841N无线路由为例来说明配置过程。</p>
-<p>首先确保路由器可以正常接入internet，即通过服务商得到一个公网IP（对于家庭来说ADSL、Cable Modem是常见的上网方式），进入路由器WEB配置页面<a href="http://192.168.1.1/">http://192.168.1.1。</a></p>
-<p><strong>三、端口映射（虚拟服务器）</strong></p>
-<p>依次点击“转发规则”-&gt;“虚拟服务器”，添加一新条目，端口为2301（2301是默认的端口号，也可以是其它端口号，只要不和其它的冲突），IP地址为需要唤醒电脑网卡所使用的IP地址（比如192.168.1.250），协议为UDP，并使之处于“生效”状态。</p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122153904700)</p>
-<p>这一步使得当路由器收到发到它2301端口的数据都会转发到IP地址为192.168.1.250的这台电脑上。</p>
-<p><strong>四、IP地址与MAC地址之间的绑定</strong></p>
-<p>依次点击“IP与MAC绑定”-&gt;“静态ARP绑定设置”，添加一新条目，MAC地址添为网卡（被唤醒电脑上的）MAC，如50-E5-60-CA-1A-4A，IP为上一步设置的IP地址：192.168.1.250。</p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154246829)</p>
-<p>注意：记住要启用路由器的“ARP绑定”功能（图片中的红圈部分），不然此步的设置是不生效的。</p>
-<p>当路由器收到从internet发往2301端口的Magic Packet包时，由于设了端口映射，路由器就直接将该Magic Packet包转发到192.168.1.250上。但是由于电脑是处理关机状态，ARP无法通过广播找到192.168.1.250这台电脑，Magic Packet包将被路由器丢弃，因此进行静态的IP-MAC绑定，使数据包可以直接发往MAC地址为50-E5-60-CA-1A-4A的网卡上。</p>
-<p>此时，从理论上来说，通过internet的远程唤醒就可以成功了。但是，如果远程主机没有配置静态IP地址，而是通过DHCP方式获取动态IP地址的，那么还有一些工作需要做，以确保万无一失。</p>
-<p><strong>五、静态IP地址分配</strong></p>
-<p>大家都清楚，DHCP租约协议是有有效期的，TP-Link上的DHCP租约有效期默认是2小时，为了确保远程电脑在启动后可以获得192.168.1.250这个IP地址，需要在DHCP服务器中设置一个静态地址分配，即为MAC地址50-E5-60-CA-1A-4A静态分配192.168.1.250这个IP地址，而且永不过期。</p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154757301)</p>
-<p><strong>六、使用动态DNS功能</strong></p>
-<p>在路由器上使用动态DNS功能，这样可以用一个域名来访问而不用查看经常改变的公网IP（ADSL拨号上网的IP是经常变的）。同时，允许路由器可以进行无端WEB管理，以方便当我们在任何地方都可以检查路由器的状态。</p>
-<p>说到DDNS，不得不提到大名鼎鼎的花生壳了，TP-LINK路由器默认就内嵌了动态DNS功能，只需要到花生壳的官网注册一个护照，并申请一个免费域名，然后在路由器上登录。登录成功后，会看到域名，这样花生壳就将域名和路由器上的公网IP地址绑定在一起了。</p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154957702)</p>
-<p><strong>七、使用第三方工具进行远程唤醒</strong></p>
-<p>访问<a href="http://www.depicus.com/wake-on-lan/woli.aspx%E8%BF%99%E4%B8%AA%E9%A1%B5%E9%9D%A2%EF%BC%8C%E8%BF%99%E6%98%AFdepicus%E6%8F%90%E4%BE%9B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9C%A8%E7%BA%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E5%B7%A5%E5%85%B7%E9%A1%B5%E9%9D%A2%EF%BC%8C%E4%BD%BF%E7%94%A8%E8%B5%B7%E6%9D%A5%E5%BE%88%E6%96%B9%E4%BE%BF%E3%80%82%E5%B7%A5%E4%BD%9C%E7%95%8C%E9%9D%A2%E5%A6%82%E4%B8%8B%EF%BC%9A">http://www.depicus.com/wake-on-lan/woli.aspx这个页面，这是depicus提供的一个在线的远程唤醒工具页面，使用起来很方便。工作界面如下：</a></p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122155050140)</p>
-<p>下面就进行远程唤醒的四个参数作下说明：</p>
-<ul>
-<li><strong>Your Network Cards Mac Address：</strong>（内部局域网）远程主机的网卡MAC地址，不是路由器的MAC地址。[一开始我这里搞错了，填的是路由器的MAC地址，怎么也不能远程唤醒]</li>
-<li><strong>Any Computers Ip Number or FQDN：</strong>路由器获取到的公网IP地址或使用花生壳DDNS进行绑定的合法域名。这里最好使用DDNS功能绑定一个域名，因为域名是不变的，而你不清楚你的路由器什么时候会重新从ISP服务商那里获取公网IP地址。但如果使用了DDNS，即使路由器的IP地址变了，会自动更新到花生壳服务器上。</li>
-<li><strong>Your Subnet Mask：</strong>子网掩码。这个很重要，因为路由器是动态地从ISP服务商那里获取IP地址的，你根本不知道该IP地址所对应的子网掩码，所以索性就填写255.255.255.255，这表示是唯一一个IP地址，而不是一个网段。</li>
-<li><strong>Any Port Number：</strong>网络端口，路由器会一直侦听该网络端口，一旦侦测到有数据包发往该端口，就进行转发。</li>
-</ul>
-<p>经过上述配置，我已经通过Internet成功远程唤醒了我的服务器。</p>
-]]></content>
-      <categories>
-        <category>技术</category>
       </categories>
       <tags>
         <tag>-技术</tag>
@@ -2998,62 +2998,6 @@
       </categories>
       <tags>
         <tag>-神经网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python爬虫的N种姿势</title>
-    <url>/post/830562ef.html</url>
-    <content><![CDATA[<p>问题的由来</p>
-<p>  前几天，在微信公众号（Python爬虫及算法）上有个人问了笔者一个问题，如何利用爬虫来实现如下的需求，需要爬取的网页如下（网址为：<a href="https://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0%EF%BC%89%EF%BC%9A">https://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0）：</a></p>
-<p><img src="/../images/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/2019061709510421.png" alt="img"></p>
-<p>  我们的需求为爬取红色框框内的名人（有500条记录，图片只展示了一部分）的 名字以及其介绍，关于其介绍，点击该名人的名字即可，如下图：</p>
-<p><img src="/../images/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/20190617095158684.png" alt="img"></p>
-<p>这就意味着我们需要爬取500个这样的页面，即500个HTTP请求（暂且这么认为吧），然后需要提取这些网页中的名字和描述，当然有些不是名人，也没有描述，我们可以跳过。最后，这些网页的网址在第一页中的名人后面可以找到，如George Washington的网页后缀为Q23.<br>  爬虫的需求大概就是这样。</p>
-<h3 id="爬虫的4种姿势"><a href="#爬虫的4种姿势" class="headerlink" title="爬虫的4种姿势"></a>爬虫的4种姿势</h3><p>  首先，分析来爬虫的思路：先在第一个网页（<a href="https://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0%EF%BC%89%E4%B8%AD%E5%BE%97%E5%88%B0500%E4%B8%AA%E5%90%8D%E4%BA%BA%E6%89%80%E5%9C%A8%E7%9A%84%E7%BD%91%E5%9D%80%EF%BC%8C%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%B0%B1%E7%88%AC%E5%8F%96%E8%BF%99500%E4%B8%AA%E7%BD%91%E9%A1%B5%E4%B8%AD%E7%9A%84%E5%90%8D%E4%BA%BA%E7%9A%84%E5%90%8D%E5%AD%97%E5%8F%8A%E6%8F%8F%E8%BF%B0%EF%BC%8C%E5%A6%82%E6%97%A0%E6%8F%8F%E8%BF%B0%EF%BC%8C%E5%88%99%E8%B7%B3%E8%BF%87%E3%80%82">https://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0）中得到500个名人所在的网址，接下来就爬取这500个网页中的名人的名字及描述，如无描述，则跳过。</a><br>  接下来，我们将介绍实现这个爬虫的4种方法，并分析它们各自的优缺点，希望能让读者对爬虫有更多的体会。实现爬虫的方法为：</p>
-<ul>
-<li>一般方法（同步，requests+BeautifulSoup）</li>
-<li>并发（使用concurrent.futures模块以及requests+BeautifulSoup）</li>
-<li>异步（使用aiohttp+asyncio+requests+BeautifulSoup）</li>
-<li>使用框架Scrapy</li>
-</ul>
-<h3 id="一般方法"><a href="#一般方法" class="headerlink" title="一般方法"></a>一般方法</h3><p>  一般方法即为同步方法，主要使用requests+BeautifulSoup，按顺序执行。完整的Python代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始时间</span></span><br><span class="line">t1 = time.time()</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line"><span class="comment"># 请求头部</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"><span class="comment"># 发送HTTP请求</span></span><br><span class="line">req = requests.get(url, headers=headers)</span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line">soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line"><span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="comment"># 获取网址</span></span><br><span class="line"><span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">    url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">    urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span>+url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取每个网页的name和description</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parser</span>(<span class="params">url</span>):</span></span><br><span class="line">    req = requests.get(url)</span><br><span class="line">    <span class="comment"># 利用BeautifulSoup将获取到的文本解析成HTML</span></span><br><span class="line">    soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line">    <span class="comment"># 获取name和description</span></span><br><span class="line">    name = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-title-label&quot;</span>)</span><br><span class="line">    desc = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-descriptionview-text&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> desc <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        print(<span class="string">&#x27;%-40s,\t%s&#x27;</span>%(name.text, desc.text))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">    parser(url)</span><br><span class="line"></span><br><span class="line">t2 = time.time() <span class="comment"># 结束时间</span></span><br><span class="line">print(<span class="string">&#x27;一般方法，总共耗时：%s&#x27;</span> % (t2 - t1))</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"><span class="number">1234567891011121314151617181920212223242526272829303132333435363738394041</span></span><br></pre></td></tr></table></figure>
-<p>输出的结果如下(省略中间的输出，以…代替)：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">##################################################</span><br><span class="line">George Washington                       ,	first President of the United States</span><br><span class="line">Douglas Adams                           ,	British author and humorist (1952–2001)</span><br><span class="line">......</span><br><span class="line">Willoughby Newton                       ,	Politician from Virginia, USA</span><br><span class="line">Mack Wilberg                            ,	American conductor</span><br><span class="line">一般方法，总共耗时：724.9654655456543</span><br><span class="line">##################################################</span><br><span class="line">12345678</span><br></pre></td></tr></table></figure>
-<p>使用同步方法，总耗时约725秒，即12分钟多。<br>  一般方法虽然思路简单，容易实现，但效率不高，耗时长。那么，使用并发试试看。</p>
-<h3 id="并发方法"><a href="#并发方法" class="headerlink" title="并发方法"></a>并发方法</h3><p>  并发方法使用多线程来加速一般方法，我们使用的并发模块为concurrent.futures模块，设置多线程的个数为20个（实际不一定能达到，视计算机而定）。完整的Python代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor, wait, ALL_COMPLETED</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始时间</span></span><br><span class="line">t1 = time.time()</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line"><span class="comment"># 请求头部</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"><span class="comment"># 发送HTTP请求</span></span><br><span class="line">req = requests.get(url, headers=headers)</span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line">soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line"><span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="comment"># 获取网址</span></span><br><span class="line"><span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">    url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">    urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span>+url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取每个网页的name和description</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parser</span>(<span class="params">url</span>):</span></span><br><span class="line">    req = requests.get(url)</span><br><span class="line">    <span class="comment"># 利用BeautifulSoup将获取到的文本解析成HTML</span></span><br><span class="line">    soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line">    <span class="comment"># 获取name和description</span></span><br><span class="line">    name = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-title-label&quot;</span>)</span><br><span class="line">    desc = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-descriptionview-text&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> desc <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        print(<span class="string">&#x27;%-40s,\t%s&#x27;</span>%(name.text, desc.text))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用并发加速爬取</span></span><br><span class="line">executor = ThreadPoolExecutor(max_workers=<span class="number">20</span>)</span><br><span class="line"><span class="comment"># submit()的参数： 第一个为函数， 之后为该函数的传入参数，允许有多个</span></span><br><span class="line">future_tasks = [executor.submit(parser, url) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line"><span class="comment"># 等待所有的线程完成，才进入后续的执行</span></span><br><span class="line">wait(future_tasks, return_when=ALL_COMPLETED)</span><br><span class="line"></span><br><span class="line">t2 = time.time() <span class="comment"># 结束时间</span></span><br><span class="line">print(<span class="string">&#x27;并发方法，总共耗时：%s&#x27;</span> % (t2 - t1))</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"><span class="number">12345678910111213141516171819202122232425262728293031323334353637383940414243444546</span></span><br></pre></td></tr></table></figure>
-<p>输出的结果如下（省略中间的输出，以…代替)：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">##################################################</span><br><span class="line">Larry Sanger                            ,	American former professor, co-founder of Wikipedia, founder of Citizendium and other projects</span><br><span class="line">Ken Jennings                            ,	American game show contestant and writer</span><br><span class="line">......</span><br><span class="line">Antoine de Saint-Exupery                ,	French writer and aviator</span><br><span class="line">Michael Jackson                         ,	American singer, songwriter and dancer</span><br><span class="line">并发方法，总共耗时：226.7499692440033</span><br><span class="line">##################################################</span><br><span class="line">12345678</span><br></pre></td></tr></table></figure>
-<p>使用多线程并发后的爬虫执行时间约为227秒，大概是一般方法的三分之一的时间，速度有了明显的提升啊！多线程在速度上有明显提升，但执行的网页顺序是无序的，在线程的切换上开销也比较大，线程越多，开销越大。<br>  关于多线程与一般方法在速度上的比较，可以参考文章：<a href="https://blog.csdn.net/jclian91/article/details/80738749">Python爬虫之多线程下载豆瓣Top250电影图片</a>。</p>
-<h3 id="异步方法"><a href="#异步方法" class="headerlink" title="异步方法"></a>异步方法</h3><p>  异步方法在爬虫中是有效的速度提升手段，使用aiohttp可以异步地处理HTTP请求，使用asyncio可以实现异步IO，需要注意的是，aiohttp只支持3.5.3以后的Python版本。使用异步方法实现该爬虫的完整Python代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始时间</span></span><br><span class="line">t1 = time.time()</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line"><span class="comment"># 请求头部</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"><span class="comment"># 发送HTTP请求</span></span><br><span class="line">req = requests.get(url, headers=headers)</span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line">soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line"><span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="comment"># 获取网址</span></span><br><span class="line"><span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">    url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">    urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span>+url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 异步HTTP请求</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">fetch</span>(<span class="params">session, url</span>):</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> response:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> response.text()</span><br><span class="line">        </span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">parser</span>(<span class="params">html</span>):</span></span><br><span class="line">    <span class="comment"># 利用BeautifulSoup将获取到的文本解析成HTML</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line">    <span class="comment"># 获取name和description</span></span><br><span class="line">    name = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-title-label&quot;</span>)</span><br><span class="line">    desc = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-descriptionview-text&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> desc <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        print(<span class="string">&#x27;%-40s,\t%s&#x27;</span>%(name.text, desc.text))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理网页，获取name和description</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">download</span>(<span class="params">url</span>):</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            html = <span class="keyword">await</span> fetch(session, url)</span><br><span class="line">            <span class="keyword">await</span> parser(html)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">            print(err)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用asyncio模块进行异步IO处理</span></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(download(url)) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">tasks = asyncio.gather(*tasks)</span><br><span class="line">loop.run_until_complete(tasks)</span><br><span class="line"></span><br><span class="line">t2 = time.time() <span class="comment"># 结束时间</span></span><br><span class="line">print(<span class="string">&#x27;使用异步，总共耗时：%s&#x27;</span> % (t2 - t1))</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"><span class="number">1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859</span></span><br></pre></td></tr></table></figure>
-<p>输出结果如下（省略中间的输出，以…代替)：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">##################################################</span><br><span class="line">Frédéric Taddeï                         ,	French journalist and TV host</span><br><span class="line">Gabriel Gonzáles Videla                 ,	Chilean politician</span><br><span class="line">......</span><br><span class="line">Denmark                                 ,	sovereign state and Scandinavian country in northern Europe</span><br><span class="line">Usain Bolt                              ,	Jamaican sprinter and soccer player</span><br><span class="line">使用异步，总共耗时：126.9002583026886</span><br><span class="line">##################################################</span><br><span class="line">12345678</span><br></pre></td></tr></table></figure>
-<p>显然，异步方法使用了异步和并发两种提速方法，自然在速度有明显提升，大约为一般方法的六分之一。异步方法虽然效率高，但需要掌握异步编程，这需要学习一段时间。<br>  关于异步方法与一般方法在速度上的比较，可以参考文章：<a href="https://blog.csdn.net/jclian91/article/details/82691269">利用aiohttp实现异步爬虫</a>。<br>  如果有人觉得127秒的爬虫速度还是慢，可以尝试一下异步代码（与之前的异步代码的区别在于：仅仅使用了正则表达式代替BeautifulSoup来解析网页，以提取网页中的内容）：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始时间</span></span><br><span class="line">t1 = time.time()</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line"><span class="comment"># 请求头部</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"><span class="comment"># 发送HTTP请求</span></span><br><span class="line">req = requests.get(url, headers=headers)</span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line">soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line"><span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="comment"># 获取网址</span></span><br><span class="line"><span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">    url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">    urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span> + url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 异步HTTP请求</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">fetch</span>(<span class="params">session, url</span>):</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> response:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> response.text()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">parser</span>(<span class="params">html</span>):</span></span><br><span class="line">    <span class="comment"># 利用正则表达式解析网页</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        name = re.findall(<span class="string">r&#x27;&lt;span class=&quot;wikibase-title-label&quot;&gt;(.+?)&lt;/span&gt;&#x27;</span>, html)[<span class="number">0</span>]</span><br><span class="line">        desc = re.findall(<span class="string">r&#x27;&lt;span class=&quot;wikibase-descriptionview-text&quot;&gt;(.+?)&lt;/span&gt;&#x27;</span>, html)[<span class="number">0</span>]</span><br><span class="line">        print(<span class="string">&#x27;%-40s,\t%s&#x27;</span> % (name, desc))</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理网页，获取name和description</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">download</span>(<span class="params">url</span>):</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            html = <span class="keyword">await</span> fetch(session, url)</span><br><span class="line">            <span class="keyword">await</span> parser(html)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">            print(err)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用asyncio模块进行异步IO处理</span></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(download(url)) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">tasks = asyncio.gather(*tasks)</span><br><span class="line">loop.run_until_complete(tasks)</span><br><span class="line"></span><br><span class="line">t2 = time.time()  <span class="comment"># 结束时间</span></span><br><span class="line">print(<span class="string">&#x27;使用异步（正则表达式），总共耗时：%s&#x27;</span> % (t2 - t1))</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"><span class="number">12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061</span></span><br></pre></td></tr></table></figure>
-<p>输出的结果如下（省略中间的输出，以…代替)：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">##################################################</span><br><span class="line">Dejen Gebremeskel                       ,	Ethiopian long-distance runner</span><br><span class="line">Erik Kynard                             ,	American high jumper</span><br><span class="line">......</span><br><span class="line">Buzz Aldrin                             ,	American astronaut</span><br><span class="line">Egon Krenz                              ,	former General Secretary of the Socialist Unity Party of East Germany</span><br><span class="line">使用异步（正则表达式），总共耗时：16.521944999694824</span><br><span class="line">##################################################</span><br><span class="line">12345678</span><br></pre></td></tr></table></figure>
-<p>16.5秒，仅仅为一般方法的43分之一，速度如此之快，令人咋舌（感谢某人提供的尝试）。笔者虽然自己实现了异步方法，但用的是BeautifulSoup来解析网页，耗时127秒，没想到使用正则表达式就取得了如此惊人的效果。可见，BeautifulSoup解析网页虽然快，但在异步方法中，还是限制了速度。但这种方法的缺点为，当你需要爬取的内容比较复杂时，一般的正则表达式就难以胜任了，需要另想办法。</p>
-<h3 id="爬虫框架Scrapy"><a href="#爬虫框架Scrapy" class="headerlink" title="爬虫框架Scrapy"></a>爬虫框架Scrapy</h3><p>  最后，我们使用著名的Python爬虫框架Scrapy来解决这个爬虫。我们创建的爬虫项目为wikiDataScrapy，项目结构如下：</p>
-<p><img src="/../images/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/20190617095223407.png" alt="img"></p>
-<p>在settings.py中设置“ROBOTSTXT_OBEY = False”. <a href="http://修改items.py/">修改items.py</a>，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WikidatascrapyItem</span>(<span class="params">scrapy.Item</span>):</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    name = scrapy.Field()</span><br><span class="line">    desc = scrapy.Field()</span><br><span class="line"><span class="number">12345678</span></span><br></pre></td></tr></table></figure>
-<p>然后，<a href="http://在spiders文件夹下新建wikispider.py/">在spiders文件夹下新建wikiSpider.py</a>，代码如下:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy.cmdline</span><br><span class="line"><span class="keyword">from</span> wikiDataScrapy.items <span class="keyword">import</span> WikidatascrapyItem</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取请求的500个网址，用requests+BeautifulSoup搞定</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_urls</span>():</span></span><br><span class="line">    url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line">    <span class="comment"># 请求头部</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line">    <span class="comment"># 发送HTTP请求</span></span><br><span class="line">    req = requests.get(url, headers=headers)</span><br><span class="line">    <span class="comment"># 解析网页</span></span><br><span class="line">    soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line">    <span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">    human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    urls = []</span><br><span class="line">    <span class="comment"># 获取网址</span></span><br><span class="line">    <span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">        url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">        urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span> + url)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print(urls)</span></span><br><span class="line">    <span class="keyword">return</span> urls</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用scrapy框架爬取</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">bookSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;wikiScrapy&#x27;</span>  <span class="comment"># 爬虫名称</span></span><br><span class="line">    start_urls = get_urls()  <span class="comment"># 需要爬取的500个网址</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        item = WikidatascrapyItem()</span><br><span class="line">        <span class="comment"># name and description</span></span><br><span class="line">        item[<span class="string">&#x27;name&#x27;</span>] = response.css(<span class="string">&#x27;span.wikibase-title-label&#x27;</span>).xpath(<span class="string">&#x27;text()&#x27;</span>).extract_first()</span><br><span class="line">        item[<span class="string">&#x27;desc&#x27;</span>] = response.css(<span class="string">&#x27;span.wikibase-descriptionview-text&#x27;</span>).xpath(<span class="string">&#x27;text()&#x27;</span>).extract_first()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行该爬虫，并转化为csv文件</span></span><br><span class="line">scrapy.cmdline.execute([<span class="string">&#x27;scrapy&#x27;</span>, <span class="string">&#x27;crawl&#x27;</span>, <span class="string">&#x27;wikiScrapy&#x27;</span>, <span class="string">&#x27;-o&#x27;</span>, <span class="string">&#x27;wiki.csv&#x27;</span>, <span class="string">&#x27;-t&#x27;</span>, <span class="string">&#x27;csv&#x27;</span>])</span><br><span class="line"><span class="number">123456789101112131415161718192021222324252627282930313233343536373839404142</span></span><br></pre></td></tr></table></figure>
-<p>输出结果如下（只包含最后的Scrapy信息总结部分）：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#39;downloader&#x2F;request_bytes&#39;: 166187,</span><br><span class="line"> &#39;downloader&#x2F;request_count&#39;: 500,</span><br><span class="line"> &#39;downloader&#x2F;request_method_count&#x2F;GET&#39;: 500,</span><br><span class="line"> &#39;downloader&#x2F;response_bytes&#39;: 18988798,</span><br><span class="line"> &#39;downloader&#x2F;response_count&#39;: 500,</span><br><span class="line"> &#39;downloader&#x2F;response_status_count&#x2F;200&#39;: 500,</span><br><span class="line"> &#39;finish_reason&#39;: &#39;finished&#39;,</span><br><span class="line"> &#39;finish_time&#39;: datetime.datetime(2018, 10, 16, 9, 49, 15, 761487),</span><br><span class="line"> &#39;item_scraped_count&#39;: 500,</span><br><span class="line"> &#39;log_count&#x2F;DEBUG&#39;: 1001,</span><br><span class="line"> &#39;log_count&#x2F;INFO&#39;: 8,</span><br><span class="line"> &#39;response_received_count&#39;: 500,</span><br><span class="line"> &#39;scheduler&#x2F;dequeued&#39;: 500,</span><br><span class="line"> &#39;scheduler&#x2F;dequeued&#x2F;memory&#39;: 500,</span><br><span class="line"> &#39;scheduler&#x2F;enqueued&#39;: 500,</span><br><span class="line"> &#39;scheduler&#x2F;enqueued&#x2F;memory&#39;: 500,</span><br><span class="line"> &#39;start_time&#39;: datetime.datetime(2018, 10, 16, 9, 48, 44, 58673)&#125;</span><br><span class="line">1234567891011121314151617</span><br></pre></td></tr></table></figure>
-<p>可以看到，已成功爬取500个网页，耗时31秒，速度也相当OK。再来看一下生成的wiki.csv文件，它包含了所有的输出的name和description，如下图：</p>
-<p><img src="/../images/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/20190617095238505.png" alt="img"></p>
-<p>可以看到，输出的CSV文件的列并不是有序的。至于<a href="https://segmentfault.com/q/1010000010632474">如何解决Scrapy输出的CSV文件有换行的问题</a>，请参考stackoverflow上的回答：<a href="https://stackoverflow.com/questions/39477662/scrapy-csv-file-has-uniform-empty-rows/43394566#43394566">https://stackoverflow.com/questions/39477662/scrapy-csv-file-has-uniform-empty-rows/43394566#43394566</a> 。</p>
-<p>  Scrapy来制作爬虫的优势在于它是一个成熟的爬虫框架，支持异步，并发，容错性较好（比如本代码中就没有处理找不到name和description的情形），但如果需要频繁地修改中间件，则还是自己写个爬虫比较好，而且它在速度上没有超过我们自己写的异步爬虫，至于能自动导出CSV文件这个功能，还是相当实在的。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>  本文内容较多，比较了4种爬虫方法，每种方法都有自己的利弊，已在之前的陈述中给出，当然，在实际的问题中，并不是用的工具或方法越高级就越好，具体问题具体分析嘛~<br>  本文到此结束，感谢阅读哦~</p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>-Python</tag>
       </tags>
   </entry>
   <entry>
@@ -3327,6 +3271,62 @@
 <p><a href="http://scikit-learn.org/stable/modules/linear_model.html#logistic-regression">scikit-learn文档</a>：<a href="http://scikit-learn.org/stable/modules/linear_model.html#logistic-regression">http://scikit-learn.org/stable/modules/linear_model.html#logistic-regression</a></p>
 <p>纯Python实现logistc回归：<a href="http://blog.smellthedata.com/2009/06/python-logistic-regression-with-l2.html">http://blog.smellthedata.com/2009/06/python-logistic-regression-with-l2.html</a></p>
 <p>Logistic在线交互界面：<a href="http://www.vassarstats.net/logreg1.html">http://www.vassarstats.net/logreg1.html</a></p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>-Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python爬虫的N种姿势</title>
+    <url>/post/830562ef.html</url>
+    <content><![CDATA[<p>问题的由来</p>
+<p>  前几天，在微信公众号（Python爬虫及算法）上有个人问了笔者一个问题，如何利用爬虫来实现如下的需求，需要爬取的网页如下（网址为：<a href="https://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0%EF%BC%89%EF%BC%9A">https://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0）：</a></p>
+<p><img src="/../images/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/2019061709510421.png" alt="img"></p>
+<p>  我们的需求为爬取红色框框内的名人（有500条记录，图片只展示了一部分）的 名字以及其介绍，关于其介绍，点击该名人的名字即可，如下图：</p>
+<p><img src="/../images/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/20190617095158684.png" alt="img"></p>
+<p>这就意味着我们需要爬取500个这样的页面，即500个HTTP请求（暂且这么认为吧），然后需要提取这些网页中的名字和描述，当然有些不是名人，也没有描述，我们可以跳过。最后，这些网页的网址在第一页中的名人后面可以找到，如George Washington的网页后缀为Q23.<br>  爬虫的需求大概就是这样。</p>
+<h3 id="爬虫的4种姿势"><a href="#爬虫的4种姿势" class="headerlink" title="爬虫的4种姿势"></a>爬虫的4种姿势</h3><p>  首先，分析来爬虫的思路：先在第一个网页（<a href="https://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0%EF%BC%89%E4%B8%AD%E5%BE%97%E5%88%B0500%E4%B8%AA%E5%90%8D%E4%BA%BA%E6%89%80%E5%9C%A8%E7%9A%84%E7%BD%91%E5%9D%80%EF%BC%8C%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%B0%B1%E7%88%AC%E5%8F%96%E8%BF%99500%E4%B8%AA%E7%BD%91%E9%A1%B5%E4%B8%AD%E7%9A%84%E5%90%8D%E4%BA%BA%E7%9A%84%E5%90%8D%E5%AD%97%E5%8F%8A%E6%8F%8F%E8%BF%B0%EF%BC%8C%E5%A6%82%E6%97%A0%E6%8F%8F%E8%BF%B0%EF%BC%8C%E5%88%99%E8%B7%B3%E8%BF%87%E3%80%82">https://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0）中得到500个名人所在的网址，接下来就爬取这500个网页中的名人的名字及描述，如无描述，则跳过。</a><br>  接下来，我们将介绍实现这个爬虫的4种方法，并分析它们各自的优缺点，希望能让读者对爬虫有更多的体会。实现爬虫的方法为：</p>
+<ul>
+<li>一般方法（同步，requests+BeautifulSoup）</li>
+<li>并发（使用concurrent.futures模块以及requests+BeautifulSoup）</li>
+<li>异步（使用aiohttp+asyncio+requests+BeautifulSoup）</li>
+<li>使用框架Scrapy</li>
+</ul>
+<h3 id="一般方法"><a href="#一般方法" class="headerlink" title="一般方法"></a>一般方法</h3><p>  一般方法即为同步方法，主要使用requests+BeautifulSoup，按顺序执行。完整的Python代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始时间</span></span><br><span class="line">t1 = time.time()</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line"><span class="comment"># 请求头部</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"><span class="comment"># 发送HTTP请求</span></span><br><span class="line">req = requests.get(url, headers=headers)</span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line">soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line"><span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="comment"># 获取网址</span></span><br><span class="line"><span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">    url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">    urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span>+url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取每个网页的name和description</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parser</span>(<span class="params">url</span>):</span></span><br><span class="line">    req = requests.get(url)</span><br><span class="line">    <span class="comment"># 利用BeautifulSoup将获取到的文本解析成HTML</span></span><br><span class="line">    soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line">    <span class="comment"># 获取name和description</span></span><br><span class="line">    name = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-title-label&quot;</span>)</span><br><span class="line">    desc = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-descriptionview-text&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> desc <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        print(<span class="string">&#x27;%-40s,\t%s&#x27;</span>%(name.text, desc.text))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">    parser(url)</span><br><span class="line"></span><br><span class="line">t2 = time.time() <span class="comment"># 结束时间</span></span><br><span class="line">print(<span class="string">&#x27;一般方法，总共耗时：%s&#x27;</span> % (t2 - t1))</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"><span class="number">1234567891011121314151617181920212223242526272829303132333435363738394041</span></span><br></pre></td></tr></table></figure>
+<p>输出的结果如下(省略中间的输出，以…代替)：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">##################################################</span><br><span class="line">George Washington                       ,	first President of the United States</span><br><span class="line">Douglas Adams                           ,	British author and humorist (1952–2001)</span><br><span class="line">......</span><br><span class="line">Willoughby Newton                       ,	Politician from Virginia, USA</span><br><span class="line">Mack Wilberg                            ,	American conductor</span><br><span class="line">一般方法，总共耗时：724.9654655456543</span><br><span class="line">##################################################</span><br><span class="line">12345678</span><br></pre></td></tr></table></figure>
+<p>使用同步方法，总耗时约725秒，即12分钟多。<br>  一般方法虽然思路简单，容易实现，但效率不高，耗时长。那么，使用并发试试看。</p>
+<h3 id="并发方法"><a href="#并发方法" class="headerlink" title="并发方法"></a>并发方法</h3><p>  并发方法使用多线程来加速一般方法，我们使用的并发模块为concurrent.futures模块，设置多线程的个数为20个（实际不一定能达到，视计算机而定）。完整的Python代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor, wait, ALL_COMPLETED</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始时间</span></span><br><span class="line">t1 = time.time()</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line"><span class="comment"># 请求头部</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"><span class="comment"># 发送HTTP请求</span></span><br><span class="line">req = requests.get(url, headers=headers)</span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line">soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line"><span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="comment"># 获取网址</span></span><br><span class="line"><span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">    url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">    urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span>+url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取每个网页的name和description</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parser</span>(<span class="params">url</span>):</span></span><br><span class="line">    req = requests.get(url)</span><br><span class="line">    <span class="comment"># 利用BeautifulSoup将获取到的文本解析成HTML</span></span><br><span class="line">    soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line">    <span class="comment"># 获取name和description</span></span><br><span class="line">    name = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-title-label&quot;</span>)</span><br><span class="line">    desc = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-descriptionview-text&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> desc <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        print(<span class="string">&#x27;%-40s,\t%s&#x27;</span>%(name.text, desc.text))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用并发加速爬取</span></span><br><span class="line">executor = ThreadPoolExecutor(max_workers=<span class="number">20</span>)</span><br><span class="line"><span class="comment"># submit()的参数： 第一个为函数， 之后为该函数的传入参数，允许有多个</span></span><br><span class="line">future_tasks = [executor.submit(parser, url) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line"><span class="comment"># 等待所有的线程完成，才进入后续的执行</span></span><br><span class="line">wait(future_tasks, return_when=ALL_COMPLETED)</span><br><span class="line"></span><br><span class="line">t2 = time.time() <span class="comment"># 结束时间</span></span><br><span class="line">print(<span class="string">&#x27;并发方法，总共耗时：%s&#x27;</span> % (t2 - t1))</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"><span class="number">12345678910111213141516171819202122232425262728293031323334353637383940414243444546</span></span><br></pre></td></tr></table></figure>
+<p>输出的结果如下（省略中间的输出，以…代替)：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">##################################################</span><br><span class="line">Larry Sanger                            ,	American former professor, co-founder of Wikipedia, founder of Citizendium and other projects</span><br><span class="line">Ken Jennings                            ,	American game show contestant and writer</span><br><span class="line">......</span><br><span class="line">Antoine de Saint-Exupery                ,	French writer and aviator</span><br><span class="line">Michael Jackson                         ,	American singer, songwriter and dancer</span><br><span class="line">并发方法，总共耗时：226.7499692440033</span><br><span class="line">##################################################</span><br><span class="line">12345678</span><br></pre></td></tr></table></figure>
+<p>使用多线程并发后的爬虫执行时间约为227秒，大概是一般方法的三分之一的时间，速度有了明显的提升啊！多线程在速度上有明显提升，但执行的网页顺序是无序的，在线程的切换上开销也比较大，线程越多，开销越大。<br>  关于多线程与一般方法在速度上的比较，可以参考文章：<a href="https://blog.csdn.net/jclian91/article/details/80738749">Python爬虫之多线程下载豆瓣Top250电影图片</a>。</p>
+<h3 id="异步方法"><a href="#异步方法" class="headerlink" title="异步方法"></a>异步方法</h3><p>  异步方法在爬虫中是有效的速度提升手段，使用aiohttp可以异步地处理HTTP请求，使用asyncio可以实现异步IO，需要注意的是，aiohttp只支持3.5.3以后的Python版本。使用异步方法实现该爬虫的完整Python代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始时间</span></span><br><span class="line">t1 = time.time()</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line"><span class="comment"># 请求头部</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"><span class="comment"># 发送HTTP请求</span></span><br><span class="line">req = requests.get(url, headers=headers)</span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line">soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line"><span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="comment"># 获取网址</span></span><br><span class="line"><span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">    url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">    urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span>+url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 异步HTTP请求</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">fetch</span>(<span class="params">session, url</span>):</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> response:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> response.text()</span><br><span class="line">        </span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">parser</span>(<span class="params">html</span>):</span></span><br><span class="line">    <span class="comment"># 利用BeautifulSoup将获取到的文本解析成HTML</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line">    <span class="comment"># 获取name和description</span></span><br><span class="line">    name = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-title-label&quot;</span>)</span><br><span class="line">    desc = soup.find(<span class="string">&#x27;span&#x27;</span>, class_=<span class="string">&quot;wikibase-descriptionview-text&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> desc <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        print(<span class="string">&#x27;%-40s,\t%s&#x27;</span>%(name.text, desc.text))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理网页，获取name和description</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">download</span>(<span class="params">url</span>):</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            html = <span class="keyword">await</span> fetch(session, url)</span><br><span class="line">            <span class="keyword">await</span> parser(html)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">            print(err)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用asyncio模块进行异步IO处理</span></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(download(url)) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">tasks = asyncio.gather(*tasks)</span><br><span class="line">loop.run_until_complete(tasks)</span><br><span class="line"></span><br><span class="line">t2 = time.time() <span class="comment"># 结束时间</span></span><br><span class="line">print(<span class="string">&#x27;使用异步，总共耗时：%s&#x27;</span> % (t2 - t1))</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"><span class="number">1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859</span></span><br></pre></td></tr></table></figure>
+<p>输出结果如下（省略中间的输出，以…代替)：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">##################################################</span><br><span class="line">Frédéric Taddeï                         ,	French journalist and TV host</span><br><span class="line">Gabriel Gonzáles Videla                 ,	Chilean politician</span><br><span class="line">......</span><br><span class="line">Denmark                                 ,	sovereign state and Scandinavian country in northern Europe</span><br><span class="line">Usain Bolt                              ,	Jamaican sprinter and soccer player</span><br><span class="line">使用异步，总共耗时：126.9002583026886</span><br><span class="line">##################################################</span><br><span class="line">12345678</span><br></pre></td></tr></table></figure>
+<p>显然，异步方法使用了异步和并发两种提速方法，自然在速度有明显提升，大约为一般方法的六分之一。异步方法虽然效率高，但需要掌握异步编程，这需要学习一段时间。<br>  关于异步方法与一般方法在速度上的比较，可以参考文章：<a href="https://blog.csdn.net/jclian91/article/details/82691269">利用aiohttp实现异步爬虫</a>。<br>  如果有人觉得127秒的爬虫速度还是慢，可以尝试一下异步代码（与之前的异步代码的区别在于：仅仅使用了正则表达式代替BeautifulSoup来解析网页，以提取网页中的内容）：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始时间</span></span><br><span class="line">t1 = time.time()</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line"><span class="comment"># 请求头部</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"><span class="comment"># 发送HTTP请求</span></span><br><span class="line">req = requests.get(url, headers=headers)</span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line">soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line"><span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">urls = []</span><br><span class="line"><span class="comment"># 获取网址</span></span><br><span class="line"><span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">    url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">    urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span> + url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 异步HTTP请求</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">fetch</span>(<span class="params">session, url</span>):</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> response:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> response.text()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解析网页</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">parser</span>(<span class="params">html</span>):</span></span><br><span class="line">    <span class="comment"># 利用正则表达式解析网页</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        name = re.findall(<span class="string">r&#x27;&lt;span class=&quot;wikibase-title-label&quot;&gt;(.+?)&lt;/span&gt;&#x27;</span>, html)[<span class="number">0</span>]</span><br><span class="line">        desc = re.findall(<span class="string">r&#x27;&lt;span class=&quot;wikibase-descriptionview-text&quot;&gt;(.+?)&lt;/span&gt;&#x27;</span>, html)[<span class="number">0</span>]</span><br><span class="line">        print(<span class="string">&#x27;%-40s,\t%s&#x27;</span> % (name, desc))</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 处理网页，获取name和description</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">download</span>(<span class="params">url</span>):</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            html = <span class="keyword">await</span> fetch(session, url)</span><br><span class="line">            <span class="keyword">await</span> parser(html)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">            print(err)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用asyncio模块进行异步IO处理</span></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">tasks = [asyncio.ensure_future(download(url)) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">tasks = asyncio.gather(*tasks)</span><br><span class="line">loop.run_until_complete(tasks)</span><br><span class="line"></span><br><span class="line">t2 = time.time()  <span class="comment"># 结束时间</span></span><br><span class="line">print(<span class="string">&#x27;使用异步（正则表达式），总共耗时：%s&#x27;</span> % (t2 - t1))</span><br><span class="line">print(<span class="string">&#x27;#&#x27;</span> * <span class="number">50</span>)</span><br><span class="line"><span class="number">12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061</span></span><br></pre></td></tr></table></figure>
+<p>输出的结果如下（省略中间的输出，以…代替)：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">##################################################</span><br><span class="line">Dejen Gebremeskel                       ,	Ethiopian long-distance runner</span><br><span class="line">Erik Kynard                             ,	American high jumper</span><br><span class="line">......</span><br><span class="line">Buzz Aldrin                             ,	American astronaut</span><br><span class="line">Egon Krenz                              ,	former General Secretary of the Socialist Unity Party of East Germany</span><br><span class="line">使用异步（正则表达式），总共耗时：16.521944999694824</span><br><span class="line">##################################################</span><br><span class="line">12345678</span><br></pre></td></tr></table></figure>
+<p>16.5秒，仅仅为一般方法的43分之一，速度如此之快，令人咋舌（感谢某人提供的尝试）。笔者虽然自己实现了异步方法，但用的是BeautifulSoup来解析网页，耗时127秒，没想到使用正则表达式就取得了如此惊人的效果。可见，BeautifulSoup解析网页虽然快，但在异步方法中，还是限制了速度。但这种方法的缺点为，当你需要爬取的内容比较复杂时，一般的正则表达式就难以胜任了，需要另想办法。</p>
+<h3 id="爬虫框架Scrapy"><a href="#爬虫框架Scrapy" class="headerlink" title="爬虫框架Scrapy"></a>爬虫框架Scrapy</h3><p>  最后，我们使用著名的Python爬虫框架Scrapy来解决这个爬虫。我们创建的爬虫项目为wikiDataScrapy，项目结构如下：</p>
+<p><img src="/../images/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/20190617095223407.png" alt="img"></p>
+<p>在settings.py中设置“ROBOTSTXT_OBEY = False”. <a href="http://修改items.py/">修改items.py</a>，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WikidatascrapyItem</span>(<span class="params">scrapy.Item</span>):</span></span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    name = scrapy.Field()</span><br><span class="line">    desc = scrapy.Field()</span><br><span class="line"><span class="number">12345678</span></span><br></pre></td></tr></table></figure>
+<p>然后，<a href="http://在spiders文件夹下新建wikispider.py/">在spiders文件夹下新建wikiSpider.py</a>，代码如下:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy.cmdline</span><br><span class="line"><span class="keyword">from</span> wikiDataScrapy.items <span class="keyword">import</span> WikidatascrapyItem</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取请求的500个网址，用requests+BeautifulSoup搞定</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_urls</span>():</span></span><br><span class="line">    url = <span class="string">&quot;http://www.wikidata.org/w/index.php?title=Special:WhatLinksHere/Q5&amp;limit=500&amp;from=0&quot;</span></span><br><span class="line">    <span class="comment"># 请求头部</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36&#x27;</span>&#125;</span><br><span class="line">    <span class="comment"># 发送HTTP请求</span></span><br><span class="line">    req = requests.get(url, headers=headers)</span><br><span class="line">    <span class="comment"># 解析网页</span></span><br><span class="line">    soup = BeautifulSoup(req.text, <span class="string">&quot;lxml&quot;</span>)</span><br><span class="line">    <span class="comment"># 找到name和Description所在的记录</span></span><br><span class="line">    human_list = soup.find(<span class="built_in">id</span>=<span class="string">&#x27;mw-whatlinkshere-list&#x27;</span>)(<span class="string">&#x27;li&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    urls = []</span><br><span class="line">    <span class="comment"># 获取网址</span></span><br><span class="line">    <span class="keyword">for</span> human <span class="keyword">in</span> human_list:</span><br><span class="line">        url = human.find(<span class="string">&#x27;a&#x27;</span>)[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">        urls.append(<span class="string">&#x27;https://www.wikidata.org&#x27;</span> + url)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print(urls)</span></span><br><span class="line">    <span class="keyword">return</span> urls</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用scrapy框架爬取</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">bookSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;wikiScrapy&#x27;</span>  <span class="comment"># 爬虫名称</span></span><br><span class="line">    start_urls = get_urls()  <span class="comment"># 需要爬取的500个网址</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        item = WikidatascrapyItem()</span><br><span class="line">        <span class="comment"># name and description</span></span><br><span class="line">        item[<span class="string">&#x27;name&#x27;</span>] = response.css(<span class="string">&#x27;span.wikibase-title-label&#x27;</span>).xpath(<span class="string">&#x27;text()&#x27;</span>).extract_first()</span><br><span class="line">        item[<span class="string">&#x27;desc&#x27;</span>] = response.css(<span class="string">&#x27;span.wikibase-descriptionview-text&#x27;</span>).xpath(<span class="string">&#x27;text()&#x27;</span>).extract_first()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行该爬虫，并转化为csv文件</span></span><br><span class="line">scrapy.cmdline.execute([<span class="string">&#x27;scrapy&#x27;</span>, <span class="string">&#x27;crawl&#x27;</span>, <span class="string">&#x27;wikiScrapy&#x27;</span>, <span class="string">&#x27;-o&#x27;</span>, <span class="string">&#x27;wiki.csv&#x27;</span>, <span class="string">&#x27;-t&#x27;</span>, <span class="string">&#x27;csv&#x27;</span>])</span><br><span class="line"><span class="number">123456789101112131415161718192021222324252627282930313233343536373839404142</span></span><br></pre></td></tr></table></figure>
+<p>输出结果如下（只包含最后的Scrapy信息总结部分）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#39;downloader&#x2F;request_bytes&#39;: 166187,</span><br><span class="line"> &#39;downloader&#x2F;request_count&#39;: 500,</span><br><span class="line"> &#39;downloader&#x2F;request_method_count&#x2F;GET&#39;: 500,</span><br><span class="line"> &#39;downloader&#x2F;response_bytes&#39;: 18988798,</span><br><span class="line"> &#39;downloader&#x2F;response_count&#39;: 500,</span><br><span class="line"> &#39;downloader&#x2F;response_status_count&#x2F;200&#39;: 500,</span><br><span class="line"> &#39;finish_reason&#39;: &#39;finished&#39;,</span><br><span class="line"> &#39;finish_time&#39;: datetime.datetime(2018, 10, 16, 9, 49, 15, 761487),</span><br><span class="line"> &#39;item_scraped_count&#39;: 500,</span><br><span class="line"> &#39;log_count&#x2F;DEBUG&#39;: 1001,</span><br><span class="line"> &#39;log_count&#x2F;INFO&#39;: 8,</span><br><span class="line"> &#39;response_received_count&#39;: 500,</span><br><span class="line"> &#39;scheduler&#x2F;dequeued&#39;: 500,</span><br><span class="line"> &#39;scheduler&#x2F;dequeued&#x2F;memory&#39;: 500,</span><br><span class="line"> &#39;scheduler&#x2F;enqueued&#39;: 500,</span><br><span class="line"> &#39;scheduler&#x2F;enqueued&#x2F;memory&#39;: 500,</span><br><span class="line"> &#39;start_time&#39;: datetime.datetime(2018, 10, 16, 9, 48, 44, 58673)&#125;</span><br><span class="line">1234567891011121314151617</span><br></pre></td></tr></table></figure>
+<p>可以看到，已成功爬取500个网页，耗时31秒，速度也相当OK。再来看一下生成的wiki.csv文件，它包含了所有的输出的name和description，如下图：</p>
+<p><img src="/../images/Python%E7%88%AC%E8%99%AB%E7%9A%84N%E7%A7%8D%E5%A7%BF%E5%8A%BF/20190617095238505.png" alt="img"></p>
+<p>可以看到，输出的CSV文件的列并不是有序的。至于<a href="https://segmentfault.com/q/1010000010632474">如何解决Scrapy输出的CSV文件有换行的问题</a>，请参考stackoverflow上的回答：<a href="https://stackoverflow.com/questions/39477662/scrapy-csv-file-has-uniform-empty-rows/43394566#43394566">https://stackoverflow.com/questions/39477662/scrapy-csv-file-has-uniform-empty-rows/43394566#43394566</a> 。</p>
+<p>  Scrapy来制作爬虫的优势在于它是一个成熟的爬虫框架，支持异步，并发，容错性较好（比如本代码中就没有处理找不到name和description的情形），但如果需要频繁地修改中间件，则还是自己写个爬虫比较好，而且它在速度上没有超过我们自己写的异步爬虫，至于能自动导出CSV文件这个功能，还是相当实在的。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>  本文内容较多，比较了4种爬虫方法，每种方法都有自己的利弊，已在之前的陈述中给出，当然，在实际的问题中，并不是用的工具或方法越高级就越好，具体问题具体分析嘛~<br>  本文到此结束，感谢阅读哦~</p>
 ]]></content>
       <categories>
         <category>python</category>
@@ -4783,7 +4783,7 @@
 <p># Author:  coneypo</p>
 <p># Blog:   <a href="http://www.cnblogs.com/AdaminXie">http://www.cnblogs.com/AdaminXie</a></p>
 <p># GitHub:  <a href="https://github.com/coneypo/Dlib_face_recognition_from_camera">https://github.com/coneypo/Dlib_face_recognition_from_camera</a></p>
-<p># Mail:   <a href="mailto:&#99;&#x6f;&#110;&#101;&#121;&#112;&#111;&#64;&#x66;&#x6f;&#x78;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#99;&#x6f;&#110;&#101;&#121;&#112;&#111;&#64;&#x66;&#x6f;&#x78;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p># Mail:   <a href="mailto:&#99;&#x6f;&#x6e;&#101;&#121;&#112;&#x6f;&#x40;&#x66;&#111;&#x78;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#99;&#x6f;&#x6e;&#101;&#121;&#112;&#x6f;&#x40;&#x66;&#111;&#x78;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
 <p># Created at 2018-05-11</p>
 <p># Updated at 2018-10-29</p>
 <p>import dlib     # 人脸处理的库 Dlib</p>
@@ -4909,7 +4909,7 @@
 <p># Author:  coneypo</p>
 <p># Blog:   <a href="http://www.cnblogs.com/AdaminXie">http://www.cnblogs.com/AdaminXie</a></p>
 <p># GitHub:  <a href="https://github.com/coneypo/Dlib_face_recognition_from_camera">https://github.com/coneypo/Dlib_face_recognition_from_camera</a></p>
-<p># Mail:   <a href="mailto:&#99;&#x6f;&#x6e;&#101;&#x79;&#112;&#111;&#x40;&#102;&#111;&#120;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#99;&#x6f;&#x6e;&#101;&#x79;&#112;&#111;&#x40;&#102;&#111;&#120;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
+<p># Mail:   <a href="mailto:&#99;&#111;&#110;&#101;&#121;&#x70;&#111;&#x40;&#102;&#x6f;&#120;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#99;&#111;&#110;&#101;&#121;&#x70;&#111;&#x40;&#102;&#x6f;&#120;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
 <p># Created at 2018-05-11</p>
 <p># Updated at 2018-10-29</p>
 <p># 增加录入多张人脸到 CSV 的功能</p>
