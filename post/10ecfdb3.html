@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Springcloud 配置 | 史上最全,一文全懂 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,
+疯狂创客圈 经典图书 ： 《Netty Zookeeper Redis 高并发实战》 面试必备 + 面试必备 + 面试必备 【博客园总入口 】
+疯狂创客圈 经典图书 ： 《SpringCloud、,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">Springcloud 配置 | 史上最全,一文全懂</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Springcloud 配置 | 史上最全,一文全懂</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-Spring-Cloud/" rel="tag">微服务,Spring Cloud</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <ul>
+<li>疯狂创客圈 经典图书 ： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/11397271.html">《Netty Zookeeper Redis 高并发实战》</a> 面试必备 + 面试必备 + 面试必备 【<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html">博客园总入口</a> 】</li>
+<li>疯狂创客圈 经典图书 ： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/13878143.html">《SpringCloud、Nginx高并发核心编程》</a> 大厂必备 + 大厂必备 + 大厂必备 【<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html">博客园总入口</a> 】</li>
+<li>入大厂+涨工资必备： 高并发【 亿级流量IM实战】 实战系列 【 SpringCloud Nginx秒杀】 实战系列 【<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html">博客园总入口</a> 】</li>
+</ul>
+<hr>
+<h3 id="Springcloud的性能问题"><a href="#Springcloud的性能问题" class="headerlink" title="Springcloud的性能问题"></a>Springcloud的性能问题</h3><p>Springcloud 原始的配置，性能是很低的，大家可以使用Jmeter测试一下，QPS不会到50。要做到高并发，需要做不少的配置优化，主要的配置优化有以下几点：</p>
+<ul>
+<li>Feign 配置优化</li>
+<li>hystrix配置 优化</li>
+<li>ribbon 优化</li>
+<li>Servlet 容器 优化</li>
+<li>Zuul配置 优化</li>
+</ul>
+<h3 id="Servlet-容器-优化"><a href="#Servlet-容器-优化" class="headerlink" title="Servlet 容器 优化"></a>Servlet 容器 优化</h3><p>默认情况下，Spring Boot 使用 Tomcat 来作为内嵌的 Servlet 容器，可以将 Web 服务器切换到 Undertow 来提高应用性能，Undertow 是红帽公司开发的一款基于 NIO 的高性能 Web 嵌入式<br>Zuul使用的内置容器默认是Tomcat，可以将其换成undertow，可以显著减少线程的数量，替换方式即在pom中添加以下内容：<br>第一步，移除Tomcat 依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-starter-web&lt;&#x2F;artifactId&gt;</span><br><span class="line">   &lt;exclusions&gt;</span><br><span class="line">      &lt;exclusion&gt;</span><br><span class="line">         &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;spring-boot-starter-tomcat&lt;&#x2F;artifactId&gt;</span><br><span class="line">      &lt;&#x2F;exclusion&gt;</span><br><span class="line">   &lt;&#x2F;exclusions&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第二步，增加Untertow 依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-starter-undertow&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>第三步,Undertow 的属性配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  undertow:</span><br><span class="line">     io-threads: 16</span><br><span class="line">     worker-threads: 256</span><br><span class="line">     buffer-size: 1024</span><br><span class="line">     buffers-per-region: 1024</span><br><span class="line">     direct-buffers: true</span><br></pre></td></tr></table></figure>
+
+<p>server.undertow.io-threads: 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程,不要设置过大，如果过大，启动项目会报错：打开文件数过多<br>server.undertow.worker-threads: 阻塞任务线程池, 当执行类似servlet请求阻塞IO操作, undertow会从这个线程池中取得线程,它的值设置取决于系统线程执行任务的阻塞系数，默认值是IO线程数*8<br>server.undertow.buffer-size: 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理,每块buffer的空间大小,越小的空间被利用越充分，不要设置太大，以免影响其他应用，合适即可<br>server.undertow.buffers-per-region: 每个区分配的buffer数量 , 所以pool的大小是buffer-size * buffers-per-region<br>server.undertow.direct-buffers: 是否分配的直接内存(NIO直接分配的堆外内存)</p>
+<h3 id="Zuul配置-优化"><a href="#Zuul配置-优化" class="headerlink" title="Zuul配置 优化"></a>Zuul配置 优化</h3><p>我们知道Hystrix有隔离策略：THREAD 以及SEMAPHORE ，默认是 SEMAPHORE 。<br>Zuul默认是使用信号量隔离，并且信号量的大小是100，请求的并发线程超过100就会报错，可以调大该信号量的最大值来提高性能，配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zuul:</span><br><span class="line">  semaphore:</span><br><span class="line">    max-semaphores: 5000</span><br></pre></td></tr></table></figure>
+
+<p>表示，当Zuul的隔离策略为SEMAPHORE时，设置指定服务的最大信号量为5000。对于特定的微服务，可以通过下面的方式，设置最大信号量</p>
+<p>设置默认最大信号量：</p>
+<p>zuul:<br>semaphore:<br>max-semaphores: 5000 # 默认值<br>设置指定服务的最大信号量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zuul:</span><br><span class="line">  eureka:</span><br><span class="line">    &lt;commandKey&gt;:</span><br><span class="line">      semaphore:</span><br><span class="line">        max-semaphores: 5000 	</span><br></pre></td></tr></table></figure>
+
+<p>为了方便ThreadLocal的使用，也可以改为使用线程隔离的策略，这种场景下，就需要调大hystrix线程池线程大小，该线程池默认10个线程，调整的配置示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">zuul:</span><br><span class="line">  ribbonIsolationStrategy: THREAD</span><br><span class="line">hystrix:</span><br><span class="line">  threadpool:</span><br><span class="line">    default:</span><br><span class="line">      coreSize: 100</span><br><span class="line">      maximumSize: 400</span><br><span class="line">      allowMaximumSizeToDivergeFromCoreSize: true</span><br><span class="line">      maxQueueSize: -1</span><br></pre></td></tr></table></figure>
+
+<p>hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize：是否让maximumSize生效，false的话则只有coreSize会生效<br>hystrix.threadpool.default.maxQueueSize：线程池的队列大小，-1代表使用SynchronousQueue队列<br>hystrix.threadpool.default.maximumSize：最大线程数量<br>hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize：是否让maximumSize生效，false的话则只有coreSize会生效<br>hystrix.threadpool.default.maxQueueSize：线程池的队列大小，-1代表使用SynchronousQueue队列<br>zuul.ribbon-isolation-strategy:设置线程隔离，thread 线程隔离，SEMAPHORE 表示信号量隔离</p>
+<p>默认配置都可以去HystrixThreadPoolProperties和ZuulProperties这两个java文件中查找</p>
+<h3 id="Feign-配置优化"><a href="#Feign-配置优化" class="headerlink" title="Feign 配置优化"></a>Feign 配置优化</h3><p>feign 默认不启用hystrix，需要手动指定 feign.hystrix.enabled=true 开启熔断<br>feign 启用压缩也是一种有效的性能优化方式，具体的配置如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">	compression:</span><br><span class="line">		request:</span><br><span class="line">			enabled: true</span><br><span class="line">			mime-types: text&#x2F;xml,application&#x2F;xml,application&#x2F;json</span><br><span class="line">		response:</span><br><span class="line">			enabled: true</span><br></pre></td></tr></table></figure>
+
+<p>feign HTTP请求方式选择<br>feign默认使用的是基于JDK提供的URLConnection调用HTTP接口，不具备连接池,所以资源开销上有点影响，经测试JDK的URLConnection比Apache HttpClient快很多倍。Apache HttpClient和okhttp都支持配置连接池功能,也可以使用okhttp请求方式。<br>当使用HttpClient时，可如下设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  httpclient:</span><br><span class="line">    enabled: true</span><br><span class="line">    max-connections:1000</span><br><span class="line">    max-connections-per-route: 200 </span><br></pre></td></tr></table></figure>
+
+
+<p>当使用OKHttp时，可如下设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  okhttp:</span><br><span class="line">    enabled: true</span><br><span class="line">  httpclient:</span><br><span class="line">    max-connections: 1000</span><br><span class="line">    max-connections-per-route: 200 	 </span><br></pre></td></tr></table></figure>
+
+
+<p>max-connections 设置整个连接池最大连接数（该值默认为200）， 根据自己的场景决定<br>max-connections-per-route 设置路由的默认最大连接（该值默认为50），限制数量实际使用</p>
+<h3 id="hystrix配置-优化"><a href="#hystrix配置-优化" class="headerlink" title="hystrix配置 优化"></a>hystrix配置 优化</h3><p>首先需要设置参数hystrix.threadpool.default.coreSize 来指定熔断隔离的线程数，这个数需要调优，经测试线程数我们设置为和提供方的容器线程差不多，吞吐量高许多。</p>
+<p>其次，启用Hystrix后，很多服务当第一次访问的时候都会失败 是因为初始化负载均衡一系列操作已经超出了超时时间了，因为默认的超时时间为1S，需要修改超时时间参数，方可解决这个问题。<br>参考的hystrix配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hystrix:</span><br><span class="line">  threadpool:</span><br><span class="line">    default:</span><br><span class="line">      coreSize: 500</span><br><span class="line">  command:</span><br><span class="line">    default:</span><br><span class="line">	  circuitBreaker: </span><br><span class="line">	    requestVolumeThreshold: 1000</span><br><span class="line">      fallback:</span><br><span class="line">        enabled: true</span><br><span class="line">      execution:</span><br><span class="line">        isolation:</span><br><span class="line">          thread:</span><br><span class="line">            timeoutInMilliseconds: 100000 </span><br></pre></td></tr></table></figure>
+
+<p>hystrix.command.default: 全局的作用域，作用的所有的hystrix的客户端,如果需要对某个微服务，可以写serviceId<br>hystrix.command.default.fallback.enabled 是否开启回退方法<br>hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds 请求处理的超时时间，缺省为1000,表示默认的超时时间为1S</p>
+<p>hystrix.threadpool.default.coreSize 核心线程池数量<br>hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests 回退最大线程数<br>hystrix.command.default.circuitBreaker.requestVolumeThreshold 熔断器失败的个数，进入熔断器的请求达到1000时服务降级（之后的请求直接进入熔断器）</p>
+<h3 id="ribbon-优化"><a href="#ribbon-优化" class="headerlink" title="ribbon 优化"></a>ribbon 优化</h3><p>Ribbon进行客户端负载均衡的Client并不是在服务启动的时候就初始化好的，而是在调用的时候才会去创建相应的Client，所以第一次调用的耗时不仅仅包含发送HTTP请求的时间，还包含了创建RibbonClient的时间，这样一来如果创建时间速度较慢，同时设置的超时时间又比较短的话，很容易就会出现上面所描述的显现。</p>
+<p>因此我们可以通过设置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ribbon:</span><br><span class="line">	eager-load:</span><br><span class="line">    	enabled：true</span><br><span class="line">	clients：service-1,service-2,service-n</span><br></pre></td></tr></table></figure>
+
+<p>参数说明:</p>
+<p>ribbon.eager-load.enabled : 开启Ribbon的饥饿加载模式</p>
+<p>ribbon.eager-load.clients: 指定需要饥饿加载的服务名，如果不指定服务名称，饥饿加载模式无效</p>
+<p>Zuul的饥饿加载，没有设计专门的参数来配置，而是直接采用了读取路由配置来进行饥饿加载。所以，如果我们使用默认路由，而没有通过配置的方式指定具体路由规则，那么 zuul.ribbon.eager-load.enabled=true 的配置就没有什么作用了。</p>
+<p>如果需要真正启用Zuul 的饥饿加载，需要通过<code>zuul.ignored-services=*</code>来忽略所有的默认路由，让所有路由配置均维护在配置文件中，以达到网关启动的时候就加载好各个路由的负载均衡对象。</p>
+<p>关于Zuul 的默认路由，这里详细介绍一下。假设你的注册服务中心有三个已经注册的服务名称service-a，service-b，service-c。但是在zuul配置文件中，只映射了service-a，service-b，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">zuul:</span><br><span class="line">  ribbon:</span><br><span class="line">    eager-load:</span><br><span class="line">      enabled: true </span><br><span class="line">  ignored-services: ‘*’</span><br><span class="line">  routes:</span><br><span class="line">    a:</span><br><span class="line">      path: &#x2F;a&#x2F;**</span><br><span class="line">      serviceId: service-a</span><br><span class="line">    b:</span><br><span class="line">     path: &#x2F;b&#x2F;**</span><br><span class="line">     serviceId: service-b</span><br></pre></td></tr></table></figure>
+
+<p>这里，虽然没有配置service-c的映射，但是，由于zuul有默认的映射机制，还是可以通过<a href="http://ip:port/service-c/的Url，访问到你的service-c服务，如果不想向外界暴露默认的服务映射，可以加上">http://ip:port/service-c/的Url，访问到你的service-c服务，如果不想向外界暴露默认的服务映射，可以加上</a> zuul.ignored-services:*</p>
+<p>最后，介绍一下疯狂创客圈：<strong>疯狂创客圈，一个Java 高并发研习社群</strong> 【<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html">博客园 总入口</a> 】</p>
+<p>疯狂创客圈，倾力推出：<strong>面试必备 + 面试必备 + 面试必备</strong> 的基础原理+实战 书籍 《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/11397271.html">Netty Zookeeper Redis 高并发实战</a>》</p>
+<p><a target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvMTQ4NTM5OC8yMDE5MDgvMTQ4NTM5OC0yMDE5MDgyMjIyNTE1NjQyNy05NTY0MjQxMjQuanBn?x-oss-process=image/format,png">![img](/../images/Springcloud 配置  史上最全,一文全懂/aHR0.jpg)</a></p>
+<hr>
+<h2 id="疯狂创客圈-Java-死磕系列"><a href="#疯狂创客圈-Java-死磕系列" class="headerlink" title="疯狂创客圈 Java 死磕系列"></a>疯狂创客圈 Java 死磕系列</h2><ul>
+<li><strong>Java (Netty) 聊天程序【 亿级流量】实战 开源项目实战</strong></li>
+<li><strong>Netty 源码、原理、JAVA NIO 原理</strong></li>
+<li><strong>Java 面试题 一网打尽</strong></li>
+<li>疯狂创客圈 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html"><strong>【 博客园 总入口 】</strong></a></li>
+</ul>
+<hr>
+<p>[外链图片转存中…(img-AaP9w9ZI-1571062386803)]</p>
+<hr>
+<h2 id="疯狂创客圈-Java-死磕系列-1"><a href="#疯狂创客圈-Java-死磕系列-1" class="headerlink" title="疯狂创客圈 Java 死磕系列"></a>疯狂创客圈 Java 死磕系列</h2><ul>
+<li><strong>Java (Netty) 聊天程序【 亿级流量】实战 开源项目实战</strong></li>
+<li><strong>Netty 源码、原理、JAVA NIO 原理</strong></li>
+<li><strong>Java 面试题 一网打尽</strong></li>
+<li>疯狂创客圈 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html"><strong>【 博客园 总入口 】</strong></a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Springcloud%E7%9A%84%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">Springcloud的性能问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E5%AE%B9%E5%99%A8-%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">Servlet 容器 优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zuul%E9%85%8D%E7%BD%AE-%E4%BC%98%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">Zuul配置 优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Feign-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">Feign 配置优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hystrix%E9%85%8D%E7%BD%AE-%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">hystrix配置 优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ribbon-%E4%BC%98%E5%8C%96"><span class="toc-number">6.</span> <span class="toc-text">ribbon 优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%96%AF%E7%8B%82%E5%88%9B%E5%AE%A2%E5%9C%88-Java-%E6%AD%BB%E7%A3%95%E7%B3%BB%E5%88%97"><span class="toc-number"></span> <span class="toc-text">疯狂创客圈 Java 死磕系列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%96%AF%E7%8B%82%E5%88%9B%E5%AE%A2%E5%9C%88-Java-%E6%AD%BB%E7%A3%95%E7%B3%BB%E5%88%97-1"><span class="toc-number"></span> <span class="toc-text">疯狂创客圈 Java 死磕系列</span></a>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

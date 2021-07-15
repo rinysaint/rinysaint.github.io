@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>同时使用gitee和github - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,github,gitee"> 
+    <meta name="description" content="肖日宁,xiaorining,Git共有三个级别的config文件，分别是：
+
+system ：%GitPath%\mingw64\etc\gitconfig文件
+global：$home.gitconfig文件
+local：%,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">同时使用gitee和github</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">同时使用gitee和github</h1>
+        <div class="stuff">
+            <span>十二月 23, 2016</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%85%B6%E4%BB%96/" rel="tag">其他</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>Git共有三个级别的config文件，分别是：</p>
+<ul>
+<li><strong>system</strong> ：%GitPath%\mingw64\etc\gitconfig文件</li>
+<li><strong>global</strong>：$home.gitconfig文件</li>
+<li><strong>local</strong>：%RepoPath%.git\config文件</li>
+</ul>
+<p>其中<code>%GitPath%</code>为Git的安装路径，<code>%RepoPath%</code>为某仓库的本地路径。</p>
+<ol>
+<li>删掉全局配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global --list</span><br><span class="line">$ git config --global --unset user.name &quot;你的名字&quot;</span><br><span class="line">$ git config --global --unset user.email &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>为不同账户配置ssh秘钥</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;.ssh 														# cd到当前用户的.ssh文件夹</span><br><span class="line">ssh-keygen -t rsa -f ~&#x2F;.ssh&#x2F;id_rsa.gitee -C &quot;注册gitee邮箱&quot;		#为不同秘钥指定名称</span><br><span class="line">ssh-keygen -t rsa -f ~&#x2F;.ssh&#x2F;id_rsa.github -C &quot;注册github邮箱&quot;</span><br></pre></td></tr></table></figure>
+
+<p>完成后会在~/.ssh / 目录下生成以下文件：</p>
+<ul>
+<li>id_rsa.github</li>
+<li>id_rsa.github.pub</li>
+<li>id_rsa.gitee</li>
+<li>id_rsa.gitee.pub</li>
+</ul>
+<p>复制公钥分别在github和gitee中设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa.github.pub</span><br><span class="line">cat id_rsa.gitee.pub</span><br></pre></td></tr></table></figure>
+
+<p>添加新的私钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-agent bash</span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa.github</span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa.gitee	</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>进行全局配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">touch ~&#x2F;.ssh&#x2F;config    </span><br><span class="line"></span><br><span class="line"># gitee</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;id_rsa.gitee</span><br><span class="line"></span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;id_rsa.github</span><br></pre></td></tr></table></figure>
+
+<p>Host 它涵盖了下面一个段的配置，我们可以通过他来替代将要连接的服务器地址。 这里可以使用任意字段或通配符。 当ssh的时候如果服务器地址能匹配上这里Host指定的值，则Host下面指定的HostName将被作为最终的服务器地址使用，并且将使用该Host字段下面配置的所有自定义配置来覆盖默认的/etc/ssh/ssh_config配置信息。</p>
+<p>Port 自定义的端口。默认为22，可不配置</p>
+<p>User 自定义的用户名，默认为git，可不配置</p>
+<p>HostName 真正连接的服务器地址</p>
+<p>PreferredAuthentications 指定优先使用哪种方式验证，支持密码和秘钥验证方式</p>
+<p>IdentityFile 指定本次连接使用的密钥文件</p>
+<ol start="4">
+<li>测试连接</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line">Hi yourname! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line">ssh -T git@gitee.com</span><br><span class="line">Hi yourname! You&#39;ve successfully authenticated, but GITEE.COM does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>hexo博客仓库</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi .depoly_git&#x2F;.git&#x2F;config 增加</span><br><span class="line"></span><br><span class="line">[user]</span><br><span class="line">	name &#x3D; username</span><br><span class="line">	email &#x3D; email</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>针对不同的项目仓库</li>
+</ol>
+<p>增加本地配置，在每个仓库的<code>.git/config</code>中进行配置不同的用户，以及其他的配置信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local user.name &#39;github&#x2F;gitee账号名&#39;</span><br><span class="line">$ git config --local user.email &#39;github&#x2F;gitee账号邮箱&#39;</span><br></pre></td></tr></table></figure>
+
+<p>–global是在全局配置文件中设置</p>
+<p>–local 是针对当前仓库的项目进行设置</p>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844904180633600007">https://juejin.im/post/6844904180633600007</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/68578d52470c">https://www.jianshu.com/p/68578d52470c</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>php实现事件监听与触发的方法 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,php,事件监听与触发"> 
+    <meta name="description" content="肖日宁,xiaorining,这篇文章主要介绍了php实现事件监听与触发的方法,可实现时间的绑定、触发与注销等功能,具有一定的参考借鉴价值,需要的朋友可以参考下
+..本文实例讲述了php实现事件监听与触发的方法。分享给大家供大家,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">php实现事件监听与触发的方法</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">php实现事件监听与触发的方法</h1>
+        <div class="stuff">
+            <span>十二月 23, 2016</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/php/" rel="tag">php</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>这篇文章主要介绍了php实现事件监听与触发的方法,可实现时间的绑定、触发与注销等功能,具有一定的参考借鉴价值,需要的朋友可以参考下</p>
+<p>..本文实例讲述了php实现事件监听与触发的方法。分享给大家供大家参考。具体分析如下：</p>
+<p>闲来无事，想了想PHP如何实现事件监听，参考了jQuery的事件绑定思路，简单的实现了一下。</p>
+<p>主要功能：</p>
+<p>1.绑定事件 支持一个事件绑定多个动作，支持绑定一次性事件</p>
+<p>2.触发事件</p>
+<p>3.注销事件</p>
+<p>复制代码 代码如下:</p>
+<p>class Event</p>
+<p>{</p>
+<p>protected static $listens    = array();</p>
+<p>public static function listen($event, $callback, $once=false){</p>
+<p>if(!is_callable($callback)) return false;</p>
+<p>self::$listens[$event][]   = array(‘callback’=&gt;$callback, ‘once’=&gt;$once);</p>
+<p>return true;</p>
+<p>}</p>
+<p>public static function one($event, $callback){</p>
+<p>return self::listen($event, $callback, true);</p>
+<p>}</p>
+<p>public static function remove($event, $index=null){</p>
+<p>if(is_null($index))</p>
+<p>unset(self::$listens[$event]);</p>
+<p>else</p>
+<p>unset(self::$listens[$event][$index]);</p>
+<p>}</p>
+<p>public static function trigger(){</p>
+<p>if(!func_num_args()) return;</p>
+<p>$args            = func_get_args();</p>
+<p>$event            = array_shift($args);</p>
+<p>if(!isset(self::$listens[$event])) return false;</p>
+<p>foreach((array) self::$listens[$event] as $index=&gt;$listen){</p>
+<p>$callback        = $listen[‘callback’];</p>
+<p>$listen[‘once’] &amp;&amp; self::remove($event, $index);</p>
+<p>call_user_func_array($callback, $args);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>以下是一些调用的例子：</p>
+<p>复制代码 代码如下:// 增加监听walk事件</p>
+<p>Event::listen(‘walk’, function(){</p>
+<p>echo “I am walking…n”;</p>
+<p>});</p>
+<p>// 增加监听walk一次性事件</p>
+<p>Event::listen(‘walk’, function(){</p>
+<p>echo “I am listening…n”;</p>
+<p>}, true);</p>
+<p>// 触发walk事件</p>
+<p>Event::trigger(‘walk’);</p>
+<p>/*</p>
+<p>I am walking…</p>
+<p>I am listening…</p>
+<p>*/</p>
+<p>Event::trigger(‘walk’);</p>
+<p>/*</p>
+<p>I am walking…</p>
+<p>*/</p>
+<p>Event::one(‘say’, function($name=’’){</p>
+<p>echo “I am {$name}n”;</p>
+<p>});</p>
+<p>Event::trigger(‘say’, ‘deeka’); // 输出 I am deeka</p>
+<p>Event::trigger(‘say’, ‘deeka’); // not run</p>
+<p>class Foo</p>
+<p>{</p>
+<p>public function bar(){</p>
+<p>echo “Foo::bar() is calledn”;</p>
+<p>}</p>
+<p>public function test(){</p>
+<p>echo “Foo::foo() is called, agrs:”.json_encode(func_get_args()).”n”;</p>
+<p>}</p>
+<p>}</p>
+<p>$foo   = new Foo;</p>
+<p>Event::listen(‘bar’, array($foo, ‘bar’));</p>
+<p>Event::trigger(‘bar’);</p>
+<p>Event::listen(‘test’, array($foo, ‘test’));</p>
+<p>Event::trigger(‘test’, 1, 2, 3);</p>
+<p>class Bar</p>
+<p>{</p>
+<p>public static function foo(){</p>
+<p>echo “Bar::foo() is calledn”;</p>
+<p>}</p>
+<p>}</p>
+<p>Event::listen(‘bar1’, array(‘Bar’, ‘foo’));</p>
+<p>Event::trigger(‘bar1’);</p>
+<p>Event::listen(‘bar2’, ‘Bar::foo’);</p>
+<p>Event::trigger(‘bar2’);</p>
+<p>function bar(){</p>
+<p>echo “bar() is calledn”;</p>
+<p>}</p>
+<p>Event::listen(‘bar3’, ‘bar’);</p>
+<p>Event::trigger(‘bar3’);</p>
+<p>希望本文所述对大家的PHP程序设计有所帮助。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

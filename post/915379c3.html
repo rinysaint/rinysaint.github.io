@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>vue+springboot前后端分离实现单点登录跨域问题解决方法 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,本文章向大家介绍vue+springboot前后端分离实现单点登录跨域问题解决方法，主要包括vue+springboot前后端分离实现单点登录跨域问题解决方法使用实例、应用技巧、基本知识点总结和需要,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">vue+springboot前后端分离实现单点登录跨域问题解决方法</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">vue+springboot前后端分离实现单点登录跨域问题解决方法</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-springboot-vue-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" rel="tag">微服务,springboot,vue,前后端分离</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>本文章向大家介绍vue+springboot前后端分离实现单点登录跨域问题解决方法，主要包括vue+springboot前后端分离实现单点登录跨域问题解决方法使用实例、应用技巧、基本知识点总结和需要注意事项，具有一定的参考价值，需要的朋友可以参考一下。</p>
+<p>最近在做一个后台管理系统，前端是用时下火热的vue.js，后台是基于springboot的。因为后台系统没有登录功能，但是公司要求统一登录，登录认证统一使用.net项目组的认证系统。那就意味着做单点登录咯，至于不知道什么是单点登录的同学，建议去找一下万能的度娘。</p>
+<p>刚接到这个需求的时候，老夫心里便不屑的认为：区区登录何足挂齿，但是，开发的过程狠狠的打了我一巴掌（火辣辣的一巴掌）。。。，所以这次必须得好好记录一下这次教训，以免以后再踩这样的坑。</p>
+<p>我面临的第一个问题是跨域，浏览器控制台直接报CORS,以我多年开发经验，我果断在后台配置了跨域配置，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class CorsConfiguration &#123;</span><br><span class="line"> @Bean</span><br><span class="line"> public WebMvcConfigurer corsConfigurer() &#123;</span><br><span class="line">  return new WebMvcConfigurerAdapter() &#123;</span><br><span class="line">   @Override</span><br><span class="line">   public void addCorsMappings(CorsRegistry registry) &#123;</span><br><span class="line">    registry.addMapping(&quot;&#x2F;**&quot;)</span><br><span class="line">      .allowedHeaders(&quot;*&quot;)</span><br><span class="line">      .allowedMethods(&quot;*&quot;)</span><br><span class="line">      .allowedOrigins(&quot;*&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个配置就是允许所有mapping，所有请求头，所有请求方法，所有源。改好配置之后我果断重启项目，看效果，结果发现根本没法重定向跳转到单点登录页面，看浏览器报错是跨域导致的，我先上我登录拦截器的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception &#123;</span><br><span class="line"> &#x2F;&#x2F;用户已经登录</span><br><span class="line"> if (request.getSession().getAttribute(&quot;user&quot;) !&#x3D; null) &#123;</span><br><span class="line">  return true;</span><br><span class="line"> &#125;</span><br><span class="line"> &#x2F;&#x2F;从单点登录返回之后的状态，本系统还不处于登录状态</span><br><span class="line"> &#x2F;&#x2F;根据code值去获取access_token，然后再根据access_token去获取用户信息，并将用户信息存到session中</span><br><span class="line"> String state &#x3D; request.getParameter(&quot;state&quot;);</span><br><span class="line"> String uri &#x3D; getUri(request);</span><br><span class="line"> if (isLoginFromSSO(state)) &#123;</span><br><span class="line">  String code &#x3D; request.getParameter(&quot;code&quot;);</span><br><span class="line">  Object cacheUrl &#x3D; request.getSession().getAttribute(state);</span><br><span class="line">  if (cacheUrl &#x3D;&#x3D; null) &#123;</span><br><span class="line">   response.sendRedirect(uri);</span><br><span class="line">   return false;</span><br><span class="line">  &#125;</span><br><span class="line">  HttpUtil client &#x3D; new HttpUtil();</span><br><span class="line">  StringBuffer sb &#x3D; new StringBuffer();</span><br><span class="line">  sb.append(&quot;code&#x3D;&quot;).append(code)</span><br><span class="line">    .append(&quot;&amp;grant_type&#x3D;&quot;).append(&quot;authorization_code&quot;)</span><br><span class="line">    .append(&quot;&amp;client_id&#x3D;&quot;).append(SSOAuth.ClientID)</span><br><span class="line">    .append(&quot;&amp;client_secret&#x3D;&quot;).append(SSOAuth.ClientSecret)</span><br><span class="line">    .append(&quot;&amp;redirect_uri&#x3D;&quot;).append(URLEncoder.encode((String) cacheUrl));</span><br><span class="line">  String resp &#x3D; client.post(SSOAuth.AccessTokenUrl, sb.toString());</span><br><span class="line">  Map&lt;String, String&gt; map &#x3D; new Gson().fromJson(resp, Map.class);</span><br><span class="line">  &#x2F;&#x2F;根据access_token去获取用户信息</span><br><span class="line">  String accessToken &#x3D; map.get(&quot;access_token&quot;);</span><br><span class="line">  HttpUtil http &#x3D; new HttpUtil();</span><br><span class="line">  http.addHeader(&quot;Authorization&quot;, &quot;Bearer &quot; + accessToken);</span><br><span class="line">  String encrypt &#x3D; http.get(SSOAuth.UserUrl);</span><br><span class="line">  String userinfo &#x3D; decryptUserInfo(encrypt);</span><br><span class="line">  &#x2F;&#x2F;封装成user对象</span><br><span class="line">  User user &#x3D; new Gson().fromJson(userinfo, User.class);</span><br><span class="line">  request.getSession().setAttribute(&quot;user&quot;, user);</span><br><span class="line">  return true;</span><br><span class="line"> &#125;</span><br><span class="line"> &#x2F;&#x2F;跳转到单点登录界面</span><br><span class="line"> state &#x3D; Const._SSO_LOGIN + Const.UNDERLINE + RandomUtil.getUUID();</span><br><span class="line"> request.getSession().setAttribute(state, uri);</span><br><span class="line"> String redirectUrl &#x3D; buildAuthCodeUrl(uri, state);</span><br><span class="line"> response.sendRedirect(redirectUrl);</span><br><span class="line"> return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>后面把前端vue请求后台的登录接口方式直接用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.location.href&#x3D;this.$api.config.baseUrl+&quot;&#x2F;system&#x2F;user&#x2F;login&quot;</span><br></pre></td></tr></table></figure>
+
+<p>之后前端访问系统，可以直接跳转到单点登录页面。但是当我输完账号和密码点击登录后回跳到系统，发现所有的请求数据接口都无法正常访问，debug发现所有的请求都没带用户信息，被拦截器识别为未登录，所有请求无法通过。</p>
+<p>为什么我明明登录了呀，拦截器也设置了用户信息到session啊，怎么cookies那就没了呢？再次发起请求，发现每次请求的JsessionId都不一样，查了很多资料，发现是需要在前端加一个允许带认证信息的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.withCredentials&#x3D;true;</span><br></pre></td></tr></table></figure>
+
+<p>后台也需要做一个相应的配置allowCredentials(true);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public WebMvcConfigurer corsConfigurer() &#123;</span><br><span class="line"> return new WebMvcConfigurerAdapter() &#123;</span><br><span class="line">  @Override</span><br><span class="line">  public void addCorsMappings(CorsRegistry registry) &#123;</span><br><span class="line">   registry.addMapping(&quot;&#x2F;**&quot;)</span><br><span class="line">     .allowedHeaders(&quot;*&quot;)</span><br><span class="line">     .allowedMethods(&quot;*&quot;)</span><br><span class="line">     .allowedOrigins(&quot;*&quot;).allowCredentials(true);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>加完这个配置之后，重新执行一遍操作流程，发现登录之后能正常跳转到系统，页面数据也展示正常。</p>
+<p>正当我以为大功告成的时候，突然点到一个页面又无法正常显示数据，好纳闷啊，赶紧F12，发现一个之前没见过的请求方式，OPTIONS请求，原来这个请求方式明明是POST呀，怎么就变成了OPTIONS了呢？于是我有点了其他几个POST的请求，发现都变成了OPTIONS请求，一脸懵逼的我赶紧查了一下OPTIONS请求的资料，网上说OPTIONS请求叫做“预检查请求”，就是在你的正式请求执行之前，浏览器会先发起预检查请求，预检查请求通过了，才能执行正式请求。看完恍然大悟，原来OPTIONS被拦截了，所以没法再执行我的POST的请求啊，那我直接让预检查请求通过就好了。只要在拦截器中加一个这个判断就好了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;option预检查，直接通过请求</span><br><span class="line">if (&quot;OPTIONS&quot;.equals(request.getMethod()))&#123;</span><br><span class="line"> return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样拦截器发现请求是预检查请求就直接通过，就可以执行接下来的POST的请求了。</p>
+<p><strong>总结</strong></p>
+<p>以上所述是小编给大家介绍的vue+springboot前后端分离实现单点登录跨域问题解决方法，希望对大家有所帮助，如果大家有任何疑问请给我留言，小编会及时回复大家的。在此也非常感谢大家对脚本之家网站的支持！</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

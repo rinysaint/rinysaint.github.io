@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>有了数据湖，距离数据仓库消失还有几年？ - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,数据湖,数据仓库,大数据"> 
+    <meta name="description" content="肖日宁,xiaorining,很多人跟我一样，对于数据湖充满好奇，也许还读了不少数据湖文章，但无论别人怎么说，你还是会觉得难以把握数据湖的本质。
+有些人会望文生义说，数据湖嘛，就是什么东西都可以往里面扔，特别是对非结构数据的处理,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">有了数据湖，距离数据仓库消失还有几年？</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">有了数据湖，距离数据仓库消失还有几年？</h1>
+        <div class="stuff">
+            <span>十一月 13, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>很多人跟我一样，对于数据湖充满好奇，也许还读了不少数据湖文章，但无论别人怎么说，你还是会觉得难以把握数据湖的本质。</p>
+<p>有些人会望文生义说，数据湖嘛，就是什么东西都可以往里面扔，特别是对非结构数据的处理比较方便。</p>
+<p><em><strong>*是这样吗？*</strong></em></p>
+<p>有案例才有鉴别，有的人找了数据湖的作者AWS来说明数据湖是什么东西，比如下图：</p>
+<p><img src="/../images/%E6%9C%89%E4%BA%86%E6%95%B0%E6%8D%AE%E6%B9%96%EF%BC%8C%E8%B7%9D%E7%A6%BB%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%B6%88%E5%A4%B1%E8%BF%98%E6%9C%89%E5%87%A0%E5%B9%B4%EF%BC%9F/34-%E6%95%B0%E6%8D%AE%E6%B9%96%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB1.png" alt="数据湖和数据仓库的区别,湖仓一体,数据湖和数据仓库,数据入湖"></p>
+<p>不懂数据的人也许会觉得数据湖很厉害，而懂数据的人也许会觉得仅是一堆数据仓库技术的堆砌包装而已，你看上面那张框架图，哪个专业词汇数据人士会不懂？凭什么数据湖被炒作成了一个新概念？</p>
+<p>有比较才有鉴别，因此很多文章对数据湖与数据仓库做了比较，下面是网上流传的一些说法：</p>
+<p><img src="/../images/%E6%9C%89%E4%BA%86%E6%95%B0%E6%8D%AE%E6%B9%96%EF%BC%8C%E8%B7%9D%E7%A6%BB%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%B6%88%E5%A4%B1%E8%BF%98%E6%9C%89%E5%87%A0%E5%B9%B4%EF%BC%9F/34-%E6%95%B0%E6%8D%AE%E6%B9%96%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB2.png" alt="数据湖和数据仓库的区别,湖仓一体,数据湖和数据仓库,数据入湖"></p>
+<p>这种比较似乎能找到点区别，难道结构化与非结构化就成了数据仓库和数据湖的一个主要区别？BI和机器学习成为了主要区别？</p>
+<p>事实上，这种比较有较大逻辑漏洞：即是从结果出发来看差异，然后又用这个差异来说明区别，颠倒了因果，因此受到了不少专业人士的鄙视。比如AWS的数据湖能够处理非结构化数据，而数据仓库无法处理非结构化数据，就认为这是数据湖与数据仓库的本质区别之一。</p>
+<p>本文来跟大家聊聊我所理解的数据湖的本质，对于一种新事物不了解本质，你就很难驾驭它，下面这张图道尽了一切。</p>
+<p><img src="/../images/%E6%9C%89%E4%BA%86%E6%95%B0%E6%8D%AE%E6%B9%96%EF%BC%8C%E8%B7%9D%E7%A6%BB%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%B6%88%E5%A4%B1%E8%BF%98%E6%9C%89%E5%87%A0%E5%B9%B4%EF%BC%9F/34-%E6%95%B0%E6%8D%AE%E6%B9%96%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB3.png" alt="数据湖和数据仓库的区别,湖仓一体,数据湖和数据仓库,数据入湖"></p>
+<p>下面我用一篇文章来具体说明数据湖与数据仓库的区别，更多的是给出why，知其所以然是理解事物的一个原则。</p>
+<p>数据仓库和数据湖的处理流程可以用下图来示意，其中用红圈标出了5个对标的流程节点。</p>
+<p><img src="/../images/%E6%9C%89%E4%BA%86%E6%95%B0%E6%8D%AE%E6%B9%96%EF%BC%8C%E8%B7%9D%E7%A6%BB%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%B6%88%E5%A4%B1%E8%BF%98%E6%9C%89%E5%87%A0%E5%B9%B4%EF%BC%9F/34-%E6%95%B0%E6%8D%AE%E6%B9%96%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB4.png" alt="数据湖和数据仓库的区别,湖仓一体,数据湖和数据仓库,数据入湖"></p>
+<p>可以看到，数据湖并不比数据仓库在处理流程上多出了什么内容，更多的在于结构性的变化，下面就从数****据存储、模型设计、加工工具、开发人员*<em><strong>和</strong></em>*消费人员****五个方面来进行比较。</p>
+<h4 id="（1）数据存储"><a href="#（1）数据存储" class="headerlink" title="*（1）数据存储*"></a><em><strong>*（1）数据存储*</strong></em></h4><p>数据仓库采集、处理过程中存储下来的数据一般是以结构化的形式存在的，即使原始数据是非结构化的，但这些非结构化数据也只是在源头暂存一下，它通过结构化数据的形式进入数据仓库，成了数据仓库的基本存储格式，这个跟数据仓库的模型（维度或关系建模）都是建立在关系型数据基础上的特点有关。</p>
+<p>事实上，是传统的数据建模负担让数据仓库只处理结构化数据，其实谁都没规定过数据仓库只处理和存储结构化数据。</p>
+<p>数据湖包罗万象，轻装上阵，结构化与非结构化数据都成为了数据湖本身的一部分，这体现了数据湖中“湖”这个概念。因为没有数据仓库建模的限制，当然什么东西都可以往里面扔，但这为其变成数据沼泽埋下了伏笔。</p>
+<p>看了这段也许无法让人信服，不要急，接着往下看。</p>
+<h4 id="（2）模型设计"><a href="#（2）模型设计" class="headerlink" title="*（2）模型设计*"></a><em><strong>*（2）模型设计*</strong></em></h4><p>数据仓库中所有的Schema(比如表结构)都是预先设计并生成好的，数据仓库建设最重要的工作就是建模，其通过封装好的、稳定的模型对外提供有限的、标准化的数据服务，模型能否设计的高内聚、松耦合成了评估数据仓库好坏的一个标准，就好比数据中台非常强调数据服务的复用性一样。</p>
+<p>你会发现，数据仓库很像数据领域的计划经济，所有的产品（模型）都是预先生成好的，模型可以变更，但相当缓慢。</p>
+<p>数据湖的模型不是预先生成的，而是随着每个应用的需要即时设计生成的，其更像是市场经济的产物，牺牲了复用性却带来了灵活性，这也是为什么数据湖的应用更多强调探索分析的原因。</p>
+<h4 id="（3）加工工具"><a href="#（3）加工工具" class="headerlink" title="*（3）加工工具*"></a><em><strong>*（3）加工工具*</strong></em></h4><p>数据仓库的采集、处理工具一般是比较封闭的，很多采取代码的方式暴力实现，大多只向集中的专业开发人员开放，主要的目的是实现数据的统一采集和建模，它不为消费者（应用方）服务，也没这个必要。</p>
+<p>数据湖的采集和处理工具是完全开放的，因为第（2）点提到过：数据湖的模型是由应用即席设计生成的，意味着应用必须具备针对数据湖数据的直接ETL能力和加工能力才能完成定制化模型的建设，否则就没有落地的可能，更无灵活性可言。</p>
+<p>工具能否开放、体验是否足够好是数据湖能够成功的一个前提，显然传统数据仓库的一些采集和开发工具是不行的，它们往往不可能向普通大众开放。</p>
+<h4 id="（4）开发人员"><a href="#（4）开发人员" class="headerlink" title="*（4）开发人员*"></a><em><strong>*（4）开发人员*</strong></em></h4><p>数据仓库集中开发人员处理数据涵盖了数据采集、存储、加工等各个阶段，其不仅要管理数据流，也要打造工具流。</p>
+<p>由于数据流最终要为应用服务，因此其特别关注数据模型的质量，而工具流只要具备基本的功能、满足性能要求就可以了，反正是数据仓库团队人员自己用，导致的后果是害苦了运营人员。</p>
+<p>数据湖完全不一样，集中开发人员在数据流阶段只负责把原始数据扔到数据湖，更多的精力花在对工具流的改造上，因为这些工具是直接面向最终使用者的，假如不好用，数据湖就不能用了。</p>
+<h4 id="（5）应用人员"><a href="#（5）应用人员" class="headerlink" title="*（5）应用人员*"></a><em><strong>*（5）应用人员*</strong></em></h4><p>数据仓库对于应用人员暴露的所有东西就是建好的数据模型，应用方的所有角色只能在数据仓库限定好的数据模型范围内倒腾，这在一定程度上限制了应用方的创新能力。比如原始数据有个字段很有价值，但数据仓库集中开发人员却把它过滤了。</p>
+<p>这种问题在数据仓库中很常见，很多取数人员只会取宽表，对于源端数据完全不清楚，所谓成也数据仓库，败也数据仓库。</p>
+<p>数据湖的应用方则可以利用数据湖提供的工具流接触到最生鲜的原始数据，涵盖了从数据采集、抽取、存储、加工的各个阶段，其可以基于对业务的理解，压榨出原始数据的最大价值。</p>
+<p><em><strong>*可以看到，数据仓库和数据湖，代表着两种数据处理模式和服务模式，是数据技术领域的一次轮回。*</strong></em></p>
+<p>早在ORACLE的DBLINK时代，我们就有了第一代的数据湖，因为那个时候ORACLE一统天下，ORALCE的DBLINK让直接探索原始数据有了可能。</p>
+<p>随着数据量的增长和数据类型的不断丰富，我们不得不搞出一种新的“数据库”来集成各种数据。</p>
+<p><em><strong>*但那个时候搞出的为什么是数据仓库而不是数据湖呢？*</strong></em></p>
+<p>主要还是应用驱动力的问题。</p>
+<p>因为那个时候大家关注的是报表，而报表最核心的要求就是准确性和一致性，标准化、规范化的维度和关系建模正好适应了这一点，集中化的数据仓库支撑模式就是一种变相的计划经济。</p>
+<p>随着大数据时代到来和数字化的发展，很多企业发现，原始数据的非结构化比例越来越高，前端应用响应的要求越来越高，海量数据挖掘的要求越来越对，报表取数已经满足不了数据驱动业务的要求了。</p>
+<p><img src="/../images/%E6%9C%89%E4%BA%86%E6%95%B0%E6%8D%AE%E6%B9%96%EF%BC%8C%E8%B7%9D%E7%A6%BB%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%B6%88%E5%A4%B1%E8%BF%98%E6%9C%89%E5%87%A0%E5%B9%B4%EF%BC%9F/34-%E6%95%B0%E6%8D%AE%E6%B9%96%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB5.gif" alt="数据湖和数据仓库的区别,湖仓一体,数据湖和数据仓库,数据入湖"></p>
+<p>一方面企业需要深挖各种数据，从展示数据为主（报表）逐步向挖掘数据（探索预测）转变，另一方面企业也需要从按部就班的支撑模式向快速灵活的方向转变，要求数据仓库能够开放更多的灵活性给应用方，这个时候数据仓库就有点撑不住了。</p>
+<p><em><strong>*数据湖就是在这种背景下诞生的。*</strong></em></p>
+<p>其实早在数据湖出来之前，很多企业就在做类似数据湖的工作了，比如我们5年前重构hadoop大数据平台的时候，就已经要求源端能将各种格式的数据直接扔过来，然后用不同的引擎处理，非结构化的就自己做一个定制化的ETL工具，只是没有统一进行整合而已。</p>
+<p>ETL之所以不开放，主要是驱动力不够，其实我们没有那么多类型的数据要定制化抽取，也许后续会需要吧。</p>
+<p>而可视化开发平台使用比较广泛，只是因为市场觉得IT做的太慢了，需要一个可视化平台来直接操作。</p>
+<p>很多企业不搞可视化开发平台也是容易理解的，报表就能活得很好，干嘛业务人员要自己开发和挖掘。现在数据湖叫的欢的，大多是互联网公司，比如亚马逊，这是很正常的。</p>
+<p>数据湖和数据仓库，不能说谁更好谁更差，大家都有可取之处，阿里最近一篇文章提到的数湖一体是很好的概念，可以实现双方的优势互补，我这里画一张图，方便你的理解：</p>
+<p> <em><strong>*<img src="/../images/%E6%9C%89%E4%BA%86%E6%95%B0%E6%8D%AE%E6%B9%96%EF%BC%8C%E8%B7%9D%E7%A6%BB%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%B6%88%E5%A4%B1%E8%BF%98%E6%9C%89%E5%87%A0%E5%B9%B4%EF%BC%9F/34-%E6%95%B0%E6%8D%AE%E6%B9%96%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB6.png" alt="数据湖和数据仓库的区别,湖仓一体,数据湖和数据仓库,数据入湖">*</strong></em></p>
+<h3 id="何谓湖仓一体？"><a href="#何谓湖仓一体？" class="headerlink" title="*何谓湖仓一体？*"></a><em><strong>*何谓湖仓一体？*</strong></em></h3><p>（1）湖和仓的数据/元数据无缝打通，互相补充，数据仓库的模型反哺到数据湖（成为原始数据一部分），湖的结构化应用知识沉淀到数据仓库</p>
+<p>（2）湖和仓有统一的开发体验，存储在不同系统的数据，可以通过一个统一的开发/管理平台操作</p>
+<p>（3）数据湖与数据仓库的数据，系统可以根据自动的规则决定哪些数据放在数仓，哪些保留在数据湖，进而形成一体化</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="toc-number">1.</span> <span class="toc-text">*（1）数据存储*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">*（2）模型设计*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%8A%A0%E5%B7%A5%E5%B7%A5%E5%85%B7"><span class="toc-number">3.</span> <span class="toc-text">*（3）加工工具*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98"><span class="toc-number">4.</span> <span class="toc-text">*（4）开发人员*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E5%BA%94%E7%94%A8%E4%BA%BA%E5%91%98"><span class="toc-number">5.</span> <span class="toc-text">*（5）应用人员*</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E8%B0%93%E6%B9%96%E4%BB%93%E4%B8%80%E4%BD%93%EF%BC%9F"><span class="toc-number"></span> <span class="toc-text">*何谓湖仓一体？*</span></a>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

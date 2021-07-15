@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>通过广域网(Intelnet)进行远程唤醒[或开机] 图解 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,技术,远程唤醒"> 
+    <meta name="description" content="肖日宁,xiaorining,WAN远程唤醒与LAN远程唤醒有着诸多不同，WAN远程唤醒首先需要主板、网卡等硬件的支持，需要一条有效的Intelnet连接，与Lan远程唤醒不同的是，WAN远程唤醒需要经过路由器，因此下面我就来详,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">通过广域网(Intelnet)进行远程唤醒[或开机] 图解</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">通过广域网(Intelnet)进行远程唤醒[或开机] 图解</h1>
+        <div class="stuff">
+            <span>十二月 23, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>WAN远程唤醒与LAN远程唤醒有着诸多不同，WAN远程唤醒首先需要主板、网卡等硬件的支持，需要一条有效的Intelnet连接，与Lan远程唤醒不同的是，WAN远程唤醒需要经过路由器，因此下面我就来详细讲解如何在路由器上进行设置，以支持WAN远程唤醒，前提是，你已经成功进行了LAN远程唤醒。</p>
+<p><strong>一、WOL（远程唤醒）工具介绍</strong></p>
+<p>实现远程唤醒的软件有很多，原理都是相同的。下面列出几款常用的WOL软件：</p>
+<p>■ LanHelper</p>
+<p>■ Magic Packet Utility</p>
+<p>■ NetWaker for windows</p>
+<p>■ WakeOnLanGui（<a target="_blank" rel="noopener" href="http://www.depicus.com/">http://www.depicus.com</a>）</p>
+<p><strong>二、准备</strong></p>
+<p>WAN与LAN在不同在于在广域网上，有许多的路由器等网络设备，这些设备可能会使Magic Packet的包不能到达我们想唤醒的电脑网卡上。因此，要实现通过internet来唤醒，必须得到路由器的支持。下面就以我的TP-Link WR841N无线路由为例来说明配置过程。</p>
+<p>首先确保路由器可以正常接入internet，即通过服务商得到一个公网IP（对于家庭来说ADSL、Cable Modem是常见的上网方式），进入路由器WEB配置页面<a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1。</a></p>
+<p><strong>三、端口映射（虚拟服务器）</strong></p>
+<p>依次点击“转发规则”-&gt;“虚拟服务器”，添加一新条目，端口为2301（2301是默认的端口号，也可以是其它端口号，只要不和其它的冲突），IP地址为需要唤醒电脑网卡所使用的IP地址（比如192.168.1.250），协议为UDP，并使之处于“生效”状态。</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122153904700)</p>
+<p>这一步使得当路由器收到发到它2301端口的数据都会转发到IP地址为192.168.1.250的这台电脑上。</p>
+<p><strong>四、IP地址与MAC地址之间的绑定</strong></p>
+<p>依次点击“IP与MAC绑定”-&gt;“静态ARP绑定设置”，添加一新条目，MAC地址添为网卡（被唤醒电脑上的）MAC，如50-E5-60-CA-1A-4A，IP为上一步设置的IP地址：192.168.1.250。</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154246829)</p>
+<p>注意：记住要启用路由器的“ARP绑定”功能（图片中的红圈部分），不然此步的设置是不生效的。</p>
+<p>当路由器收到从internet发往2301端口的Magic Packet包时，由于设了端口映射，路由器就直接将该Magic Packet包转发到192.168.1.250上。但是由于电脑是处理关机状态，ARP无法通过广播找到192.168.1.250这台电脑，Magic Packet包将被路由器丢弃，因此进行静态的IP-MAC绑定，使数据包可以直接发往MAC地址为50-E5-60-CA-1A-4A的网卡上。</p>
+<p>此时，从理论上来说，通过internet的远程唤醒就可以成功了。但是，如果远程主机没有配置静态IP地址，而是通过DHCP方式获取动态IP地址的，那么还有一些工作需要做，以确保万无一失。</p>
+<p><strong>五、静态IP地址分配</strong></p>
+<p>大家都清楚，DHCP租约协议是有有效期的，TP-Link上的DHCP租约有效期默认是2小时，为了确保远程电脑在启动后可以获得192.168.1.250这个IP地址，需要在DHCP服务器中设置一个静态地址分配，即为MAC地址50-E5-60-CA-1A-4A静态分配192.168.1.250这个IP地址，而且永不过期。</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154757301)</p>
+<p><strong>六、使用动态DNS功能</strong></p>
+<p>在路由器上使用动态DNS功能，这样可以用一个域名来访问而不用查看经常改变的公网IP（ADSL拨号上网的IP是经常变的）。同时，允许路由器可以进行无端WEB管理，以方便当我们在任何地方都可以检查路由器的状态。</p>
+<p>说到DDNS，不得不提到大名鼎鼎的花生壳了，TP-LINK路由器默认就内嵌了动态DNS功能，只需要到花生壳的官网注册一个护照，并申请一个免费域名，然后在路由器上登录。登录成功后，会看到域名，这样花生壳就将域名和路由器上的公网IP地址绑定在一起了。</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154957702)</p>
+<p><strong>七、使用第三方工具进行远程唤醒</strong></p>
+<p>访问<a target="_blank" rel="noopener" href="http://www.depicus.com/wake-on-lan/woli.aspx%E8%BF%99%E4%B8%AA%E9%A1%B5%E9%9D%A2%EF%BC%8C%E8%BF%99%E6%98%AFdepicus%E6%8F%90%E4%BE%9B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9C%A8%E7%BA%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E5%B7%A5%E5%85%B7%E9%A1%B5%E9%9D%A2%EF%BC%8C%E4%BD%BF%E7%94%A8%E8%B5%B7%E6%9D%A5%E5%BE%88%E6%96%B9%E4%BE%BF%E3%80%82%E5%B7%A5%E4%BD%9C%E7%95%8C%E9%9D%A2%E5%A6%82%E4%B8%8B%EF%BC%9A">http://www.depicus.com/wake-on-lan/woli.aspx这个页面，这是depicus提供的一个在线的远程唤醒工具页面，使用起来很方便。工作界面如下：</a></p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122155050140)</p>
+<p>下面就进行远程唤醒的四个参数作下说明：</p>
+<ul>
+<li><strong>Your Network Cards Mac Address：</strong>（内部局域网）远程主机的网卡MAC地址，不是路由器的MAC地址。[一开始我这里搞错了，填的是路由器的MAC地址，怎么也不能远程唤醒]</li>
+<li><strong>Any Computers Ip Number or FQDN：</strong>路由器获取到的公网IP地址或使用花生壳DDNS进行绑定的合法域名。这里最好使用DDNS功能绑定一个域名，因为域名是不变的，而你不清楚你的路由器什么时候会重新从ISP服务商那里获取公网IP地址。但如果使用了DDNS，即使路由器的IP地址变了，会自动更新到花生壳服务器上。</li>
+<li><strong>Your Subnet Mask：</strong>子网掩码。这个很重要，因为路由器是动态地从ISP服务商那里获取IP地址的，你根本不知道该IP地址所对应的子网掩码，所以索性就填写255.255.255.255，这表示是唯一一个IP地址，而不是一个网段。</li>
+<li><strong>Any Port Number：</strong>网络端口，路由器会一直侦听该网络端口，一旦侦测到有数据包发往该端口，就进行转发。</li>
+</ul>
+<p>经过上述配置，我已经通过Internet成功远程唤醒了我的服务器。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

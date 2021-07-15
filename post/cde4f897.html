@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FreeNas发布共享存储的三种方法 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,linux,技术,FreeNas,共享存储"> 
+    <meta name="description" content="肖日宁,xiaorining,使用多块磁盘建立raid
+Freenas的raid级别定义
+raid 0 ———————— stripe
+raid 1 ————————mirror
+raid 5 ———————– RAID-Z
+r,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">FreeNas发布共享存储的三种方法</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">FreeNas发布共享存储的三种方法</h1>
+        <div class="stuff">
+            <span>十二月 23, 2016</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>使用多块磁盘建立raid</p>
+<p>Freenas的raid级别定义</p>
+<p>raid 0 ———————— stripe</p>
+<p>raid 1 ————————mirror</p>
+<p>raid 5 ———————– RAID-Z</p>
+<p>raid 10 \ raid 6 ————RAID-Z2</p>
+<p>\1. 使用多块磁盘建立raid</p>
+<p>Freenas的raid级别定义</p>
+<p>raid 0 ———————— stripe raid 1 ————————mirror raid 5 ———————– RAID-Z raid 10 \ raid 6 ————RAID-Z2</p>
+<p>UFS Volume manager（UFS卷管理）模式下，只能建立raid 0,1,3</p>
+<p>ZFS Volume manager（动态文件系统卷管理）模式下，可以建立raid 0,1,5,6,1+0，还可以将磁盘设为备份模式</p>
+<p>现在使用ZFS模式，利用4块硬盘建立一个raid 5</p>
+<p>这个raid5建好了，少了30G的空间，也就是1.5块磁盘空间（理论上是只少一块盘的空间）</p>
+<p>\2. 在新建的raid磁盘上建立2个目录，其中nfs目录等下做NFS共享，cifs目录等下做CIFS共享给windows</p>
+<p>\3. 发布NFS共享</p>
+<p>选择NFS共享的目录路径 /mnt/raid-5/nfs，然后点击确定</p>
+<p>发布出去的NFS共享如下图</p>
+<p>由于nfs目录没有给other用户增加写入权限，所以客户端连接过来后是不能写入数据的，需要更改目录权限</p>
+<p>\4. 使用esxi进行挂载</p>
+<p>成功挂载，如下图</p>
+<p>进行写入测试</p>
+<p>\5. 发布CIFS共享给windows客户端</p>
+<p>发布出去的CIFS共享如下图</p>
+<p>由于cifs目录没有给other用户增加写入权限，所以客户端连接过来后是不能写入数据的，需要更改目录权限</p>
+<p>\6. 在win 7上进行访问测试</p>
+<p>写入测试</p>
+<p>\7. 发布iscsi共享存储</p>
+<p>小知识：</p>
+<p>iSCSI的主要功能是在 TCP/IP 网络上的主机系统（启动器 initiator）和存储设备（目标器 target）之间进行大量数据封装和可靠传输。此外，iSCSI在IP网络封装 SCSI 命令，且运行在TCP上。</p>
+<ol>
+<li><p>划分LUN</p>
+</li>
+<li><p>启动ISCISI服务，并进入ISCSI配置模式</p>
+</li>
+<li><p>配置入口（Portals）</p>
+</li>
+</ol>
+<p>4)配置哪些iscsi发起端（Initiator；或者这样；5)配置iscsitarget；6)配置要发布共享的存储资源的范围（也就是第一步；7)将iscsitarget与存储资源的范围进行；8)使用win7自带的iscsi发起程序进行测试；先手动启动iscsiInitiator服务；打开iscsi发起程序，使用快速连接；连接成功后，“磁盘管理”下多了一块2</p>
+<hr>
+<ol start="4">
+<li>配置哪些iscsi发起端（Initiator）可以连接存储服务器</li>
+</ol>
+<p>或者这样</p>
+<ol start="5">
+<li><p>配置iscsi target</p>
+</li>
+<li><p>配置要发布共享的存储资源的范围（也就是第一步划分的LUN）</p>
+</li>
+<li><p>将iscsi target 与存储资源的范围进行关联，即完成了iscsi的发布</p>
+</li>
+<li><p>使用win 7自带的iscsi发起程序进行测试</p>
+</li>
+</ol>
+<p>先手动启动iscsi Initiator服务</p>
+<p>打开iscsi发起程序，使用快速连接</p>
+<p>连接成功后，“磁盘管理”下多了一块20G的硬盘</p>
+<p>将硬盘联机 — 初始化（MBR） — 格式化</p>
+<p>正在格式化</p>
+<p>资源管理里出现了一块20G的新硬盘</p>
+<ol start="9">
+<li>在ESXI上挂载iscsi资源（需要把刚才已经格式化的硬盘先做“删除卷”操作，然后再把iscsi连接断开。</li>
+</ol>
+<p>因为ESXI和win 7使用的文件系统不一样，esxi无法识别NTFS的分区，win 7也无法操作ESXI使用的VMFS文件系统，所以这两个无法互操作的主机最好不要同时连接相同的LUN，即使连接上了也无法做任何操作！但是相同的主机类型是可以同时连接的，比如多台esxi主机可以同时连接相同的LUN，这就是虚拟化中所说的共享存储。）</p>
+<p>首先配置vswitch，在现有的物理网卡下增加一个端口（port），专门用于esxi和存储服务器通信</p>
+<p>给这个端口配置IP地址，最后完成port的创建</p>
+<p>配置存储适配器</p>
+<p>添加vmkernel端口绑定</p>
+<p>选择要与iscsi适配器绑定的vmkernel适配器</p>
+<p>绑定成功</p>
+<p>使用动态发现搜索iscsi资源（当然也可以使用静；点关闭后提示是否重新扫描适配器，点“是”；再到“存储器”选项卡中去“添加存储器”；最后无脑下一步，填入数据存储名称，再无脑下一步即；浏览数据并进行写入测试，全部OK！；到这里，使用FreeNas发布三种共享（NFS,；</p>
+<hr>
+<p>使用动态发现搜索iscsi资源（当然也可以使用静态发现输入IP和目标名称来连接存储服务器）</p>
+<p>点关闭后提示是否重新扫描适配器，点“是”</p>
+<p>再到“存储器”选项卡中去“添加存储器”</p>
+<p>最后无脑下一步，填入数据存储名称，再无脑下一步即完成了和iscsi target的连接</p>
+<p>浏览数据并进行写入测试，全部OK！</p>
+<p>到这里，使用FreeNas发布三种共享（NFS,CIFS,ISCSI）的方法全部over！</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

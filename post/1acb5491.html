@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数据仓库的治理一塌糊涂，没有管理好数据，最后都会怎么样 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,数据仓库,数据治理"> 
+    <meta name="description" content="肖日宁,xiaorining,“年年数据要治理，数据年年治不好”。
+数仓治理的老大难，通常是跟着****业务需求快跑*，要不是*数据零散在各个团队*，或者是大家的*研发规范有不同****，作为一项通过维度模型来约束规范的工种来讲,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">数据仓库的治理一塌糊涂，没有管理好数据，最后都会怎么样</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">数据仓库的治理一塌糊涂，没有管理好数据，最后都会怎么样</h1>
+        <div class="stuff">
+            <span>十一月 23, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag">大数据</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>“年年数据要治理，数据年年治不好”。</p>
+<p>数仓治理的老大难，通常是跟着****业务需求快跑*<em><strong>，要不是</strong></em>*数据零散在各个团队*<em><strong>，或者是大家的</strong></em>*研发规范有不同****，作为一项通过维度模型来约束规范的工种来讲，“模型”的治理难度，大于“架构”。</p>
+<p>目前整个行业通常的模型治理方法，是规定一种建模规范，大家在编码的过程中各自遵守。当业务开始变得模糊不清的时候，再专门抽调时间，来做人工治理。就像黄河一样，流沙清理了一次又一次，但上游还是会冲下新的流沙。</p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E6%B2%BB%E7%90%86%E4%B8%80%E5%A1%8C%E7%B3%8A%E6%B6%82%EF%BC%8C%E6%B2%A1%E6%9C%89%E7%AE%A1%E7%90%86%E5%A5%BD%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%9C%80%E5%90%8E%E9%83%BD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/32-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%861.png" alt="数据仓库数据治理,数据仓库建模,数据仓库维度建模,数据仓库建模理论"></p>
+<p>数仓的假设既然都是采用的维度建模，那么其设计思想必然是自下而上的进行建设，****与架构进行类比，也就是先做好子模块，最后做顶层设计****。</p>
+<p>但如果设计者不熟悉对应的领域模型，一旦业务上发生了变动，一张核心表动辄几百张的引用，会让重构的工作变得困难无比。</p>
+<p>强如阿里，会做一些更进一步的工作，比如模型的健康分，看看你的****存储成本有多少、计算成本有多少、生命周期是不是合理、代码规范有没有避免全表扫描****，等等。但这些工作只能发现一些常规的问题，也依然需要进行人工治理，不仅效率上没有得到提高，每天推送的邮件也会让你产生心烦。</p>
+<p>投入多少人，投入多少时间，终归是解决了一时的问题，而非长远。</p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E6%B2%BB%E7%90%86%E4%B8%80%E5%A1%8C%E7%B3%8A%E6%B6%82%EF%BC%8C%E6%B2%A1%E6%9C%89%E7%AE%A1%E7%90%86%E5%A5%BD%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%9C%80%E5%90%8E%E9%83%BD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/32-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%862.png" alt="数据仓库数据治理,数据仓库建模,数据仓库维度建模,数据仓库建模理论"></p>
+<p>因此，换个思路考虑问题，当业务高速发展时，数仓势必要跟着跑，不然业务都跪了，数仓又有何用。但业务通常不会一直处于高速发展的阶段，就像长跑一样，总有跑跑停停的时候，因此如果我们****遵循一定的做事方法，流程上多一点步骤****，那么就会极大的延缓数仓治理的问题。</p>
+<p>即不追求长久的问题解决，而以一段时间内的稳定为目标，比如一年。当业务已经发展到比较稳定的阶段，再回过头来做治理，既能够避免因为业务变动而影响模型重构，也可以节省大家的精力和压力，就不失为一种解决思路了。</p>
+<p>完美的解决方案通常不存在，退而求其次是大多数人的选择。当技术无法解决问题时，不妨用另类思路去解决。</p>
+<h3 id="0x01-事前：理论"><a href="#0x01-事前：理论" class="headerlink" title="*|0x01 事前：理论*"></a><em><strong>*|0x01 事前：理论*</strong></em></h3><p>数仓的指导思想是什么？如果一定有定义，那么就是：以维度建模为基础，根据业务域和数据域设计主题模型，构建一致性的维度和事实。</p>
+<p>以下简略叙述理论，维度模型已经有很多的讲解文章，这里只是起到思路讲解的作用。</p>
+<p>从宏观上讲，首先要了解数据的统计周期，是****增量同步*<em><strong>，</strong></em>*还是全量同步****，并根据预估的数据量设计ODS。</p>
+<p>其次，要大致****了解业务域的划分情况****，将一类不可拆分的行为作为一类，比如支付、比如搜索。当有了宏观的划分之后，就可以根据这些业务过程，构建最明细粒度的事实表，也就是DWD。</p>
+<p>再次，基于DWD便可以****根据主题对象进行数据建模****，构建公共粒度的汇总指标事实表。很多时候，由于需要加工一定的业务逻辑，可能带来DWD依赖DWS的情况，比如基于时间序列的业务过程，这里就需要避免统计类型或者业务类型的逻辑，加工到DWD中，这部分应该放到ADS层去做。</p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E6%B2%BB%E7%90%86%E4%B8%80%E5%A1%8C%E7%B3%8A%E6%B6%82%EF%BC%8C%E6%B2%A1%E6%9C%89%E7%AE%A1%E7%90%86%E5%A5%BD%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%9C%80%E5%90%8E%E9%83%BD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/32-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%863.png" alt="数据仓库数据治理,数据仓库建模,数据仓库维度建模,数据仓库建模理论"></p>
+<p>最后，****定义好一致性的维度****，即DIM。通常是静态的信息，如果存在动态可变的属性，还是放到DWD比较合适。</p>
+<p>从这里开始，每位研发同学，都可以掌握维度建模的核心思想，通常公共层建设好之后，应该是变动极其小的，为了避免设计不好导致的后续维护问题，模型一定要有****评审*<em><strong>，即便是忙，也至少要找一个人帮忙进行</strong></em>*CodeReview****。</p>
+<p>根据这些建模方法，我们就可以愉快的进行ADS层的业务开发了。</p>
+<h3 id="0x02-事中：方法"><a href="#0x02-事中：方法" class="headerlink" title="*|0x02 事中：方法*"></a><em><strong>*|0x02 事中：方法*</strong></em></h3><p>掌握了建模方法，不代表可以发挥创造力，就像谷歌编码规范一样，有很多的Tips要贯彻强调：</p>
+<p>不仅表名设计要有规范，字段命名也要有规范，指标如果不能根据命名猜出大概的涵义，那么设计上就是失败的；</p>
+<p>善于利用分区、临时表等方法，降低表的依赖层级；</p>
+<p>扩展字段按照key-value的形式进行存储，虽然get_json_object慢，但它很简洁；</p>
+<p>小数精度要用****Decimal****，而不是会出问题的Double；</p>
+<p>每个任务都要进行摸底，****解决会产生数据倾斜的地方****，常见于Join的空值问题。</p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E6%B2%BB%E7%90%86%E4%B8%80%E5%A1%8C%E7%B3%8A%E6%B6%82%EF%BC%8C%E6%B2%A1%E6%9C%89%E7%AE%A1%E7%90%86%E5%A5%BD%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%9C%80%E5%90%8E%E9%83%BD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/32-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%864.png" alt="数据仓库数据治理,数据仓库建模,数据仓库维度建模,数据仓库建模理论"></p>
+<h3 id="0xFF-事后：检测"><a href="#0xFF-事后：检测" class="headerlink" title="*|0xFF 事后：检测*"></a><em><strong>*|0xFF 事后：检测*</strong></em></h3><p>数据问题的检测是一门大学问。</p>
+<p>通常而言，检测有三种方式：基于统计；基于自动规则；基于价值衡量。</p>
+<p>基于统计：因为前文提到了，我们能够根据规范进行编码，因此我们便可以清晰的统计，ODS/DWD/DWS/ADS层各有多少张表，每个业务域有多少张表，每张表的引用次数是多少，产品出口的ADS表到最底下的ODS表依赖层级有多深，****基于这些统计，我们便可以对整个数仓的建设情况有一个大体的了解****。</p>
+<p>如果某个数据域表数量过多，或者某个DWD表下游太多，或者ADS到ODS的层级过深，大家便可以根据具体的情况进行治理。这种方法有一个好处：简单，做几张BI报表便可以完成，但问题便是，即便知道了具体问题，治理起来也是一件棘手的问题。</p>
+<p>基于自动规则：既然提到了，基于统计，我们能够掌握大体的情况，那么有没有方法进行更细化的分析，提供解决的指导思路呢？这便是基于自动规则的检测方法。</p>
+<p><img src="/../images/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E7%9A%84%E6%B2%BB%E7%90%86%E4%B8%80%E5%A1%8C%E7%B3%8A%E6%B6%82%EF%BC%8C%E6%B2%A1%E6%9C%89%E7%AE%A1%E7%90%86%E5%A5%BD%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%9C%80%E5%90%8E%E9%83%BD%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7/32-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%865.png" alt="数据仓库数据治理,数据仓库建模,数据仓库维度建模,数据仓库建模理论"></p>
+<p>例如，我们可以****检测重复开发的表有哪些****，通过表名相似性/字段相似性/数据量相似性等，估算两两之间的相似情况，如果相似程度90%以上，通常它们是可以合并的。</p>
+<p>再者，我们可以使用更高阶的算法，比如计算两张表的主键与上下游引用，如果主键相似，且上下游表高度重合，那么这样的两张表也是可以合并的。<em><strong>*准确来讲，自动规则，体现了我们对于数仓模型的理解程度。*</strong></em></p>
+<p>基于价值衡量：****治理也要有优先级，优先治理高价值的场景，或者寻找低价值的重构点****，都是投入侧重点的最重要因素。比如，A表只有一个下游，占用了1TB的空间，而B表有1000个下游，占用了1GB的空间，是不是意味着B表价值远大于A表？</p>
+<p>不见得，只要下游的收益，大于存储这些数据的成本，就是有用的。因此只根据收益和成本，来衡量数据表的价值，容易产生极端。这里如果有算法的同学能够接入，做一些类似于****C-V模型****的公式，找出异常点，就能够相对准确的衡量价值。但这一点目前比较难以实现。</p>
+<p>最后提一下工具的重要性。数据治理有一个很棘手的问题，我们发现了有问题的表，如何进行纠正？比如字段不同了要废弃，比如命名不规范要重新改，那么如果下游依赖过多，又涉及权限问题，基本上就算是无药可救的状态了。</p>
+<p>这时候开发一个插件，能够****同步Hive解决命名问题，同步下游修改字段命名，以及将表的权限复制到新表中****，就很有用。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-%E4%BA%8B%E5%89%8D%EF%BC%9A%E7%90%86%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">*|0x01 事前：理论*</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-%E4%BA%8B%E4%B8%AD%EF%BC%9A%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">*|0x02 事中：方法*</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0xFF-%E4%BA%8B%E5%90%8E%EF%BC%9A%E6%A3%80%E6%B5%8B"><span class="toc-number">3.</span> <span class="toc-text">*|0xFF 事后：检测*</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

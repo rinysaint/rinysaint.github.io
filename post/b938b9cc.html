@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>微服务核心研究之--编排 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,目录： 一、微服务编排的必要性 二：3种常见的微服务编排方式 1、Orchestration（编制） 2、Choreography（编排） 3、API网关 三、微服务编排的框架（Orchestrat,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">微服务核心研究之--编排</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">微服务核心研究之--编排</h1>
+        <div class="stuff">
+            <span>九月 28, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-%E7%BC%96%E6%8E%92/" rel="tag">微服务,编排</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><strong>目录：</strong><br> 一、微服务编排的必要性<br> 二：3种常见的微服务编排方式<br> 1、Orchestration（编制）<br> 2、Choreography（编排）<br> 3、API网关<br> 三、微服务编排的框架（Orchestration方式）<br> 1、流程编排的思路<br> 2、流程编排的模型<br> 3、适配参数<br> 4、流水号<br> 5、调用链分析<br> 四、微服务编排的事务一致性<br> 五、微服务编排的监控工具支撑</p>
+<h3 id="一、微服务编排的必要性"><a href="#一、微服务编排的必要性" class="headerlink" title="一、微服务编排的必要性"></a>一、微服务编排的必要性</h3><p>微服务是目前流行的一种新兴的软件架构风格，在微服务体系结构中，可以将应用分解为多个更小颗粒度的服务, 各个服务可以由不同的团队并行独立开发、部署。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-19404e9a6e7d358f.jpeg" alt="img"></p>
+<p>（图片来源：<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://www.nginx.com/blog/introduction-to-microservices/">https://www.nginx.com/blog/introduction-to-microservices/</a>）</p>
+<p>以一个出租车调度软件为例，最开始是一个单体应用，应用核心是业务逻辑，由定义服务、域对象和事件的模块完成。尽管也是模块化逻辑，但是最终它还是会打包并部署为单体式应用。随着时间增加，功能逐渐增多，代码越来越多，这个软件就会越来越难维护。这时使用微服务架构就是不错的选择。一个微服务一般完成某个特定的功能，比如定单管理、客户管理等等。每一个微服务都有自己的业务逻辑和适配器。一些微服务还会发布API给其它微服务和应用客户端使用。其它微服务完成一个Web UI，运行时，每一个微服务实例可能是一个Docker容器。</p>
+<p>《The Art of Scalability》(中文书名：架构即未来) 一书介绍了一个应用横向扩展所需要遵守的AKF扩展模型。根据AKF扩展模型，横向扩展实际上包含了三个维度，而横向扩展解决方案则是这三个维度上所做工作的结合。X轴表示水平复制，Y轴表示应用功能拆解，Z轴表示按数据拆分。微服务架构模式对应于代表可扩展模型的Y轴。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-106c00a0e57d0a19.jpeg" alt="img"></p>
+<p>当一个系统采用了微服务架构后，原有的业务可能并没有发生变化，但系统已被拆分成了很多新的微服务，与传统架构相比，微服务架构下会更依赖通过各微服务之间的协作来实现一个完整的业务流程，这种协作就是服务编排。编排涉及到RPC、分布式事务等，需要有完善的编排框架来支撑。</p>
+<h3 id="二：3种常见的微服务编排方式"><a href="#二：3种常见的微服务编排方式" class="headerlink" title="二：3种常见的微服务编排方式"></a>二：3种常见的微服务编排方式</h3><p>目前有3种常见的微服务编排方式，实现微服务的组合与协调，可根据开发项目的实际情况进行选择。</p>
+<h5 id="1、Orchestration（编制）"><a href="#1、Orchestration（编制）" class="headerlink" title="1、Orchestration（编制）"></a>1、Orchestration（编制）</h5><p>Orchestration<strong>面向可执行的流程</strong>：通过一个可执行的流程来协同内部及外部的服务交互，通过流程来控制总体的目标、涉及的操作、服务调用顺序。</p>
+<p>Orchestration和BPM、ESB的思想很相似，首先要有一个<strong>流程控制服务</strong>，该服务接收请求，依照业务逻辑规则，依次调用各个微服务，并最终完成处理逻辑。可以把控制服务视作BPM、ESB引擎，微服务视作BPM、ESB的各种组件。</p>
+<p>Orchestration实现方案多是<strong>同步</strong>的。</p>
+<p><strong>优点</strong>：<br> 流程控制服务时时刻刻都知道每一笔业务究竟进行到了什么地步，监控业务成了相对简单的事情。<br> <strong>缺点</strong>：<br> 1）流程控制服务很容易控制了太多的业务逻辑，耦合度过高，变得臃肿。<br> 2）各个微服务退化为单纯的增删改查，失去自身价值。</p>
+<h5 id="2、Choreography（编排）"><a href="#2、Choreography（编排）" class="headerlink" title="2、Choreography（编排）"></a>2、Choreography（编排）</h5><p>Choreography<strong>面向协作</strong>：通过消息的交互序列来控制各个部分资源的交互，参与交互的资源都是对等的，没有集中的控制。</p>
+<p>Choreography可以看作一种<strong>消息驱动模式</strong>，或者说是订阅发布模式，每笔业务到来后，各个监听改事件的服务，会主动获取消息，处理，并可以按需发布自己的消息。可以把不同队列看作不同种类的消息，微服务看作消息处理函数。</p>
+<p>Choreography实现方案多是<strong>异步</strong>的。</p>
+<p><strong>优点</strong>：<br> 耦合度低，每个服务都可以各司其职。<br> <strong>缺点</strong>：<br> 1）业务流程是通过订阅的方式来体现的，很难直接监控每笔业务的处理，因此难于调试。<br> 2）由于没有预定义流程，所以很难在事前保证流程正确性，基本靠事后分析数据来判断。<br> 3）当一个业务流程会嵌入到多个服务中时，维护会很困难。<br> <strong>建议</strong>：<br> 1）小粒度的服务需要组合，服务的粒度越小，越需要组合。<br> 2）增加相应的监控系统，来保证业务顺畅进行。</p>
+<h5 id="3、API网关"><a href="#3、API网关" class="headerlink" title="3、API网关"></a>3、API网关</h5><p>API网关可以看作一种简单的<strong>接口聚合/拆分的方式</strong>：每笔业务到来后先到达网关，网关调用各微服务，并最终聚合/拆分需反馈的结果。</p>
+<p>API网关其实就是一个<strong>适配网关</strong>，比如对于Web端，可以一个页面同时发起几十个请求，而对于移动端，最好是一个页面就几个请求。而采用API网关，后面的微服务可以是相同的。</p>
+<p><strong>优点</strong>：<br> 对外接口相对稳定。<br> <strong>缺点</strong>：<br> 只适合业务逻辑较为简单的场景，业务逻辑过于复杂时，网关接口耦合度及复杂度会急剧升高，变得臃肿。</p>
+<h3 id="三、微服务编排的框架（Orchestration方式）"><a href="#三、微服务编排的框架（Orchestration方式）" class="headerlink" title="三、微服务编排的框架（Orchestration方式）"></a>三、微服务编排的框架（Orchestration方式）</h3><p>对编排流程、适配参数、调用链分析等方面思路的考量，构成微服务编排的框架思路。</p>
+<h5 id="1、编排流程的思路"><a href="#1、编排流程的思路" class="headerlink" title="1、编排流程的思路"></a>1、编排流程的思路</h5><p>原子服务提供REST接口或者监听事件，通过流程编排这些原子服务来实现一个新的复杂服务。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-59869d9042a34b9a.jpeg" alt="img"></p>
+<h5 id="2、编排流程的模型"><a href="#2、编排流程的模型" class="headerlink" title="2、编排流程的模型"></a>2、编排流程的模型</h5><ul>
+<li>活动模型。例如（赋值、invoke（调用）、空）</li>
+<li>控制模型。例如（顺序、分支、循环、异常抛出、异常捕获、并行）</li>
+</ul>
+<p>当然，有很多编排框架提供了更多方便的活动，比如普元的编排框架提供了本地调用、rest调用、webservice调用等活动，从而在使用上更加的方便，有了这些基本的模型，我们就能方便的编排出复杂的业务流程。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-d35bc8d7f8395ed9.jpg" alt="img"></p>
+<p>在invoke（调用）的时候我们知道有同步和异步的区别。同步实现起来简单，但是在多级级联编排的时候要避免因为某个服务的长响应时间导致雪崩效应，一般可以通过设置合理的超时时间限流和服务熔断策略来避免；同样，在异步调用的时候，应该能自动缓存上下文和避免缓存爆掉，能自动建立异步响应和请求之间的关联。同样，提到并行也必须考虑不同的聚合方式，比如是部分聚合还是全部聚合。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-8377cd3456f80d6e.jpeg" alt="img"></p>
+<h5 id="3、适配参数"><a href="#3、适配参数" class="headerlink" title="3、适配参数"></a>3、适配参数</h5><p>流程编排完成之后，我们还需要给每个被编的服务提供正确的参数，是一个适配的过程。<br> 一个编排服务（abcd）由a、b、c、d服务编排而成，每个服务都会有自己的出参入参。适配的过程就是从上下文中给入参赋值以及将出参的结果写入到上下文中。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-2a22d8fd090186dd.jpg" alt="img"></p>
+<p>编排服务执行到不同阶段，组成上下文的模型也是不一样的。从最初服务的开始执行的时候，上下文中只有系统级的参数和入参（请求报文），到执行完一个被编服务后上下文就会增加这个被编服务的出参（响应报文），执行上下文是一个不断增大的过程。所以适配不仅仅存在于编排服务的入参和被编服务的入参之间，还存在于被编服务和在其之前的服务出参之间。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-2535760ad5358385.jpg" alt="img"></p>
+<p>实现适配最直接的方式是用手工编码完成点到点的映射赋值，但有更高效的方式，通过使用元数据对所有的出参和入参标记着色，然后就可以自动完成同样颜色之间的自动映射。这种标志着色可以靠数据字典实现。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-c21b666bd375517f.jpeg" alt="img"></p>
+<p>这里的数据字典是指抽象出业务含义的基本数据项，如账户，交易额等。通过这些数据字典可以定义出服务所需的的数据结构（服务参数和服务返回值），这样不同的数据结构之间可以按照数据字典进行自动适配。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-0278e379e523dc6c.jpeg" alt="img"></p>
+<h5 id="4、流水号"><a href="#4、流水号" class="headerlink" title="4、流水号"></a>4、流水号</h5><p>编排服务在执行上下文的组成模型过程中，框架也会产生一部分数据，这一部分数据主要是流水号(id)和安全方面的考量。按照《基于微服务的企业应用架构设计范式》流水号的生成应该遵循GAIR模式。<br> <strong>GlobalID:</strong> 全局流水号，如果请求中的globalId为空，则编排服务生成，否则保持不变。<br> **AnswerID:**响应流水号，服务提供者生成，可以作为提供者受理的凭证<br> <strong>InRequestID:</strong> 前台流水号，由前台生成<br> **RequestID:**请求流水号，编排服务的协调器生成，生成规则由服务提供者定义。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-e6f9908ac613a8eb.jpg" alt="img"></p>
+<h5 id="5、调用链分析"><a href="#5、调用链分析" class="headerlink" title="5、调用链分析"></a>5、调用链分析</h5><p>随着服务的增多，对调用链的分析也会越来越复杂。在一个由很多微服务组成的系统中，他们之间的调用关系会形成复杂的网络。</p>
+<p>Google针对服务化应用全链路追踪的问题发表了Dapper论文，介绍了他们如何进行服务追踪分析，其基本思路是在服务调用的请求和响应中加入ID，标明上下游请求的关系，利用这些信息，可以可视化地分析服务调用链路和服务间的依赖关系。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-08e741cd19bab756.jpeg" alt="img"></p>
+<p>通过服务调用追踪生成的服务调用栈，可以查看在哪一步出现了错误，以及发现哪里的调用较慢，进行系统优化。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-c83de3f5f84c3723.jpeg" alt="img"></p>
+<p>能编排流程，能适配参数，这个编排框架已经具备运行的能力，接下来要考虑的就是事务的一致性问题。</p>
+<h3 id="四、微服务编排的事务一致性"><a href="#四、微服务编排的事务一致性" class="headerlink" title="四、微服务编排的事务一致性"></a>四、微服务编排的事务一致性</h3><p>依据CAP理论，分布式系统需要在可用性和一致性之间做出选择。如果选择提供一致性，就需要付出在满足一致性之前阻塞其他并发访问的代价，阻塞持续的时间往往不能确定，尤其是在系统已经表现出高延迟时或者网络故障导致失去连接时，因此，可用性一般是更多人的选择，但是在服务和数据库之间维护数据一致性是非常根本的需求，<strong>编排框架应该选择满足最终一致性。</strong></p>
+<p>补偿模式是一种很好的实现最终一致性的途径。 <strong>补偿模式核心思想是：针对每个操作，都要注册一个与其对应的补偿（撤销）操作，一般来说操作本身和其补偿操作会在一个事务里完成，当其后续操作失败后，需要按相反顺序完成前面注册的所有撤销操作。</strong></p>
+<p>通过一个实例来说明：一家旅行公司提供预订行程的业务，可以通过公司的网站提前预订飞机票、火车票、酒店等。假设一位客户规划的行程是，(1)上海-北京6月19日9点的某某航班，(2)某某酒店住宿3晚，(3)北京-上海6月22日17点火车。在客户提交行程后，旅行公司的预订行程业务按顺序串行的调用航班预订服务、酒店预订服务、火车预订服务。最后的火车预订服务成功后整个预订业务才算完成。如果火车票预订服务没有调用成功，那么之前预订的航班、酒店都得取消。取消之前预订的酒店、航班即为补偿过程。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-db6d56577f63ea82.jpeg" alt="img"></p>
+<p>在补偿模式中，我们要求参与补偿的微服务必须提供补偿操作，并且补偿操作必须是幂等的，补偿框架可以在异常时自动调用补偿操作完成补偿。</p>
+<p>跟RPC比，补偿模式的核心价值是少了锁资源的代价，流程也相对简单，但实际操作中，补偿操作不太好定义，其中间状态处理也会比较棘手。</p>
+<p>现在RESTful作为一个轻量级的rpc协议已经被广泛采用，能不能很好的支持RESTful服务的事务一致性也是衡量编排框架的是否成熟的一个标准。</p>
+<p>一个通过RESTful扩展规范来支持补偿模式事务一致性的思路：通过PATCH的HTTP Method来表示compensation操作，并且支持通过服务来查询编排服务执行的状态。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-bef4b8e5e9f64ce4.jpeg" alt="img"></p>
+<blockquote>
+<p>补偿模式一个常见的坑：由于是通过rpc的调用，因为网络和调度的关系，可能出现补偿请求比原交易先到达的情况，这会导致补偿操作直接会失败，因为此时原交易尚未发生，最终原交易到达时会被成功的执行，最终就导致了事务不一致。</p>
+</blockquote>
+<p>填这个坑的办法就是在编排框架发现补偿操作补偿的原交易不存在时，补记录一条原交易的流水，从而保证原交易晚到时会因为记录流水失败而不会成功。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-d4768ca3ccd39816.jpeg" alt="img"></p>
+<p>图片描述</p>
+<h3 id="五、微服务编排的监控工具支撑"><a href="#五、微服务编排的监控工具支撑" class="headerlink" title="五、微服务编排的监控工具支撑"></a>五、微服务编排的监控工具支撑</h3><p>在生产环境中，我们需要通过查看日志来排除故障，应该有支持日志全路径回放的工具，来帮助我们快速定位故障。</p>
+<p>本文所讲的编排实际是编制，是一种集中式的控制，也就意味着如果被编排的服务有响应缓慢的情况，可能会影响到其他服务。这时候我们需要更快的监控来帮助我们发现这类服务，从而尽早优化。监控工具需要具备以下功能：</p>
+<ul>
+<li>通过可视化分布式系统的模块和他们之间的相互联系来理解系统拓扑。点击某个节点会展示这个模块的详情，比如它当前的状态和请求数量。</li>
+<li>实时监控应用内部的活动线程。</li>
+<li>可视化请求和响应数量来定位潜在问题（请求时间段分布、错误请求、响应时长等）。</li>
+<li>在分布式环境中为每个调用生成可视图，定位瓶颈和失败点。</li>
+<li>查看应用上的其他详细信息，比如CPU使用率，内存/垃圾回收，TPS，和JVM参数。</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">一、微服务编排的必要性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%9A3%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">二：3种常见的微服务编排方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81Orchestration%EF%BC%88%E7%BC%96%E5%88%B6%EF%BC%89"><span class="toc-number">2.0.1.</span> <span class="toc-text">1、Orchestration（编制）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81Choreography%EF%BC%88%E7%BC%96%E6%8E%92%EF%BC%89"><span class="toc-number">2.0.2.</span> <span class="toc-text">2、Choreography（编排）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E3%80%81API%E7%BD%91%E5%85%B3"><span class="toc-number">2.0.3.</span> <span class="toc-text">3、API网关</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%9A%84%E6%A1%86%E6%9E%B6%EF%BC%88Orchestration%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">三、微服务编排的框架（Orchestration方式）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81%E7%BC%96%E6%8E%92%E6%B5%81%E7%A8%8B%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="toc-number">3.0.1.</span> <span class="toc-text">1、编排流程的思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81%E7%BC%96%E6%8E%92%E6%B5%81%E7%A8%8B%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.0.2.</span> <span class="toc-text">2、编排流程的模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E3%80%81%E9%80%82%E9%85%8D%E5%8F%82%E6%95%B0"><span class="toc-number">3.0.3.</span> <span class="toc-text">3、适配参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4%E3%80%81%E6%B5%81%E6%B0%B4%E5%8F%B7"><span class="toc-number">3.0.4.</span> <span class="toc-text">4、流水号</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5%E3%80%81%E8%B0%83%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90"><span class="toc-number">3.0.5.</span> <span class="toc-text">5、调用链分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">四、微服务编排的事务一致性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%9A%84%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7%E6%94%AF%E6%92%91"><span class="toc-number">5.</span> <span class="toc-text">五、微服务编排的监控工具支撑</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

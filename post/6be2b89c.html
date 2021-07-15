@@ -1,0 +1,514 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《分布式单点登录框架XXL-SSO》 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,目录
+
+《分布式单点登录框架XXL-SSO》
+一、简介
+[1.1 概述](https://www.xuxueli.com/xxl-sso/#1.1 概述)
+[1.2 社区交流](https://ww,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">《分布式单点登录框架XXL-SSO》</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">《分布式单点登录框架XXL-SSO》</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F-%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95-SSO/" rel="tag">分布式,单点登录,SSO</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><a href="javascript:;"><br>目录</a></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#%E3%80%8A%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E6%A1%86%E6%9E%B6XXL-SSO%E3%80%8B">《分布式单点登录框架XXL-SSO》</a></li>
+<li>一、简介<ul>
+<li>[1.1 概述](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#1.1">https://www.xuxueli.com/xxl-sso/#1.1</a> 概述)</li>
+<li>[1.2 社区交流](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#1.2">https://www.xuxueli.com/xxl-sso/#1.2</a> 社区交流)</li>
+<li>[1.3 特性](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#1.3">https://www.xuxueli.com/xxl-sso/#1.3</a> 特性)</li>
+<li>[1.4 发展](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#1.4">https://www.xuxueli.com/xxl-sso/#1.4</a> 发展)</li>
+<li>1.5 下载<ul>
+<li><a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#%E6%96%87%E6%A1%A3%E5%9C%B0%E5%9D%80">文档地址</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80">源码仓库地址</a></li>
+</ul>
+</li>
+<li>[1.6 环境](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#1.6">https://www.xuxueli.com/xxl-sso/#1.6</a> 环境)</li>
+</ul>
+</li>
+<li>二、快速入门（基于Cookie）<ul>
+<li><a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#2.1%EF%BC%9A%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91">2.1：源码编译</a></li>
+<li>2.2 部署 “认证中心（SSO Server）”<ul>
+<li><a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E">配置说明</a></li>
+</ul>
+</li>
+<li>2.3 部署 “单点登陆Client端接入示例项目”<ul>
+<li><a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#maven%E4%BE%9D%E8%B5%96">maven依赖</a></li>
+<li>[配置 XxlSsoFilter](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#%E9%85%8D%E7%BD%AE">https://www.xuxueli.com/xxl-sso/#配置</a> XxlSsoFilter)</li>
+<li><a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E">配置说明</a></li>
+</ul>
+</li>
+<li>[2.4 验证](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#2.4">https://www.xuxueli.com/xxl-sso/#2.4</a> 验证)</li>
+</ul>
+</li>
+<li>三、快速入门（基于Token）<ul>
+<li>[3.1 “认证中心（SSO Server）” 搭建](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#3.1">https://www.xuxueli.com/xxl-sso/#3.1</a> “认证中心（SSO Server）” 搭建)</li>
+<li>[3.2 部署 “单点登陆Client端接入示例项目” (Token方式)](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#3.2">https://www.xuxueli.com/xxl-sso/#3.2</a> 部署 “单点登陆Client端接入示例项目” (Token方式))</li>
+<li>[3.3 验证 (模拟请求 Token 方式接入SSO的接口)](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#3.3">https://www.xuxueli.com/xxl-sso/#3.3</a> 验证  (模拟请求 Token 方式接入SSO的接口))</li>
+</ul>
+</li>
+<li>四、总体设计<ul>
+<li>[4.1 架构图](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.1">https://www.xuxueli.com/xxl-sso/#4.1</a> 架构图)</li>
+<li>[4.2 功能定位](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.2">https://www.xuxueli.com/xxl-sso/#4.2</a> 功能定位)</li>
+<li>[4.3 核心概念](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.3">https://www.xuxueli.com/xxl-sso/#4.3</a> 核心概念)</li>
+<li>[4.4 登录流程剖析](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.4">https://www.xuxueli.com/xxl-sso/#4.4</a> 登录流程剖析)</li>
+<li>[4.5 注销流程剖析](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.5">https://www.xuxueli.com/xxl-sso/#4.5</a> 注销流程剖析)</li>
+<li>[4.6 基于Cookie，相关概念](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.6">https://www.xuxueli.com/xxl-sso/#4.6</a> 基于Cookie，相关概念)</li>
+<li>[4.7 基于Token，相关概念](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.7">https://www.xuxueli.com/xxl-sso/#4.7</a> 基于Token，相关概念)</li>
+<li>[4.8 未登录状态请求处理](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.8">https://www.xuxueli.com/xxl-sso/#4.8</a> 未登录状态请求处理)</li>
+<li>[4.9 登录态自动延期](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.9">https://www.xuxueli.com/xxl-sso/#4.9</a> 登录态自动延期)</li>
+<li>[4.10 记住密码](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.10">https://www.xuxueli.com/xxl-sso/#4.10</a> 记住密码)</li>
+<li>[4.11 路径排除](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#4.11">https://www.xuxueli.com/xxl-sso/#4.11</a> 路径排除)</li>
+</ul>
+</li>
+<li>五、版本更新日志<ul>
+<li>[5.1 版本 v0.1.0，新特性[2018-04-04]](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#5.1">https://www.xuxueli.com/xxl-sso/#5.1</a> 版本 v0.1.0，新特性[2018-04-04])</li>
+<li>[5.2 版本 v1.1.0 Release Notes [2018-11-06]](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#5.2">https://www.xuxueli.com/xxl-sso/#5.2</a> 版本 v1.1.0 Release Notes [2018-11-06])</li>
+<li>[5.3 版本 v1.1.1 Release Notes [迭代中]](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#5.3">https://www.xuxueli.com/xxl-sso/#5.3</a> 版本 v1.1.1 Release Notes [迭代中])</li>
+<li>[TODO LIST](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#TODO">https://www.xuxueli.com/xxl-sso/#TODO</a> LIST)</li>
+</ul>
+</li>
+<li>六、其他<ul>
+<li>[6.1 项目贡献](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#6.1">https://www.xuxueli.com/xxl-sso/#6.1</a> 项目贡献)</li>
+<li>[6.2 用户接入登记](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#6.2">https://www.xuxueli.com/xxl-sso/#6.2</a> 用户接入登记)</li>
+<li>[6.3 开源协议和版权](<a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/#6.3">https://www.xuxueli.com/xxl-sso/#6.3</a> 开源协议和版权)</li>
+<li>捐赠</li>
+</ul>
+</li>
+</ul>
+<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><p>XXL-SSO 是一个分布式单点登录框架。只需要登录一次就可以访问所有相互信任的应用系统。<br>拥有”轻量级、分布式、跨域、Cookie+Token均支持、Web+APP均支持”等特性。现已开放源代码，开箱即用。</p>
+<h3 id="1-2-社区交流"><a href="#1-2-社区交流" class="headerlink" title="1.2 社区交流"></a>1.2 社区交流</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.xuxueli.com/page/community.html">社区交流</a></li>
+</ul>
+<h3 id="1-3-特性"><a href="#1-3-特性" class="headerlink" title="1.3 特性"></a>1.3 特性</h3><ul>
+<li>1、简洁：API直观简洁，可快速上手</li>
+<li>2、轻量级：环境依赖小，部署与接入成本较低</li>
+<li>3、单点登录：只需要登录一次就可以访问所有相互信任的应用系统</li>
+<li>4、分布式：接入SSO认证中心的应用，支持分布式部署</li>
+<li>5、HA：Server端与Client端，均支持集群部署，提高系统可用性</li>
+<li>6、跨域：支持跨域应用接入SSO认证中心</li>
+<li>7、Cookie+Token均支持：支持基于Cookie和基于Token两种接入方式，并均提供Sample项目</li>
+<li>8、Web+APP均支持：支持Web和APP接入</li>
+<li>9、实时性：系统登陆、注销状态，全部Server与Client端实时共享</li>
+<li>10、CS结构：基于CS结构，包括Server”认证中心”与Client”受保护应用”</li>
+<li>11、记住密码：未记住密码时，关闭浏览器则登录态失效；记住密码时，支持登录态自动延期，在自定义延期时间的基础上，原则上可以无限延期</li>
+<li>12、路径排除：支持自定义多个排除路径，支持Ant表达式,用于排除SSO客户端不需要过滤的路径</li>
+</ul>
+<h3 id="1-4-发展"><a href="#1-4-发展" class="headerlink" title="1.4 发展"></a>1.4 发展</h3><p>于2018年初，我在github上创建XXL-SSO项目仓库并提交第一个commit，随之进行系统结构设计，UI选型，交互设计……</p>
+<p>于2018-12-05，XXL-SSO参与”<a target="_blank" rel="noopener" href="https://www.oschina.net/project/top_cn_2018?sort=1">2018年度最受欢迎中国开源软件</a>“评比，在当时已录入的一万多个国产开源项目中角逐，最终排名第55名。</p>
+<p>于2019-01-23，XXL-SSO被评选上榜”<a target="_blank" rel="noopener" href="https://www.oschina.net/news/103857/2018-osc-new-opensource-software-cn-top50">2018年度新增开源软件排行榜之国产 TOP 50</a>“评比，排名第8名。</p>
+<p>至今，XXL-SSO已接入多家公司的线上产品线，接入场景如电商业务，O2O业务和核心中间件配置动态化等，截止2018-03-15为止，XXL-SSO已接入的公司包括不限于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. 湖南创发科技2. 深圳龙华科技有限公司3. 摩根国际4. 印记云</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更多接入的公司，欢迎在 <a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-sso/issues/1">登记地址</a> 登记，登记仅仅为了产品推广。</p>
+</blockquote>
+<p>欢迎大家的关注和使用，XXL-SSO也将拥抱变化，持续发展。</p>
+<h3 id="1-5-下载"><a href="#1-5-下载" class="headerlink" title="1.5 下载"></a>1.5 下载</h3><h4 id="文档地址"><a href="#文档地址" class="headerlink" title="文档地址"></a>文档地址</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.xuxueli.com/xxl-sso/">中文文档</a></li>
+</ul>
+<h4 id="源码仓库地址"><a href="#源码仓库地址" class="headerlink" title="源码仓库地址"></a>源码仓库地址</h4><table>
+<thead>
+<tr>
+<th align="left">源码仓库地址</th>
+<th align="left">Release Download</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-sso">https://github.com/xuxueli/xxl-sso</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-sso/releases">Download</a></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://gitee.com/xuxueli0323/xxl-sso">https://gitee.com/xuxueli0323/xxl-sso</a></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://gitee.com/xuxueli0323/xxl-sso/releases">Download</a></td>
+</tr>
+</tbody></table>
+<h3 id="1-6-环境"><a href="#1-6-环境" class="headerlink" title="1.6 环境"></a>1.6 环境</h3><ul>
+<li>JDK：1.7+</li>
+<li>Redis：4.0+</li>
+</ul>
+<h2 id="二、快速入门（基于Cookie）"><a href="#二、快速入门（基于Cookie）" class="headerlink" title="二、快速入门（基于Cookie）"></a>二、快速入门（基于Cookie）</h2><blockquote>
+<p>基于Cookie，相关概念可参考 “章节 4.6”</p>
+</blockquote>
+<h3 id="2-1：源码编译"><a href="#2-1：源码编译" class="headerlink" title="2.1：源码编译"></a>2.1：源码编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- xxl-sso-server：中央认证服务，支持集群- xxl-sso-core：Client端依赖- xxl-sso-samples：单点登陆Client端接入示例项目    - xxl-sso-web-sample-springboot：基于Cookie接入方式，供用户浏览器访问，springboot版本    - xxl-sso-token-sample-springboot：基于Token接入方式，常用于无法使用Cookie的场景使用，如APP、Cookie被禁用等，springboot版本</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-部署-“认证中心（SSO-Server）”"><a href="#2-2-部署-“认证中心（SSO-Server）”" class="headerlink" title="2.2 部署 “认证中心（SSO Server）”"></a>2.2 部署 “认证中心（SSO Server）”</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目名：xxl-sso-server</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h4><p>配置文件位置：application.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">……&#x2F;&#x2F; redis 地址： 如 &quot;&#123;ip&#125;&quot;、&quot;&#123;ip&#125;:&#123;port&#125;&quot;、&quot;&#123;redis&#x2F;rediss&#125;:&#x2F;&#x2F;xxl-sso:&#123;password&#125;@&#123;ip&#125;:&#123;port:6379&#125;&#x2F;&#123;db&#125;&quot;；多地址逗号分隔xxl.sso.redis.address&#x3D;redis:&#x2F;&#x2F;127.0.0.1:6379&#x2F;&#x2F; 登录态有效期窗口，默认24H，当登录态有效期窗口过半时，自动顺延一个周期xxl.sso.redis.expire.minute&#x3D;1440</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-部署-“单点登陆Client端接入示例项目”"><a href="#2-3-部署-“单点登陆Client端接入示例项目”" class="headerlink" title="2.3 部署 “单点登陆Client端接入示例项目”"></a>2.3 部署 “单点登陆Client端接入示例项目”</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目名：xxl-sso-web-sample-springboot</span><br></pre></td></tr></table></figure>
+
+<h4 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;    &lt;groupId&gt;com.xuxueli&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;xxl-sso-core&lt;&#x2F;artifactId&gt;    &lt;version&gt;$&#123;最新稳定版&#125;&lt;&#x2F;version&gt;&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置-XxlSsoFilter"><a href="#配置-XxlSsoFilter" class="headerlink" title="配置 XxlSsoFilter"></a>配置 XxlSsoFilter</h4><p>参考代码：com.xxl.sso.sample.config.XxlSsoConfig</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Beanpublic FilterRegistrationBean xxlSsoFilterRegistration() &#123;    &#x2F;&#x2F; xxl-sso, redis init    JedisUtil.init(xxlSsoRedisAddress);    &#x2F;&#x2F; xxl-sso, filter init    FilterRegistrationBean registration &#x3D; new FilterRegistrationBean();    registration.setName(&quot;XxlSsoWebFilter&quot;);    registration.setOrder(1);    registration.addUrlPatterns(&quot;&#x2F;*&quot;);    registration.setFilter(new XxlSsoWebFilter());    registration.addInitParameter(Conf.SSO_SERVER, xxlSsoServer);    registration.addInitParameter(Conf.SSO_LOGOUT_PATH, xxlSsoLogoutPath);    return registration;&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置说明-1"><a href="#配置说明-1" class="headerlink" title="配置说明"></a>配置说明</h4><p>配置文件位置：application.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">……### xxl-sso     (CLient端SSO配置)##### SSO Server认证中心地址（推荐以域名方式配置认证中心，本机可参考章节&quot;2.5&quot;修改host文件配置域名指向）xxl.sso.server&#x3D;http:&#x2F;&#x2F;xxlssoserver.com:8080&#x2F;xxl-sso-server##### 注销登陆path，值为Client端应用的相对路径xxl.sso.logout.path&#x3D;&#x2F;logout##### 路径排除Path，允许设置多个，且支持Ant表达式。用于排除SSO客户端不需要过滤的路径xxl-sso.excluded.paths&#x3D;### redis   &#x2F;&#x2F; redis address, like &quot;&#123;ip&#125;&quot;、&quot;&#123;ip&#125;:&#123;port&#125;&quot;、&quot;&#123;redis&#x2F;rediss&#125;:&#x2F;&#x2F;xxl-sso:&#123;password&#125;@&#123;ip&#125;:&#123;port:6379&#125;&#x2F;&#123;db&#125;&quot;；Multiple &quot;,&quot; separatedxxl.sso.redis.address&#x3D;redis:&#x2F;&#x2F;xxl-sso:password@127.0.0.1:6379&#x2F;0</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-验证"><a href="#2-4-验证" class="headerlink" title="2.4 验证"></a>2.4 验证</h3><ul>
+<li><p>修改Host文件：域名方式访问认证中心，模拟跨域与线上真实环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 在host文件中添加以下内容0127.0.0.1 xxlssoserver.com127.0.0.1 xxlssoclient1.com127.0.0.1 xxlssoclient2.com</span><br></pre></td></tr></table></figure></li>
+<li><p>分别运行 “xxl-sso-server” 与 “xxl-sso-web-sample-springboot”</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1、SSO认证中心地址：http:&#x2F;&#x2F;xxlssoserver.com:8080&#x2F;xxl-sso-server2、Client01应用地址：http:&#x2F;&#x2F;xxlssoclient1.com:8081&#x2F;xxl-sso-web-sample-springboot&#x2F;3、Client02应用地址：http:&#x2F;&#x2F;xxlssoclient2.com:8081&#x2F;xxl-sso-web-sample-springboot&#x2F;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>SSO登录/注销流程验证</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">正常情况下，登录流程如下：1、访问 &quot;Client01应用地址&quot; ，将会自动 redirect 到 &quot;SSO认证中心地址&quot; 登录界面2、成功登录后，将会自动 redirect 返回到 &quot;Client01应用地址&quot;，并切换为已登录状态3、此时，访问 &quot;Client02应用地址&quot;，不需登陆将会自动切换为已登录状态正常情况下，注销流程如下：1、访问 &quot;Client01应用地址&quot; 配置的 &quot;注销登陆path&quot;，将会自动 redirect 到 &quot;SSO认证中心地址&quot; 并自动注销登陆状态2、此时，访问 &quot;Client02应用地址&quot;，也将会自动注销登陆状态</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、快速入门（基于Token）"><a href="#三、快速入门（基于Token）" class="headerlink" title="三、快速入门（基于Token）"></a>三、快速入门（基于Token）</h2><blockquote>
+<p>基于Token，相关概念可参考 “章节 4.7”；（在一些无法使用Cookie的场景下，可使用该方式，否则可以忽略本章节）</p>
+</blockquote>
+<h3 id="3-1-“认证中心（SSO-Server）”-搭建"><a href="#3-1-“认证中心（SSO-Server）”-搭建" class="headerlink" title="3.1 “认证中心（SSO Server）” 搭建"></a>3.1 “认证中心（SSO Server）” 搭建</h3><blockquote>
+<p>可参考 “章节二” 搭建</p>
+</blockquote>
+<p>“认证中心” 搭建成功后，默认为Token方式登陆提供API接口如下：</p>
+<ul>
+<li>1、登陆接口：/app/login<ul>
+<li>参数：POST参数<ul>
+<li>username：账号</li>
+<li>password：账号</li>
+</ul>
+</li>
+<li>响应：JSON格式<ul>
+<li>code：200 表示成功、其他失败</li>
+<li>msg：错误提示</li>
+<li>data: 登陆用户的 sso sessionid</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2、注销接口：/app/logout<ul>
+<li>参数：POST参数<ul>
+<li>sessionId：登陆用户的 sso sessionid</li>
+</ul>
+</li>
+<li>响应：JSON格式<ul>
+<li>code：200 表示成功、其他失败</li>
+<li>msg：错误提示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3、登陆状态校验接口：/app/logincheck<ul>
+<li>参数：POST参数<ul>
+<li>sessionId：登陆用户的 sso sessionid</li>
+</ul>
+</li>
+<li>响应：JSON格式<ul>
+<li>code：200 表示成功、其他失败</li>
+<li>msg：错误提示</li>
+<li>data：登陆用户信息<ul>
+<li>userid：用户ID</li>
+<li>username：用户名</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-部署-“单点登陆Client端接入示例项目”-Token方式"><a href="#3-2-部署-“单点登陆Client端接入示例项目”-Token方式" class="headerlink" title="3.2 部署 “单点登陆Client端接入示例项目” (Token方式)"></a>3.2 部署 “单点登陆Client端接入示例项目” (Token方式)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目名：xxl-sso-token-sample-springboot</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可参考 “章节 2.4” 部署 “单点登陆Client端接入示例项目”，唯一不同点是：将web应用的 “XxlSsoFilter” 更换为app应用 “XxlSsoTokenFilter”</p>
+</blockquote>
+<h3 id="3-3-验证-模拟请求-Token-方式接入SSO的接口"><a href="#3-3-验证-模拟请求-Token-方式接入SSO的接口" class="headerlink" title="3.3 验证 (模拟请求 Token 方式接入SSO的接口)"></a>3.3 验证 (模拟请求 Token 方式接入SSO的接口)</h3><ul>
+<li><p>修改Host文件：域名方式访问认证中心，模拟跨域与线上真实环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 在host文件中添加以下内容0127.0.0.1 xxlssoserver.com127.0.0.1 xxlssoclient1.com127.0.0.1 xxlssoclient2.com</span><br></pre></td></tr></table></figure></li>
+<li><p>分别运行 “xxl-sso-server” 与 “xxl-sso-token-sample-springboot”</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1、SSO认证中心地址：http:&#x2F;&#x2F;xxlssoserver.com:8080&#x2F;xxl-sso-server2、Client01应用地址：http:&#x2F;&#x2F;xxlssoclient1.com:8082&#x2F;xxl-sso-token-sample-springboot&#x2F;3、Client02应用地址：http:&#x2F;&#x2F;xxlssoclient2.com:8082&#x2F;xxl-sso-token-sample-springboot&#x2F;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>SSO登录/注销流程验证</p>
+<blockquote>
+<p>可参考测试用例 ：com.xxl.app.sample.test.TokenClientTest</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">正常情况下，登录流程如下：1、获取用户输入的账号密码后，请求SSO Server的登录接口，获取用户 sso sessionid ；（参考代码：TokenClientTest.loginTest）2、登陆成功后，获取到 sso sessionid ，需要主动存储，后续请求时需要设置在 Header参数 中3、此时，使用 sso sessionid 访问受保护的 &quot;Client01应用&quot; 和 &quot;Client02应用&quot; 提供的接口，接口均正常返回（参考代码：TokenClientTest.clientApiRequestTest）正常情况下，注销流程如下：1、请求SSO Server的注销接口，注销登陆凭证 sso sessionid ；（参考代码：TokenClientTest.logoutTest）2、注销成功后，sso sessionid 将会全局失效3、此时，使用 sso sessionid 访问受保护的 &quot;Client01应用&quot; 和 &quot;Client02应用&quot; 提供的接口，接口请求将会被拦截，提示未登录并返回状态码 501（参考代码：TokenClientTest.clientApiRequestTest）</span><br></pre></td></tr></table></figure>
+
+<h2 id="四、总体设计"><a href="#四、总体设计" class="headerlink" title="四、总体设计"></a>四、总体设计</h2><h3 id="4-1-架构图"><a href="#4-1-架构图" class="headerlink" title="4.1 架构图"></a>4.1 架构图</h3><p><img src="/../images/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E6%A1%86%E6%9E%B6XXL-SSO/img_01.png" alt="输入图片说明"></p>
+<h3 id="4-2-功能定位"><a href="#4-2-功能定位" class="headerlink" title="4.2 功能定位"></a>4.2 功能定位</h3><p>XXL-SSO 是一个分布式单点登录框架。只需要登录一次就可以访问所有相互信任的应用系统。</p>
+<p>借助 XXL-SSO，可以快速实现分布式系统单点登录。</p>
+<h3 id="4-3-核心概念"><a href="#4-3-核心概念" class="headerlink" title="4.3 核心概念"></a>4.3 核心概念</h3><table>
+<thead>
+<tr>
+<th align="left">概念</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">SSO Server</td>
+<td align="left">中央认证服务，支持集群</td>
+</tr>
+<tr>
+<td align="left">SSO Client</td>
+<td align="left">接入SSO认证中心的Client应用</td>
+</tr>
+<tr>
+<td align="left">SSO SessionId</td>
+<td align="left">登录用户会话ID，SSO 登录成功为用户自动分配</td>
+</tr>
+<tr>
+<td align="left">SSO User</td>
+<td align="left">登录用户信息，与 SSO SessionId 相对应</td>
+</tr>
+</tbody></table>
+<h3 id="4-4-登录流程剖析"><a href="#4-4-登录流程剖析" class="headerlink" title="4.4 登录流程剖析"></a>4.4 登录流程剖析</h3><ul>
+<li>用户于Client端应用访问受限资源时，将会自动 redirect 到 SSO Server 进入统一登录界面</li>
+<li>用户登录成功之后将会为用户分配 SSO SessionId 并 redirect 返回来源Client端应用，同时附带分配的 SSO SessionId</li>
+<li>在Client端的SSO Filter里验证 SSO SessionId 无误，将 SSO SessionId 写入到用户浏览器Client端域名下 cookie 中</li>
+<li>SSO Filter验证 SSO SessionId 通过，受限资源请求放行</li>
+</ul>
+<h3 id="4-5-注销流程剖析"><a href="#4-5-注销流程剖析" class="headerlink" title="4.5 注销流程剖析"></a>4.5 注销流程剖析</h3><ul>
+<li>用户与Client端应用请求注销Path时，将会 redirect 到 SSO Server 自动销毁全局 SSO SessionId，实现全局销毁</li>
+<li>然后，访问接入SSO保护的任意Client端应用时，SSO Filter 均会拦截请求并 redirect 到 SSO Server 的统一登录界面</li>
+</ul>
+<h3 id="4-6-基于Cookie，相关概念"><a href="#4-6-基于Cookie，相关概念" class="headerlink" title="4.6 基于Cookie，相关概念"></a>4.6 基于Cookie，相关概念</h3><ul>
+<li>登陆凭证存储：登陆成功后，用户登陆凭证被自动存储在浏览器Cookie中</li>
+<li>Client端校验登陆状态：通过校验请求Cookie中的是否包含用户登录凭证判断</li>
+<li>系统角色模型：<ul>
+<li>SSO Server：认证中心，提供用户登陆、注销以及登陆状态校验等功能</li>
+<li>Client应用：受SSO保护的Client端Web应用，为用户浏览器访问提供服务</li>
+<li>用户：发起请求的用户，使用浏览器访问</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-7-基于Token，相关概念"><a href="#4-7-基于Token，相关概念" class="headerlink" title="4.7 基于Token，相关概念"></a>4.7 基于Token，相关概念</h3><ul>
+<li>登陆凭证存储：登陆成功后，获取到登录凭证（xxl_sso_sessionid=xxx），需要主动存储，如存储在 localStorage、Sqlite 中</li>
+<li>Client端校验登陆状态：通过校验请求 Header参数 中的是否包含用户登录凭证（xxl_sso_sessionid=xxx）判断；因此，发送请求时需要在 Header参数 中设置登陆凭证</li>
+<li>系统角色模型：<ul>
+<li>SSO Server：认证中心，提供用户登陆、注销以及登陆状态校验等功能</li>
+<li>Client应用：受SSO保护的Client端Web应用，为用户请求提供接口服务</li>
+<li>用户：发起请求的用户，如使用Android、IOS、桌面客户端等请求访问</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-8-未登录状态请求处理"><a href="#4-8-未登录状态请求处理" class="headerlink" title="4.8 未登录状态请求处理"></a>4.8 未登录状态请求处理</h3><p>基于Cookie，未登录状态请求：</p>
+<ul>
+<li>页面请求：redirect 到SSO Server登录界面</li>
+<li>JSON请求：返回未登录的JSON格式响应数据<ul>
+<li>数据格式：<ul>
+<li>code：501 错误码</li>
+<li>msg：sso not login.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>基于Token，未登录状态请求：</p>
+<ul>
+<li>返回未登录的JSON格式响应数据<ul>
+<li>数据格式：<ul>
+<li>code：501 错误码</li>
+<li>msg：sso not login.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-9-登录态自动延期"><a href="#4-9-登录态自动延期" class="headerlink" title="4.9 登录态自动延期"></a>4.9 登录态自动延期</h3><p>支持自定义登录态有效期窗口，默认24H，当登录态有效期窗口过半时，自动顺延一个周期。</p>
+<h3 id="4-10-记住密码"><a href="#4-10-记住密码" class="headerlink" title="4.10 记住密码"></a>4.10 记住密码</h3><p>未记住密码时，关闭浏览器则登录态失效；记住密码时，登录态自动延期，在自定义延期时间的基础上，原则上可以无限延期。</p>
+<h3 id="4-11-路径排除"><a href="#4-11-路径排除" class="headerlink" title="4.11 路径排除"></a>4.11 路径排除</h3><p>自定义路径排除Path，允许设置多个，且支持Ant表达式。用于排除SSO客户端不需要过滤的路径。</p>
+<h2 id="五、版本更新日志"><a href="#五、版本更新日志" class="headerlink" title="五、版本更新日志"></a>五、版本更新日志</h2><h3 id="5-1-版本-v0-1-0，新特性-2018-04-04"><a href="#5-1-版本-v0-1-0，新特性-2018-04-04" class="headerlink" title="5.1 版本 v0.1.0，新特性[2018-04-04]"></a>5.1 版本 v0.1.0，新特性[2018-04-04]</h3><ul>
+<li>1、简洁：API直观简洁，可快速上手</li>
+<li>2、轻量级：环境依赖小，部署与接入成本较低</li>
+<li>3、单点登录：只需要登录一次就可以访问所有相互信任的应用系统</li>
+<li>4、分布式：接入SSO认证中心的应用，支持分布式部署</li>
+<li>5、HA：Server端与Client端，均支持集群部署，提高系统可用性</li>
+<li>6、实时性：系统登陆、注销状态，全部Server与Client端实时共享</li>
+<li>7、CS结构：基于CS结构，包括Server”认证中心”与Client”受保护应用”</li>
+<li>8、跨域：支持跨域应用接入SSO认证中心</li>
+</ul>
+<h3 id="5-2-版本-v1-1-0-Release-Notes-2018-11-06"><a href="#5-2-版本-v1-1-0-Release-Notes-2018-11-06" class="headerlink" title="5.2 版本 v1.1.0 Release Notes [2018-11-06]"></a>5.2 版本 v1.1.0 Release Notes [2018-11-06]</h3><ul>
+<li>1、 Redis配置方式增强，支持自定义DB、密码、IP、PORT等等</li>
+<li>2、 Token接入方式；除了常规Cookie方式外，新增Token接入方式，并提供Sample项目</li>
+<li>3、 登录态自动延期：支持自定义登录态有效期窗口，默认24H，当登录态有效期窗口过半时，自动顺延一个周期</li>
+<li>4、 “记住密码” 功能优化：未记住密码时，关闭浏览器则登录态失效；记住密码时，登录态自动延期，在自定义延期时间的基础上，原则上可以无限延期</li>
+<li>5、 sessionId数据结构优化，进一步提升暴露破解难度</li>
+<li>6、 认证数据存储结构调整，避免登陆信息存储冗余</li>
+<li>7、 认证中心用户登录校验改为Mock数据方式，取消对DB强依赖，降低部署难度</li>
+<li>8、 Client端依赖Core包，slf4j依赖优化，移除log4j强依赖</li>
+<li>9、 Ajax请求未登录处理逻辑优化，返回JSON格式提示数据</li>
+<li>10、项目结构梳理，清理冗余依赖，升级多项依赖版本至较近版本</li>
+<li>11、路径排除：新增自定义属性 “excludedPaths”，允许设置多个，且支持Ant表达式。用于排除SSO客户端不需要过滤的路径</li>
+</ul>
+<h3 id="5-3-版本-v1-1-1-Release-Notes-迭代中"><a href="#5-3-版本-v1-1-1-Release-Notes-迭代中" class="headerlink" title="5.3 版本 v1.1.1 Release Notes [迭代中]"></a>5.3 版本 v1.1.1 Release Notes [迭代中]</h3><ul>
+<li>1、升级pom依赖版本；</li>
+<li>2、[迭代中]spring mvc 版本示例；</li>
+<li>3、[迭代中]Client跳转新增一次性Token验证；</li>
+<li>4、拼写问题修复；</li>
+</ul>
+<h3 id="TODO-LIST"><a href="#TODO-LIST" class="headerlink" title="TODO LIST"></a>TODO LIST</h3><ul>
+<li>1、认证中心与接入端交互数据加密，增强安全性；redirect_url必须和临时AccessToken配合才会生效，AccessToken有效期60s，阅后即焚模式；</li>
+<li>2、SSO SessionId 与IP绑定，增强用户增强安全性</li>
+<li>3、支持认证分组，分组内共享登陆状态，分组之间登录态隔离，【待考虑】</li>
+<li>4、客户端新增属性 “xxl.sso.server”，用于构建跳转连接，防止跳转第三方导致登陆漏洞</li>
+<li>5、token验证方式增加jwt方式支持</li>
+<li>6、Client端移除Redis依赖，改为 LocalCache/30s + RPC + Server-Redis/Broadcast 校验方式；</li>
+<li>7、安全性增强，登陆用户数据中，新增客户端信息如ip、ua等，方式session被窃取；</li>
+</ul>
+<h2 id="六、其他"><a href="#六、其他" class="headerlink" title="六、其他"></a>六、其他</h2><h3 id="6-1-项目贡献"><a href="#6-1-项目贡献" class="headerlink" title="6.1 项目贡献"></a>6.1 项目贡献</h3><p>欢迎参与项目贡献！比如提交PR修复一个bug，或者新建 <a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-sso/issues/">Issue</a> 讨论新特性或者变更。</p>
+<h3 id="6-2-用户接入登记"><a href="#6-2-用户接入登记" class="headerlink" title="6.2 用户接入登记"></a>6.2 用户接入登记</h3><p>更多接入的公司，欢迎在 <a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-sso/issues/1">登记地址</a> 登记，登记仅仅为了产品推广。</p>
+<h3 id="6-3-开源协议和版权"><a href="#6-3-开源协议和版权" class="headerlink" title="6.3 开源协议和版权"></a>6.3 开源协议和版权</h3><p>产品开源免费，并且将持续提供免费的社区技术支持。个人或企业内部可自由的接入和使用。</p>
+<ul>
+<li>Licensed under the GNU General Public License (GPL) v3.</li>
+<li>Copyright (c) 2015-present, xuxueli.</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一、简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E7%A4%BE%E5%8C%BA%E4%BA%A4%E6%B5%81"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 社区交流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E7%89%B9%E6%80%A7"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E5%8F%91%E5%B1%95"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 发展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 下载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E5%9C%B0%E5%9D%80"><span class="toc-number">1.5.1.</span> <span class="toc-text">文档地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80"><span class="toc-number">1.5.2.</span> <span class="toc-text">源码仓库地址</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-%E7%8E%AF%E5%A2%83"><span class="toc-number">1.6.</span> <span class="toc-text">1.6 环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%EF%BC%88%E5%9F%BA%E4%BA%8ECookie%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">二、快速入门（基于Cookie）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%EF%BC%9A%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91"><span class="toc-number">2.1.</span> <span class="toc-text">2.1：源码编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%83%A8%E7%BD%B2-%E2%80%9C%E8%AE%A4%E8%AF%81%E4%B8%AD%E5%BF%83%EF%BC%88SSO-Server%EF%BC%89%E2%80%9D"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 部署 “认证中心（SSO Server）”</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="toc-number">2.2.1.</span> <span class="toc-text">配置说明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E9%83%A8%E7%BD%B2-%E2%80%9C%E5%8D%95%E7%82%B9%E7%99%BB%E9%99%86Client%E7%AB%AF%E6%8E%A5%E5%85%A5%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E2%80%9D"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 部署 “单点登陆Client端接入示例项目”</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#maven%E4%BE%9D%E8%B5%96"><span class="toc-number">2.3.1.</span> <span class="toc-text">maven依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-XxlSsoFilter"><span class="toc-number">2.3.2.</span> <span class="toc-text">配置 XxlSsoFilter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E-1"><span class="toc-number">2.3.3.</span> <span class="toc-text">配置说明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E9%AA%8C%E8%AF%81"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%EF%BC%88%E5%9F%BA%E4%BA%8EToken%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">三、快速入门（基于Token）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E2%80%9C%E8%AE%A4%E8%AF%81%E4%B8%AD%E5%BF%83%EF%BC%88SSO-Server%EF%BC%89%E2%80%9D-%E6%90%AD%E5%BB%BA"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 “认证中心（SSO Server）” 搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E9%83%A8%E7%BD%B2-%E2%80%9C%E5%8D%95%E7%82%B9%E7%99%BB%E9%99%86Client%E7%AB%AF%E6%8E%A5%E5%85%A5%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E2%80%9D-Token%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 部署 “单点登陆Client端接入示例项目” (Token方式)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E9%AA%8C%E8%AF%81-%E6%A8%A1%E6%8B%9F%E8%AF%B7%E6%B1%82-Token-%E6%96%B9%E5%BC%8F%E6%8E%A5%E5%85%A5SSO%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 验证 (模拟请求 Token 方式接入SSO的接口)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.</span> <span class="toc-text">四、总体设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 架构图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%8A%9F%E8%83%BD%E5%AE%9A%E4%BD%8D"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 功能定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 核心概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B%E5%89%96%E6%9E%90"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 登录流程剖析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E6%B3%A8%E9%94%80%E6%B5%81%E7%A8%8B%E5%89%96%E6%9E%90"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 注销流程剖析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-%E5%9F%BA%E4%BA%8ECookie%EF%BC%8C%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 基于Cookie，相关概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-%E5%9F%BA%E4%BA%8EToken%EF%BC%8C%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-number">4.7.</span> <span class="toc-text">4.7 基于Token，相关概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-8-%E6%9C%AA%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86"><span class="toc-number">4.8.</span> <span class="toc-text">4.8 未登录状态请求处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-9-%E7%99%BB%E5%BD%95%E6%80%81%E8%87%AA%E5%8A%A8%E5%BB%B6%E6%9C%9F"><span class="toc-number">4.9.</span> <span class="toc-text">4.9 登录态自动延期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-10-%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81"><span class="toc-number">4.10.</span> <span class="toc-text">4.10 记住密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-11-%E8%B7%AF%E5%BE%84%E6%8E%92%E9%99%A4"><span class="toc-number">4.11.</span> <span class="toc-text">4.11 路径排除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="toc-number">5.</span> <span class="toc-text">五、版本更新日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E7%89%88%E6%9C%AC-v0-1-0%EF%BC%8C%E6%96%B0%E7%89%B9%E6%80%A7-2018-04-04"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 版本 v0.1.0，新特性[2018-04-04]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E7%89%88%E6%9C%AC-v1-1-0-Release-Notes-2018-11-06"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 版本 v1.1.0 Release Notes [2018-11-06]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E7%89%88%E6%9C%AC-v1-1-1-Release-Notes-%E8%BF%AD%E4%BB%A3%E4%B8%AD"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 版本 v1.1.1 Release Notes [迭代中]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TODO-LIST"><span class="toc-number">5.4.</span> <span class="toc-text">TODO LIST</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%85%B6%E4%BB%96"><span class="toc-number">6.</span> <span class="toc-text">六、其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E9%A1%B9%E7%9B%AE%E8%B4%A1%E7%8C%AE"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 项目贡献</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E7%94%A8%E6%88%B7%E6%8E%A5%E5%85%A5%E7%99%BB%E8%AE%B0"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 用户接入登记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE%E5%92%8C%E7%89%88%E6%9D%83"><span class="toc-number">6.3.</span> <span class="toc-text">6.3 开源协议和版权</span></a></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

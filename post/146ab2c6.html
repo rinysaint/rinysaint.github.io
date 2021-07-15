@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>主元分析（PCA）在计算机图形学中的应用 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,本文首先简要介绍主元分析，然后侧重于举例说明主元分析在计算机图形学中的应用，最后给出主元分析的计算步骤与其作用于三维数据的相应代码。
+一. 简介  主元分析，即Principal Component,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">主元分析（PCA）在计算机图形学中的应用</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">主元分析（PCA）在计算机图形学中的应用</h1>
+        <div class="stuff">
+            <span>九月 28, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E5%9B%BE%E5%BD%A2%E5%AD%A6-PCA/" rel="tag">大数据,图形学,PCA</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>本文首先简要介绍主元分析，然后侧重于举例说明主元分析在计算机图形学中的应用，最后给出主元分析的计算步骤与其作用于三维数据的相应代码。</p>
+<h5 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h5><p>  主元分析，即Principal Component Analysis，简称PCA，是一种对数据进行分析的技术。如其名字所述，它的作用是分析数据分布的主要元素/结构。主元分析会由主到次找到数据的分布方向，通过舍去那些次要的分布方向，它可以用于去除噪声、数据降维等。其计算简单，在多个领域有着广泛的应用。</p>
+<p>  以二维平面数据可以形象地说明主元分析。如图 1所示，给定XA、YA坐标系下的一些2维数据点（图中圆圈），我们希望找到方向轴Xp、Yp，其中Xp代表了数据的主要分布方向（主元轴），当Yp方向的变化很小时，我们可以认为Yp方向的变化为噪声所产生，因此可以去掉Yp这一维。</p>
+<p><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052003595514.gif" alt="img"></p>
+<p>图 1 主元分析示意图</p>
+<p>  设图1中原来的有一个数据P为（3.05, 2.95），即</p>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052003598479.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004001445.gif" alt="CodeCogsEqn (10)"></a></p>
+<p>  主元分析获得主元轴Xp、Yp后，P可以表示为</p>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004014410.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004025740.gif" alt="CodeCogsEqn (11)"></a>   此时P仍为2维数据，但是因为Xp轴的存在，只用一个坐标4.184表示就可以了。</p>
+<p>  教程“A tutorial on Principal Components Analysis, Lindsay I Smith”给出了十分浅显易懂的主元分析推理，你可以在本文附件中获得此教程，同时本文附件中的代码实现了该教程的方法（教程中的代码仅限于对三维数据的分析）。</p>
+<h5 id="二-主元分析在图形学中的应用"><a href="#二-主元分析在图形学中的应用" class="headerlink" title="二. 主元分析在图形学中的应用"></a>二. 主元分析在图形学中的应用</h5><p>  在此举出本人在计算机图形学领域利用PCA的几个地方:</p>
+<ol>
+<li><p>通过降维找出一堆顶点数据的分布特征（或者说模式pattern）：分析网格数据（如对人物的网格进行分析从而发现其骨架拓扑）时，有时会得到一堆散乱分布在关节附近的顶点数据，利用主元分析对这些散乱的顶点进行降维，如从3维降到2维，则可以发现这些顶点数据的分布特征。<br>如图 2所示，图 2a在3ds Max中以Top、Front、Left、Perspective视角显示了原数据，图 2b中的蓝色线条表示主元分析得到的前两个主元轴，去掉最不重要的一个轴后，点数据表示在两个主元轴下，可看出此时数据更好的呈现出了圆环分布的特征。</p>
+</li>
+<li><p>求给定三角形网格的有向包围盒（OBB）。OBB是一种对模型进行视锥裁剪与碰撞检测的有效方式，然而通常网格模型表示在一个与世界坐标系平行的框架中，可以利用主元分析求得模型所在的各个自然轴，如一个斜放着的圆柱其第一个自然轴是有圆柱底面中心指向圆柱顶面中心的方向。求得各个自然轴后，通过各顶点坐标与单位自然轴的点积，即可获得各顶点在自然轴上的分布范围，进而得到OBB。</p>
+</li>
+<li><p>对人物动画进行特征提取。例如数据捕捉采集到的人体步行动画通常由不同时刻各个关节（约40~60个）的角度来表示，当数据量很大时，对数据的存储与处理都是一件耗费资源的事情。而普通的步行动作中，当一个人左臂向前摆动时右臂总向后摆动，这就是说这些数据有耦合，从而可以利用主元分析进行特征提取与压缩。由此也可以想象得到主元分析另一个强大的地方：对于一些高维度的数据，很难用三维图形的方式去展现，因此很难观察出其分布特征，而主元分析计算则可以发现这些特征。</p>
+</li>
+</ol>
+<p><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004054264.jpg" alt="img"><br>a 原始数据<br><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004095504.jpg" alt="img"></p>
+<p>b 主元分析后的数据</p>
+<p>图 2 三维点数据降维</p>
+<h5 id="三-主元分析计算步骤与代码"><a href="#三-主元分析计算步骤与代码" class="headerlink" title="三. 主元分析计算步骤与代码"></a>三. 主元分析计算步骤与代码</h5><p>  那么如何进行主元分析呢，教程“A tutorial on Principal Components Analysis》，Lindsay I Smith”已经给出了近乎于完美的讲解，在此，本人列出其计算步骤（以m维数据为例）：</p>
+<ol>
+<li>获取数据<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004118686.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004122175.gif" alt="CodeCogsEqn (1)"></a> （每一个数据为一个m维列向量）</li>
+<li>求出数据平均值<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004122665.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004133156.gif" alt="CodeCogsEqn (2)"></a> ，并用原数据减去均值得到<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004148912.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004154320.gif" alt="CodeCogsEqn (3)"></a></li>
+<li>计算协方差矩阵<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004164810.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004165301.gif" alt="CodeCogsEqn (4)"></a></li>
+<li>计算协方差矩阵的特征值<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004172203.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004172693.gif" alt="CodeCogsEqn (5)"></a> 与特征向量<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004187959.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/2011010520041886.gif" alt="CodeCogsEqn (6)"></a> （特征值与特征向量成对出现）。</li>
+<li>由大到小依次排列特征值得<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004199954.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004205220.gif" alt="CodeCogsEqn (7)"></a> ，对应特征向量为<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004207347.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004212613.gif" alt="CodeCogsEqn (8)"></a> 。特征向量代表了原数据的分布方向，其对应的特征值越大，则该向量越重要（即为主元）；其对应的特征值越小，则该向量越次要。</li>
+</ol>
+<p>  此时即可根据特征值的大小来决定取舍了。如一个特征值为10，而另一个特征值为0.1，在说明这两个分布差了100倍，通常我们会舍弃特征值为0.1的方向的那个维度，因此就可以对数据进行降维表示了。例如我们取了前k个特征值，则就可以将数据表示在以前K个特征向量为基轴的坐标系下了。</p>
+<p>  你可以在<a target="_blank" rel="noopener" href="http://www.cnblogs.com/ArenAK/archive/2010/12/19/1910404.html#PCAcode">这里</a>下载本文C++代码。</p>
+<p>  代码以SampleData.txt中的三维数据点作为输入，程序的输出存放在Results目录，</p>
+<p>  输出的目录中包括3个文件：</p>
+<ol>
+<li>PCAResult.txt 存放经主元分析后在主元轴坐标系下的数据坐标。</li>
+<li>DisplaySamples.ms 为3ds Max脚本文件，用3ds Max打开后可看到SampleData.txt表示的数据点。</li>
+<li>DisplayResult.ms 为3ds Max脚本文件，用3ds Max打开后可看到将原3维数据在主元轴坐标系下降到2维后的数据点；同时该文件还显示了主元分析得到的前两个主元轴。</li>
+</ol>
+<p>  更加通用的pca代码（Matlab代码）在<a target="_blank" rel="noopener" href="http://files.cnblogs.com/ArenAK/matlabpca.zip">这里</a>下载。</p>
+<p>–ArenAK–</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一. 简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C-%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">二. 主元分析在图形学中的应用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89-%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%E8%AE%A1%E7%AE%97%E6%AD%A5%E9%AA%A4%E4%B8%8E%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">三. 主元分析计算步骤与代码</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

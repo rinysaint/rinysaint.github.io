@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,linux,VirtualminWebmin,vps,服务器和虚拟主机"> 
+    <meta name="description" content="肖日宁,xiaorining,在FreeNAS/BSD搭建基于Nginx+FastCGI+MySQL+PHP的WebServer使用FreeNAS也快半月月了，在上一篇文章介绍了利用FreeNAS能做的一些事情，其中一项是Web,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统</h1>
+        <div class="stuff">
+            <span>十二月 23, 2016</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="在FreeNAS-BSD搭建基于Nginx-FastCGI-MySQL-PHP的WebServer"><a href="#在FreeNAS-BSD搭建基于Nginx-FastCGI-MySQL-PHP的WebServer" class="headerlink" title="在FreeNAS/BSD搭建基于Nginx+FastCGI+MySQL+PHP的WebServer"></a>在FreeNAS/BSD搭建基于Nginx+FastCGI+MySQL+PHP的WebServer</h2><p>使用FreeNAS也快半月月了，在上一篇文章介绍了利用FreeNAS能做的一些事情，其中一项是WebServer。搭建了FreeNAS之后，这项功能也是必不可少的，简单分享一下配置步骤，希望能帮助到同我一样的刚刚接触FreeNAS（同样适用于FreeBSD）的朋友。</p>
+<p>在FreeNAS之前，一直都是在Atom上跑Windows，因为作为文件服务器，除了存储文件/共享（Windows的局域网共享做这个确实很方便，但相比FreeNAS内置的SMB，还是稍显复杂，因为还需要通过一些不算简单的设置，才能解决NTFS权限问题，而FreeNAS中，都为你做好了），还有一个更重要的功能就是下载，虽然迅雷的资源共享方式稍显流氓，但其下载速度和资源探索能力也是无需置疑的（之后也会介绍一下如何利用FreeNAS/BSD打造属于自己的全能下载机）。</p>
+<p>说实话，相比Windows用了十数年，对于类unix系统，我是相当的不熟悉，也是毕业以后，由于工作需要，才渐渐的接触一些。时至至今，也只会通过apt-get pkg_add等方式来安装软件。在Windows下，一直都是用几年前自己写的一套脚本来安装基于Apache+MySQL+PHP的服务器，初次接触FreeBSD，参考了网上很多资料也终于实现了基于Nginx+FastCGI+MySQL+PHP的WebServer。</p>
+<p>以下所有的操作步骤都是在Shell下完成，可以在FreeNAS启动后，通过Console菜单6 Shell或在WebGUI中开启SSH服务登录。</p>
+<h3 id="安装PHP"><a href="#安装PHP" class="headerlink" title="安装PHP"></a>安装PHP</h3><p>如果你是在FreeNAS上安装PHP，请特别注意下面的几步，若是在FreeBSD上安装，可以忽略cp，mv的步骤，直接通过pkg_add安装PHP。</p>
+<p>因为安装FreeNAS的WebGUI是基于Lighttpd+PHP，重新安装PHP会引起系统崩溃，不仅WebGUI无法启动，连系统都无法引导，因此将PHP的安装放在第一步，如果这一步没有问题，后面的就都简单了。当时我也是经过N次失败才找到这个问题，分享出来，希望大家不要走弯路。</p>
+<p>首先，需要备份一个重要的文件，因为在PHP的安装后，会覆盖掉这个文件，而正是这个文件引起系统无法启动和WebGUI不能访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usrlocalliblibxml2.so.5 tmplibxml2.so.5</span><br></pre></td></tr></table></figure>
+
+<p>然后开始安装PHP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pkg_add  php5</span><br><span class="line">pkg_add  php5-extensions</span><br><span class="line">pkg_add  php5-xmlrpc</span><br><span class="line">pkg_add  php5-gettext</span><br><span class="line">pkg_add  php5-mcrypt</span><br><span class="line">pkg_add  php5-mbstring</span><br></pre></td></tr></table></figure>
+
+<p>注意安装完后切忌不要重启，再继续输入下面的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usrlocalbinphp usrlocalbinphp-cli usrlocalbinphp-cgi usrlocalbinphp usrlocalliblibxml2.so.5 tmplibxml2.so.5 usrlocalliblibxml2.so.5</span><br></pre></td></tr></table></figure>
+
+<p>至此PHP安装完成，请重启你的FreeNAS，如果能够正常访问WebGUI，恭喜你，接下去的步骤就简单多了。</p>
+<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkg_add  mysql50-serverusrlocalbinmysql_install_db  mysql vardbmysqlusrlocalbinmysqld_safe usrlocalbinmysqladmin  root password</span><br></pre></td></tr></table></figure>
+
+<p>修改/etc/rc.conf加入mysql_enable=”YES”，至此MySQL安装完成。</p>
+<h3 id="安装Nginx-FastCGI"><a href="#安装Nginx-FastCGI" class="headerlink" title="安装Nginx+FastCGI"></a>安装Nginx+FastCGI</h3><p>由于FreeNAS的WebGUI已占用了80端口，因此建议先通过WebGUI&gt;System&gt;General&gt;WebGUI&gt;Port将WebGUI的端口改为其他，例如88。</p>
+<p>参阅了大量网上的Nginx+PHP的配置方案，无一例外都是通过lighttpd的spawn-fcgi来实现，这个脚本找了很久也没找到，虽然FreeNAS自带Lighttpd，我也没在系统内找到……，于是我只好重新安装了一遍Lighttpd。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pkg_add  nginx</span><br><span class="line">pkg_add   lighttpd 0777 usrlocaletcnginxnginx.conf</span><br></pre></td></tr></table></figure>
+
+<p>编辑/usr/local/etc/nginx/nginx.conf，找到以下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F; &#123;</span><br><span class="line">        root   &#x2F;usr&#x2F;local&#x2F;www&#x2F;nginx;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在index最后增加index.php</p>
+<p>找到以下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#location ~ \.php$ &#123;#    root           html;#    fastcgi_pass   127.0.0.1:9000;#    fastcgi_index  index.php;#    fastcgi_param  SCRIPT_FILENAME  &#x2F;scripts$fastcgi_script_name;#    include        fastcgi_params;#&#125;</span><br></pre></td></tr></table></figure>
+
+<p>去掉行首的注释符#，并改为以下内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> ~ \.php$ &#123;</span><br><span class="line">        root           html;</span><br><span class="line">        fastcgi_pass   127.0.0.1:;</span><br><span class="line">        fastcgi_index  index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  &#x2F;usr&#x2F;local&#x2F;www&#x2F;nginx$fastcgi_script_name;                fastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此Nginx安装完成，然后通过下面的脚本分别启动FastCGI和Nginx。此脚本建议加入/etc/rc.local随机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usrlocalbinspawn-fcgi  127.0.0.1    www  www    usrlocalbinphp-cgiusrlocalsbinnginx</span><br></pre></td></tr></table></figure>
+
+<p>然后在/usr/local/www/nginx目录下新建index.php。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php echo phpinfo();</span><br></pre></td></tr></table></figure>
+
+<p>输入<a target="_blank" rel="noopener" href="http://nas-ip/index.php%EF%BC%8C%E6%98%AF%E4%B8%8D%E6%98%AF%E7%9C%8B%E5%88%B0%E4%BA%86%E4%B9%85%E8%BF%9D%E7%9A%84phpinfo%EF%BC%9F">http://nas-ip/index.php，是不是看到了久违的phpinfo？</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8FreeNAS-BSD%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8ENginx-FastCGI-MySQL-PHP%E7%9A%84WebServer"><span class="toc-number">1.</span> <span class="toc-text">在FreeNAS&#x2F;BSD搭建基于Nginx+FastCGI+MySQL+PHP的WebServer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85PHP"><span class="toc-number">1.1.</span> <span class="toc-text">安装PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85MySQL"><span class="toc-number">1.2.</span> <span class="toc-text">安装MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Nginx-FastCGI"><span class="toc-number">1.3.</span> <span class="toc-text">安装Nginx+FastCGI</span></a></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

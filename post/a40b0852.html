@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>在windows环境下让XAMPP使用Nginx作为Web服务器 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,XAMPP,Nginx,Web服务器"> 
+    <meta name="description" content="肖日宁,xiaorining,windows中下载（xampp）apache后使用nginx作为服务器首先去php文件夹那里, 把那个php.ini Copy一份, 命名为php-cli.ini 让nginx使用. 而不会影响A,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">在windows环境下让XAMPP使用Nginx作为Web服务器</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">在windows环境下让XAMPP使用Nginx作为Web服务器</h1>
+        <div class="stuff">
+            <span>十二月 23, 2016</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/win7/" rel="tag">win7</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="windows中下载（xampp）apache后使用nginx作为服务器"><a href="#windows中下载（xampp）apache后使用nginx作为服务器" class="headerlink" title="windows中下载（xampp）apache后使用nginx作为服务器"></a>windows中下载（xampp）apache后使用nginx作为服务器</h1><p>首先去php文件夹那里, 把那个php.ini Copy一份, 命名为php-cli.ini 让nginx使用. 而不会影响Apache 的使用。</p>
+<p>打开php-cli.ini，配置下面几个 参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">enable_dl &#x3D; On;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cgi.force_redirect &#x3D; 0;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cgi.fix_pathinfo&#x3D;1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fastcgi.impersonate &#x3D; 1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cgi.rfc2616_headers &#x3D; 1;</span><br></pre></td></tr></table></figure>
+
+<p>然后下载nginx <a target="_blank" rel="noopener" href="http://nginx.org/en/download.html%E8%A7%A3%E5%8E%8B">http://nginx.org/en/download.html解压</a></p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/20190424100333193.png" alt="img"></p>
+<p>在nginx上部署项目</p>
+<p>打开conf文件夹下的nginx.conf文件进行配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        listen       889;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        server_name  www.zch.com;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        #access_log  logs&#x2F;host.access.log  main;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		root   C:&#x2F;xampp&#x2F;htdocs&#x2F;phpproject&#x2F;tp5&#x2F;public&#x2F;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            index  index.html index.htm index.php;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            autoindex  on;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">             </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">          if (!-e $request_filename) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            rewrite  ^(.*)$  &#x2F;index.php?s&#x3D;&#x2F;$1  last;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            break;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">          &#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        #error_page  404              &#x2F;404.html;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        # redirect server error pages to the static page &#x2F;50x.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        #</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  &#x2F;50x.html;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        location &#x3D; &#x2F;50x.html &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            root   html;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	    location ~ \.php$ &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">				fastcgi_pass   127.0.0.1:9001;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                fastcgi_index  index.php;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                fastcgi_split_path_info  ^((?U).+\.php)(&#x2F;?.+)$;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                fastcgi_param  PATH_INFO  $fastcgi_path_info;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                fastcgi_param  PATH_TRANSLATED  $document_root$fastcgi_path_info;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                include        fastcgi_params;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>在C:\Windows\System32\drivers\etc\hosts文件下 ， 配置虚拟目录，即是配置文件中的server name</p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/2019042410140472.png" alt="img"></p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/20190424101422546.png" alt="img"></p>
+<p>启动nginx（如果端口号被占用的话就换一个端口号）</p>
+<p>切换到php目录，执行 php-cgi.exe -b 127.0.0.1:9001 -c C:\xampp\php\php-cli.ini，</p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/20190424100502412.png" alt="img"></p>
+<p>切换到nginx目录，启动nginx</p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/20190424100516752.png" alt="img"></p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/20190424101527533.png" alt="img"></p>
+<p>以上结束</p>
+<h1 id="参考方法一："><a href="#参考方法一：" class="headerlink" title="参考方法一："></a>参考方法一：</h1><p>说实话, 在windows下使用Nginx 着实有点不太方便, 但因项目需求, 又不想换系统(虽然可以搞个虚拟机玩), 只能用Nginx了</p>
+<p>好了, 不多说了. 开始…</p>
+<p>首先我用的是xampp包(Apache+Mysql+php+perl) 用的是3.2.2版, 这里各自喜欢…不多说</p>
+<p>一般我是把xampp安装在D:\xampp下的…</p>
+<p>首先去下载一个Nginx的包.. 戳这-&gt;<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">http://nginx.org/en/download.html</a> 有三个版的(Mainline version / Stable version / Legacy versions )  我是下了个稳定版的 即Stable version ,不要问为什么, 因为稳定!</p>
+<p>下完后就可以解压至D:\xampp\nginx 了… 如图:</p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/997515-20161227134916679-1887516644.png" alt="img"></p>
+<p>这里得去php文件夹那里, 把那个php.ini Copy一份, 命名为php-cli.ini 这个就是为了给Nginx玩的. 而不会影响Apache 的使用….</p>
+<p>好了. 到这里, 就打开php-cli.ini(建议文本器打开)</p>
+<p>配置一下下面几个 直接查找就行了::</p>
+<p>enable_dl = On;</p>
+<p>cgi.force_redirect = 0;</p>
+<p>cgi.fix_pathinfo=1;</p>
+<p>fastcgi.impersonate = 1;</p>
+<p>cgi.rfc2616_headers = 1;</p>
+<p>OK 现在就可以打开nginx.exe了 </p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/997515-20161227141543882-949700058.png" alt="img"></p>
+<p>(这里的-b 应该是 -a 和 -p 的集合…吧)</p>
+<p>然后再开一个cmd 下输 D:\xampp\nginx\nginx</p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/997515-20161227141607054-964655387.png" alt="img"></p>
+<p>这里有点麻烦就是, 如果挂了. 就得重新打开一个cmd… D:\xampp\nginx\nginx -s reload</p>
+<p>也可以这样处理, 关闭Nginx </p>
+<p>taskkill /F /IM nginx.exe &gt; nul</p>
+<p>taskkill /F /IM php-cgi.exe &gt; nul</p>
+<p>建议如果是改了配置的话, 得先使用 nginx -t 测试看有没有报错. 再reload 或者其它操作</p>
+<p>还有我看了下网上说的, 可以借助<a target="_blank" rel="noopener" href="https://skydrive.live.com/redir?resid=1E48DF64F8BD957!202">RunHiddenConsole</a> 来管理Nginx (这里我没试过, 有空得搞搞)</p>
+<p><strong>注意: nginx不能和apache 同时使用, 因为他们默认都使用同一个端口 所以你开nginx得把apache干掉</strong></p>
+<p>*<strong>Nginx 配置*</strong>:</p>
+<p>打开nginx\conf\nginx.conf</p>
+<p>这里我是直接引入了文件夹去找其它的配置</p>
+<p>像这样(-^-)</p>
+<p>include web/*.conf; </p>
+<p><img src="/../images/%E5%9C%A8windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%AE%A9XAMPP%E4%BD%BF%E7%94%A8Nginx%E4%BD%9C%E4%B8%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8/997515-20161227140823695-1616046948.png" alt="img"></p>
+<p>location / {<br>root D:/xampp/htdocs/;<br>index index.html index.htm index.php;<br>autoindex on;<br>autoindex_exact_size on;<br>autoindex_localtime on;<br>}</p>
+<p>location ~* .php$ {<br>root D:/xampp/htdocs/;<br>fastcgi_pass 127.0.0.1:9000;<br>fastcgi_index index.php;<br>include fastcgi.conf;<br>}</p>
+<p>配置根站点…</p>
+<p>还有配置一下那个phpmyadmin</p>
+<p>location = /phpmyadmin/ {</p>
+<p>root D:/xampp/;<br>index index.php index.html index.htm;<br>}</p>
+<p><strong>location ~* /phpmyadmin/.*.php {</strong></p>
+<p><strong>root D:/xampp/;<br>include fastcgi.conf;<br>fastcgi_pass 127.0.0.1:9000;<br>fastcgi_index index.php;<br>#fastcgi_param SCRIPT_FILENAME D:/xampp/$fastcgi_script_name;<br>}</strong></p>
+<p> 重新加载配置&gt;&gt;&gt;D:\xampp\nginx\nginx -t &gt;&gt;&gt; D:\xampp\nginx\nginx -s reload</p>
+<p>配域名的话这里就不写了. 不会的话,  <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> 是个好东西.</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#windows%E4%B8%AD%E4%B8%8B%E8%BD%BD%EF%BC%88xampp%EF%BC%89apache%E5%90%8E%E4%BD%BF%E7%94%A8nginx%E4%BD%9C%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">windows中下载（xampp）apache后使用nginx作为服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">参考方法一：</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

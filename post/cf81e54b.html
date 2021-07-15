@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>斐讯PSG1208 K1 免拆机刷breed恢复控制台 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,斐讯,技术,PSG1208,K1,breed"> 
+    <meta name="description" content="肖日宁,xiaorining,Breed，不是 U-Boot，也不是 U-Boot 的改进版，是全新、独立的、跟 U-Boot 平级的 Bootloader。
+进入breed恢复控制台的方法:路由断电,按住复位键不放,路由通电,,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">斐讯PSG1208 K1 免拆机刷breed恢复控制台</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">斐讯PSG1208 K1 免拆机刷breed恢复控制台</h1>
+        <div class="stuff">
+            <span>十二月 23, 2016</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>Breed，不是 U-Boot，也不是 U-Boot 的改进版，是全新、独立的、跟 U-Boot 平级的 Bootloader。</p>
+<p>进入breed恢复控制台的方法:路由断电,按住复位键不放,路由通电,5秒后放开复位键,等一会,在浏览器上打开192.168.1.1,进入breed恢复控制台.</p>
+<p>今天有人找我要潘多拉的设置方法,这里发教程,需要的朋友去安装吧.</p>
+<p>看这么多人路由器刷了潘多拉，发个多拨教程</p>
+<p>首先本文是介绍breed恢复控制台的,不是介绍刷固件的,刷完breed恢复控制台,不刷固件的话,是正常使用原版固件的,没任何影响的,刷了breed恢复控制台后,可以轻松的备份固件(也就是路由器的系统),更新固件,刷第三方固件,超频等,具体介绍和功能看注释.至于刷第三方固件有什么用,本文不作介绍.</p>
+<p>刷breed恢复控制台步骤:<br>1.先接好路由,设置好,让路由能连网;<br>2.查看自己的电脑ip地址,这里假设电脑的ip是192.168.2.100;<br>3.在浏览器上登陆路由器,192.168.2.1,账号:admin,密码:admin;<br>4.浏览器地址栏打开 <a target="_blank" rel="noopener" href="http://192.168.2.1/goform/Diagnosis?pingAddr=192.168.2.100%7Cecho&quot;&quot;%7Ctelnetd">http://192.168.2.1/goform/Diagnosis?pingAddr=192.168.2.100|echo&quot;&quot;|telnetd</a> (红色部分是本机ip,如果你的电脑ip不是192.168.2.100,请改成你电脑的ip);<br>5.点击 <a target="_blank" rel="noopener" href="http://www.cr173.com/k/kscd/">开始菜单</a>-&gt;运行,输入cmd,打开控制台;<br>6.telnet 192.168.2.1,账号:admin,密码:admin;<br>7.cd /tmp;<br>8.wget <a target="_blank" rel="noopener" href="http://breed.hackpascal.net/breed-mt7620-reset1.bin">http://breed.hackpascal.net/breed-mt7620-reset1.bin</a>;</p>
+<p>9.mtd_write write breed-mt7620-reset1.bin Bootloader;</p>
+<p>10.重启路由,按住复位键(大概3-5秒左右),如果看到路由器的部分或全部LED连闪4次，或 ping 通即表明进入 Web 刷机模式(路由地址为:192.168.1.1).<br>如果不按住复位键则正常启动路由(路由地址为:192.168.2.1).</p>
+<p>这时你就可以刷入你想要使用的固件了,建议刷固件前先备份固件,如果刷的新的固件不能用,可以重新刷备份的固件就可以了.</p>
+<p>潘多拉固件下载地址:<br><a target="_blank" rel="noopener" href="http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/stable/PandoraBox-ralink-mt7620-xiaomi-mini-squashfs-sysupgrade-r1024-20150608.bin">http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/stable/PandoraBox-ralink-mt7620-xiaomi-mini-squashfs-sysupgrade-r1024-20150608.bin</a></p>
+<p>老毛子Padavan固件:<a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-161324-1-1.html">http://www.right.com.cn/forum/thread-161324-1-1.html</a></p>
+<p>注释:<br>breed恢复控制台作用功能:<br>Breed，不是 U-Boot，也不是 U-Boot 的改进版，是全新、独立的、跟 U-Boot 平级的 Bootloader。<br>[功能介绍]<br>Breed 拥有不死 U-Boot 的全部功能，并且还有以下特性：<br>真正多线程<br>实时刷机进度，进度条能准确反映刷机进度<br>Web 页面快速响应<br>最大固件备份速度，依 Flash 而定，一般能达到 1MB/s<br>免按复位键进入 Web 刷机模式<br>telnet 功能，免 TTL 进入 Breed 命令控制台<br>复位键定义测试功能<br>固件启动失败自动进入 Web 刷机模式</p>
+<p>Web 界面跟不死 U-Boot 基本一致</p>
+<p>[U-Boot功能介绍]<br>能够启动 TP-LINK 原厂固件、OpenWrt 固件 (包含石像鬼固件)、DD-WRT 固件、UBNT 固件<br>支持大量 Flash，支持型号识别，能自动识别未知 FLASH 的大小 (4M / 8M / 16M / 32M)。<br>支持 TP-LINK 固件头和 U-Boot 固件头。<br>带 Web 刷机界面。支持开机按 RESET/W<a target="_blank" rel="noopener" href="http://www.cr173.com/k/photoshopcs5/">PS</a> 按钮进入刷机界面。<br>开启交换机 LED，以便检查 U-Boot 更新固件时网络连接是否正常<br>所有版本均有不死超频功能</p>
+<p>[Web 刷机界面功能]<br>兼容大部分主流浏览器<br>自动分配 IP 地址，不用手动修改计算机 IP 地址<br>显示 FLASH 型号和大小、CPU 型号、内存容量、系统频率<br>固件更新，U-Boot、固件、ART均可更新；支持直刷编程器固件<br>自动去除 TP-LINK 官方固件的 U-Boot 部分<br>自动补充 ART，解决刷官方固件丢失无线的问题<br>刷机前文件大小、MD5值确认<br>恢复出厂设置<br>不死超频/降频<br>修改特定设备的相关信息，包括修改 MAC 地址和 PIN 码、修改 UBNT 无线 MAC 地址等<br>编程器固件备份<br>网络控制台 (UDP 协议)<br>支持 Web 界面重启路由<br>详细的失败信息<br>全中文版界面</p>
+<h1 id="PSG1208-K1固件下载地址"><a href="#PSG1208-K1固件下载地址" class="headerlink" title="PSG1208 K1固件下载地址"></a>PSG1208 K1固件下载地址</h1><p>Breed控制台：<a target="_blank" rel="noopener" href="http://breed.hackpascal.net/breed-mt7620-reset1.bin">http://breed.hackpascal.net/breed-mt7620-reset1.bin</a></p>
+<p>小米潘多拉（多拨）：<a target="_blank" rel="noopener" href="http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/">http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/</a></p>
+<p>老毛子改（华硕稳定版本）：<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1qWr367y">http://pan.baidu.com/s/1qWr367y</a></p>
+<h1 id="斐讯PSG1208刷机大合集"><a href="#斐讯PSG1208刷机大合集" class="headerlink" title="斐讯PSG1208刷机大合集"></a>斐讯PSG1208刷机大合集</h1><p>斐讯PSG1208刷机教程  <a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1bpXKlS%E9%87%8C%E9%9D%A2%E6%9C%89%E8%A7%86%E9%A2%91%E9%87%8C%E7%9A%84%E5%85%A8%E9%83%A8%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E5%B7%A5%E5%85%B7%E5%92%8Cbreed">http://pan.baidu.com/s/1bpXKlS里面有视频里的全部所需要的工具和breed</a></p>
+<p>还有一个华硕老毛子固件 原帖  <a target="_blank" rel="noopener" href="http://forum.anywlan.com/forum.p">http://forum.anywlan.com/forum.p</a> … 6orderby%3Ddateline </p>
+<p>刷完潘多拉后 在浏览器中输入192.168.1.1 密码admin 点击登入 OK 进入到路由页面 </p>
+<p>1 进入路由管理界面后点击左侧的“接口”，选择“WAN”。 </p>
+<p>2 点击“协议”选项栏里的“DHCP客户端”改为“PPPoE”,点击“切换协议”。 </p>
+<p>3 在“PAP/CHAP用户名”输入你宽带的用户名，“PAP/CHAP密码”输入你宽带的密码。</p>
+<p> 4 在当前页面点击“高级设置”,“使用网关跃点”输入“40”，点击右下角的“保存并应用”。 上面的是潘多拉固件普通拨号方法，接下来才是怎么多播。如果不需要多播，到此步即可结束操作。</p>
+<p> 5 点击左侧的”虚拟WAN接口“，“启用”前面打对钩，“虚拟接口”数量建议输入“10”，“断线自动重连”打对钩，最低在线数输入“1”，“保存并应用”。 </p>
+<p>6 等待15S后，点击“重新并发拨号”。 </p>
+<p>7 检查多拨状态，点左侧“负载均衡”，等1分钟，看看你下图的接口绿了几个就是成功多拨了几个。 </p>
+<p>原帖  <a target="_blank" rel="noopener" href="http://www.52pojie.cn/thread-409698-1-1.html">http://www.52pojie.cn/thread-409698-1-1.html</a> </p>
+<p>不需要多拨的，可以刷华硕的，感觉比原厂固件好 地址  <a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-161324-1-1.html">http://www.right.com.cn/forum/thread-161324-1-1.html</a></p>
+<p> 更新更多斐讯k1 斐讯1208固件  <a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/fo">http://www.right.com.cn/forum/fo</a> … &amp;highlight=1208  </p>
+<p>下载地址  <a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1skl0VIP">http://pan.baidu.com/s/1skl0VIP</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PSG1208-K1%E5%9B%BA%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">PSG1208 K1固件下载地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%90%E8%AE%AFPSG1208%E5%88%B7%E6%9C%BA%E5%A4%A7%E5%90%88%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">斐讯PSG1208刷机大合集</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

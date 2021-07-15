@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>6种微服务RPC框架，你知道几个？ - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,开源 RPC 框架有哪些呢？
+一类是跟某种特定语言平台绑定的，另一类是与语言无关即跨语言平台的。
+跟语言平台绑定的开源 RPC 框架主要有下面几种。
+Dubbo：国内最早开源的 RPC 框架，由阿里,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">6种微服务RPC框架，你知道几个？</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">6种微服务RPC框架，你知道几个？</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-RPC/" rel="tag">微服务,RPC</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>开源 RPC 框架有哪些呢？</p>
+<p>一类是跟某种特定语言平台绑定的，另一类是与语言无关即跨语言平台的。</p>
+<p>跟语言平台绑定的开源 RPC 框架主要有下面几种。</p>
+<p>Dubbo：国内最早开源的 RPC 框架，由阿里巴巴公司开发并于 2011 年末对外开源，仅支持 Java 语言。</p>
+<p>Motan：微博内部使用的 RPC 框架，于 2016 年对外开源，仅支持 Java 语言。</p>
+<p>Tars：腾讯内部使用的 RPC 框架，于 2017 年对外开源，仅支持 C++ 语言。</p>
+<p>Spring Cloud：国外 Pivotal 公司 2014 年对外开源的 RPC 框架，仅支持 Java 语言</p>
+<p>而跨语言平台的开源 RPC 框架主要有以下几种。</p>
+<p>gRPC：Google 于 2015 年对外开源的跨语言 RPC 框架，支持多种语言。</p>
+<p>Thrift：最初是由 Facebook 开发的内部系统跨语言的 RPC 框架，2007 年贡献给了 Apache 基金，成为 Apache 开源项目之一，支持多种语言。</p>
+<p>如果你的业务场景仅仅局限于一种语言的话，可以选择跟语言绑定的 RPC 框架中的一种；</p>
+<p>如果涉及多个语言平台之间的相互调用，就应该选择跨语言平台的 RPC 框架。</p>
+<p>RPC 框架，它们具体有何区别？</p>
+<h3 id="1-Dubbo"><a href="#1-Dubbo" class="headerlink" title="1. Dubbo"></a>1. Dubbo</h3><p>先来聊聊 Dubbo，Dubbo 可以说是国内开源最早的 RPC 框架了，目前只支持 Java 语言，它的架构可以用下面这张图展示。</p>
+<p><img src="/../images/6%E7%A7%8D%E5%BE%AE%E6%9C%8D%E5%8A%A1RPC%E6%A1%86%E6%9E%B6/a3a256226950d18ba2267d96bfbbdc48.JPEG" alt="img"></p>
+<p>从图中你能看到，Dubbo 的架构主要包含四个角色，其中 Consumer 是服务消费者，Provider 是服务提供者，Registry 是注册中心，Monitor 是监控系统。</p>
+<p>具体的交互流程是 Consumer 一端通过注册中心获取到 Provider 节点后，通过 Dubbo 的客户端 SDK 与 Provider 建立连接，并发起调用。Provider 一端通过 Dubbo 的服务端 SDK 接收到 Consumer 的请求，处理后再把结果返回给 Consumer。</p>
+<h3 id="2-Motan"><a href="#2-Motan" class="headerlink" title="2. Motan"></a>2. Motan</h3><p>Motan 是国内另外一个比较有名的开源的 RPC 框架，同样也只支持 Java 语言实现，它的架构可以用下面这张图描述。</p>
+<p><img src="/../images/6%E7%A7%8D%E5%BE%AE%E6%9C%8D%E5%8A%A1RPC%E6%A1%86%E6%9E%B6/44a1e0b7cd17a7b261e194a15f4bb9c0.JPEG" alt="img"></p>
+<p>Motan 与 Dubbo 的架构类似，都需要在 Client 端（服务消费者）和 Server 端（服务提供者）引入 SDK，其中 Motan 框架主要包含下面几个功能模块。</p>
+<p>register：用来和注册中心交互，包括注册服务、订阅服务、服务变更通知、服务心跳发送等功能。</p>
+<p>protocol：用来进行 RPC 服务的描述和 RPC 服务的配置管理，这一层还可以添加不同功能的 filter 用来完成统计、并发限制等功能。</p>
+<p>serialize：将 RPC 请求中的参数、结果等对象进行序列化与反序列化</p>
+<p>transport：用来进行远程通信，默认使用 Netty NIO 的 TCP 长链接方式。</p>
+<p>cluster：请求时会根据不同的高可用与负载均衡策略选择一个可用的 Server 发起远程调用。</p>
+<h3 id="3-Tars"><a href="#3-Tars" class="headerlink" title="3. Tars"></a>3. Tars</h3><p>Tars 是腾讯根据内部多年使用微服务架构的实践，总结而成的开源项目，仅支持 C++ 语言，它的架构图如下。</p>
+<p><img src="/../images/6%E7%A7%8D%E5%BE%AE%E6%9C%8D%E5%8A%A1RPC%E6%A1%86%E6%9E%B6/dcc6e184595674a3c2d615a5b97ba097.JPEG" alt="img"></p>
+<p>Tars 的架构交互主要包括以下几个流程：</p>
+<p>服务发布流程：在 web 系统上传 server 的发布包到 patch，上传成功后，在 web 上提交发布 server 请求，由 registry 服务传达到 node，然后 node 拉取 server 的发布包到本地，拉起 server 服务。</p>
+<p>管理命令流程：web 系统上的可以提交管理 server 服务命令请求，由 registry 服务传达到 node 服务，然后由 node 向 server 发送管理命令。</p>
+<p>心跳上报流程：server 服务运行后，会定期上报心跳到 node，node 然后把服务心跳信息上报到 registry 服务，由 registry 进行统一管理。</p>
+<p>信息上报流程：server 服务运行后，会定期上报统计信息到 stat，打印远程日志到 log，定期上报属性信息到 prop、上报异常信息到 notify、从 config 拉取服务配置信息。</p>
+<p>client 访问 server 流程：client 可以通过 server 的对象名 Obj 间接访问 server，client 会从 registry 上拉取 server 的路由信息（如 IP、Port 信息），然后根据具体的业务特性（同步或者异步，TCP 或者 UDP 方式）访问 server（当然 client 也可以通过 IP/Port 直接访问 server）。</p>
+<h3 id="4-Spring-Cloud"><a href="#4-Spring-Cloud" class="headerlink" title="4. Spring Cloud"></a>4. Spring Cloud</h3><p>Spring Cloud 利用 Spring Boot 特性整合了开源行业中优秀的组件，整体对外提供了一套在微服务架构中服务治理的解决方案。</p>
+<p>只支持 Java 语言平台，它的架构图可以用下面这张图来描述。</p>
+<p><img src="/../images/6%E7%A7%8D%E5%BE%AE%E6%9C%8D%E5%8A%A1RPC%E6%A1%86%E6%9E%B6/2dbb0e450be55353ebc4d47f94244d63.JPEG" alt="img"></p>
+<p>由此可见，Spring Cloud 微服务架构是由多个组件一起组成的，各个组件的交互流程如下。</p>
+<p>请求统一通过 API 网关 Zuul 来访问内部服务，先经过 Token 进行安全认证。</p>
+<p>通过安全认证后，网关 Zuul 从注册中心 Eureka 获取可用服务节点列表。</p>
+<p>从可用服务节点中选取一个可用节点，然后把请求分发到这个节点。</p>
+<p>整个请求过程中，Hystrix 组件负责处理服务超时熔断，Turbine 组件负责监控服务间的调用和熔断相关指标，Sleuth 组件负责调用链监控，ELK 负责日志分析。</p>
+<h3 id="5-gRPC"><a href="#5-gRPC" class="headerlink" title="5. gRPC"></a>5. gRPC</h3><p>先来看下 gRPC，它的原理是通过 IDL（Interface Definition Language）文件定义服务接口的参数和返回值类型，然后通过代码生成程序生成服务端和客户端的具体实现代码，这样在 gRPC 里，客户端应用可以像调用本地对象一样调用另一台服务器上对应的方法。</p>
+<p><img src="/../images/6%E7%A7%8D%E5%BE%AE%E6%9C%8D%E5%8A%A1RPC%E6%A1%86%E6%9E%B6/4b216676e3df28cf715fd30a978fa3ea.JPEG" alt="img"></p>
+<p>它的主要特性包括三个方面。</p>
+<p>通信协议采用了 HTTP/2，因为 HTTP/2 提供了连接复用、双向流、服务器推送、请求优先级、首部压缩等机制</p>
+<p>IDL 使用了 ProtoBuf，ProtoBuf 是由 Google 开发的一种数据序列化协议，它的压缩和传输效率极高，语法也简单</p>
+<p>多语言支持，能够基于多种语言自动生成对应语言的客户端和服务端的代码。</p>
+<h3 id="6-Thrift"><a href="#6-Thrift" class="headerlink" title="6. Thrift"></a>6. Thrift</h3><p>再来看下 Thrift，Thrift 是一种轻量级的跨语言 RPC 通信方案，支持多达 25 种编程语言。为了支持多种语言，跟 gRPC 一样，Thrift 也有一套自己的接口定义语言 IDL，可以通过代码生成器，生成各种编程语言的 Client 端和 Server 端的 SDK 代码，这样就保证了不同语言之间可以相互通信。它的架构图可以用下图来描述。</p>
+<p><img src="/../images/6%E7%A7%8D%E5%BE%AE%E6%9C%8D%E5%8A%A1RPC%E6%A1%86%E6%9E%B6/bff58395a40f589e881dd47f669b428f.JPEG" alt="img"></p>
+<p>从这张图上可以看出 Thrift RPC 框架的特性。</p>
+<p>支持多种序列化格式：如 Binary、Compact、JSON、Multiplexed 等。</p>
+<p>支持多种通信方式：如 Socket、Framed、File、Memory、zlib 等。</p>
+<p>服务端支持多种处理方式：如 Simple 、Thread Pool、Non-Blocking 等。</p>
+<p>关于微服务我总结了一个技术路线，分享给大家</p>
+<p><img src="/../images/6%E7%A7%8D%E5%BE%AE%E6%9C%8D%E5%8A%A1RPC%E6%A1%86%E6%9E%B6/e6a2784240f1aa1d1c37b780b0b28df6.JPEG" alt="img"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Dubbo"><span class="toc-number">1.</span> <span class="toc-text">1. Dubbo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Motan"><span class="toc-number">2.</span> <span class="toc-text">2. Motan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Tars"><span class="toc-number">3.</span> <span class="toc-text">3. Tars</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Spring-Cloud"><span class="toc-number">4.</span> <span class="toc-text">4. Spring Cloud</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-gRPC"><span class="toc-number">5.</span> <span class="toc-text">5. gRPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Thrift"><span class="toc-number">6.</span> <span class="toc-text">6. Thrift</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

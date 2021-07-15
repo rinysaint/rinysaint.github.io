@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>K1/K2刷华硕固件开OpenVPN安装HTTP透明代理搭建手机云免流服务器(苹果未越狱免流量) - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,技术,华硕固件,手机免流,K1,K2,OpenVPN"> 
+    <meta name="description" content="肖日宁,xiaorining,第1步：打开www.ip138.com检查你的ip是否与路由器的WAN口IP一样，如果不一样，请跳过第2-4步，参考：[华硕老毛子固件Ngrok内网穿透教程](http://www.ittel.cn,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">K1/K2刷华硕固件开OpenVPN安装HTTP透明代理搭建手机云免流服务器(苹果未越狱免流量)</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">K1/K2刷华硕固件开OpenVPN安装HTTP透明代理搭建手机云免流服务器(苹果未越狱免流量)</h1>
+        <div class="stuff">
+            <span>十二月 23, 2016</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>第1步：打开<a href="http://www.ip138.com检查你的ip是否与路由器的WAN口IP一样，如果不一样，请跳过第2-4步，参考：[华硕老毛子固件Ngrok内网穿透教程](http://www.ittel.cn/archives/494.html)。">www.ip138.com检查你的ip是否与路由器的WAN口IP一样，如果不一样，请跳过第2-4步，参考：[华硕老毛子固件Ngrok内网穿透教程](http://www.ittel.cn/archives/494.html)。</a></p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/11b7b531f931d92ef630812af5a8b895.png" alt="img"></p>
+<p>第2步：注册花生壳帐号，<a target="_blank" rel="noopener" href="http://hsk.oray.com/">http://hsk.oray.com</a></p>
+<p>第3步：到域名管理，注册一个花生壳域名：<a target="_blank" rel="noopener" href="http://hsk.oray.com/bang/domain/">http://hsk.oray.com/bang/domain/</a></p>
+<p>不会注册的请参考：<a target="_blank" rel="noopener" href="http://www.ittel.cn/archives/498.html">怎么注册花生壳免费域名</a>。</p>
+<p>温馨提醒：每一步设置完之后都要在最下面点一下“应用本页面配置”。</p>
+<p>第4步：在华硕固件中填写你的花生壳帐号和密码以及刚申请的花生壳域名（记得删除前面的#号）。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/e05172123ae95a75e469f4a53ebadfc1.png" alt="img"></p>
+<p>第5步：启用华硕固件VPN服务器，VPN服务器协议选择OpenVPN，交通选择TCP，如下图。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/b8e950f260b4778fabb6e47f1fd36b01.png" alt="img"></p>
+<p>第6步：生成OpenVPN的证书及密钥，点击生成即可，这里生成时间较长，请耐心等待一会，然后保存。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/f705d09c6ac051792b6edb547ac17930.png" alt="img"></p>
+<p>第7步：添加OpenVPN用户，切换到设置页面，VPN服务器协议选择PPTP，这里是临时切换，不要保存本页面，然后到客户帐户里添加。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/7cbd716a6cc92bdaf74fb74ee9be3140.png" alt="img"></p>
+<p>第8步：切换到VPN服务器设置页面，找到VPN隧道设置如下两项。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/12f86fac7248b0492abae79477b0e6c8.png" alt="img"></p>
+<p>第9步：导出OpenVPN配置文件，点击出口client.ovpn，如果无法导出换个浏览器即可。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/06056c18e852096797271e963819c445.png" alt="img"></p>
+<p>设置完成后点击右上角注销右边的重启按钮重启路由器，切勿断电再开机，否则就前功尽弃了。</p>
+<p>第10步：到花生壳域名列表中点击域名诊断看是否与自己的宽带拨号WAN口IP一致，如果不一致就是第4步没有配置好。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/05cc13d35b54903bf967367198a1a56a.png" alt="img"></p>
+<p>第11步：修改刚才导出的client.ovpn，如下图所示，这里的难点在于你们地区的免流代码。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/246b1da1b22a015a00df6ae51751d8c2.png" alt="img"></p>
+<p>第12步：然后将client.ovpn配置文件导入你的手机即可。</p>
+<p>总结搭建OpenVPN免流失败的原因：</p>
+<p>①路由器WAN口地址不是外网IP。</p>
+<p>②没有严格按照以上教程配置OpenVPN。</p>
+<p>③免流代码无效。</p>
+<p>视频教程观看地址：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1pyxNNQF0Cpj6ksmImOMFuw">http://pan.baidu.com/s/1mhQhPig</a></p>
+<p>安卓OpenVPN客户端现在基本度已经自带里，或者百度搜索。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/q-300x300.jpg" alt="img"></p>
+<p>扫描加入群<a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=5xodyNl">点此加入刷机交流群：773721392</a></p>
+<blockquote>
+<p>二、接下来是如何安装TinyProxy透明代理+免流代码</p>
+</blockquote>
+<p><em>因为对Linux不熟悉，通过一定的学习和研究，已经请教了原帖作者bigandy（在此表示感谢），基本搞定TinyProxy代理安装（高手略过）</em><br>第一步：下载TinyProxy，地址</p>
+<p><a target="_blank" rel="noopener" href="https://coding.net/u/bigandy/p/rt-n56u-ext-bin/git/tree/master/bin">https://coding.net/u/bigandy/p/rt-n56u-ext-bin/git/tree/master/bin</a></p>
+<p> 作者已修改的支持 sock4/5 的编译版本。<br>第二步：修改配置文件，将Port改为自己需要的，这里我保留作者的9999不动（当然这一步可以省略）<br>第三步：路由器开启SSH的情况下用WinSCP将下好的文件传到路由的 /etc/storage/bin 文件夹里面，没有的创建，不要改路径。<br>第四步：赋予bin文件夹7777权限，并在命令行中运行./tinyproxy -c /etc/storage/bin/tinyproxy.conf （确认当前运行路径是/etc/storage/bin）<br>第五步：如果运行后没有任何提示，则自己改IE代理验证是否成功。</p>
+<p>如果运行后有如下错误<br>/etc/storage/bin$ tinyproxy<br>-sh: tinyproxy: not found</p>
+<h1 id="请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。"><a href="#请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。" class="headerlink" title="请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。"></a>请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。</h1><p>三、部分核心免流代码简介<br>那么如何能手机免流呢？免流代码是关键！至于原理自己李彦宏，至于是否能成功，必须亲自测试，请看好是必须！<br>以下代码是用于替换或添加openvpn配置文件里的免流代码的，具体看第一部分最后的截图。<br>#########免流代码############<br>这是免流代码之前必须添加的部分<br>dev tun<br>connect-retry-max 5<br>connect-retry 5<br>resolv-retry 60<br>下面是核心免流代码，能否免流就看这儿的了！<br>移动免流代码举例：<br>一、4 G<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://mmsc.monternet.com/">http://mmsc.monternet.com</a>“<br>二、<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.sc.10086.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.sc.10086.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “Host: wap.sc.10086.cn”<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “Host: wap.sc.10086.cn”<br>http-proxy 10.0.0.172 80<br>（记得把wap.sc.10086.cn换成所在地区的wap掌厅）<br>三、<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.cmvideo.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.cmvideo.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “Host: wap.cmvideo.cn”<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “Host: wap.cmvideo.cn”<br>http-proxy 106.2.108.242 80</p>
+<p>常用移动免流host有：wap.xx.10086.cn (xx是代表地区，比如广西就是wap.gx.10086.cn) wap.cmvideo.cn rd.go.10086.cn<br>联通免流host有：wap.10010.com<br>电信免流host有：ltetp.tv189.com<br>以上代码任选，以能够实现免流为准！是否免流可以下载个大文件过10分钟到一小时后查询流量，如果只跑了几个k则是免流成功！<br>如果跑了你那个大文件的流量就是不免，不要来找我，自己悠着点！<br>亲测sd地区必须加http-proxy 10.0.0.172 80这句代码才可以免，4G峰值也很快哦！ </p>
+<p>联通免流代码举例：<br>一、虾米模式<br>http-proxy-option EXT1 “Proxy-Authorization: Basic MzAwMDAwNDU5MDpGRDYzQTdBNTM0NUMxMzFF”<br>http-proxy xiami.gzproxy.10155.com 8143<br>二、<br>http-proxy-option EXT1 “Proxy-Authorization: Basic MzAwMDAwNDU5MDpGRDYzQTdBNTM0NUMxMzFF”<br>http-proxy kugou.gzproxy.10155.com 8143<br>三、<br>http-proxy-option EXT1 Proxy-Authorization:Basic YWs0NDc5OjZjOGJlMmRkYzU3MjM4MmYxNzMyMmJiMjlhNDNkZjJi<br>http-proxy 123.138.56.20 81439 </p>
+<p>四、<br>http-proxy-option EXT1 “Proxy-Authorization:Basic YWs0NDc5OjZjOGJlMmRkYzU3MjM4MmYxNzMyMmJiMjlhNDNkZjJi”<br>http-proxy 10.0.0.172 80</p>
+<p>五、<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.10010.com”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.10010.com”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “Host: wap.10010.com”<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “Host: wap.10010.com”<br>http-proxy 106.2.108.242 80</p>
+<p>使用自己服务器建立透明代理，如Squid、TinyProxy、Mproxy等的免流代码最后一行改为<br>http-proxy 你的服务器ip 端口号<br>电信没有测试，在此没有发言权，请测试了的朋友自己开贴发教程，谢谢！</p>
+<p>四、内网IP用户突破限制架设云免服务器有关内网用户，可能以为云免与其无缘，其实华硕固件自带了穿透模式，即ngrokc服务！<br>请先去<a target="_blank" rel="noopener" href="http://www.ngrok.cc/">www.ngrok.cc</a>网站注册一下，然后设定一个域名和tcp转发端口</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/forum.php" alt="img"></p>
+<p>路由器里设置的命令 按要求修改  记得系统域名和端口要和ngrok.cc服务器设置的一样 有很多在这一步设置错误</p>
+<p>代码1<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0<em><strong>这个是你自己的token</strong>*</em>e]*</p>
+<p>-*AddTun[Type:tcp,Lhost:192.168.X.1,Lport:1194,Rport:<em>你自己的端口</em>] </p>
+<p>*-AddTun[Type:http,Lhost:192.168.0.1,Lport:80,Sdname:<em>你自己的系统域名</em>]</p>
+<p>代码2<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0<em><strong>这个是你自己的token</strong>*</em>e] -AddTun[Type:http,Lhost:192.168.X.1,Lport:80,Sdname:<em>你自己的系统域名</em>]<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0<em><strong>这个是你自己的token</strong></em>*e] </p>
+<p>*-AddTun[Type:tcp,Lhost:192.168.X.1,Lport:1194,Rport:<em>你自己的端口</em>] &amp;</p>
+<p>这2种代码自选一个测试 楼主只能用代码1 群内很多群友用的代码2 应该都能使用 使用方法看下图 点击图片放大</p>
+<p><img src="https://www.anywlan.com/forum.php?mod=attachment&aid=NjM1Mzk3fDE0Mzg4ZjNjfDE2MDkyMTEzMTZ8MHwzOTU4MzQ=&noupdate=yes" alt="img"> </p>
+<p>如何检查是否穿透成功呢<br>比如我<a target="_blank" rel="noopener" href="http://www.ngrok.cc/">ngrok.cc</a>设置的系统域名:admin TCP转发端口:8888</p>
+<p>例如：<br>这个代码和路由自带的不一样  会多出-Addtun什么 后边的一部分是路由远程域名<br>一切设置好了登录admin.ngrok.cc 可以登录路由器管理界面就算穿透了<br>这个admin是你自己在<a target="_blank" rel="noopener" href="http://www.ngrok.cc/">ngrok.cc</a>设置的系统域名 自己设置什么请对应填写什么 端口同样</p>
+<p><img src="https://www.anywlan.com/forum.php?mod=attachment&aid=NjM1Mzk4fGY5YjBmMjdkfDE2MDkyMTEzMTZ8MHwzOTU4MzQ=&noupdate=yes" alt="img"></p>
+<p>关于ngrokc更新问题 我用的是华硕5.26版本 没有更新ngrok插件写入代码直接可以用<br>内网也可以使用花生壳但是花生壳不出SN码 没办法  出SN码的自己实验提供一行代码<br>原贴地址:<a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-161324-1-1.html">http://www.right.com.cn/forum/thread-161324-1-1.html</a>      6楼</p>
+<p>我改了一份花生壳内网版的脚本，和adbyby一样独立运行在tmp下的脚本，麻烦楼主帮忙看看能不能合入到固件里，这样和ss分开，一些低内存没有usb口的机器也可以用了。此代码不用开启花生壳拓展  也不需要opt环境   只需一行代码就可以开启了</p>
+<p>wget -t 10 -O /tmp/install_oray.sh <a target="_blank" rel="noopener" href="http://code.taobao.org/svn/test43/phddns2/tmp/install_oray.sh">http://code.taobao.org/svn/test43/phddns2/tmp/install_oray.sh</a> &amp;&amp; sh /tmp/install<br>sleep 30<br>sh /home/root/startss.sh” </p>
+<p>直接加在自定义脚本 运行路由启动后的脚本最下面<br>ngrok服务器映射没有想象中的稳定，要重复多次，大家可以多换几个服务器试试</p>
+<p>如果有想法，也可以用小主机、树莓派搭建，效果要比路由器好，而且能够一次集成透明代理服务。<br>有关路由器的搭建方法到此结束，云主机、小主机搭建方法很多，网上有很多一键脚本，具体可以看如下链接，在此不再赘述。<br><a target="_blank" rel="noopener" href="http://www.aeink.com/42.html0">http://www.aeink.com/42.html0</a> </p>
+<p>贴中引用了部分作者的原创，在此表示感谢<a target="_blank" rel="noopener" href="http://www.92zuanke.com/">www.92zuanke.com</a>（就爱赚客）、4G免流社区（<a target="_blank" rel="noopener" href="http://www.4gml.com/">www.4gml.com</a>）、百度相关贴吧（云免、免流、移动免流、免流破解等等）</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B7%E9%87%8D%E5%90%AF%E8%B7%AF%E7%94%B1%E5%86%8D%E8%AF%95%E3%80%82%E5%A6%82%E6%9E%9C%E9%9C%80%E8%A6%81%E9%95%BF%E4%B9%85%E8%BF%90%E8%A1%8C%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%90%8E%E5%8F%B0%E6%94%B9%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%8A%A0%E5%85%A5%E4%BB%A5%E4%B8%8A%E5%91%BD%E4%BB%A4%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

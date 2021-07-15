@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>微服务Eureka使用详解 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,Eureka是spring cloud中的一个负责服务注册与发现的组件。遵循着CAP理论中的A(可用性)P(分区容错性)。
+一个Eureka中分为eureka server和eureka clien,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">微服务Eureka使用详解</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">微服务Eureka使用详解</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-Eureka/" rel="tag">微服务,Eureka</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>Eureka是spring cloud中的一个负责服务注册与发现的组件。遵循着CAP理论中的A(可用性)P(分区容错性)。</p>
+<p>一个Eureka中分为eureka server和eureka client。其中eureka server是作为服务的注册与发现中心。eureka client既可以作为服务的生产者，又可以作为服务的消费者。具体结构如下图：</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1117146-20190510153141906-1290481315.png" alt="img"></p>
+<p>上图中我们首先会启动一个或多个Eureka server，这些eureka server同步保留着所有的服务信息。然后我们启动不同的eureka client，向服务端发起服务注册和服务查询。不论我们是向那个eureka server进行的注册，最终都会同步给所有配置好的eureka server。我们获取的服务信息，也同样都是一致的。</p>
+<p><strong>eureka server实现</strong></p>
+<p>spring cloud是基于spring boot进行的开发，因此我们需要创建一个spring boot项目，同时在里面添加eureka server包。</p>
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">            &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<p>添加完成后，在我们的启动类中添加注解@EnableEurekaServer</p>
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableEurekaServer</span><br><span class="line">public class ServiceRegistryApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ServiceRegistryApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<p>然后是一些配置信息在配置文件中配置：</p>
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#服务端口</span><br><span class="line">server.port&#x3D;8077</span><br><span class="line">#服务名称</span><br><span class="line">spring.application.name&#x3D;eureka-server</span><br><span class="line">#服务地址</span><br><span class="line">eureka.instance.hostname&#x3D;localhost</span><br><span class="line"></span><br><span class="line">#不向注册中心注册自己</span><br><span class="line">eureka.client.register-with-eureka&#x3D;false</span><br><span class="line">#取消检索服务</span><br><span class="line">eureka.client.fetch-registry&#x3D;false</span><br><span class="line">#开启注册中心的保护机制，默认是开启</span><br><span class="line">eureka.server.enable-self-preservation&#x3D;true</span><br><span class="line">#设置保护机制的阈值，默认是0.85。</span><br><span class="line">eureka.server.renewal-percent-threshold&#x3D;0.5</span><br><span class="line"></span><br><span class="line">#注册中心路径，如果有多个eureka server，在这里需要配置其他eureka server的地址，用&quot;,&quot;进行区分，如&quot;http:&#x2F;&#x2F;address:8888&#x2F;eureka,http:&#x2F;&#x2F;address:8887&#x2F;eureka&quot;</span><br><span class="line">eureka.client.service-url.default-zone&#x3D;http:&#x2F;&#x2F;$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;&#x2F;eureka</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<p>配置完成后，我们运行启动类，可以看到打印出来的信息里面，eureka server已经启动。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1117146-20190510155914378-657511819.png" alt="img"></p>
+<p>这个时候可以进入地址<a href="http://localhost:8077，查看注册中心：">http://localhost:8077，查看注册中心：</a></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1117146-20190510160314356-1516024080.png" alt="img"></p>
+<p><strong>eureka client服务注册</strong></p>
+<p>同样的先添加eureka client的包</p>
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;type&gt;pom&lt;&#x2F;type&gt;</span><br><span class="line">            &lt;scope&gt;import&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<p>然后在启动类中添加注解@EnableEurekaClient。</p>
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">&#x2F;&#x2F; 注意：服务端配置的是EnableEurekaServer，客户端配置的是EnableEurekaClient</span><br><span class="line">@EnableEurekaClient</span><br><span class="line">public class UserServerApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(UserServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<p>在这里我们可以创建一个controller，用来提供一个服务，并填写返回值。</p>
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class UserController &#123;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;users&#x2F;&#123;id&#125;&quot;)</span><br><span class="line">    public String getUser(@PathVariable(&quot;id&quot;) String id) &#123;</span><br><span class="line">        System.out.println(&quot;接收到请求[&#x2F;users&#x2F;&quot; + id + &quot;]&quot;);</span><br><span class="line">        return &quot;testUser&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<p>在配置文件中添加配置信息：</p>
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#服务端口</span><br><span class="line">server.port&#x3D;7001</span><br><span class="line">#服务名称</span><br><span class="line">spring.application.name&#x3D;user</span><br><span class="line">#服务地址</span><br><span class="line">eureka.instance.hostname&#x3D;localhost</span><br><span class="line"></span><br><span class="line">#注册中心路径，表示我们向这个注册中心注册服务，如果向多个注册中心注册，用“，”进行分隔</span><br><span class="line">eureka.client.serviceUrl.defaultZone&#x3D;http:&#x2F;&#x2F;localhost:8077&#x2F;eureka</span><br><span class="line">#心跳间隔5s，默认30s。每一个服务配置后，心跳间隔和心跳超时时间会被保存在server端，不同服务的心跳频率可能不同，server端会根据保存的配置来分别探活</span><br><span class="line">eureka.instance.lease-renewal-interval-in-seconds&#x3D;5</span><br><span class="line">#心跳超时时间10s，默认90s。从client端最后一次发出心跳后，达到这个时间没有再次发出心跳，表示服务不可用，将它的实例从注册中心移除</span><br><span class="line">eureka.instance.lease-expiration-duration-in-seconds&#x3D;10</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<p>然后我们运行启动类，查看打印出来的日志信息，红框内容表示用eureka注册服务user，状态为up。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1117146-20190510162508612-1407779871.png" alt="img"></p>
+<p>这时我们再访问我们的注册中心地址：<a href="http://localhost:8077，里面已经有了一个服务实例USER了。">http://localhost:8077，里面已经有了一个服务实例USER了。</a></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1117146-20190510162723518-1046183288.png" alt="img"></p>
+<p>如果这个时候我们再把服务关掉，查看eureka server的控制台打印：</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1117146-20190510165215284-2136799844.png" alt="img"></p>
+<p>注意看时间，不是在我们关掉服务的时候立即检测出来，而是差不多120秒后，先打印一个WARN，服务USER已经超出过期时间。然后打印一个INFO，将服务USER的实例从注册中心移除。</p>
+<p><strong>eureka client服务消费者</strong></p>
+<p>上面我们创建了一个注册中心和一个注册的服务，下面我们再通过eureka client来调用所注册的服务。</p>
+<p>在eureka中，实际上是不区分服务的消费者和服务生产者的，一个服务的消费者，同样也可以是一个服务的生产者。因此我们首先要做的就是再创建一个eureka client。这个enreka client命名为roleServer</p>
+<p>创建好eureka client后，我们创建一个配置类，创建RestTemplate来进行服务间的连接</p>
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class RestConfig &#123;</span><br><span class="line">    </span><br><span class="line">    @Bean</span><br><span class="line">    @LoadBalanced &#x2F;&#x2F;负载均衡</span><br><span class="line">    public RestTemplate restTemplate() &#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<p>然后在Controller中进行服务的调用：</p>
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class RoleController &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 这里配置的是我们要调用的服务实例名，我们要调用USER服务，因此这里的地址是USER</span><br><span class="line">    private String rest_url_prefix &#x3D; &quot;http:&#x2F;&#x2F;user&quot;;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;roles&#x2F;&#123;id&#125;&quot;)</span><br><span class="line">    public String getRole(@PathVariable(&quot;id&quot;) String id) &#123;</span><br><span class="line">        System.out.println(&quot;接收到请求[&#x2F;roles&#x2F;&quot; + id + &quot;]&quot;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 调用USER服务中的&#x2F;users&#x2F;&#123;id&#125;服务</span><br><span class="line">        return restTemplate.getForObject(rest_url_prefix + &quot;&#x2F;users&#x2F;&quot; + id, String.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);"><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/copycode.gif" alt="复制代码"></a></p>
+<p>配置完成，运行启动类，我们首先在服务注册中心可以看到这两个服务实例</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1117146-20190510172143269-61885358.png" alt="img"></p>
+<p>我们访问ROLE服务中定义的请求路径：<a target="_blank" rel="noopener" href="http://localhost:7003/roles/1%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E9%A1%B5%E9%9D%A2%E8%BF%94%E5%9B%9E%E4%BA%86%E6%88%91%E4%BB%AC%E5%9C%A8USER%E6%9C%8D%E5%8A%A1%E4%B8%AD%E7%9A%84%E5%AE%9A%E4%B9%89%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC&quot;testUser&quot;%EF%BC%9A">http://localhost:7003/roles/1，可以看到页面返回了我们在USER服务中的定义的返回值&quot;testUser&quot;：</a></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1Eureka%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/1117146-20190510172311650-1823076496.png" alt="img"></p>
+<p>由此，我们的一个euraka注册中心、服务生产者、服务消费者均已经创建完成。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

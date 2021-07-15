@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>三种负载均衡 Nginx、Dubbo、Ribbon 区别 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,描述1.Dubbo负载均衡：支持4种（随机，轮循，最少活跃，hash），引入了JVM预热时间加权、权重自定义配置的规则，同时支持控制台动态配置权重值参数，所以是最灵活的。
+2.Nginx负载均衡：支,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">三种负载均衡 Nginx、Dubbo、Ribbon 区别</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">三种负载均衡 Nginx、Dubbo、Ribbon 区别</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-Nginx-Dubbo-Ribbon/" rel="tag">负载均衡,Nginx,Dubbo,Ribbon</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>1.Dubbo负载均衡：支持4种（随机，轮循，最少活跃，hash），引入了JVM预热时间加权、权重自定义配置的规则，同时支持控制台动态配置权重值参数，所以是最灵活的。</p>
+<p>2.Nginx负载均衡：支持4种，自带 轮询（支持权重）、IP_Hash（避免Session共享的问题）、最少连接数策略，可以扩展fair（响应时间）策略，更专注于功能。</p>
+<p>3.Ribbon负载均衡：支持6种，不支持权重：轮询、随机、最少连接数、最短响应时间（随机+响应时间加权）、过滤异常节点+轮询，负载策略最全的</p>
+<h1 id="Dubbo-负载均衡-2-6-x"><a href="#Dubbo-负载均衡-2-6-x" class="headerlink" title="Dubbo 负载均衡(2.6.x)"></a>Dubbo 负载均衡(2.6.x)</h1><p>Dubbo提供4种负载均衡算法,引入了JVM预热时间加权、权重自定义配置的规则，同时支持控制台动态配置权重值参数，所以最灵活。</p>
+<ul>
+<li>Random LoadBalance：按照权重随机分配Provider，比如随机且权重Node1:Node2= 2:1，那么运行30次，大约有20次在Node1上，10次在Node2上。</li>
+<li>RoundRobin LoadBalance：按照权重轮询分配。比如权重Node1:Node2= 20:10，那么运行30次：前20次里面轮询Node1和Node2大家各10次，第20次到30次，全部选择Node1。因为Dubbo默认是不会做公约数的处理，只有完成一个完整的20+10次运算，才能保证负载均衡的权重比例准确，如果Consumer只调用了20次，那么这里配置的权重的结果就是1:1了，该算法很不平滑。在2.6.5版本中修复了，跟Nginx的实现方法一样。</li>
+<li>LeastActive LoadBalance：节点处理越快分配更多，避免慢节点堆积，每次筛选Provider的时候，都只取Active值最小的节点，如果最小Active值的节点有多个，则按照权重随机选取。Provider每获取到一个任务Active值++，每结束一个任务Active值–。</li>
+<li>ConsistentHash LoadBalance：唯一忽略权重配置和JVM预热的算法。先把所有Provider都分配160个虚拟节点，通过Hash算法，全部分散到Hash圆上。每次Consumer调用时，会根据参数值做Hash换算，最后映射到Hash圆上，找到邻近的虚拟节点，最终获取到提供服务的Provider。但是Dubbo在实现的时候违背了Hash一致性的原则，每次Porvider发生改变的时候（新增或者剔除)，都会重新创建一个Hash圆，而不是在之前的Hash圆上新增或者剔除不合格的Porvider。</li>
+</ul>
+<h1 id="Nginx-负载均衡算法"><a href="#Nginx-负载均衡算法" class="headerlink" title="Nginx 负载均衡算法"></a>Nginx 负载均衡算法</h1><p>Nginx目前有4种负载均衡配置：</p>
+<ul>
+<li><p>round_robin，加权轮询，是默认的HTTP负载均衡算法，适用于知道机器的性能，且默认所有的请求对于服务器而言，处理的时间相差不大。比如我Server1 比Server2的配置要高一倍，我设置为2:1的权重，可以实现比较科学的负载。算法实现上，简单的轮询很简单，给每个Server依次编号，然后只要记录一个调用index，既可以实现轮询。</p>
+</li>
+<li><p>ip_hash，IP哈希，可保持会话</p>
+</li>
+<li><p>least_conn; 避免了慢堆积，会取连接数最小的server提供服务，可以避免有些请求耗时长，有些耗时端的情况。根据实际的连接数选择服务器。</p>
+</li>
+<li><p>fair，需要插件扩展该功能，根据后端服务器的响应时间来分配请求，响应时间短的优先分配，避免慢堆积。</p>
+<p>权重配置：而且采用的是平滑的负载均衡算法，比如node1:node2:node3=1:2:5 –&gt; node3，node3，node2，node3，node1，node3，node2，node3。</p>
+</li>
+</ul>
+<h1 id="Ribbon-负载均衡概述"><a href="#Ribbon-负载均衡概述" class="headerlink" title="Ribbon 负载均衡概述"></a>Ribbon 负载均衡概述</h1><ul>
+<li>RoundRobinRule：轮询。默认超过10次获取到的server都不可用，会返回一个空的server</li>
+<li>RandomRule：随机，如果随机到的server为null或者不可用的话，会while不停的循环选取</li>
+<li>RetryRule：一定时限内循环重试。默认继承RoundRobinRule，也支持自定义注入，RetryRule会在每次选取之后，对选举的server进行判断，是否为null，是否alive，并且在500ms内会不停的选取判断。而RoundRobinRule失效的策略是超过10次，RandomRule是没有失效时间的概念，只要serverList没都挂。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public IRule ribbonRule() &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     return new RetryRule(new BestAvailableRule());&#x2F;&#x2F;这里配置策略，和配置文件对应</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BestAvailableRule：最小连接数。遍历serverList，选取出可用的且连接数最小的一个server。该算法里面有一个LoadBalancerStats的成员变量，会存储所有server的运行状况和连接数。如果选取到的server为null，那么会调用RoundRobinRule重新选取。</li>
+<li>WeightedResponseTimeRule：最小响应时间。这个策略整合了随机算法和响应时间加权算法。会开启定时任务，每30秒计算一次所有Provider的响应时间，以响应时间作为权重，响应时间越短的服务器被选中的概率越大。比如Node1:node2:node3的平均响应时间为100ms：200ms:300ms，那么nodes的的权重值是300:500:600，每次以600为基础*随机值，那么落在 0–300的概率为50%，300–500的概率33%，100–600的概率为17%，也就是平均响应时间越短的节点，被选中的概率越大。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">double totalResponseTime &#x3D; 0;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;遍历获取所有节点的总的平均响应时间</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for (Server server : nlb.getAllServers()) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ServerStats ss &#x3D; stats.getSingleServerStat(server);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    totalResponseTime +&#x3D; ss.getResponseTimeAvg();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Double weightSoFar &#x3D; 0.0;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;然后从第一个节点开始设置自增的weightSoFar，每个结点的权重值weight为总响应时间-自己的相应时间，也就是说，node的响应时间越短，weight的值就越大，就越有可能被随机数命中</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">List&lt;Double&gt; finalWeights &#x3D; new ArrayList&lt;Double&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for (Server server : nlb.getAllServers()) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ServerStats ss &#x3D; stats.getSingleServerStat(server);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    double weight &#x3D; totalResponseTime - ss.getResponseTimeAvg();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    weightSoFar +&#x3D; weight;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    finalWeights.add(weightSoFar);   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">setWeights(finalWeights);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>AvailabilityFilteringRule 过滤+轮询策略，先过滤出故障的或并发请求大于阈值一部分服务实例，然后再轮询。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">private boolean shouldSkipServer(ServerStats stats) &#123;        </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   if ((CIRCUIT_BREAKER_FILTERING.get() &amp;&amp; stats.isCircuitBreakerTripped()) || stats.getActiveRequestsCount() &gt;&#x3D; activeConnectionsLimit.get()) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       return true;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   return false;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ZoneAvoidanceRule 扩展了轮询策略，继承了2个过滤器：ZoneAvoidancePredicate和AvailabilityPredicate，除了过滤超时和链接数过多的server，还会过滤掉不符合要求的zone里面的所有节点。</li>
+</ul>
+<p>Ribbon和Feign都是用于调用其他服务的，不过方式不同。</p>
+<p>1.启动类使用的注解不同，Ribbon用的是@RibbonClient，Feign用的是@EnableFeignClients。</p>
+<p>2.服务的指定位置不同，Ribbon是在@RibbonClient注解上声明，Feign则是在定义抽象方法的接口中使用@FeignClient声明。</p>
+<p>3.调用方式不同，Ribbon需要自己构建http请求，模拟http请求然后使用RestTemplate发送给其他服务，步骤相当繁琐。</p>
+<p>Feign则是在Ribbon的基础上进行了一次改进，采用接口的方式，将需要调用的其他服务的方法定义成抽象方法即可，</p>
+<p>不需要自己构建http请求。不过要注意的是抽象方法的注解、方法签名要和提供服务的方法完全一致。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dubbo-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-2-6-x"><span class="toc-number">2.</span> <span class="toc-text">Dubbo 负载均衡(2.6.x)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nginx-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">Nginx 负载均衡算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ribbon-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%A6%82%E8%BF%B0"><span class="toc-number">4.</span> <span class="toc-text">Ribbon 负载均衡概述</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

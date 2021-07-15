@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>教你如何修改win7旗舰版系统远程桌面端口 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,win7,远程桌面"> 
+    <meta name="description" content="肖日宁,xiaorining,**win7旗舰版**系统中的远程终端服务是一项功能非常强大的服务，同时也成了入侵者长驻主机的通道，入侵者可以利用一些手段得到管理员账号和密码并入侵主机。下面，墨染暖心教你如何通过修改win7旗舰版,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">教你如何修改win7旗舰版系统远程桌面端口</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">教你如何修改win7旗舰版系统远程桌面端口</h1>
+        <div class="stuff">
+            <span>十二月 23, 2016</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/win7/" rel="tag">win7</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>**<a target="_blank" rel="noopener" href="http://www.windows7en.com/">win7旗舰版</a>**系统中的远程终端服务是一项功能非常强大的服务，同时也成了入侵者长驻主机的通道，入侵者可以利用一些手段得到管理员账号和密码并入侵主机。下面，墨染暖心教你如何通过修改win7旗舰版远程桌面默认端口，防范黑客入侵。</p>
+<p>　　远程终端服务基于端口3389。入侵者一般先扫描主机开放端口，一旦发现其开放了3389端口，就会进行下一步的入侵，所以我们只需要修改该务默认端口就可以避开大多数入侵者的耳目。</p>
+<p>　　<strong>具体操作步骤：</strong></p>
+<p>　　1、打开“开始“→”运行”，输入“regedit”，按下回车键，打开注册表，依次点开：[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp]，可以看到PortNumber的默认值是3389，修改成所希望的端口即可，例如此处墨染暖心用的是8080，同时，要注意点选“十进制”。见下图：</p>
+<p><img src="/post/images/%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9win7%E6%97%97%E8%88%B0%E7%89%88%E7%B3%BB%E7%BB%9F%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E7%AB%AF%E5%8F%A3/4-140923161S0V8.jpg" alt="修改成所希望的端口"></p>
+<p>　　2、打开[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp]，将PortNumber的值(默认是3389)修改成端口8080，注意使用十进制。</p>
+<p>　　PS：网上很多教程到此就结束了。的确，如果是XP或2003系统，这样客户端就可以通过8080端口进行远程桌面连接。但是，在win7旗舰版系统下，光修改以上两处的端口为8080，客户端是无法进行远程桌面连接的。究其原因，原来<a target="_blank" rel="noopener" href="http://www.windows7en.com/">win7旗舰版</a> 加强了自带防火墙的功能。下面是一张已经将远程桌面的本地端口修改为8080后的截图，原本默认本地端口为3389：</p>
+<p><img src="/post/images/%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9win7%E6%97%97%E8%88%B0%E7%89%88%E7%B3%BB%E7%BB%9F%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E7%AB%AF%E5%8F%A3/4-14092316194EV.jpg" alt="远程桌面的本地端口修改为8080后"></p>
+<p>　　再PS：从入站规则里的防火墙策略里，如果不手动修改防火墙策略的端口为8080，是不能发现有任何一条防火墙策略的本地端口为8080的。也就是说，在入站规则里，如果不开启对8080端口的放行，防火墙会默认拒绝外界访问8080端口，这也是客户端不能成功进行远程桌面连接的原因。</p>
+<p>　　3、只有通过修改注册表的方式来修改防火墙策略。在注册表中依次打开[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\SharedAccess\Defaults\FirewallPolicy\FirewallRules]，将RemoteDesktop-In-TCP的值中包含3389的数据改成8080，并保存。</p>
+<p>　　4、接着依次点开[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\SharedAccess\Parameters\FirewallPolicy\FirewallRules]，将RemoteDesktop-In-TCP的值中包含3389的数据改成8080，并保存。</p>
+<p>　　5、修改完毕，重新启动电脑，那么以后远程登录的时候使用端口8080就可以了。</p>
+<p>　　具体的访问的方法是IP:端口号，如192.168.100.100：8080，如下图：</p>
+<p><img src="/post/images/%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9win7%E6%97%97%E8%88%B0%E7%89%88%E7%B3%BB%E7%BB%9F%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E7%AB%AF%E5%8F%A3/4-140923162049633.jpg" alt="端口号，如192.168.100.100：8080"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

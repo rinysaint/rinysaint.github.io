@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>负载均衡Ribbon替换成Spring Cloud Load Balancer - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,Spring Cloud Load Balancer并不是一个独立的项目，而是spring-cloud-commons其中的一个模块。 项目中用了Eureka以及相关的 starter，想完全剔除R,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">负载均衡Ribbon替换成Spring Cloud Load Balancer</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">负载均衡Ribbon替换成Spring Cloud Load Balancer</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-Ribbon-Spring-Cloud-Load-Balancer/" rel="tag">负载均衡,Ribbon,Spring Cloud Load Balancer</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p><code>Spring Cloud Load Balancer</code>并不是一个独立的项目，而是<code>spring-cloud-commons</code>其中的一个模块。 项目中用了<code>Eureka</code>以及相关的 starter，想完全剔除<code>Ribbon</code>的相关依赖基本是不可能的，Spring 社区的人也是看到了这一点，通过配置去关闭<code>Ribbon</code>启用<code>Spring-Cloud-LoadBalancer</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.cloud.loadbalancer.ribbon.enabled&#x3D;false</span><br></pre></td></tr></table></figure>
+
+<p>关闭ribbon之后，Spring Cloud LoadBalancer就会加载成为默认的负载均衡器。</p>
+<p>Spring Cloud LoadBalancer 结构如下所示：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aHhoYXNoLWJsb2cub3NzLWNuLWJlaWppbmcuYWxpeXVuY3MuY29tL3NwcmluZy1jbG91ZCVFNSU4RCU4NyVFNyVCQSVBNyVFNCVCOSU4QiVFOCVCNyVBRi9ob3h0b24vU3ByaW5nQ2xvdWRMb2FkQmFsYW5jZXIlRTclQkIlOTMlRTYlOUUlODQucG5n?x-oss-process=image/format,png" alt="image"></p>
+<p>其中：</p>
+<ol>
+<li>全局只有一个 <code>BlockingLoadBalancerClient</code>，负责执行所有的负载均衡请求。</li>
+<li><code>BlockingLoadBalancerClient</code>从<code>LoadBalancerClientFactory</code>里面加载对应微服务的负载均衡配置。</li>
+<li>每个微服务下有独自的<code>LoadBalancer</code>，<code>LoadBalancer</code>里面包含负载均衡的算法，例如<code>RoundRobin</code>.根据算法，从<code>ServiceInstanceListSupplier</code>返回的实例列表中选择一个实例返回。</li>
+</ol>
+<h3 id="1-实现zone隔离"><a href="#1-实现zone隔离" class="headerlink" title="1. 实现zone隔离"></a>1. 实现<code>zone</code>隔离</h3><p>要想实现<code>zone</code>隔离，应该从<code>ServiceInstanceListSupplier</code>里面做手脚。默认的实现里面有关于<code>zone</code>隔离的<code>ServiceInstanceListSupplier</code> -&gt; <code>org.springframework.cloud.loadbalancer.core.ZonePreferenceServiceInstanceListSupplier</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">private List&lt;ServiceInstance&gt; filteredByZone(List&lt;ServiceInstance&gt; serviceInstances) &#123;</span><br><span class="line">	if (zone &#x3D;&#x3D; null) &#123;</span><br><span class="line">		zone &#x3D; zoneConfig.getZone();</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;如果zone不为null，并且该zone下有存活实例，则返回这个实例列表</span><br><span class="line">	&#x2F;&#x2F;否则，返回所有的实例</span><br><span class="line">	if (zone !&#x3D; null) &#123;</span><br><span class="line">		List&lt;ServiceInstance&gt; filteredInstances &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">		for (ServiceInstance serviceInstance : serviceInstances) &#123;</span><br><span class="line">			String instanceZone &#x3D; getZone(serviceInstance);</span><br><span class="line">			if (zone.equalsIgnoreCase(instanceZone)) &#123;</span><br><span class="line">				filteredInstances.add(serviceInstance);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		if (filteredInstances.size() &gt; 0) &#123;</span><br><span class="line">			return filteredInstances;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F; If the zone is not set or there are no zone-specific instances available,</span><br><span class="line">	&#x2F;&#x2F; we return all instances retrieved for given service id.</span><br><span class="line">	return serviceInstances;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里对于没指定<code>zone</code>或者该<code>zone</code>下没有存活实例的情况下，会返回所有查到的实例，不区分<code>zone</code>。这个不符合我们的要求，所以我们修改并实现下我们自己的<a target="_blank" rel="noopener" href="https://github.com/HashZhang/spring-cloud-scaffold/blob/master/spring-cloud-hoxton/spring-cloud-hoxton-service-consumer/src/main/java/com/github/hashjang/hoxton/service/consumer/config/SameZoneOnlyServiceInstanceListSupplier.java">com.github.hashjang.hoxton.service.consumer.config.SameZoneOnlyServiceInstanceListSupplier</a>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">private List&lt;ServiceInstance&gt; filteredByZone(List&lt;ServiceInstance&gt; serviceInstances) &#123;</span><br><span class="line">    if (zone &#x3D;&#x3D; null) &#123;</span><br><span class="line">        zone &#x3D; zoneConfig.getZone();</span><br><span class="line">    &#125;</span><br><span class="line">    if (zone !&#x3D; null) &#123;</span><br><span class="line">        List&lt;ServiceInstance&gt; filteredInstances &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">        for (ServiceInstance serviceInstance : serviceInstances) &#123;</span><br><span class="line">            String instanceZone &#x3D; getZone(serviceInstance);</span><br><span class="line">            if (zone.equalsIgnoreCase(instanceZone)) &#123;</span><br><span class="line">                filteredInstances.add(serviceInstance);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (filteredInstances.size() &gt; 0) &#123;</span><br><span class="line">            return filteredInstances;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;如果没找到就返回空列表，绝不返回其他集群的实例</span><br><span class="line">    return List.of();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们来看一下默认的 <code>Spring Cloud LoadBalancer</code> 提供的 <code>LoadBalancer</code> ，它是带缓存的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration</span><br><span class="line">@Bean</span><br><span class="line">@ConditionalOnBean(ReactiveDiscoveryClient.class)</span><br><span class="line">@ConditionalOnMissingBean</span><br><span class="line">public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(</span><br><span class="line">		ReactiveDiscoveryClient discoveryClient, Environment env,</span><br><span class="line">		ApplicationContext context) &#123;</span><br><span class="line">	DiscoveryClientServiceInstanceListSupplier delegate &#x3D; new DiscoveryClientServiceInstanceListSupplier(</span><br><span class="line">			discoveryClient, env);</span><br><span class="line">	ObjectProvider&lt;LoadBalancerCacheManager&gt; cacheManagerProvider &#x3D; context</span><br><span class="line">			.getBeanProvider(LoadBalancerCacheManager.class);</span><br><span class="line">	if (cacheManagerProvider.getIfAvailable() !&#x3D; null) &#123;</span><br><span class="line">		return new CachingServiceInstanceListSupplier(delegate,</span><br><span class="line">				cacheManagerProvider.getIfAvailable());</span><br><span class="line">	&#125;</span><br><span class="line">	return delegate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>DiscoveryClientServiceInstanceListSupplier</code>每次从<code>Eureka</code>上面拉取实例列表，<code>CachingServiceInstanceListSupplier</code>提供了缓存，这样不必每次从<code>Eureka</code>上面拉取。可以看出<code>CachingServiceInstanceListSupplier</code>是一种代理模式的实现，和<code>SameZoneOnlyServiceInstanceListSupplier</code>的模式是一样的。</p>
+<p>我们来组装我们的<code>ServiceInstanceListSupplier</code>，由于我们是同步的环境，只用实现同步的<code>ServiceInstanceListSupplier</code>就行了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class CommonLoadBalancerConfig &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 同步环境下的ServiceInstanceListSupplier</span><br><span class="line">     * SameZoneOnlyServiceInstanceListSupplier限制仅返回同一个zone下的实例（注意）</span><br><span class="line">     * CachingServiceInstanceListSupplier启用缓存，不每次访问eureka请求实例列表</span><br><span class="line">     *</span><br><span class="line">     * @param discoveryClient</span><br><span class="line">     * @param env</span><br><span class="line">     * @param zoneConfig</span><br><span class="line">     * @param context</span><br><span class="line">     * @return</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Bean</span><br><span class="line">    @Order(Integer.MIN_VALUE)</span><br><span class="line">    public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(</span><br><span class="line">            DiscoveryClient discoveryClient, Environment env,</span><br><span class="line">            LoadBalancerZoneConfig zoneConfig,</span><br><span class="line">            ApplicationContext context) &#123;</span><br><span class="line">        ServiceInstanceListSupplier delegate &#x3D; new SameZoneOnlyServiceInstanceListSupplier(</span><br><span class="line">                new DiscoveryClientServiceInstanceListSupplier(discoveryClient, env),</span><br><span class="line">                zoneConfig</span><br><span class="line">        );</span><br><span class="line">        ObjectProvider&lt;LoadBalancerCacheManager&gt; cacheManagerProvider &#x3D; context</span><br><span class="line">                .getBeanProvider(LoadBalancerCacheManager.class);</span><br><span class="line">        if (cacheManagerProvider.getIfAvailable() !&#x3D; null) &#123;</span><br><span class="line">            return new CachingServiceInstanceListSupplier(</span><br><span class="line">                    delegate,</span><br><span class="line">                    cacheManagerProvider.getIfAvailable()</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">        return delegate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-实现下一次重试的时候，如果存在其他实例，则一定会重试与本次不同的其他实例"><a href="#2-实现下一次重试的时候，如果存在其他实例，则一定会重试与本次不同的其他实例" class="headerlink" title="2. 实现下一次重试的时候，如果存在其他实例，则一定会重试与本次不同的其他实例"></a>2. 实现下一次重试的时候，如果存在其他实例，则一定会重试与本次不同的其他实例</h3><p>默认的<code>RoundRobinLoadBalancer</code>，其中的轮询<code>position</code>，是一个<code>Atomic</code>类型的，在某个微服务的调用请求下，所有线程，所有请求共用（调用其他的每个微服务会创建一个<code>RoundRobinLoadBalancer</code>）。在使用的时候，会有这样的一个问题：</p>
+<ul>
+<li>假设某个微服务有两个实例，实例 A 和实例 B</li>
+<li>某次请求 X 发往实例 A，position = position + 1</li>
+<li>在请求没有返回时，请求 Y 到达，发往实例 B，position = position + 1</li>
+<li>请求 A 失败，重试，重试的实例还是实例 A</li>
+</ul>
+<p>这样在重试的情况下，某个请求的重试可能会发送到上一次的实例进行重试，这不是我们想要的。针对这个，我提了个Issue：<a target="_blank" rel="noopener" href="https://github.com/spring-cloud/spring-cloud-commons/issues/747">Enhance RoundRoubinLoadBalancer position</a>。我修改的思路是，我们需要一个单次请求隔离的<code>position</code>，这个<code>position</code>对于实例个数取余得出请求要发往的实例。那么如何进行请求隔离呢？</p>
+<p>首先想到的是线程隔离，但是这个是不行的。Spring Cloud LoadBalancer 底层运用了 reactor 框架，导致实际承载选择实例的线程，不是业务线程，而是 reactor 里面的线程池，如图所示：<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aHhoYXNoLWJsb2cub3NzLWNuLWJlaWppbmcuYWxpeXVuY3MuY29tL3NwcmluZy1jbG91ZCVFNSU4RCU4NyVFNyVCQSVBNyVFNCVCOSU4QiVFOCVCNyVBRi9ob3h0b24vJUU4JUFGJUI3JUU2JUIxJTgyJUU5JTgwJTg5JUU2JThCJUE5JUU1JUFFJTlFJUU0JUJFJThCJUU3JUJBJUJGJUU3JUE4JThCLnBuZw?x-oss-process=image/format,png" alt="image"><br>所以，不能用<code>ThreadLocal</code>的方式实现<code>position</code>。</p>
+<p>由于我们用到了<code>sleuth</code>，一般请求的<code>context</code>会传递其中的<code>traceId</code>，我们根据这个<code>traceId</code>区分不同的请求，实现我们的 <code>LoadBalancer</code>：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/HashZhang/spring-cloud-scaffold/blob/master/spring-cloud-hoxton/spring-cloud-hoxton-service-consumer/src/main/java/com/github/hashjang/hoxton/service/consumer/config/RoundRobinBaseOnTraceIdLoadBalancer.java"><code>RoundRobinBaseOnTraceIdLoadBalancer</code></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;这个超时时间，需要设置的比你的请求的 connectTimeout + readTimeout 长</span><br><span class="line">private final LoadingCache&lt;Long, AtomicInteger&gt; positionCache &#x3D; Caffeine.newBuilder().expireAfterWrite(3, TimeUnit.SECONDS).build(k -&gt; new AtomicInteger(ThreadLocalRandom.current().nextInt(0, 1000)));</span><br><span class="line"></span><br><span class="line">private Response&lt;ServiceInstance&gt; getInstanceResponse(List&lt;ServiceInstance&gt; serviceInstances) &#123;</span><br><span class="line">    if (serviceInstances.isEmpty()) &#123;</span><br><span class="line">        log.warn(&quot;No servers available for service: &quot; + this.serviceId);</span><br><span class="line">        return new EmptyResponse();</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;如果没有 traceId，就生成一个新的，但是最好检查下为啥会没有</span><br><span class="line">    &#x2F;&#x2F;是不是 MQ 消费这种没有主动生成 traceId 的情况，最好主动生成下。</span><br><span class="line">    Span currentSpan &#x3D; tracer.currentSpan();</span><br><span class="line">    if (currentSpan &#x3D;&#x3D; null) &#123;</span><br><span class="line">        currentSpan &#x3D; tracer.newTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    long l &#x3D; currentSpan.context().traceId();</span><br><span class="line">    int seed &#x3D; positionCache.get(l).getAndIncrement();</span><br><span class="line">    return new DefaultResponse(serviceInstances.get(seed % serviceInstances.size()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-替换默认的负载均衡相关-Bean-实现"><a href="#3-替换默认的负载均衡相关-Bean-实现" class="headerlink" title="3. 替换默认的负载均衡相关 Bean 实现"></a>3. 替换默认的负载均衡相关 Bean 实现</h3><p>我们要用上面的两个类替换默认的实现，先编写一个配置类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">public class CommonLoadBalancerConfig &#123;</span><br><span class="line"></span><br><span class="line">    private volatile boolean isValid &#x3D; false;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 同步环境下的ServiceInstanceListSupplier</span><br><span class="line">     * SameZoneOnlyServiceInstanceListSupplier限制仅返回同一个zone下的实例（注意）</span><br><span class="line">     * CachingServiceInstanceListSupplier启用缓存，不每次访问eureka请求实例列表</span><br><span class="line">     *</span><br><span class="line">     * @param discoveryClient</span><br><span class="line">     * @param env</span><br><span class="line">     * @param zoneConfig</span><br><span class="line">     * @param context</span><br><span class="line">     * @return</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @Bean</span><br><span class="line">    @Order(Integer.MIN_VALUE)</span><br><span class="line">    public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(</span><br><span class="line">            DiscoveryClient discoveryClient, Environment env,</span><br><span class="line">            LoadBalancerZoneConfig zoneConfig,</span><br><span class="line">            ApplicationContext context) &#123;</span><br><span class="line">        isValid &#x3D; true;</span><br><span class="line">        ServiceInstanceListSupplier delegate &#x3D; new SameZoneOnlyServiceInstanceListSupplier(</span><br><span class="line">                new DiscoveryClientServiceInstanceListSupplier(discoveryClient, env),</span><br><span class="line">                zoneConfig</span><br><span class="line">        );</span><br><span class="line">        ObjectProvider&lt;LoadBalancerCacheManager&gt; cacheManagerProvider &#x3D; context</span><br><span class="line">                .getBeanProvider(LoadBalancerCacheManager.class);</span><br><span class="line">        if (cacheManagerProvider.getIfAvailable() !&#x3D; null) &#123;</span><br><span class="line">            return new CachingServiceInstanceListSupplier(</span><br><span class="line">                    delegate,</span><br><span class="line">                    cacheManagerProvider.getIfAvailable()</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">        return delegate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public ReactorLoadBalancer&lt;ServiceInstance&gt; reactorServiceInstanceLoadBalancer(</span><br><span class="line">            Environment environment,</span><br><span class="line">            ServiceInstanceListSupplier serviceInstanceListSupplier,</span><br><span class="line">            Tracer tracer) &#123;</span><br><span class="line">        if (!isValid) &#123;</span><br><span class="line">            throw new IllegalStateException(&quot;should use the ServiceInstanceListSupplier in this configuration, please check config&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        String name &#x3D; environment.getProperty(LoadBalancerClientFactory.PROPERTY_NAME);</span><br><span class="line">        return new RoundRobinBaseOnTraceIdLoadBalancer(</span><br><span class="line">                name,</span><br><span class="line">                serviceInstanceListSupplier,</span><br><span class="line">                tracer</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，<strong>指定默认的负载均衡配置采取这个配置</strong>, 通过注解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@LoadBalancerClients(defaultConfiguration &#x3D; &#123;CommonLoadBalancerConfig.class&#125;)</span><br></pre></td></tr></table></figure>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%9E%E7%8E%B0zone%E9%9A%94%E7%A6%BB"><span class="toc-number">1.</span> <span class="toc-text">1. 实现zone隔离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%9E%E7%8E%B0%E4%B8%8B%E4%B8%80%E6%AC%A1%E9%87%8D%E8%AF%95%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%AD%98%E5%9C%A8%E5%85%B6%E4%BB%96%E5%AE%9E%E4%BE%8B%EF%BC%8C%E5%88%99%E4%B8%80%E5%AE%9A%E4%BC%9A%E9%87%8D%E8%AF%95%E4%B8%8E%E6%9C%AC%E6%AC%A1%E4%B8%8D%E5%90%8C%E7%9A%84%E5%85%B6%E4%BB%96%E5%AE%9E%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">2. 实现下一次重试的时候，如果存在其他实例，则一定会重试与本次不同的其他实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9B%BF%E6%8D%A2%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9B%B8%E5%85%B3-Bean-%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">3. 替换默认的负载均衡相关 Bean 实现</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

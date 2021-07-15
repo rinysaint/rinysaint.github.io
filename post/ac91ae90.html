@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SpringCloud微服务：基于Nacos组件，整合Dubbo框架 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,源码地址：GitHub·点这里 || GitEE·点这里
+一、基础组件简介1、Dubbo框架Dubbo服务化治理的核心框架，之前几年在国内被广泛使用，后续由于微服务的架构的崛起，更多的公司转向微服务,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">SpringCloud微服务：基于Nacos组件，整合Dubbo框架</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">SpringCloud微服务：基于Nacos组件，整合Dubbo框架</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-Spring-Cloud-Nacos-Dubbo/" rel="tag">微服务,Spring Cloud,Nacos,Dubbo</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>源码地址：<a target="_blank" rel="noopener" href="https://github.com/cicadasmile/spring-cloud-base">GitHub·点这里</a> || <a target="_blank" rel="noopener" href="https://gitee.com/cicadasmile/spring-cloud-base">GitEE·点这里</a></p>
+<h1 id="一、基础组件简介"><a href="#一、基础组件简介" class="headerlink" title="一、基础组件简介"></a>一、基础组件简介</h1><h2 id="1、Dubbo框架"><a href="#1、Dubbo框架" class="headerlink" title="1、Dubbo框架"></a>1、Dubbo框架</h2><p>Dubbo服务化治理的核心框架，之前几年在国内被广泛使用，后续由于微服务的架构的崛起，更多的公司转向微服务下成熟的技术栈，但是Dubbo本身确实是非常优秀的框架。</p>
+<p>常见的应用迭代和升级的过程基本如下：</p>
+<ul>
+<li>当应用访问量逐渐增大，单一应用增加机器带来的加速度越来越小，提升效率的方法之一是将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。</li>
+<li>随着垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。</li>
+<li>伴随业务发展，服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于提高机器利用率的资源调度和治理中心(SOA)是关键。</li>
+</ul>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPdf" alt="image"></p>
+<p>而Dubbo框架的核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。正好可以解决上述业务发展的痛点。</p>
+<h2 id="2、微服务框架"><a href="#2、微服务框架" class="headerlink" title="2、微服务框架"></a>2、微服务框架</h2><p>SpringCloud是一系列框架的有序集合。它利用SpringBoot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用SpringBoot的开发风格做到一键启动和部署。</p>
+<p>后续AliCloud微服务系列组件也不断被使用起来，其中最基础的组件Nacos注册中心，更是直接支持Dubbo框架，这样Cloud和Dubbo两大框架就成功的整合在了一起。</p>
+<h2 id="3、Nacos注册中心"><a href="#3、Nacos注册中心" class="headerlink" title="3、Nacos注册中心"></a>3、Nacos注册中心</h2><p>Nacos注册中心主要用于发现、配置、管理微服务。并且提供一组简单易用的特性集，快速实现动态服务发现、服务配置、服务元数据及流量管理。</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPdc" alt="image"></p>
+<p>如上图Nacos无缝支持一些主流的开源生态框架，例如SprinCloud,Dubbo两大框架。在AliCloud的系列组件中，还包含了Seata，RocketMQ，Sentinel等一系列组件。</p>
+<h1 id="二、服务结构图解"><a href="#二、服务结构图解" class="headerlink" title="二、服务结构图解"></a>二、服务结构图解</h1><p>SpringCloud和Dubbo整合的结构示意图如下，使用的Nacos中心：</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPc9" alt="image"></p>
+<p><strong>Provider提供方</strong>：提供核心的Dubbo服务接口；</p>
+<p><strong>Consumer消费方</strong>：消费注册的Dubbo服务接口；</p>
+<p><strong>Nacos注册中心</strong>：配置、发现和管理Dubbo服务；</p>
+<p>通过上述流程不难发现，不管从架构上看，还是用法过程，基于核心Dubbo框架和微服务原生框架是十分相似，上述流程也遵循这样一个规则：dubbo-server连接自己的业务库DB，并通过dubbo-facade中接口向外提供服务，如果不同dubbo-server需要访问其他服务接口，也必须要通过其他服务的facade接口操作，dubbo-client作为接口服务消费端，可以通过facade接口访问很多业务模块的服务，整体架构层次十分明了。</p>
+<h1 id="三、编码案例实现"><a href="#三、编码案例实现" class="headerlink" title="三、编码案例实现"></a>三、编码案例实现</h1><h2 id="1、案例结构和依赖"><a href="#1、案例结构和依赖" class="headerlink" title="1、案例结构和依赖"></a>1、案例结构和依赖</h2><p><strong>案例结构</strong></p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPc7" alt="image"></p>
+<p>包含三个模块：server、facade、client。</p>
+<p><strong>核心依赖</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-dubbo&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.1.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.1.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.1.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、服务端配置"><a href="#2、服务端配置" class="headerlink" title="2、服务端配置"></a>2、服务端配置</h2><p><strong>配置文件</strong></p>
+<p>主要是Nacos注册中心和Dubbo两个核心配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 9010</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: node10-dubbo-server</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: http:&#x2F;&#x2F;localhost:8848</span><br><span class="line">      config:</span><br><span class="line">        server-addr: http:&#x2F;&#x2F;localhost:8848</span><br><span class="line">        file-extension: yaml</span><br><span class="line"># Dubbo服务配置</span><br><span class="line">dubbo:</span><br><span class="line">  scan:</span><br><span class="line">    base-packages: com.cloud.dubbo.service</span><br><span class="line">  protocol:</span><br><span class="line">    name: dubbo</span><br><span class="line">    port: -1</span><br><span class="line">  registry:</span><br><span class="line">    address: spring-cloud:&#x2F;&#x2F;localhost</span><br></pre></td></tr></table></figure>
+
+<p><strong>服务接口实现</strong></p>
+<p>这里DubboService即dubbo-facade包中对外提供的接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.dubbo.config.annotation.Service;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line">@Service</span><br><span class="line">public class DubboServiceImpl implements DubboService &#123;</span><br><span class="line"></span><br><span class="line">    private static final Logger LOGGER &#x3D; LoggerFactory.getLogger(DubboServiceImpl.class) ;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String getInfo() &#123;</span><br><span class="line">        LOGGER.info(&quot;node10-dubbo-server start ...&quot;);</span><br><span class="line">        return &quot;node10-dubbo-server&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：@Service是Dubbo框架中的注解，不是Spring框架的注解。</p>
+<h2 id="3、消费端配置"><a href="#3、消费端配置" class="headerlink" title="3、消费端配置"></a>3、消费端配置</h2><p><strong>配置文件</strong></p>
+<p>主要配置是链接Nacos注册中心，订阅注册中心的node10-dubbo-server服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 9011</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: node10-dubbo-client</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: http:&#x2F;&#x2F;localhost:8848</span><br><span class="line">      config:</span><br><span class="line">        server-addr: http:&#x2F;&#x2F;localhost:8848</span><br><span class="line"># Dubbo服务配置</span><br><span class="line">dubbo:</span><br><span class="line">  protocol:</span><br><span class="line">    name: dubbo</span><br><span class="line">    port: -1</span><br><span class="line">  registry:</span><br><span class="line">    address: spring-cloud:&#x2F;&#x2F;localhost</span><br><span class="line">  cloud:</span><br><span class="line">    subscribed-services: node10-dubbo-server</span><br></pre></td></tr></table></figure>
+
+<p><strong>Dubbo接口调用</strong></p>
+<p>同样，这里DubboService即dubbo-facade包中对外提供的接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import com.cloud.dubbo.service.DubboService;</span><br><span class="line">import org.apache.dubbo.config.annotation.Reference;</span><br><span class="line">import org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">public class DubboWeb &#123;</span><br><span class="line"></span><br><span class="line">    @Reference</span><br><span class="line">    private DubboService dubboService ;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;&#x2F;getInfo&quot;)</span><br><span class="line">    public String getInfo () &#123;</span><br><span class="line">        return dubboService.getInfo() ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：@Reference也是Dubbo框架中的注解。</p>
+<p>如上流程开发完成，先后启动dubbo-server服务和dubbo-client服务，查看注册中心服务列表：</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPc6" alt="image"></p>
+<p>通过上述getInfo接口请求测试，即可看到完整的案例效果。</p>
+<h1 id="四、技术选型"><a href="#四、技术选型" class="headerlink" title="四、技术选型"></a>四、技术选型</h1><p>很少有选择SpringCloud+Dubbo框架的架构模式，这里简单说明一下为何，因为这两个框架都是相当复杂的，学习成本是一个方面，风险是最主要原因，这两个框架同时使用，就意味要面对和解决两个框架下产生的问题，在任何一个框架都可以稳定的解决业务问题时，完全没必要花里胡哨。</p>
+<h1 id="五、源代码地址"><a href="#五、源代码地址" class="headerlink" title="五、源代码地址"></a>五、源代码地址</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GitHub地址：知了一笑</span><br><span class="line">https:&#x2F;&#x2F;github.com&#x2F;cicadasmile&#x2F;spring-cloud-base</span><br><span class="line">GitEE地址：知了一笑</span><br><span class="line">https:&#x2F;&#x2F;gitee.com&#x2F;cicadasmile&#x2F;spring-cloud-base</span><br></pre></td></tr></table></figure>
+
+<p><strong>推荐阅读：微服务组件和应用</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>文章标题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">01</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/cbEnCOhgo-5wGFX-GAUQtg">微服务基础：Eureka组件，管理服务注册发现</a></td>
+</tr>
+<tr>
+<td align="center">02</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/yHCC-MwFtDda_y817CV2XA">微服务基础：Ribbon和Feign组件，实现请求负载均衡</a></td>
+</tr>
+<tr>
+<td align="center">03</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/pDrda8tBbNfReWVQrzal6w">微服务基础：Hystrix组件，实现服务熔断</a></td>
+</tr>
+<tr>
+<td align="center">04</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-PPL5jwe4OdoBq7kQwePKA">微服务基础：Turbine组件，实现微服务集群监控</a></td>
+</tr>
+<tr>
+<td align="center">05</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/A7xiIp9EG62_1y-F23TATg">微服务基础：Zuul组件，实现路由网关控制</a></td>
+</tr>
+<tr>
+<td align="center">06</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_WZ1r0Kas5yMMPfwZ4MRUw">微服务基础：Config组件，实现配置统一管理</a></td>
+</tr>
+<tr>
+<td align="center">07</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/p3p3Wi72rJngqMz4FSICBQ">微服务基础：Zipkin组件，实现请求链路追踪</a></td>
+</tr>
+<tr>
+<td align="center">08</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RC8F_D1J75XEv7oR7xdK5Q">微服务基础：与Dubbo框架、Boot框架对比分析</a></td>
+</tr>
+<tr>
+<td align="center">09</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/adwfdDGg9DQleYLECA8raQ">微服务基础：Nacos组件，服务和配置管理</a></td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/L_Q9PyPKngmCx-c94o0UmA">微服务基础：Sentinel组件，服务限流和降级</a></td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/yCRwHGUd7xzQeEhoXFeO-w">微服务应用：分库分表模式下，数据库扩容方案</a></td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/QHF4qFP0JUhmievlj3FQPQ">微服务应用：Shard-Jdbc分库分表，扩容方案实现</a></td>
+</tr>
+</tbody></table>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一、基础组件简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81Dubbo%E6%A1%86%E6%9E%B6"><span class="toc-number">1.1.</span> <span class="toc-text">1、Dubbo框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6"><span class="toc-number">1.2.</span> <span class="toc-text">2、微服务框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81Nacos%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="toc-number">1.3.</span> <span class="toc-text">3、Nacos注册中心</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%9C%8D%E5%8A%A1%E7%BB%93%E6%9E%84%E5%9B%BE%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">二、服务结构图解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%BC%96%E7%A0%81%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">三、编码案例实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%A1%88%E4%BE%8B%E7%BB%93%E6%9E%84%E5%92%8C%E4%BE%9D%E8%B5%96"><span class="toc-number">3.1.</span> <span class="toc-text">1、案例结构和依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">2、服务端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%B6%88%E8%B4%B9%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-number">3.3.</span> <span class="toc-text">3、消费端配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">四、技术选型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%BA%90%E4%BB%A3%E7%A0%81%E5%9C%B0%E5%9D%80"><span class="toc-number">5.</span> <span class="toc-text">五、源代码地址</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

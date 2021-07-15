@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ffmpeg 推送、保存rtmp 流命令 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,
+最近浏览国外网站时候发现，翻译不准确的敬请谅解。
+1、将文件当做直播送至live
+1ffmpeg -re -i localFile.mp4 -c copy -f flv rtmp://server,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">ffmpeg 推送、保存rtmp 流命令</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">ffmpeg 推送、保存rtmp 流命令</h1>
+        <div class="stuff">
+            <span>九月 28, 2017</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86-FFmpeg/" rel="tag">图像处理,FFmpeg</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <ol>
+<li><p>最近浏览国外网站时候发现，翻译不准确的敬请谅解。</p>
+<p>1、将文件当做直播送至live</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -i localFile.mp4 -c <span class="built_in">copy</span> -f flv rtmp:<span class="comment">//server/live/streamName</span></span><br></pre></td></tr></table></figure>
+
+<p>2、将直播媒体保存至本地文件</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i <span class="attr">rtmp:</span><span class="comment">//server/live/streamName -c copy dump.flv</span></span><br></pre></td></tr></table></figure>
+
+<p>3、将其中一个直播流，视频改用h264压缩，音频不变，送至另外一个直播服务流</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i <span class="symbol">rtmp:</span>/<span class="regexp">/server/live</span><span class="regexp">/originalStream -c:a copy -c:v libx264 -vpre slow -f flv rtmp:/</span><span class="regexp">/server/live</span><span class="regexp">/h264Stream</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4、将其中一个直播流，视频改用h264压缩，音频改用faac压缩，送至另外一个直播服务流</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ffmpeg</span> -i rtmp://server/live/originalStream -c:a libfaac -ar <span class="number">44100</span> -ab <span class="number">48</span>k -c:v libx<span class="number">264</span> -vpre slow -vpre baseline -f flv rtmp://server/live/h<span class="number">264</span>Stream</span><br></pre></td></tr></table></figure>
+
+<p>5、将其中一个直播流，视频不变，音频改用faac压缩，送至另外一个直播服务流</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i <span class="symbol">rtmp:</span>/<span class="regexp">/server/live</span><span class="regexp">/originalStream -acodec libfaac -ar 44100 -ab 48k -vcodec copy -f flv rtmp:/</span><span class="regexp">/server/live</span><span class="regexp">/h264_AAC_Stream</span></span><br></pre></td></tr></table></figure>
+
+<p>6、将一个高清流，复制为几个不同视频清晰度的流重新发布，其中音频不变</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ffmpeg</span> -re -i rtmp://server/live/high_FMLE_stream -acodec copy -vcodec x<span class="number">264</span>lib -s <span class="number">640</span>×<span class="number">360</span> -b <span class="number">500</span>k -vpre medium -vpre baseline rtmp://server/live/baseline_<span class="number">500</span>k -acodec copy -vcodec x<span class="number">264</span>lib -s <span class="number">480</span>×<span class="number">272</span> -b <span class="number">300</span>k -vpre medium -vpre baseline rtmp://server/live/baseline_<span class="number">300</span>k -acodec copy -vcodec x<span class="number">264</span>lib -s <span class="number">320</span>×<span class="number">200</span> -b <span class="number">150</span>k -vpre medium -vpre baseline rtmp://server/live/baseline_<span class="number">150</span>k -acodec libfaac -vn -ab <span class="number">48</span>k rtmp://server/live/audio_only_AAC_<span class="number">48</span>k</span><br></pre></td></tr></table></figure>
+
+<p>7、功能一样，只是采用-x264opts选项</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ffmpeg</span> -re -i rtmp://server/live/high_FMLE_stream -c:a copy -c:v x<span class="number">264</span>lib -s <span class="number">640</span>×<span class="number">360</span> -x<span class="number">264</span>opts bitrate=<span class="number">500</span>:profile=baseline:preset=slow rtmp://server/live/baseline_<span class="number">500</span>k -c:a copy -c:v x<span class="number">264</span>lib -s <span class="number">480</span>×<span class="number">272</span> -x<span class="number">264</span>opts bitrate=<span class="number">300</span>:profile=baseline:preset=slow rtmp://server/live/baseline_<span class="number">300</span>k -c:a copy -c:v x<span class="number">264</span>lib -s <span class="number">320</span>×<span class="number">200</span> -x<span class="number">264</span>opts bitrate=<span class="number">150</span>:profile=baseline:preset=slow rtmp://server/live/baseline_<span class="number">150</span>k -c:a libfaac -vn -b:a <span class="number">48</span>k rtmp://server/live/audio_only_AAC_<span class="number">48</span>k</span><br></pre></td></tr></table></figure>
+
+<p>8、将当前 摄像头 及音频通过DSSHOW 采集 ，视频h264、音频faac压缩后发布</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ffmpeg</span> -r <span class="number">25</span> -f dshow -s <span class="number">640</span>×<span class="number">480</span> -i video=”video source name”:audio=”audio source name” -vcodec libx<span class="number">264</span> -b <span class="number">600</span>k -vpre slow -acodec libfaac -ab <span class="number">128</span>k -f flv rtmp://server/application/stream_name</span><br></pre></td></tr></table></figure>
+
+<p>9、将一个JPG 图片 经过h264压缩循环输出为mp4视频</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ffmpeg</span>.exe -i INPUT.jpg -an -vcodec libx<span class="number">264</span> -coder <span class="number">1</span> -flags +loop -cmp +chroma -subq <span class="number">10</span> -qcomp <span class="number">0</span>.<span class="number">6</span> -qmin <span class="number">10</span> -qmax <span class="number">51</span> -qdiff <span class="number">4</span> -flags<span class="number">2</span> +dct<span class="number">8</span>x<span class="number">8</span> -trellis <span class="number">2</span> -partitions +parti<span class="number">8</span>x<span class="number">8</span>+parti<span class="number">4</span>x<span class="number">4</span> -crf <span class="number">24</span> -threads <span class="number">0</span> -r <span class="number">25</span> -g <span class="number">25</span> -y OUTPUT.mp<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>10、将普通流视频改用h264压缩，音频不变，送至高清流服务(新版本FMS live=1)</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i <span class="symbol">rtmp:</span>/<span class="regexp">/server/live</span><span class="regexp">/originalStream -c:a copy -c:v libx264 -vpre slow -f flv “rtmp:/</span><span class="regexp">/server/live</span><span class="regexp">/h264Stream live=1″</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

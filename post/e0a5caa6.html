@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FFmpeg实战 保存网络流 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,今天我们开始正式进入FFmpeg的篇章，FFmpeg作为著名的开源框架，可以生成用于处理多媒体框架的库和程序，是音视频界内的圣经，市面上直播开发99%都是基于FFmpeg来开发的，这足以证明FFmp,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">FFmpeg实战 保存网络流</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">FFmpeg实战 保存网络流</h1>
+        <div class="stuff">
+            <span>九月 28, 2017</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86-FFmpeg/" rel="tag">图像处理,FFmpeg</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>今天我们开始正式进入FFmpeg的篇章，FFmpeg作为著名的开源框架，可以生成用于处理多媒体框架的库和程序，是音视频界内的圣经，市面上直播开发99%都是基于FFmpeg来开发的，这足以证明FFmpeg的强大。关于FFmpeg的源码和官方文档可以去<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://ffmpeg.org/doxygen/trunk/index.html">FFmpeg</a>下载源码和编译好的库。<br>  闲话不多说，下面就开始今天的主要内容，FFmpeg保存网络流到本地<br>  直播不像点播，当我们看到想看的内容时，我们不能倒退回去，但是我们可以保存直播流为本地文件，这样我们想看随时都可以。</p>
+<p>保存网络流的流程主要有以下步骤：<br>   第一步：注册所有的组件（编解码、滤镜特效处理库、封装格式处理库、工具库、音频采样数据格式转换库、视频像素数据格式转换等等…）<br>  第二步：获取视频流的封装信息，查找视频和音频流的位置<br>  第三步：查找视频和音频解码器id，根据解码器id打开解码器<br>  第四步：创建输出流并拷贝流上下文信息<br>  第五步：循环读取网络流，解码packet并写入本地<br>  第六步：关闭解码器释放内存</p>
+<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;stdafx.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;pch.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">AVFormatContext *inputContext = <span class="literal">nullptr</span>;</span><br><span class="line">AVFormatContext * outputContext;</span><br><span class="line"><span class="keyword">int64_t</span> lastReadPacktTime ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">interrupt_cb</span><span class="params">(<span class="keyword">void</span> *ctx)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>  timeout  = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">if</span>(av_gettime() - lastReadPacktTime &gt; timeout *<span class="number">1000</span> *<span class="number">1000</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">OpenInput</span><span class="params">(<span class="built_in">string</span> inputUrl)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    inputContext = avformat_alloc_context();    </span><br><span class="line">    lastReadPacktTime = av_gettime();</span><br><span class="line">    inputContext-&gt;interrupt_callback.callback = interrupt_cb;</span><br><span class="line">    <span class="keyword">int</span> ret = avformat_open_input(&amp;inputContext, inputUrl.c_str(), <span class="literal">nullptr</span>,<span class="literal">nullptr</span>);</span><br><span class="line">    <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        av_log(<span class="literal">NULL</span>, AV_LOG_ERROR, <span class="string">&quot;Input file open input failed\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>  ret;</span><br><span class="line">    &#125;</span><br><span class="line">    ret = avformat_find_stream_info(inputContext,<span class="literal">nullptr</span>);</span><br><span class="line">    <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        av_log(<span class="literal">NULL</span>, AV_LOG_ERROR, <span class="string">&quot;Find input file stream inform failed\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        av_log(<span class="literal">NULL</span>, AV_LOG_FATAL, <span class="string">&quot;Open input file  %s success\n&quot;</span>,inputUrl.c_str());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">shared_ptr</span>&lt;AVPacket&gt; <span class="title">ReadPacketFromSource</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">shared_ptr</span>&lt;AVPacket&gt; <span class="title">packet</span><span class="params">(<span class="keyword">static_cast</span>&lt;AVPacket*&gt;(av_malloc(<span class="keyword">sizeof</span>(AVPacket))), [&amp;](AVPacket *p) &#123; av_packet_free(&amp;p); av_freep(&amp;p);&#125;)</span></span>;</span><br><span class="line">    av_init_packet(packet.get());</span><br><span class="line">    lastReadPacktTime = av_gettime();</span><br><span class="line">    <span class="keyword">int</span> ret = av_read_frame(inputContext, packet.get());</span><br><span class="line">    <span class="keyword">if</span>(ret &gt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> packet;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">av_packet_rescale_ts</span><span class="params">(AVPacket *pkt, AVRational src_tb, AVRational dst_tb)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pkt-&gt;pts != AV_NOPTS_VALUE)</span><br><span class="line">        pkt-&gt;pts = av_rescale_q(pkt-&gt;pts, src_tb, dst_tb);</span><br><span class="line">    <span class="keyword">if</span> (pkt-&gt;dts != AV_NOPTS_VALUE)</span><br><span class="line">        pkt-&gt;dts = av_rescale_q(pkt-&gt;dts, src_tb, dst_tb);</span><br><span class="line">    <span class="keyword">if</span> (pkt-&gt;duration &gt; <span class="number">0</span>)</span><br><span class="line">        pkt-&gt;duration = av_rescale_q(pkt-&gt;duration, src_tb, dst_tb);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">WritePacket</span><span class="params">(<span class="built_in">shared_ptr</span>&lt;AVPacket&gt; packet)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> inputStream = inputContext-&gt;streams[packet-&gt;stream_index];</span><br><span class="line">    <span class="keyword">auto</span> outputStream = outputContext-&gt;streams[packet-&gt;stream_index];               </span><br><span class="line">    av_packet_rescale_ts(packet.get(),inputStream-&gt;time_base,outputStream-&gt;time_base);<span class="comment">//时间戳转换，输入上下文与输出上下文时间基准不同</span></span><br><span class="line">    <span class="comment">//也可以用av_write_frame</span></span><br><span class="line">    <span class="keyword">return</span> av_interleaved_write_frame(outputContext, packet.get());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">OpenOutput</span><span class="params">(<span class="built_in">string</span> outUrl)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> ret  = avformat_alloc_output_context2(&amp;outputContext, <span class="literal">nullptr</span>, <span class="string">&quot;mpegts&quot;</span>, outUrl.c_str());</span><br><span class="line">    <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        av_log(<span class="literal">NULL</span>, AV_LOG_ERROR, <span class="string">&quot;open output context failed\n&quot;</span>);</span><br><span class="line">        <span class="keyword">goto</span> Error;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ret = avio_open2(&amp;outputContext-&gt;pb, outUrl.c_str(), AVIO_FLAG_WRITE,<span class="literal">nullptr</span>, <span class="literal">nullptr</span>); </span><br><span class="line">    <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        av_log(<span class="literal">NULL</span>, AV_LOG_ERROR, <span class="string">&quot;open avio failed&quot;</span>);</span><br><span class="line">        <span class="keyword">goto</span> Error;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; inputContext-&gt;nb_streams; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//输出依赖于输入</span></span><br><span class="line">        AVStream * stream = avformat_new_stream(outputContext, inputContext-&gt;streams[i]-&gt;codec-&gt;codec);             </span><br><span class="line">        ret = avcodec_copy_context(stream-&gt;codec, inputContext-&gt;streams[i]-&gt;codec); </span><br><span class="line">        <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            av_log(<span class="literal">NULL</span>, AV_LOG_ERROR, <span class="string">&quot;copy coddec context failed&quot;</span>);</span><br><span class="line">            <span class="keyword">goto</span> Error;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ret = avformat_write_header(outputContext, <span class="literal">nullptr</span>);</span><br><span class="line">    <span class="keyword">if</span>(ret &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        av_log(<span class="literal">NULL</span>, AV_LOG_ERROR, <span class="string">&quot;format write header failed&quot;</span>);</span><br><span class="line">        <span class="keyword">goto</span> Error;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    av_log(<span class="literal">NULL</span>, AV_LOG_FATAL, <span class="string">&quot; Open output file success %s\n&quot;</span>,outUrl.c_str());            </span><br><span class="line">    <span class="keyword">return</span> ret ;</span><br><span class="line">Error:</span><br><span class="line">    <span class="keyword">if</span>(outputContext)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outputContext-&gt;nb_streams; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            avcodec_close(outputContext-&gt;streams[i]-&gt;codec);</span><br><span class="line">        &#125;</span><br><span class="line">        avformat_close_input(&amp;outputContext);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CloseInput</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(inputContext != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        avformat_close_input(&amp;inputContext);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CloseOutput</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(outputContext != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; outputContext-&gt;nb_streams; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            AVCodecContext *codecContext = outputContext-&gt;streams[i]-&gt;codec;</span><br><span class="line">            avcodec_close(codecContext);</span><br><span class="line">        &#125;</span><br><span class="line">        avformat_close_input(&amp;outputContext);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    av_register_all();</span><br><span class="line">    avfilter_register_all();</span><br><span class="line">    avformat_network_init();</span><br><span class="line">    av_log_set_level(AV_LOG_ERROR);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Init();</span><br><span class="line">    <span class="keyword">int</span> ret = OpenInput(<span class="string">&quot;rtmp://v1.one-tv.com/live/mpegts.stream&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(ret &gt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//rtmp://192.168.1.107/oflaDemo/test</span></span><br><span class="line">        <span class="comment">//ret = OpenOutput(&quot;rtmp://127.0.0.1:1935/live/stream0&quot;); //播放地址为rtmp://127.0.0.1/live/stream0 live=1</span></span><br><span class="line">        ret = OpenOutput(<span class="string">&quot;D:\\test.ts&quot;</span>); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ret &lt;<span class="number">0</span>) <span class="keyword">goto</span> Error;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">auto</span> packet = ReadPacketFromSource();</span><br><span class="line">        <span class="keyword">if</span>(packet)</span><br><span class="line">        &#123;</span><br><span class="line">            ret = WritePacket(packet);</span><br><span class="line">            <span class="keyword">if</span>(ret &gt;= <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;WritePacket Success!&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;WritePacket failed!&quot;</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">Error:</span><br><span class="line">    CloseInput();</span><br><span class="line">    CloseOutput();</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        this_thread::sleep_for(chrono::seconds(<span class="number">100</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  在上面代码函数里面有个函数av_packet_rescale_ts是不是看不懂，其实这里是跳调整时间戳，因为输入和输出流的时间基准不一定相同，所有这里需要进行时间戳转换。</p>
+<p>  interrupt_cb这个函数的官方解释是为I/O层自定义中断回调，在avformat_open_input之前设置，其实就是读取输入数据时的一个回调，在这里我们稍微做一个超时处理，如果读取超过3秒就返回一个错误码中断读取流数据。</p>
+<p>  好了，利用FFmpeg保存网络流就是这么简单，这里留个扩展，你可以试试利用FFmpeg保存网络图片。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">源码</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

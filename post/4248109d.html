@@ -1,0 +1,886 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【2016-02-22】改华硕【N14U N54U】5G 2G的7620老毛子Padavan固件(百度云同步 aria2 QOS) - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,斐讯,老毛子华硕固件,刷机"> 
+    <meta name="description" content="肖日宁,xiaorining,固件是免费、开源这固件是从Padavan固件源码:https://bitbucket.org/padavan/rt-n56u/src搬运源码汉化后编译出来的。如有需要可以到网盘下载汉化文件自行编译。,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">【2016-02-22】改华硕【N14U N54U】5G 2G的7620老毛子Padavan固件(百度云同步 aria2 QOS)</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">【2016-02-22】改华硕【N14U N54U】5G 2G的7620老毛子Padavan固件(百度云同步 aria2 QOS)</h1>
+        <div class="stuff">
+            <span>十二月 23, 2016</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>固件是免费、开源<br>这固件是从<a target="_blank" rel="noopener" href="https://bitbucket.org/padavan/rt-n56u/src">Padavan固件源码:</a><a target="_blank" rel="noopener" href="https://bitbucket.org/padavan/rt-n56u/src%E6%90%AC%E8%BF%90%E6%BA%90%E7%A0%81%E6%B1%89%E5%8C%96%E5%90%8E%E7%BC%96%E8%AF%91%E5%87%BA%E6%9D%A5%E7%9A%84%E3%80%82%E5%A6%82%E6%9C%89%E9%9C%80%E8%A6%81%E5%8F%AF%E4%BB%A5%E5%88%B0%E7%BD%91%E7%9B%98%E4%B8%8B%E8%BD%BD%E6%B1%89%E5%8C%96%E6%96%87%E4%BB%B6%E8%87%AA%E8%A1%8C%E7%BC%96%E8%AF%91%E3%80%82%EF%BC%88[HowToMakeFirmware](https://bitbucket.org/padavan/rt-n56u/wiki/EN/HowToMakeFirmware)%E7%BC%96%E8%AF%91%E6%95%99%E7%A8%8B%E8%A7%81%E7%BD%91%E7%9B%98%EF%BC%89">https://bitbucket.org/padavan/rt-n56u/src搬运源码汉化后编译出来的。如有需要可以到网盘下载汉化文件自行编译。（[HowToMakeFirmware](https://bitbucket.org/padavan/rt-n56u/wiki/EN/HowToMakeFirmware)编译教程见网盘）</a></p>
+<p>清除配置方法：<br>由于刷机不清除配置，如果按键10秒也不能清除配置，或者开机后不能启动，可能是配置冲突，需要手动清除配置(nvram)重置机器。<br>（操作前备份编程器固件以备不时之需(已经备份可以跳过)）<br>清除方法：进入breed - 恢复出厂设置 - 选择 【Config 分区 公版】- 上传华硕固件 - 更新</p>
+<p>如果出现升级固件后没更新内容，可以换其他浏览器试试，因为有些IE内核浏览器的兼容问题导致升级固件失败。如果aria2配置失败也可能是兼容问题，建议换用Chrome浏览器</p>
+<p>由于有些路由兼容性问题，中继显示连接失败，可以试试改WIFI的信道带宽20MHz。有网友试过改WIFI的信道带宽20MHz后中继连接正常。</p>
+<p>2016年02月22日 同步Padavan源码更新<br>源码更新内容：<a target="_blank" rel="noopener" href="https://bitbucket.org/padavan/rt-n56u/commits/all">https://bitbucket.org/padavan/rt-n56u/commits/all</a> 本次更新到：  <a target="_blank" rel="noopener" href="https://bitbucket.org/padavan/rt-n56u/commits/fd112f7350f8bf420103fab72fade4177efb8791">fd112f7</a>    固件版本升到3.4.3.9-099</p>
+<p>注意事项:配置说明看下面内容，有些路由刷入后WAN和LAN接口反转<br>很多附加功能都是脚本命令实现的，如果觉得启用功能太多导致不稳定，可以不启用附加功能，这样就是原版固件了，也可以清空脚本。<br>很多人启动S-S后不能用。估计是DNS被污染了。可以电脑设置：DNS自动获取路由的ip。电脑运行cmd输入【ipconfig /flushdns】，清理浏览器缓存。</p>
+<p>2016-02-22更新：新增优酷路由宝挖坑功能；新增s-s脚本指定WAN的域名或IP中转设置。<br><a target="_blank" rel="noopener" href="http://www.newbandeng.com/thread-24798-1-1.html">感谢陈生的优酷插件</a>，感谢<a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/space-uid-286223.html">101048689</a> 提供优酷插件脚本支持 和提供 <a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-182340-1-1.html">7620老毛子Padavan固件 ngrok使用教程 </a><br>2016-02-22更新注意事项：本次更新了脚本。更新、复位脚本方法：①升级到最新固件②进入管理页面 - 路由器内部存储 (/etc/storage) - 原厂默认值（第二个红色按钮）<br>2016-02-22更新注意事项：（本次更新了opt文件，需要启动自动更新或者删除U盘根目录“opt”文件夹后重启自动下载更新，也可手动下载opt解压覆盖文件更新，安装方法看下面说明）</p>
+<p>旧更新记录：<br>2016-02-16更新：新增脚本自动更新（重启后更新）；新增s-s脚本的UDP转发（能用来玩游戏了）；建议转发的TCP端口填上22,80,443【强烈建议更新此版本后更新脚本】<br>2016-02-04更新：①在使用防火墙 - 网址过滤、 MAC访问控制的过滤程序时，若启动adbyby、SS，需要开启【阻止访问路由器的主机】功能，才能成功过滤。<br>②S-S脚本修改，不用每次启动下载chnroutes。<br>2016-01-30更新：①降低闪存的SPI频率（估计以前的频率太高有些路由不能开机）。<br>②S-S添加DNS 服务程序选择，抵抗DNS污染（如果出现一些网页不能打开，可以尝试其他DNS 服务程序）。<br>③添加计划任务开关（默认关闭，需要手动开启【系统管理 - 服务 - cron守护程序】）。<br>如果百度云不能启动，需要把U盘的opt删掉，等脚本自动更新就能启动了<br>2016-01-22更新：1、感谢<a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/space-uid-13905.html">bigandy</a>提供的S-S源码和WebUI模板，现在已经内置固件里面了。<br>2、添加了WebUI，经过十来天的脚本代码重构适配WebUI，初步测试可以用，但是脚本大改后会出现BUG，大量BUG等你发现。(遇到问题请回贴说明设置、日志等情况，我都会看的)<br>3、修复百度云同步软件1小时后关闭问题，添加adbyby的IPSET过滤模式。<br>2016-01-02 更新：修复01-01版本的VPN错误；添加KMS服务程序（在【运行路由器启动后】脚本设置启动）；添加排除IP设置，可停用指定IP的S-S、adbyby功能；更新aria2-1.19.3。<br>2015-12-28更新：【重要，建议更新】修复24号脚本一处BUG：只启用adbyby时添加规则错误问题。添加中继守护功能。添加按钮启动功能：可不设置脚本启动参数启动功能<br>添加【youkuL2】和【newifi2D1】固件【cpu:7621】，注意备份：原厂uboot、eeprom<br>修正脚本添加ADbyby的加白名单方式，建议不要用第三方规则，免得过滤失效。<br>建议开启【opt 自动更新】（替换覆盖opt文件夹） upopt=1<br>1、修复爱奇艺播放器黑屏【需要更新、复位脚本】，添加Pcap_DNSProxy选项(替换ChinaDNS、pdnsd)，脚本增加resolveip，server_ip可输入域名和IP<br>2、使用 pdnsd+chinadns、添加自定义Crontab定时任务配置、添加自定义按钮脚本、添加一个自动下载更新opt文件选项(默认关闭，也可手动下载opt解压覆盖文件更新)<br>3、添加Emong’s Qos脚本，添加adbyby过滤白名单（删除规则实现加白），花生壳内网版(可免U盘运行)、添加迅雷快鸟脚本(可免U盘运行)、添加自动切换中继信号功能、添加VPN智能分流脚本<br>4、支持任意网段限速、固件版本号添加日期以便区分、添加WIFI的SSID中文支持<br>5、添加多次检测断线后自动重启功能、更新脚本修复自动安装自定义名称的U盘失效问题、可以安装到SD卡。<br>6、修复中文乱码、Busybox支持中文显示、添加迅雷脚本、添加QOS脚本、增加多次检测断线后自动重启功能、修复代理方案一CPU占用100%的问题、修复aria2配置错误问题<br>7、添加安装到内存运行轻量级隧道代理启（需要空余内存：10M）、添加代理方案二，提醒一下，电脑的DNS服务器的IP设置路由IP，全部交给路由器去解析<br>8、调整脚本配置到一个页面，添加SyncY——可在路由器上运行的百度网盘同步软件<br>9、添加轻量级隧道代理启动脚本（可以ss和adbyby同时运行），下面有设置教程<br>10、自定义脚本adbyby添加CPU负载监控（满负载自动关闭adbyby），自定义adblock规则、重启和DDNS子程序（32M内存建议不要用adblock规则）</p>
+<p>Y1S的3个USB能正常供电使用了，感谢绿色的蝈蝈提供gpio<br>根据<a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/space-uid-6034.html">luhua</a>分享的定时任务方法，脚本添加定时重启设置<br>轻量级隧道代理启动脚本大部分参考<a target="_blank" rel="noopener" href="http://www.router008.com/">HOUZI的博客</a>内容，谢谢提供</p>
+<p>改华硕[N14U N54U]5G 2G的7620老毛子Padavan固件(有transmission aria2)</p>
+<p>Padavan固件的UI打开、设置速度比原厂固件响应迅速，虽然Padavan固件去掉QoS(和IPv4 H/W NAT一起工作会出现问题), 但是添加很多功能,有transmission、aria2和HWNAT硬件加速的功能。</p>
+<p>默认密码<br>192.168.1.1<br>admin/admin<br>wifi:1234567890<br>刷机不恢复默认值</p>
+<p>注意事项<br>1、按键10秒原厂默认值<br>2、使用transmission、aria前，需要在u盘上建一个transmission目录或aria目录。（文件名必须小写字母）<br>3、使用Optware、Entware前，需要在u盘上建一个opt目录。（文件名必须小写字母）</p>
+<p>转：[N56U、N65U、N54U、N14U]Padavan韧体学习与研究：（云盘有doc版）<br><a target="_blank" rel="noopener" href="http://www.5i01.cn/topicdetail.php?f=110&amp;t=3772592&amp;p=1">http://www.5i01.cn/topicdetail.php?f=110&amp;t=3772592&amp;p=1</a></p>
+<p>Padavan固件源码：<br><a target="_blank" rel="noopener" href="https://bitbucket.org/padavan/rt-n56u/src">https://bitbucket.org/padavan/rt-n56u/src</a></p>
+<p>建议配合使用H大的breed使用：<br><a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-161906-1-1.html">http://www.right.com.cn/forum/thread-161906-1-1.html</a></p>
+<p>下载地址：<br><a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1qWr367y">http://pan.baidu.com/s/1qWr367y</a></p>
+<p>固件说明<br>基本上CPU是MT7620A/N的路由，只要配置相同，复位键相同就能用</p>
+<table>
+<thead>
+<tr>
+<th>固件</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RT-N14U_GPIO_1_OYE01_128M</td>
+<td>MT7620A/N通用，复位键GPIO#1，16M闪存，128M内存，2.4GWi-Fi，USB，SD卡</td>
+</tr>
+<tr>
+<td>RT-N14U_GPIO_1_youku1_128M</td>
+<td>优酷路由宝，复位键GPIO#1，16M闪存，128M内存，2.4GWi-Fi，USB，SD卡</td>
+</tr>
+<tr>
+<td>RT-N14U_GPIO_12_xiaodu_ji1S_128M</td>
+<td>小度路由/极路由-极壹S（HC5661），复位键GPIO#12，16M闪存，128M内存，2.4GWi-Fi，USB，SD卡</td>
+</tr>
+<tr>
+<td>RT-N14U_GPIO_1_RY1_64M</td>
+<td>如意云ry1，复位键GPIO#1，8/16M闪存，64M内存，2.4GWi-Fi，USB，SD卡</td>
+</tr>
+<tr>
+<td>RT-N14U_GPIO_26_ZTEQ7_64M</td>
+<td>中兴ZTEQ7，复位键GPIO#26，8/16M闪存，64M内存，2.4GWi-Fi，USB，SD卡</td>
+</tr>
+<tr>
+<td>RT-N14U_GPIO_2_FIR300M_32M</td>
+<td>斐讯FIR300M/302M，复位键GPIO#2，4M闪存，32M内存，2.4GWi-Fi</td>
+</tr>
+<tr>
+<td>RT-AC51U_GPIO_12_ji2_128M</td>
+<td>极路由-极贰（HC5761），复位键GPIO#12，16M闪存，128M内存，2.4/5GWi-Fi，USB，SD卡</td>
+</tr>
+<tr>
+<td>RT-AC54U_GPIO_11_newifimini_128M</td>
+<td>联想Y1（newifi mini），复位键GPIO#11，16M闪存，128M内存，2.4/5GWi-Fi，USB</td>
+</tr>
+<tr>
+<td>RT-AC54U_GPIO_30_xiaomimini_128M</td>
+<td>小米Mini，复位键GPIO#30，16M闪存，128M内存，2.4/5GWi-Fi，USB</td>
+</tr>
+<tr>
+<td>RT-AC1200HP_GPIO_11_Y1S_256M</td>
+<td>联想Y1S（newifi），复位键GPIO#11，16M闪存，256M内存，2.4/5GWi-Fi，USB * 3个，WAN、LAN各一个千兆口（端口反转）</td>
+</tr>
+<tr>
+<td>RT-N14U-GPIO-53-BUFFALO-WHR-300HP2-64M</td>
+<td>BUFFALO-WHR-300HP2，WPS键GPIO#53，8M闪存，64M内存，2.4GWi-Fi</td>
+</tr>
+<tr>
+<td>RT-AC51U_GPIO_1_PSG712_64M</td>
+<td>斐讯PSG712，WPS键GPIO#1，8M闪存，64M内存，2.4/5GWi-Fi</td>
+</tr>
+<tr>
+<td>RT-AC54U_GPIO_1_PSG1208_64M</td>
+<td>斐讯PSG1208，WPS键GPIO#1，8M闪存，64M内存，2.4/5GWi-Fi</td>
+</tr>
+<tr>
+<td>RT-N14U_GPIO_1_WT3020H_64M</td>
+<td>乐携WT3020迷你无线路由器，WPS键GPIO#1，8M闪存，64M内存，2.4Wi-Fi，USB</td>
+</tr>
+<tr>
+<td>RT-N56UB1_newif2D1_256M</td>
+<td>联想newif2(D1)，WPS键GPIO#15，复位键键GPIO#18，32M闪存，256M内存，2.4/5GWi-Fi，USB2.0 * 2个，SD卡</td>
+</tr>
+<tr>
+<td>RT-N56UB1_youkuL2_256M</td>
+<td>优酷路由宝L2，WPS键GPIO#17，复位键键GPIO#18，16M闪存，256M内存，2.4/5GWi-Fi，USB3.0，SD卡</td>
+</tr>
+<tr>
+<td>RT-AC51U、RT-N56U、RT-N65U</td>
+<td>RT-AC51U、RT-N56U、RT-N65U华硕专用版</td>
+</tr>
+</tbody></table>
+<p>更新、复位脚本方法</p>
+<p>①升级到最新固件②路由器内部存储 (/etc/storage) - 原厂默认值</p>
+<p>共享查看SD卡说明</p>
+<p>管理网页UI那里只显示U盘，不显示SD卡，很多人以为SD不能用，其实极1S和极2的固件我都启用的SD卡驱动， 插入SD卡后，你到看看路由是否有这个文件 【/dev/mmcblk[0-9]p[0-9]】<br>如果有，就说明驱动成功，正常情况会自动挂载到【/media/AiDisk_01】路径。<br>再去看看【/media/AiDisk_01】，如果有文件夹就说明自动挂载成功（需要共享查看可以看下面图片设置），可以在脚本选择opt安装模式1，就能把opt放到SD卡里。</p>
+<p>控制台说明<br>控制台刷breed或者原厂uboot方法<br>1.查看uboot分区名：cat /proc/mtd<br>2.通过winscp或其他方式，将breed.bin文件上传至路由器/tmp/目录下，breed.bin必须小于等于128kb。<br>3.mtd_write write /tmp/breed.bin Bootloader<br>4.等2秒搞定，重启</p>
+<p>VPN客户端智能分流脚本<br>由于有些外服游戏限制IP，而且游戏端口无法使用S/s端口，所以用VPN能解决大部分游戏封锁<br>加入智能分流脚本后就能减轻vpn的负担, 和增加访问国内网站的速度.（VPN分流脚本来自：<a target="_blank" rel="noopener" href="https://github.com/fivesheep/chnroutes%EF%BC%89">https://github.com/fivesheep/chnroutes）</a><br>首页要有VPN的账号密码，接下来按照下图设置保存设置。</p>
+<p>轻量级隧道代理、ADBYBY脚本（可以ss和adbyby同时运行）</p>
+<p>①更新、复位脚本方法：①升级到最新固件②路由器内部存储 (/etc/storage) - 原厂默认值</p>
+<p>②ADBYBY默认关闭的，需要进入脚本修改启动。（自定义设置 - 脚本 - 运行路由器启动后：)</p>
+<p>③轻量级隧道代理默认关闭的，需要进入脚本修改启动。（自定义设置 - 脚本 - 运行后WAN上/下活动：)<br>自动安装（替换覆盖opt文件夹）方法：<br>一、安装到U盘<br>1、拔出U盘<br>2、用电脑删除U盘根目录“opt”文件夹（自动安装时会自动创建）【下载地址失效时手动安装方法：网盘下载opt.tgz到U盘的opt文件夹里面】<br>3、【1；安装到U盘】请设置：①修改脚本参数：installs=1；修改服务器信息，②USB 应用程序 - 其它设置 - 允许运行Optware？选择”Entware”<br>4、插入U盘<br>5、应用设置，点击右上角重启按钮（不能断电重启，要点击右上角重启按钮）<br>6、重启后完成</p>
+<p>二、安装到内存<br>1、拔出U盘<br>2、【2；安装到内存，需要空余内存：10M】①修改脚本参数：syncys=0；installs=2；修改服务器信息，②请设置：USB 应用程序 - 其它设置 - 允许运行Optware？选择”否”<br>3、应用设置，点击右上角重启按钮（不能断电重启，要点击右上角重启按钮）<br>4、重启后完成</p>
+<p>可添加方案二的gfwlist内部网络(LAN) - DHCP服务器 - 自定义配置文件 “dnsmasq.servers”<br>添加例子<br>server=/.tvb.com/208.67.222.222#443<br>ipset=/.tvb.com/gfw_black_list</p>
+<p>额外功能:<br>使用内网访问控制：禁止指定的 IP 可以使用轻量级隧道代理（清除DNS缓存、重启浏览器或重启该 IP 的电脑后生效）禁止以下 IP 使用 轻量级隧道代理（系统管理 - 控制台输入以下命令）<br>ipset add ss_spec_lan_ac 192.168.1.17 #把该内网IP加入该ss_spec_lan_ac集合<br>取消禁止方法：<br>ipset del ss_spec_lan_ac 192.168.1.17 #把该内网IP从该ss_spec_lan_ac集合中删除</p>
+<p>自定义按钮脚本</p>
+<p>按钮控制脚本在【按WPS / FN 运行按钮脚本：】</p>
+<p>SyncY同步软件脚本<br>SyncY——可在路由器上运行的百度网盘同步软件<br>SyncY同步软件技术博客：<a target="_blank" rel="noopener" href="http://www.syncy.cn/">http://www.syncy.cn/</a><br>自动安装（替换覆盖opt文件夹）方法：<br>按照上面【一、安装到U盘】的方式设置后，把修改参数syncys=1，修改脚本参数：installs=1，重启后完成</p>
+<p># syncy 功能 0关闭；1启动(需要插入U盘安装opt)<br>syncys=1<br>#SyncY配置文件路径（写字板打开修改）：\192.168.1.1\Media\AiDisk_a1\opt\etc\syncy<br>#配置说明：<a target="_blank" rel="noopener" href="http://www.syncy.cn/index.php/syncyconfighelp/">http://www.syncy.cn/index.php/syncyconfighelp/</a><br>#同步模式类型：upload,upload+,download,download+,sync （同步模式需要自行打开配置文件修改）</p>
+<p>#SyncY配置文件路径（记事本打开修改）：\192.168.1.1\Media\AiDisk_a1\opt\etc\syncy<br>#SyncY配置文件说明：<a target="_blank" rel="noopener" href="http://www.syncy.cn/index.php/syncyconfighelp/&quot;">http://www.syncy.cn/index.php/syncyconfighelp/&quot;</a><br>#可以多个同步目录，直接修改配置文件：复制多一个config syncpath配置节，然后修改相应的localpath、remotepath等就可以了。<br>#默认本地同步目录：option localpath ‘/media/AiDisk_a1/SyncY’<br>#默认云端目录（与/我的应用数据/SyncY的相对目录）：option remotepath ‘/apps/SyncY/AiDisk_a1’<br>#默认同步模式-本地上传云端备份（如需下载或同步模式可按照上面网页说明修改配置）：option synctype ‘upload+’</p>
+<p>第一次绑定设备需要不断点击“刷新”获取用户码进行进行授权（请在出现用户码后100秒内进行绑定，超时需重启路由重再次授权）<br>百度授权页面 <a target="_blank" rel="noopener" href="https://openapi.baidu.com/device">https://openapi.baidu.com/device</a><br>删除授权方法：修改配置文件，删除config syncytoken配置节内容即可</p>
+<p>自定义DDNS脚本、花生壳内网版<br>自定义DDNS脚本（取自网络）</p>
+<p>花生壳内网版<br>需要安装opt<br>设置脚本开关1启动功能<br>需要CPU、内存比较多，建议使用swap增加内存<br>运行后【刷新日志】获取SN码。使用SN账号在【 <a target="_blank" rel="noopener" href="http://b.oray.com/">http://b.oray.com</a> 】默认密码是admin登录.。默认密码是admin，然后进行修改默认密码、手机验证、邮箱验证和已有的花生壳账号绑定，首次使用需要支付宝验证。<br>绑定后需【提交】内部存储，不然重启会丢失绑定。需要重新短信验证再绑定<br>系统管理 - 恢复/导出/上传设置 - 路由器内部存储 (/etc/storage) - 【提交】<br>如果打勾连不上可以试试取消打勾</p>
+<p>启动：/opt/phddns2/oraynewph.sh start &amp;<br>查看状态：/opt/phddns2/oraynewph.sh status &amp;<br>重置应用：/opt/phddns2/oraynewph.sh reset &amp;<br>停止：/opt/phddns2/oraynewph.sh stop &amp;<br>卸载：/opt/phddns2/oraynewph.sh uninstall &amp;<br>卸载能解除SN绑定</p>
+<p>swap分区自动挂载功能<br>用MiniTool分区U盘，前面NTFS分区格式，后面swap分区格式。插入后就能自动挂载了。<br>![img](/../images/2016-02-22改华硕N14U N54U5G 2G的7620老毛子Padavan固件百度云同步 aria2 QOS/223637bazt2t1sqtzo8sea.jpg)</p>
+<p>Aria2下载管理器<br>1、使用Aria2前，需要在u盘上建一个aria目录。（文件名必须小写字母）<br>2、打开 <a target="_blank" rel="noopener" href="http://aria2c.com/">http://aria2c.com/</a> 进行设置，默认没加密：<a target="_blank" rel="noopener" href="http://192.168.1.1:6800/jsonrpc">http://192.168.1.1:6800/jsonrpc</a></p>
+<p>3、如果提示 Aria2 RPC 服务器错误 按照以下方法修改（如配置失败可清空aria目录重新开始配置）<br>如需加密请手动修改配置文件<br>选项设置为: 配置文件中rpc-secret=xxxxxx<br>选项设置为: <a href="http://token:xxxxxx@host:port/jsonrpc">http://token:xxxxxx@host:port/jsonrpc</a><br>host: 指运行 Aria2 所在机器的 IP 或者DDNS绑定的网址<br>port: 使用 –rpc-listen-port 选项设置的端口, 未设置则是 6800<br>配置DDNS使用能达到远程下载的效果</p>
+<p>迅雷远程下载安装<br>1、改脚本中参数1<br># 迅雷远程下载xunlei 功能【0关闭】；【1启动】说明看系统日志<br>xunleis=1<br>2、启动后系统日志会提示说明</p>
+<p>启动xunlei,绑定设备页面<a target="_blank" rel="noopener" href="http://yuancheng.xunlei.com/">http://yuancheng.xunlei.com</a><br>在浏览器中输入<a target="_blank" rel="noopener" href="http://192.168.1.1:9000/getsysinfo%EF%BC%88IP%E6%9B%BF%E6%8D%A2%E4%B8%BA%E4%BD%A0%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84IP%EF%BC%8C%E7%AB%AF%E5%8F%A3%E6%8D%A2%E4%B8%BA%E4%BD%A0%E7%9A%84%E6%8E%A7%E5%88%B6%E7%AB%AF%E5%8F%A3%EF%BC%89%EF%BC%8C%E4%BC%9A%E7%9C%8B%E5%88%B0%E7%B1%BB%E4%BC%BC%E5%A6%82%E4%B8%8B%E4%BF%A1%E6%81%AF%EF%BC%9A">http://192.168.1.1:9000/getsysinfo（IP替换为你路由器的IP，端口换为你的控制端口），会看到类似如下信息：</a><br>     [ 0, 1, 1, 0, “42SND1”,1, “201_2.1.3.121”, “”, 1 ]<br>其中有用的几项为：<br>第一项：0表示返回结果成功<br>第二项：1表示检测网络正常，0表示检测网络异常<br>第四项：1表示已绑定成功，0表示未绑定<br>第五项：未绑定的情况下，为绑定的需要的激活码<br>第六项：1表示磁盘挂载检测成功，0表示磁盘挂载检测失败</p>
+<p>迅雷快鸟<br>一个可以运行在路由器的迅雷快鸟(diǎo)客户端（脚本来自：<a target="_blank" rel="noopener" href="https://github.com/fffonion/Xunlei-FastDick%EF%BC%89">https://github.com/fffonion/Xunlei-FastDick）</a></p>
+<p>①在【运行路由器启动后：】脚本里配置功能开关改为1、迅雷账号和密码，修改脚本参数：installs=1，重启。（需要插入U盘安装opt）<br>②根据提示，稍等几分钟，可以ssh到路由，或者控制台输入ps命令查看swjsq进程是否存在，是否正常启动，提速是否成功。<br>③由于是后台脚本运行，看不到输出信息提示，如果想看什么错误问题，可以在控制台输入【python /opt/FastDick/swjsq.py】查看错误信息</p>
+<p>修复Entware安装问题</p>
+<p>感谢twovl提供Entware安装方法：<br>Entware按照github上不好用，还得按照google code上说的才行，主要就是在u盘上创建opt文件夹，然后卸载u盘，打开entware功能，再重新插上u盘就好了（如果/opt/里面没文件可以试试先关闭再打开entware功能刷新文件）<br>Entware出现【’/opt/lib/libstdc++.so.6’ is not an ELF file】错误修复方法：<a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-164518-1-1.html">http://www.right.com.cn/forum/thread-164518-1-1.html</a><br>Entware软件: <a target="_blank" rel="noopener" href="https://www.hqt.ro/category/entware/">https://www.hqt.ro/category/entware/</a>  <a target="_blank" rel="noopener" href="https://www.asuswrt.eu/category/entware/">https://www.asuswrt.eu/category/entware/</a><br>Entware软件安装例子:<a target="_blank" rel="noopener" href="http://www.chiphell.com/thread-933249-1-1.html">http://www.chiphell.com/thread-933249-1-1.html</a></p>
+<p>SD卡问题<br>SD卡不能激活USB程序的服务，服务功能还是需要插U盘</p>
+<p>手动挂载命令（按自己需求修改路径）：<br>“exfat”<br>mount -t exfat /dev/mmcblk0p1 /media/AiDisk_01 -o noatime,umask=0,iocharset=utf8</p>
+<p>“vfat”<br>mount -t vfat /dev/mmcblk0p1 /media/AiDisk_01 -o noatime,umask=0,iocharset=utf8,codepage=936,shortname=winnt</p>
+<p>“ntfs”<br>mount -t ufsd /dev/mmcblk0p1 /media/AiDisk_01 -o noatime,sparse,nls=utf8,force</p>
+<p>“ext4”<br>mount -t ext4 -o noatime /dev/mmcblk0p1 /media/AiDisk_01</p>
+<p>无线中继方法<br>建议使用 20MHz 信道带宽<br>AP + AP Client，受限制的万能，兼容任何厂牌的上级AP，毋须设置上级AP，受上级AP的信道影响。（需要固定上级路由的信道，增强功能：可用自动切换中继信号脚本搜寻信道、信号）<br>路由中继选项：<br>无线AP-Client角色：接LAN就要关闭本路由DHCP，上级路由开启DHCP，本路由的IP不能和上级一样。例子：一个是192.168.1.1，另一个是192.168.1.2。<br>无线AP-Client角色：接WAN就要开启本路由DHCP，上级路由开启DHCP，本路由的IP不能和上级同网段。例子：一个是192.168.1.1，另一个是192.168.2.1。</p>
+<p>首先取得中继信号的配置信息，按照下图说明填写参数。<br>当在中继状态下断线，路由会自动搜寻设定的信号</p>
+<p>启动功能需要配置两个参数：<br># AP中继连接守护功能，当中继信号断开时启动自动搜寻<br>apauto=1</p>
+<p># 【自动切换中继信号】功能 0关闭；填写配置参数启动<br>ap2g5g=”2@4@1@ASUS@1234567890”</p>
+<p>QOS脚本</p>
+<p>建议只使用脚本1<br>脚本①任意网段限速QOS脚本：<br>1、改脚本中参数1启动脚本<br>#qos 功能 0关闭；1启动<br>qoss=1<br>2、配置参数<br>禁用硬件NAT：”请设置：①外部网络(WAN) - 互联网设置 -&gt; Hardware Offload NAT/Routing IPv4(HWNAT加速)： -&gt; Disable”<br>①IP限速设置，单位[KB/S]<br>一定要设置IP限速，未定义的IP带宽减半，如启用adbyby，因7620的CPU瓶颈，宽带峰值50M<br>配置单IP自定义限制速率，注意数字之间的空格： （可选项：删除前面的#可生效）<br>IP地址 最大下载速度 下载保证速度 最大上传速度 上传保证速度<br>#192.168.1.115 2560 100 200 20<br>192.168.1.2-192.168.1.244 2560 100 100 15</p>
+<p>②连接数限制<br>如果开启该功能后，打开下载软件可能会导致QQ等聊天软件掉线。（因为连接数量会被占光）<br>IP地址 TCP连接数 UDP连接数 （可选项：删除前面的#可生效）<br>#192.168.1.10 100 100<br>192.168.1.20-192.168.1.25 100 100</p>
+<p>③端口优先优先端口不会被打标记进入列队（不会被流量控制和处理优先级），可添加对延迟要求高的应用端口。<br>请勿添加下载应用的端口80、8080等等。由于没有被流量控制和处理优先级，下载应用会占用大量资源导致网络卡<br>（可选项：删除前面的#可生效）<br>UDP 53<br>TCP 22<br>TCP 23<br>#TCP 443<br>TCP 1723<br>#TCP 3389<br>TCP 3724,1119,1120<br>TCP 28012,10008,13006,2349,7101:7103<br>UDP 2349,12000:12175</p>
+<p>3、点击应用保存脚本并重启，不能断电重启，要点击右上角重启按钮</p>
+<p>备注：此脚本是从Emong’s Qos脚本修改移植</p>
+<p>脚本②：<br>启动方法：<br>1、禁用硬件NAT：”QOS” “请设置：①外部网络(WAN) - 互联网设置 -&gt; Hardware Offload NAT/Routing IPv4(HWNAT加速)： -&gt; Disable”<br>2、SSH（OR WinSCP）打开路由器/etc/storage/qos.conf的配置文件：修改的QoS功能的变量QOS_ENABLED=”YES”（全部大写）<br>3、重启后生效</p>
+<p>由于只有优先级控制，比较鸡肋的QOS，有能力大神可以尝试整合其他Tomato QOS脚本<br>## 变量的顺序是（优先级最低在前）：<br>## TCP_BULK, UDP_BULK, TCP_PRIO, UDP_PRIO, TCP_EXPR, UDP_EXPR<br>## TOS_BULK,             TOS_PRIO,            TOS_EXPR<br>## DSCP_BULK,            DSCP_PRIO,           DSCP_EXPR<br>## IP_BULK,                IP_PRIO,              IP_EXPR</p>
+<p>备注：此脚本是从moonman的QOS脚本修改移植，原文地址：<a target="_blank" rel="noopener" href="https://github.com/moonman/rt-n56u">https://github.com/moonman/rt-n56u</a></p>
+<p>SSH可执行命令：</p>
+<table>
+<thead>
+<tr>
+<th>Pcap_DNSProxy</th>
+<th>killall</th>
+<th>restart_firewall</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[</td>
+<td>klogd</td>
+<td>restart_networkmap</td>
+</tr>
+<tr>
+<td>[[</td>
+<td>l2tp-control</td>
+<td>restart_vpn_client</td>
+</tr>
+<tr>
+<td>addgroup</td>
+<td>l2tpd</td>
+<td>restart_vpn_server</td>
+</tr>
+<tr>
+<td>adduser</td>
+<td>lan_eeprom_mac</td>
+<td>restart_wan</td>
+</tr>
+<tr>
+<td>aria.sh</td>
+<td>lanauth</td>
+<td>rm</td>
+</tr>
+<tr>
+<td>aria2c</td>
+<td>ldconfig</td>
+<td>rmdir</td>
+</tr>
+<tr>
+<td>arp</td>
+<td>ldd</td>
+<td>rmmod</td>
+</tr>
+<tr>
+<td>arping</td>
+<td>lld2d</td>
+<td>route</td>
+</tr>
+<tr>
+<td>ash</td>
+<td>ln</td>
+<td>rpc.mountd</td>
+</tr>
+<tr>
+<td>automount.sh</td>
+<td>logger</td>
+<td>rpc.nfsd</td>
+</tr>
+<tr>
+<td>awk</td>
+<td>login</td>
+<td>rstats</td>
+</tr>
+<tr>
+<td>badblocks</td>
+<td>lpd</td>
+<td>rt2860apd</td>
+</tr>
+<tr>
+<td>basename</td>
+<td>ls</td>
+<td>rtinicapd</td>
+</tr>
+<tr>
+<td>bash</td>
+<td>lsmod</td>
+<td>run_aria</td>
+</tr>
+<tr>
+<td>bcrelay</td>
+<td>lsof</td>
+<td>run_firefly</td>
+</tr>
+<tr>
+<td>blkid</td>
+<td>lsusb</td>
+<td>run_ftp</td>
+</tr>
+<tr>
+<td>brctl</td>
+<td>md5sum</td>
+<td>run_ftpsamba</td>
+</tr>
+<tr>
+<td>bunzip2</td>
+<td>mdev</td>
+<td>run_minidlna</td>
+</tr>
+<tr>
+<td>busybox</td>
+<td>mdev_lp</td>
+<td>run_nfsd</td>
+</tr>
+<tr>
+<td>bzcat</td>
+<td>mdev_net</td>
+<td>run_samba</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>mdev_sd</td>
+<td>run_telnetd</td>
+</tr>
+<tr>
+<td>cat</td>
+<td>mdev_sg</td>
+<td>run_transmission</td>
+</tr>
+<tr>
+<td>check_svc.sh</td>
+<td>mdev_sr</td>
+<td>scp</td>
+</tr>
+<tr>
+<td>chgrp</td>
+<td>mdev_tty</td>
+<td>sed</td>
+</tr>
+<tr>
+<td>chinadns</td>
+<td>mdev_wdm</td>
+<td>sendmail</td>
+</tr>
+<tr>
+<td>chmod</td>
+<td>microcom</td>
+<td>seq</td>
+</tr>
+<tr>
+<td>chown</td>
+<td>mii_mgr</td>
+<td>sh</td>
+</tr>
+<tr>
+<td>chpasswd</td>
+<td>mii_mgr_cl45</td>
+<td>shutdown</td>
+</tr>
+<tr>
+<td>chroot</td>
+<td>minidlnad</td>
+<td>sleep</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>miniupnpd</td>
+<td>smbd</td>
+</tr>
+<tr>
+<td>comgt</td>
+<td>mkdir</td>
+<td>smbmulti</td>
+</tr>
+<tr>
+<td>cp</td>
+<td>mke2fs</td>
+<td>smbpasswd</td>
+</tr>
+<tr>
+<td>cpu</td>
+<td>mkfs.ext2</td>
+<td>sn_youku</td>
+</tr>
+<tr>
+<td>crond</td>
+<td>mkfs.ext3</td>
+<td>sort</td>
+</tr>
+<tr>
+<td>crontab</td>
+<td>mkfs.ext4</td>
+<td>spindown.sh</td>
+</tr>
+<tr>
+<td>curl</td>
+<td>mknod</td>
+<td>ss-local</td>
+</tr>
+<tr>
+<td>cut</td>
+<td>mkswap</td>
+<td>ss-redir</td>
+</tr>
+<tr>
+<td>date</td>
+<td>modprobe</td>
+<td>ss-rules</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>more</td>
+<td>ss-server</td>
+</tr>
+<tr>
+<td>ddns_updated</td>
+<td>mount</td>
+<td>ss-tunnel</td>
+</tr>
+<tr>
+<td>detect_internet</td>
+<td>mountpoint</td>
+<td>ssh</td>
+</tr>
+<tr>
+<td>detect_link</td>
+<td>mt-daapd</td>
+<td>sshd.sh</td>
+</tr>
+<tr>
+<td>detect_wan</td>
+<td>mtd_storage.sh</td>
+<td>start-stop-daemon</td>
+</tr>
+<tr>
+<td>dev_init.sh</td>
+<td>mtd_write</td>
+<td>start_ddns</td>
+</tr>
+<tr>
+<td>df</td>
+<td>mtk_esw</td>
+<td>stat</td>
+</tr>
+<tr>
+<td>dhcp6c</td>
+<td>mv</td>
+<td>stop_aria</td>
+</tr>
+<tr>
+<td>dirname</td>
+<td>netstat</td>
+<td>stop_firefly</td>
+</tr>
+<tr>
+<td>dmesg</td>
+<td>networkmap</td>
+<td>stop_ftp</td>
+</tr>
+<tr>
+<td>dnsdomainname</td>
+<td>nfsd.sh</td>
+<td>stop_ftpsamba</td>
+</tr>
+<tr>
+<td>dnsmasq</td>
+<td>nice</td>
+<td>stop_minidlna</td>
+</tr>
+<tr>
+<td>dos2unix</td>
+<td>nmbd</td>
+<td>stop_nfsd</td>
+</tr>
+<tr>
+<td>dosfsck</td>
+<td>nslookup</td>
+<td>stop_samba</td>
+</tr>
+<tr>
+<td>dropbear</td>
+<td>ntpc_updated</td>
+<td>stop_transmission</td>
+</tr>
+<tr>
+<td>dropbearconvert</td>
+<td>ntpd</td>
+<td>stop_wan</td>
+</tr>
+<tr>
+<td>dropbearkey</td>
+<td>nvram</td>
+<td>strings</td>
+</tr>
+<tr>
+<td>dropbearmulti</td>
+<td>on_hotplug_printer.sh</td>
+<td>swapoff</td>
+</tr>
+<tr>
+<td>du</td>
+<td>on_wps.sh</td>
+<td>swapon</td>
+</tr>
+<tr>
+<td>e2fsck</td>
+<td>openssl</td>
+<td>switch</td>
+</tr>
+<tr>
+<td>e2undo</td>
+<td>openvpn</td>
+<td>switch_root</td>
+</tr>
+<tr>
+<td>e4defrag</td>
+<td>openvpn-cert.sh</td>
+<td>sync</td>
+</tr>
+<tr>
+<td>ebtables</td>
+<td>opkg</td>
+<td>sysctl</td>
+</tr>
+<tr>
+<td>echo</td>
+<td>opkg.sh</td>
+<td>syslogd</td>
+</tr>
+<tr>
+<td>egrep</td>
+<td>opt-ipkg-upd.sh</td>
+<td>tail</td>
+</tr>
+<tr>
+<td>eject</td>
+<td>opt-mkswap</td>
+<td>tar</td>
+</tr>
+<tr>
+<td>ejusb</td>
+<td>opt-mount.sh</td>
+<td>tc</td>
+</tr>
+<tr>
+<td>ejusb1</td>
+<td>opt-opkg-upd.sh</td>
+<td>tcpdump</td>
+</tr>
+<tr>
+<td>env</td>
+<td>opt-start.sh</td>
+<td>tee</td>
+</tr>
+<tr>
+<td>ether-wake</td>
+<td>opt-umount.sh</td>
+<td>telnetd</td>
+</tr>
+<tr>
+<td>exportfs</td>
+<td>ovpn_export_client</td>
+<td>test</td>
+</tr>
+<tr>
+<td>expr</td>
+<td>p910nd</td>
+<td>test_share</td>
+</tr>
+<tr>
+<td>FALSE</td>
+<td>parted</td>
+<td>time</td>
+</tr>
+<tr>
+<td>fdisk</td>
+<td>passwd</td>
+<td>top</td>
+</tr>
+<tr>
+<td>fgrep</td>
+<td>pdnsd</td>
+<td>touch</td>
+</tr>
+<tr>
+<td>find</td>
+<td>pdnsd-ctl</td>
+<td>tr</td>
+</tr>
+<tr>
+<td>flock</td>
+<td>pgrep</td>
+<td>traceroute</td>
+</tr>
+<tr>
+<td>free</td>
+<td>pidof</td>
+<td>traceroute6</td>
+</tr>
+<tr>
+<td>fsck.ext2</td>
+<td>pids</td>
+<td>transmission-daemon</td>
+</tr>
+<tr>
+<td>fsck.ext3</td>
+<td>ping</td>
+<td>transmission.sh</td>
+</tr>
+<tr>
+<td>fsck.ext4</td>
+<td>ping6</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>fuser</td>
+<td>portmap</td>
+<td>tune2fs</td>
+</tr>
+<tr>
+<td>getykbdlink</td>
+<td>pppd</td>
+<td>u2ec</td>
+</tr>
+<tr>
+<td>grep</td>
+<td>pptpctrl</td>
+<td>udhcpc</td>
+</tr>
+<tr>
+<td>guard</td>
+<td>pptpd</td>
+<td>udpxy</td>
+</tr>
+<tr>
+<td>gunzip</td>
+<td>printf</td>
+<td>umount</td>
+</tr>
+<tr>
+<td>gzip</td>
+<td>ps</td>
+<td>uname</td>
+</tr>
+<tr>
+<td>halt</td>
+<td>pwd</td>
+<td>uniq</td>
+</tr>
+<tr>
+<td>hddtune.sh</td>
+<td>python</td>
+<td>unix2dos</td>
+</tr>
+<tr>
+<td>hdparm</td>
+<td>python2</td>
+<td>unlink</td>
+</tr>
+<tr>
+<td>head</td>
+<td>python2.7</td>
+<td>update_iptables.sh</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>qos.sh</td>
+<td>uptime</td>
+</tr>
+<tr>
+<td>hotplug</td>
+<td>radio2_disable</td>
+<td>uqmi</td>
+</tr>
+<tr>
+<td>httpd</td>
+<td>radio2_eeprom_mac</td>
+<td>usb_modeswitch</td>
+</tr>
+<tr>
+<td>https-cert.sh</td>
+<td>radio2_enable</td>
+<td>usleep</td>
+</tr>
+<tr>
+<td>hub-ctrl</td>
+<td>radio2_guest_disable</td>
+<td>vconfig</td>
+</tr>
+<tr>
+<td>hw_nat</td>
+<td>radio2_guest_enable</td>
+<td>vi</td>
+</tr>
+<tr>
+<td>ifconfig</td>
+<td>radio2_restart</td>
+<td>vsftpd</td>
+</tr>
+<tr>
+<td>igmpproxy</td>
+<td>radio2_toggle</td>
+<td>wan_eeprom_mac</td>
+</tr>
+<tr>
+<td>ikuacc</td>
+<td>radio2_toggle_off</td>
+<td>watch</td>
+</tr>
+<tr>
+<td>inadyn</td>
+<td>radio2_toggle_on</td>
+<td>watchdog</td>
+</tr>
+<tr>
+<td>inetd</td>
+<td>radio5_disable</td>
+<td>wc</td>
+</tr>
+<tr>
+<td>infosvr</td>
+<td>radio5_eeprom_mac</td>
+<td>wget</td>
+</tr>
+<tr>
+<td>init</td>
+<td>radio5_enable</td>
+<td>which</td>
+</tr>
+<tr>
+<td>insmod</td>
+<td>radio5_guest_disable</td>
+<td>whoami</td>
+</tr>
+<tr>
+<td>ip</td>
+<td>radio5_guest_enable</td>
+<td>wpa_cli</td>
+</tr>
+<tr>
+<td>ip6tables</td>
+<td>radio5_restart</td>
+<td>wpa_supplicant</td>
+</tr>
+<tr>
+<td>ip6tables-restore</td>
+<td>radio5_toggle</td>
+<td>xargs</td>
+</tr>
+<tr>
+<td>ip6tables-save</td>
+<td>radio5_toggle_off</td>
+<td>xl2tpd</td>
+</tr>
+<tr>
+<td>ipkg.sh</td>
+<td>radio5_toggle_on</td>
+<td>xtables-multi</td>
+</tr>
+<tr>
+<td>ipset</td>
+<td>radvd</td>
+<td>xupnpd</td>
+</tr>
+<tr>
+<td>iptables</td>
+<td>rc</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>iptables-restore</td>
+<td>reboot</td>
+<td>zcat</td>
+</tr>
+<tr>
+<td>iptables-save</td>
+<td>reset_ss.sh</td>
+<td>zcip</td>
+</tr>
+<tr>
+<td>iwconfig</td>
+<td>reset_to_defaults</td>
+<td>zerocd</td>
+</tr>
+<tr>
+<td>iwpriv</td>
+<td>restart_dhcpd</td>
+<td></td>
+</tr>
+<tr>
+<td>kill</td>
+<td>restart_dns</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>![img](/../images/2016-02-22改华硕N14U N54U5G 2G的7620老毛子Padavan固件百度云同步 aria2 QOS/zip.gif) <a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/plugin.php?id=imc_attachad:ad&aid=MTA5MTE3fDRhMmU1ZmVjfDE0NTYzNjkyMzB8MHwxNjEzMjQ=">padavan华硕固件源码汉化文件2015-5-17.zip</a> (535.61 KB, 下载次数: 303) </p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

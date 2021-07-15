@@ -1,0 +1,852 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>大数据Flink详细教程(前篇) - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining,Flink实战教程共分三篇。本篇为第一篇，主要讲解Flink的入门、安装配置、基本术语&amp;amp;概念、核心原理。第二篇看这里，第三篇看这里。
+【仅需一次订阅，作者所有专栏都能看】
+推荐【Kafka】,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">大数据Flink详细教程(前篇)</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">大数据Flink详细教程(前篇)</h1>
+        <div class="stuff">
+            <span>九月 28, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-Flink/" rel="tag">大数据,Flink</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>Flink实战教程共分三篇。本篇为第一篇，主要讲解Flink的入门、安装配置、基本术语&amp;概念、核心原理。第<a target="_blank" rel="noopener" href="https://bigbird.blog.csdn.net/article/details/110456161">二</a>篇看<a href="7f834cb4.html">这里</a>，第<a target="_blank" rel="noopener" href="https://bigbird.blog.csdn.net/article/details/112207260">三</a>篇看<a href="c1de84f3.html">这里</a>。</p>
+<p>【<strong>仅需一次订阅，作者所有专栏都能看</strong>】</p>
+<p>推荐【<strong>Kafka</strong>】<a target="_blank" rel="noopener" href="https://bigbird.blog.csdn.net/article/details/108770504">https://bigbird.blog.csdn.net/article/details/108770504</a><br>推荐【<strong>Flink</strong>】<a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/109413465">https://blog.csdn.net/hellozpc/article/details/109413465</a><br>推荐【<strong>SpringBoot</strong>】<a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/107095951">https://blog.csdn.net/hellozpc/article/details/107095951</a><br>推荐【<strong>SpringCloud</strong>】<a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/83692496">https://blog.csdn.net/hellozpc/article/details/83692496</a><br>推荐【<strong>Mybatis</strong>】<a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/80878563">https://blog.csdn.net/hellozpc/article/details/80878563</a><br>推荐【<strong>SnowFlake</strong>】<a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/108248227">https://blog.csdn.net/hellozpc/article/details/108248227</a><br>推荐【<strong>并发限流</strong>】<a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/107582771">https://blog.csdn.net/hellozpc/article/details/107582771</a></p>
+<hr>
+<h3 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h3><ul>
+<li><ul>
+<li><a href="#Flink_15">Flink概述</a></li>
+<li><a href="#Flink_19">Flink安装部署</a></li>
+<li><ul>
+<li><a href="#_23">本地模式</a></li>
+<li><ul>
+<li><a href="#_27">下载安装包</a></li>
+<li><a href="#linux_31">上传并解压至linux</a></li>
+<li><a href="#Flink_48">启动Flink</a></li>
+<li><a href="#_76">关闭防火墙</a></li>
+</ul>
+</li>
+<li><a href="#_96">集群模式</a></li>
+<li><ul>
+<li><a href="#Standalone_100">Standalone模式</a></li>
+<li><ul>
+<li><a href="#Linux_104">Linux机器规划</a></li>
+<li><a href="#_116">设置免密登录</a></li>
+<li><a href="#_209">设置主机时间同步</a></li>
+<li><a href="#Flink_217">Flink安装步骤</a></li>
+</ul>
+</li>
+<li><a href="#Flink_on_YARN__311">Flink on YARN 模式</a></li>
+<li><ul>
+<li><a href="#Hadoop_315">Hadoop集群搭建</a></li>
+<li><a href="#Flink_on_Yarn_537">Flink on Yarn的两种方式</a></li>
+<li><ul>
+<li><a href="#1_545">第1种方式</a></li>
+<li><a href="#2_607">第2种方式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#FlinkHA_698">Flink高可用(HA)</a></li>
+<li><ul>
+<li><a href="#StandaloneHA_702">Standalone集群HA</a></li>
+<li><a href="#Flink_on_YarnHA_926">Flink on Yarn集群HA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_1060">快速入门案例</a></li>
+<li><ul>
+<li><a href="#pom_1064">引入pom依赖</a></li>
+<li><a href="#_1079">批处理</a></li>
+<li><a href="#_1201">流式处理</a></li>
+<li><a href="#flink_1386">提交flink集群运行</a></li>
+</ul>
+</li>
+<li><a href="#Flink_1535">Flink核心概念与原理讲解</a></li>
+<li><ul>
+<li><a href="#Flink_1539">Flink运行时架构</a></li>
+<li><ul>
+<li><a href="#JobManager_1550">JobManager</a></li>
+<li><a href="#TaskManagers_1572">TaskManagers</a></li>
+</ul>
+</li>
+<li><a href="#Flink_1580">Flink核心概念与处理流程</a></li>
+<li><ul>
+<li><a href="#Parallelism_1582">并行度(Parallelism)</a></li>
+<li><a href="#Task_Slots_1640">任务槽(Task Slots)</a></li>
+<li><a href="#_1650">两者关系</a></li>
+<li><a href="#_1658">最佳实践</a></li>
+<li><a href="#Flink_1694">Flink应用程序执行流程</a></li>
+<li><a href="#Flink_1716">Flink任务链</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_1756">本篇总结</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="Flink概述"><a href="#Flink概述" class="headerlink" title="Flink概述"></a>Flink概述</h2><p>按照<a target="_blank" rel="noopener" href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/">Apache官方</a>的介绍，Flink是一个对有界和无界数据流进行状态计算的分布式处理引擎和框架。通俗地讲，Flink就是一个流计算框架，主要用来处理流式数据。其起源于2010年德国研究基金会资助的科研项目“Stratosphere”，2014年3月成为Apache孵化项目，12月即成为Apache顶级项目。Flinken在德语里是敏捷的意思，意指快速精巧。其代码主要是由 Java 实现，部分代码由 Scala实现。在Flink的世界里，一切数据都是流式的：离线数据(批数据)是有界(bounded)的流；实时数据(流数据)是无界(unbounded)的流。Flink既可以处理有界的批量数据集，也可以处理无界的实时流数据，为批处理和流处理提供了统一编程模型。如果把<a target="_blank" rel="noopener" href="http://storm.apache.org/">Storm</a>看做第一代流处理框架、<a target="_blank" rel="noopener" href="https://spark.apache.org/streaming/">Spark Streaming</a>(微批处理)看做第二代，那么Flink称得上是第三代流处理框架，并且是集大成者。</p>
+<h2 id="Flink安装部署"><a href="#Flink安装部署" class="headerlink" title="Flink安装部署"></a>Flink安装部署</h2><p>和几乎所有的大数据处理框架一样，使用Flink之前，我们需要在服务器上安装部署Flink框架。Flink可以以多种模式运行，既可以单机运行，也可以集群运行。集群环境下既可以独立运行，也可以依赖YARN来运行。下面详细介绍各种安装部署模式。</p>
+<h3 id="本地模式"><a href="#本地模式" class="headerlink" title="本地模式"></a>本地模式</h3><p>本地模式即在linux服务器直接解压flink二进制包就可以使用，不用修改任何参数，用于一些简单测试场景。</p>
+<h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><p>直接在<a target="_blank" rel="noopener" href="https://flink.apache.org/downloads.html">Flink官网</a>下载安装包，如写作此文章时最新版为<a target="_blank" rel="noopener" href="https://www.apache.org/dyn/closer.lua/flink/flink-1.11.2/flink-1.11.2-bin-scala_2.11.tgz">flink-1.11.1-bin-scala_2.11.tgz</a></p>
+<h4 id="上传并解压至linux"><a href="#上传并解压至linux" class="headerlink" title="上传并解压至linux"></a>上传并解压至linux</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 myapp]# pwd</span><br><span class="line">/usr/local/myapp</span><br><span class="line"></span><br><span class="line">[root@vm1 myapp]# ll</span><br><span class="line">总用量 435772</span><br><span class="line">-rw-r--r--.  1 root root  255546057 2月  8 02:29 flink-1.11.1-bin-scala_2.11.tgz</span><br></pre></td></tr></table></figure>
+
+<p>解压到指定目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 myapp]# tar -zxvf flink-1.11.1-bin-scala_2.11.tgz  -C /usr/local/myapp/flink/</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动Flink"><a href="#启动Flink" class="headerlink" title="启动Flink"></a>启动Flink</h4><p>注意运行之前确保机器上已经安装了JDK1.8或以上版本，并配置了JAVA_HOME环境变量。JDK安装可以参考这篇<a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/105680217">博文</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# java -version</span><br><span class="line">java version &quot;1.8.0_261&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_261-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.261-b12, mixed mode)</span><br></pre></td></tr></table></figure>
+
+<p>进入flink目录执行启动命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# cd /usr/local/myapp/flink/flink-1.11.1/</span><br><span class="line">[root@vm1 flink-1.11.1]# bin/start-cluster.sh </span><br><span class="line">[root@vm1 flink-1.11.1]# jps</span><br><span class="line">3577 Jps</span><br><span class="line">3242 StandaloneSessionClusterEntrypoint</span><br><span class="line">3549 TaskManagerRunner</span><br></pre></td></tr></table></figure>
+
+<p>执行Jps查看java进程，可以看到Flink相关进程已经启动。可以通过浏览器访问Flink的Web界面<a target="_blank" rel="noopener" href="http://vm1:8081/">http://vm1:8081</a></p>
+<p><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101115711553.png" alt="在这里插入图片描述"></p>
+<p>能在本机浏览器访问上述页面的前提是Windows系统的hosts文件配了vm1这台服务器的主机名和IP的映射关系，并且linux服务器的防火墙已关闭。</p>
+<h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4><p>查看linux防火墙状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# systemctl status firewalld</span><br></pre></td></tr></table></figure>
+
+<p>临时关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+
+<p>永久关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+
+<p>关闭Flink</p>
+<p>执行<code>bin/stop-cluster.sh</code></p>
+<h3 id="集群模式"><a href="#集群模式" class="headerlink" title="集群模式"></a>集群模式</h3><p>集群环境适合在生产环境下面使用，且需要修改对应的配置参数。Flink提供了多种集群模式，我们这里主要介绍standalone和Flink on Yarn两种模式。</p>
+<h4 id="Standalone模式"><a href="#Standalone模式" class="headerlink" title="Standalone模式"></a>Standalone模式</h4><p>Standalone是Flink的独立集群部署模式，不依赖任何其它第三方软件或库。如果想搭建一套独立的Flink集群，不依赖其它组件可以使用这种模式。搭建一个标准的Flink集群，需要准备3台Linux机器。</p>
+<h5 id="Linux机器规划"><a href="#Linux机器规划" class="headerlink" title="Linux机器规划"></a>Linux机器规划</h5><table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>主机名</th>
+<th>IP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Master</td>
+<td>vm1</td>
+<td>192.168.174.136</td>
+</tr>
+<tr>
+<td>Slave</td>
+<td>vm2</td>
+<td>192.168.174.137</td>
+</tr>
+<tr>
+<td>Slave</td>
+<td>vm3</td>
+<td>192.168.174.138</td>
+</tr>
+</tbody></table>
+<p>在Flink集群中，Master节点上会运行JobManager(StandaloneSessionClusterEntrypoint)进程，Slave节点上会运行TaskManager(TaskManagerRunner)进程。</p>
+<p>集群中Linux节点都要配置JAVA_HOME，并且节点之间需要设置ssh免密码登录，至少保证Master节点可以免密码登录到其他两个Slave节点，linux防火墙也需关闭。</p>
+<h5 id="设置免密登录"><a href="#设置免密登录" class="headerlink" title="设置免密登录"></a>设置免密登录</h5><p>1）先在每一台机器设置本机免密登录自身</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# ssh-keygen -t rsa</span><br><span class="line">[root@vm1 ~]#  cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>在本机执行ssh登录自身，不提示输入密码则表明配置成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# ssh vm1</span><br><span class="line">Last login: Tue Sep 29 22:23:39 2020 from vm1</span><br></pre></td></tr></table></figure>
+
+<p>在其它机器vm2、vm3执行同样的操作:</p>
+<p>ssh-keygen -t rsa<br>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</p>
+<p>ssh vm2</p>
+<p>ssh vm3</p>
+<p>2）设置vm1免密登录其它机器</p>
+<p>把vm1的公钥文件拷贝到其它机器vm2、vm3上</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# scp ~/.ssh/id_rsa.pub root@vm2:~/</span><br><span class="line">[root@vm1 ~]# scp ~/.ssh/id_rsa.pub root@vm3:~/</span><br></pre></td></tr></table></figure>
+
+<p>登录到vm2、vm3，把vm1的公钥文件追加到自己的授权文件中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm2 ~]# cat ~/id_rsa.pub  &gt;&gt; ~/.ssh/authorized_keys </span><br><span class="line">[root@vm3 ~]# cat ~/id_rsa.pub  &gt;&gt; ~/.ssh/authorized_keys </span><br></pre></td></tr></table></figure>
+
+<p>如果提示没有 ~/.ssh/authorized_keys目录则可以在这台机器上执行ssh-keygen -t rsa。不建议手动创建.ssh目录！</p>
+<p>验证在vm1上ssh登录vm2、vm3是否无需密码，不需要密码则配置成功！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# ssh vm2</span><br><span class="line">Last login: Mon Sep 28 22:31:22 2020 from 192.168.174.133</span><br><span class="line"></span><br><span class="line">[root@vm1 ~]# ssh vm3</span><br><span class="line">Last login: Tue Sep 29 22:35:25 2020 from vm1</span><br></pre></td></tr></table></figure>
+
+<p>执行<code>exit</code>退回到本机</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vm3 ~]# exit</span><br><span class="line">logout</span><br><span class="line">Connection to vm3 closed.</span><br><span class="line">[root@vm1 ~]# </span><br></pre></td></tr></table></figure>
+
+<p>3）同样方式设置其它机器之间的免密登录</p>
+<p>在vm2、vm3上执行同样的步骤</p>
+<p>把vm2的公钥文件拷贝到vm1、vm3</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vm2 ~]# scp ~/.ssh/id_rsa.pub root@vm1:~/</span><br><span class="line">[root@vm2 ~]# scp ~/.ssh/id_rsa.pub root@vm3:~/</span><br><span class="line">[root@vm1 ~]#  cat ~/id_rsa.pub  &gt;&gt; ~/.ssh/authorized_keys </span><br><span class="line">[root@vm3 ~]#  cat ~/id_rsa.pub  &gt;&gt; ~/.ssh/authorized_keys </span><br></pre></td></tr></table></figure>
+
+<p>把vm3的公钥文件拷贝到vm1、vm2</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vm3 ~]# scp ~/.ssh/id_rsa.pub root@vm1:~/</span><br><span class="line">[root@vm3 ~]# scp ~/.ssh/id_rsa.pub root@vm2:~/</span><br><span class="line">[root@vm1 ~]#  cat ~/id_rsa.pub  &gt;&gt; ~/.ssh/authorized_keys </span><br><span class="line">[root@vm2 ~]#  cat ~/id_rsa.pub  &gt;&gt; ~/.ssh/authorized_keys </span><br></pre></td></tr></table></figure>
+
+<p>4）验证ssh免密码登录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vm2 ~]# ssh vm1</span><br><span class="line">[root@vm2 ~]# ssh vm3</span><br><span class="line">[root@vm3 ~]# ssh vm1</span><br><span class="line">[root@vm3 ~]# ssh vm2</span><br></pre></td></tr></table></figure>
+
+<h5 id="设置主机时间同步"><a href="#设置主机时间同步" class="headerlink" title="设置主机时间同步"></a>设置主机时间同步</h5><p>如果集群内节点时间相差太大的话，会导致集群服务异常，所以需要保证集群内各节点时间一致。</p>
+<p>执行命令<code>yum install -y ntpdate</code>安装ntpdate</p>
+<p>执行命令<code>ntpdate -u ntp.sjtu.edu.cn</code> 同步时间</p>
+<h5 id="Flink安装步骤"><a href="#Flink安装步骤" class="headerlink" title="Flink安装步骤"></a>Flink安装步骤</h5><p>下列步骤都是先在Master机器上操作，再拷贝到其它机器(确保每台机器都安装了jdk)</p>
+<ol>
+<li>解压Flink安装包</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 myapp]# tar -zxvf flink-1.11.1-bin-scala_2.11.tgz -C &#x2F;usr&#x2F;local&#x2F;myapp&#x2F;flink&#x2F;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修改Flink的配置文件flink-1.11.1/conf/flink-conf.yaml</li>
+</ol>
+<p>把jobmanager.rpc.address配置的参数值改为vm1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jobmanager.rpc.address: vm1</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修改Flink的配置文件flink-1.11.1/conf/workers</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 conf]# vim workers </span><br><span class="line">vm2</span><br><span class="line">vm3</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>将vm1这台机器上修改后的flink-1.11.1目录复制到其他两个Slave节点</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -rq /usr/local/myapp/flink vm2:/usr/local/myapp/</span><br><span class="line">scp -rq /usr/local/myapp/flink vm3:/usr/local/myapp/</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>在vm1这台机器上启动Flink集群服务</li>
+</ol>
+<p>执行这一步时确保各个服务器防火墙已关闭</p>
+<p>进入flink目录/flink-1.11.1/bin执行start-cluster.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# cd /usr/local/myapp/flink/flink-1.11.1/</span><br><span class="line">[root@vm1 flink-1.11.1]# bin/start-cluster.sh </span><br><span class="line">Starting cluster.</span><br><span class="line">Starting standalonesession daemon on host vm1.</span><br><span class="line">Starting taskexecutor daemon on host vm2.</span><br><span class="line">Starting taskexecutor daemon on host vm3.</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>查看vm1、vm2和vm3这3个节点上的进程信息</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# jps</span><br><span class="line">4983 StandaloneSessionClusterEntrypoint</span><br><span class="line">5048 Jps</span><br><span class="line"></span><br><span class="line">[root@vm2 ~]# jps</span><br><span class="line">4122 TaskManagerRunner</span><br><span class="line">4175 Jps</span><br><span class="line"></span><br><span class="line">[root@vm3 ~]# jps</span><br><span class="line">4101 Jps</span><br><span class="line">4059 TaskManagerRunner</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>查看Flink Web UI界面，访问<a target="_blank" rel="noopener" href="http://vm1:8081/">http://vm1:8081</a><br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101115757315.png" alt="在这里插入图片描述"></li>
+</ol>
+<p>8）提交任务执行</p>
+<p>[root@vm1 flink-1.11.1]# bin/flink run ./examples/batch/WordCount.jar</p>
+<p>提交任务可以在任意一台flink客户端服务器提交，本例中在vm1、vm2、vm3都可以<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101115858258.png" alt="在这里插入图片描述"></p>
+<ol>
+<li>停止flink集群</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin&#x2F;stop-cluster.sh</span><br></pre></td></tr></table></figure>
+
+<p>10）单独启动、停止进程</p>
+<p>手工启动、停止主进程StandaloneSessionClusterEntrypoint</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/jobmanager.sh start</span><br><span class="line">[root@vm1 flink-1.11.1]# bin/jobmanager.sh stop</span><br></pre></td></tr></table></figure>
+
+<p>手工启动、停止TaskManagerRunner(常用于向集群中添加新的slave节点)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/taskmanager.sh start</span><br><span class="line">[root@vm1 flink-1.11.1]# bin/taskmanager.sh stop</span><br></pre></td></tr></table></figure>
+
+<h4 id="Flink-on-YARN-模式"><a href="#Flink-on-YARN-模式" class="headerlink" title="Flink on YARN 模式"></a>Flink on YARN 模式</h4><p>在容器化部署盛行的时代，Flink on Yarn应运而生。Flink on Yarn模式使用YARN 作为任务调度系统，即在YARN上启动运行flink。好处是能够充分利用集群资源，提高服务器的利用率。这种模式的前提是要有一个Hadoop集群，并且只需公用一套hadoop集群就可以执行MapReduce和Spark以及Flink任务，非常方便。因此需要先搭建一个hadoop集群。</p>
+<h5 id="Hadoop集群搭建"><a href="#Hadoop集群搭建" class="headerlink" title="Hadoop集群搭建"></a>Hadoop集群搭建</h5><p>1）下载并解压到指定目录</p>
+<p>从<a target="_blank" rel="noopener" href="https://hadoop.apache.org/releases.html">官网</a>下载Hadoop二进制包，上传到linux服务器，并解压到指定目录。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# tar -zxvf hadoop-2.9.2.tar.gz -C /usr/local/myapp/hadoop/</span><br></pre></td></tr></table></figure>
+
+<p>2）配置环境变量</p>
+<p>vim /etc/profile</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_HOME=/usr/local/myapp/hadoop/hadoop-2.9.2/</span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin</span><br></pre></td></tr></table></figure>
+
+<p>执行hadoop version查看版本号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 hadoop]# source /etc/profile</span><br><span class="line">[root@vm1 hadoop]# hadoop version</span><br><span class="line">Hadoop 2.9.2</span><br></pre></td></tr></table></figure>
+
+<p>3）修改hadoop-env.sh文件</p>
+<p>修改配置export JAVA_HOME=${JAVA_HOME}指定JAVA_HOME路径:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/local/myapp/jdk/jdk1.8.0_261/</span><br></pre></td></tr></table></figure>
+
+<p>同时指定Hadoop日志路径，先创建好目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[root@vm1]#</span><span class="bash"> mkdir -p /data/hadoop_repo/logs/hadoop</span></span><br></pre></td></tr></table></figure>
+
+<p>再配置HADOOP_LOG_DIR</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_LOG_DIR=/data/hadoop_repo/logs/hadoop</span><br></pre></td></tr></table></figure>
+
+<p>4）修改yarn-env.sh文件</p>
+<p>指定JAVA_HOME路径</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/local/myapp/jdk/jdk1.8.0_261/</span><br></pre></td></tr></table></figure>
+
+<p>指定YARN日志目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# mkdir -p /data/hadoop_repo/logs/yarn</span><br><span class="line">export YARN_LOG_DIR=/data/hadoop_repo/logs/yarn</span><br></pre></td></tr></table></figure>
+
+<p>4）修改core-site.xml</p>
+<p>配置NameNode的地址fs.defaultFS、Hadoop临时目录hadoop.tmp.dir</p>
+<p>NameNode和DataNode的数据文件都会存在临时目录下的对应子目录下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://vm1:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>/data/hadoop_repo<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>6）修改hdfs-site.xml</p>
+<p>dfs.namenode.secondary.http-address指定secondaryNameNode的http地址，本例设置vm2机器为SecondaryNameNode</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>vm2:50090<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>7）修改yarn-site.xml</p>
+<p>yarn.resourcemanager.hostname指定resourcemanager的服务器地址，本例设置vm1机器为hadoop主节点</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>vm1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>8）修改mapred-site.xml</p>
+<p>[root@vm1 hadoop]# mv mapred-site.xml.template mapred-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>mapreduce.framework.name设置使用yarn运行mapreduce程序</p>
+<p>9） 配置slaves</p>
+<p>设置vm2、vm3为Hadoop副节点</p>
+<p>[root@vm1 hadoop]# vim slaves</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vm2</span><br><span class="line">vm3</span><br></pre></td></tr></table></figure>
+
+<p>10）设置免密码登录</p>
+<p>免密配置参考前文 设置服务器间相互免密登录</p>
+<p>11）拷贝hadoop到其它机器</p>
+<p>将在vm1上配置好的Hadoop目录拷贝到其它服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 hadoop]# scp -r /usr/local/myapp/hadoop/ vm2:/usr/local/myapp/</span><br><span class="line">[root@vm1 hadoop]# scp -r /usr/local/myapp/hadoop/ vm3:/usr/local/myapp/</span><br></pre></td></tr></table></figure>
+
+<p>12）格式化HDFS</p>
+<p>在Hadoop集群主节点vm1上执行格式化命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 bin]# pwd</span><br><span class="line">/usr/local/myapp/hadoop/hadoop-2.9.2/bin</span><br><span class="line">[root@vm1 bin]# hdfs namenode -format</span><br></pre></td></tr></table></figure>
+
+<p>如果要重新格式化NameNode，则需要先将原来NameNode和DataNode下的文件全部删除，否则报错。NameNode和DataNode所在目录在<code>core-site.xml</code>中<code>hadoop.tmp.dir</code>、<code>dfs.namenode.name.dir</code>、<code>dfs.datanode.data.dir</code>属性配置</p>
+<p>13）启动集群</p>
+<p>直接启动全部进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 hadoop-2.9.2]# sbin&#x2F;start-all.sh</span><br></pre></td></tr></table></figure>
+
+<p>也可以单独启动HDFS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sbin&#x2F;start-dfs.sh</span><br></pre></td></tr></table></figure>
+
+<p>也可以单独启动YARN</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sbin&#x2F;start-yarn.sh</span><br></pre></td></tr></table></figure>
+
+<p>14）查看web页面</p>
+<p>要在本地机器http访问虚拟机先关闭linux防火墙，关闭linux防火墙请参照前文</p>
+<p>查看HDFS Web页面：</p>
+<p><a target="_blank" rel="noopener" href="http://vm1:50070/">http://vm1:50070/</a></p>
+<p>查看YARN Web 页面：</p>
+<p><a target="_blank" rel="noopener" href="http://vm1:8088/cluster">http://vm1:8088/cluster</a></p>
+<p>15）查看各个节点进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# jps</span><br><span class="line">5026 ResourceManager</span><br><span class="line">5918 Jps</span><br><span class="line">5503 NameNode</span><br><span class="line"></span><br><span class="line">[root@vm2 ~]# jps</span><br><span class="line">52512 NodeManager</span><br><span class="line">52824 Jps</span><br><span class="line">52377 DataNode</span><br><span class="line">52441 SecondaryNameNode</span><br><span class="line"></span><br><span class="line">[root@vm3 ~]# jps</span><br><span class="line">52307 DataNode</span><br><span class="line">52380 NodeManager</span><br><span class="line">52655 Jps</span><br></pre></td></tr></table></figure>
+
+<p>16）停止Hadoop集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 hadoop-2.9.2]# sbin&#x2F;stop-all.sh</span><br></pre></td></tr></table></figure>
+
+<p>Hadoop集群搭建完成后就可以在Yarn上运行Flink了！</p>
+<h5 id="Flink-on-Yarn的两种方式"><a href="#Flink-on-Yarn的两种方式" class="headerlink" title="Flink on Yarn的两种方式"></a>Flink on Yarn的两种方式</h5><p>第1种：在YARN中预先初始化一个Flink集群，占用YARN中固定的资源。该Flink集群常驻YARN 中，所有的Flink任务都提交到这里。这种方式的缺点在于不管有没有Flink任务执行，Flink集群都会独占系统资源，除非手动停止。如果YARN中给Flink集群分配的资源耗尽，只能等待YARN中的一个作业执行完成释放资源才能正常提交下一个Flink作业。这种方式适合小规模、短时间计算任务。</p>
+<p>第2种：每次提交Flink任务时单独向YARN申请资源，即每次都在YARN上创建一个新的Flink集群，任务执行完成后Flink集群终止，不再占用机器资源。这样不同的Flink任务之间相互独立互不影响。这种方式能够使得资源利用最大化，适合长时间、大规模计算任务。</p>
+<p>下面分别介绍2种方式的具体步骤。</p>
+<h6 id="第1种方式"><a href="#第1种方式" class="headerlink" title="第1种方式"></a>第1种方式</h6><p>不管是哪种方式，都要先运行Hadoop集群</p>
+<p>1）启动Hadoop集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 hadoop-2.9.2]# sbin&#x2F;start-all.sh</span><br></pre></td></tr></table></figure>
+
+<p>2）将flink依赖的hadoop相关jar包拷贝到flink目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[root@vm1]#</span><span class="bash"> cp /usr/<span class="built_in">local</span>/myapp/hadoop/hadoop-2.9.2/share/hadoop/yarn/hadoop-yarn-api-2.9.2.jar /usr/<span class="built_in">local</span>/myapp/flink/flink-1.11.1/lib</span></span><br><span class="line"><span class="meta">[root@vm1]#</span><span class="bash"> cp /usr/<span class="built_in">local</span>/myapp/hadoop/hadoop-2.9.2/share/hadoop/yarn/sources/hadoop-yarn-api-2.9.2-sources.jar /usr/<span class="built_in">local</span>/myapp/flink/flink-1.11.1/lib</span></span><br></pre></td></tr></table></figure>
+
+<p>还需要 flink-shaded-hadoop-2-uber-2.8.3-10.0.jar ，可以从maven仓库下载并放到flink的lib目录下。</p>
+<p>3）创建并启动flink集群</p>
+<p>在flink的安装目录下执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/yarn-session.sh -n 2 -jm 512 -tm 512 -d</span><br></pre></td></tr></table></figure>
+
+<p>这种方式创建的是一个一直运行的flink集群，也称为flink yarn-session</p>
+<p>由于Yarn模式的Flink集群是由yarn来启动的，因此可以在yarn控制台，即hadoop集群管理页面查看是否有flink任务成功运行：<a target="_blank" rel="noopener" href="http://vm1:8088/cluster">http://vm1:8088/cluster</a><br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101115957958.png" alt="在这里插入图片描述"></p>
+<p>创建成功后，flink控制台会输出web页面的访问地址，可以在web页面查看flink任务执行情况：<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101120013426.png" alt="在这里插入图片描述"></p>
+<p>控制台输出<a target="_blank" rel="noopener" href="http://vm2:43243/">http://vm2:43243</a> 可以认为flink的Jobmanager进程就运行在vm2上，且端口是43243。指定host、port提交flink任务时可以使用这个地址+端口</p>
+<p>4）附着到flink集群</p>
+<p>创建flink集群后会有对应的applicationId，因此执行flink任务时也可以附着到已存在的、正在运行的flink集群</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">附着到指定flink集群</span></span><br><span class="line">[root@vm1 flink-1.11.1]# bin/yarn-session.sh -id application_1602852161124_0001</span><br></pre></td></tr></table></figure>
+
+<p>applicationId参数是上一步创建flink集群时对应的applicationId</p>
+<p>5） 提交flink任务</p>
+<p>可以运行flink自带的wordcount样例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin&#x2F;flink run .&#x2F;examples&#x2F;batch&#x2F;WordCount.jar</span><br></pre></td></tr></table></figure>
+
+<p>在flink web页面 <a target="_blank" rel="noopener" href="http://vm2:43243/">http://vm2:43243/</a> 可以看到运行记录：<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101120039853.png" alt="在这里插入图片描述"></p>
+<p>可以通过-input和-output来手动指定输入数据目录和输出数据目录:</p>
+<p>-input hdfs://vm1:9000/words<br>-output hdfs://vm1:9000/wordcount-result.txt</p>
+<h6 id="第2种方式"><a href="#第2种方式" class="headerlink" title="第2种方式"></a>第2种方式</h6><p>这种方式很简单，就是在提交flink任务时同时创建flink集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin&#x2F;flink run -m yarn-cluster -yjm 1024 .&#x2F;examples&#x2F;batch&#x2F;WordCount.jar</span><br></pre></td></tr></table></figure>
+
+<p>需要在执行上述命令的机器(即flink客户端)上配置环境变量YARN_CONF_DIR、HADOOP_CONF_DIR或者HADOOP_HOME环境变量，Flink会通过这个环境变量来读取YARN和HDFS的配置信息。</p>
+<p>如果报下列错，则需要禁用hadoop虚拟内存检查：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Diagnostics from YARN: Application application_1602852161124_0004 failed 1 times (global limit =2; local limit is =1) due to AM Container for appattempt_1602852161124_0004_000001 exited with  exitCode: -103</span><br><span class="line">Failing this attempt.Diagnostics: [2020-10-16 23:35:56.735]Container [pid=6890,containerID=container_1602852161124_0004_01_000001] is running beyond virtual memory limits. Current usage: 105.8 MB of 1 GB physical memory used; 2.2 GB of 2.1 GB virtual memory used. Killing container.</span><br></pre></td></tr></table></figure>
+
+<p>修改所有hadoop机器(所有 nodemanager)的文件$HADOOP_HOME/etc/hadoop/yarn-site.xml</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;  </span><br><span class="line">    &lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;  </span><br><span class="line">    &lt;value&gt;false&lt;/value&gt;  </span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p>重启hadoop集群再次运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 hadoop-2.9.2]# sbin/stop-all.sh</span><br><span class="line">[root@vm1 hadoop-2.9.2]# sbin/start-all.sh</span><br><span class="line">[root@vm1 flink-1.11.1]# bin/flink run  -m yarn-cluster  -yjm 1024 ./examples/batch/WordCount.jar</span><br></pre></td></tr></table></figure>
+
+<p>任务成功执行，控制台输出如下。可以使用控制台输出的web页面地址vm3:44429查看任务。不过这种模式下任务执行完成后Flink集群即终止，所以输入地址vm3:44429时可能看不到结果，因为此时任务可能执行完了，flink集群终止，页面也访问不了了。<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101120138638.png" alt="在这里插入图片描述"></p>
+<p>上述Flink On Yarn的2种方式案例中分别使用了两个命令：yarn-session.sh 和 flink run</p>
+<p>yarn-session.sh 可以用来在Yarn上创建并启动一个flink集群，可以通过如下命令查看常用参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin&#x2F;yarn-session.sh -h</span><br></pre></td></tr></table></figure>
+
+<p>-n :表示分配的容器数量，即TaskManager的数量</p>
+<p>-s : 每个TaskManager的slot数量，一般根据cpu核数设定</p>
+<p>-jm:设置jobManagerMemory，即JobManager的内存，单位MB</p>
+<p>-tm:设置taskManagerMemory ，即TaskManager的内存，单位MB</p>
+<p>-d: 设置运行模式为detached，即后台独立运行</p>
+<p>-nm：设置在YARN上运行的应用的name（名字）</p>
+<p>-id: 指定任务在YARN集群上的applicationId ,附着到后台独立运行的yarn session中</p>
+<p>flink run命令既可以提交任务到Flink集群中执行，也可以在提交任务时创建一个新的flink集群，可以通过如下命令查看常用参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin&#x2F;flink run -h</span><br></pre></td></tr></table></figure>
+
+<p>-m: 指定主节点(JobManger)的地址，在此命令中指定的JobManger地址优先于配置文件中的</p>
+<p>-c: 指定jar包的入口类，此参数在jar 包名称之前</p>
+<p>-p:指定任务并行度，同样覆盖配置文件中的值</p>
+<p>flink run使用举例：</p>
+<p>1）提交并执行flink任务，默认查找当前YARN集群中已有的yarn-session的JobManager</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/flink run ./examples/batch/WordCount.jar -input hdfs://vm1:9000/hello.txt -output hdfs://vm1:9000/result_hello</span><br></pre></td></tr></table></figure>
+
+<p>2）提交flink任务时显式指定JobManager的的host的port，该域名和端口是创建flink集群时控制台输出的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/flink run -m vm3:39921 ./examples/batch/WordCount.jar  -input hdfs://vm1:9000/hello.txt -output hdfs://vm1:9000/result_hello</span><br></pre></td></tr></table></figure>
+
+<p>3）在YARN中启动一个新的Flink集群，并提交任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/flink run  -m yarn-cluster  -yjm 1024 ./examples/batch/WordCount.jar -input hdfs://vm1:9000/hello.txt -output hdfs://vm1:9000/result_hello</span><br></pre></td></tr></table></figure>
+
+<p>-m yarn-cluster是固定写法，这种方式告诉flink不用去找standalone集群和yarn session集群，而是根据当前提交的job单独启动一个cluster。</p>
+<h3 id="Flink高可用-HA"><a href="#Flink高可用-HA" class="headerlink" title="Flink高可用(HA)"></a>Flink高可用(HA)</h3><p>默认情况下，flink集群中只有一个主节点(master)，即只有一个JobManager(StandaloneSessionClusterEntrypoint)进程，如果主节点的JobManager进程挂了则不能提交任务，且运行中的任务也会失败。使用高可用配置(HA，high availability)，flink集群便可以从JobManager故障中恢复，避免单点故障（single point of failure，SPOF）。对应于flink的两种集群模式，有两种不同的HA配置方式。</p>
+<h4 id="Standalone集群HA"><a href="#Standalone集群HA" class="headerlink" title="Standalone集群HA"></a>Standalone集群HA</h4><p>受虚拟机个数限制，本例中我们使用2个flink master节点（跑StandaloneSessionClusterEntrypoint进程），1个flink salve节点（跑TaskManagerRunner进程）。Flink HA还依赖zookeeper作为分布式协调工具、hdfs作为存储工具，因此需要先安装zk集群和hadoop集群。本例中zk集群、hadoop集群、flink集群都部署在相同的机器上，但是它们是相互独立的。hadoop集群采用前文中安装好的。zk集群安装参考<a target="_blank" rel="noopener" href="https://gitbook.cn/gitchat/activity/5f620af9e8f6415f69856d2c">这篇文章</a>。</p>
+<p>集群节点进程规划：</p>
+<p>StandaloneSessionClusterEntrypoint节点：vm1、vm2</p>
+<p>TaskManagerRunner节点：vm3</p>
+<p>zk节点：vm1、vm2、vm3</p>
+<p>hadoop节点：vm1、vm2、vm3</p>
+<p>各个进程信息</p>
+<p>StandaloneSessionClusterEntrypoint：flink主节点进程，即JobManager进程</p>
+<p>TaskManagerRunner：flink worker节点进程，即TaskManager进程</p>
+<p>NameNode: HDFS管理者节点</p>
+<p>DataNode:HDFS工作者节点</p>
+<p>SecondaryNameNode:HDFS NameNode的备份节点</p>
+<p>ResourceManager：hadoop yarn master节点</p>
+<p>NodeManager：hadoop yarn work节点</p>
+<p>QuorumPeerMain：zk进程</p>
+<p>在开始flink HA安装配置前，确保各个机器上都设置了主机名，/etc/hosts文件配置了主机映射关系。各个主机间互相免密登录、防火墙已关闭、时间已同步。JDK已安装，且环境变量已经配置生效。Hadoop集群、zookeeper集群已搭建。</p>
+<p>配置Flink，先在第一台机器配置，然后在复制到集群中的其它机器中。具体步骤如下：</p>
+<ol>
+<li>解压Flink安装包</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 myapp]# tar -zxvf flink-1.11.1-bin-scala_2.11.tgz  -C /usr/local/myapp/flink/</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修改conf/flink-conf.yaml文件</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jobmanager.rpc.address:</span> <span class="string">vm1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">high-availability:</span> <span class="string">zookeeper</span></span><br><span class="line"><span class="attr">high-availability.storageDir:</span> <span class="string">hdfs://vm1:9000/flink/ha/</span></span><br><span class="line"><span class="attr">high-availability.zookeeper.quorum:</span> <span class="string">vm1:2181,vm2:2181,vm3:2181</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修改conf/workers文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm3</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修改conf/masters文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vm1:8081</span><br><span class="line">vm2:8081</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>配置好的flink目录复制到其它节点</li>
+</ol>
+<p>本例配置HA时相对之前的配置只是改了workers、masters、flink-conf.yaml文件，所以只要拷贝这3个文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# scp conf/flink-conf.yaml vm2:/usr/local/myapp/flink/flink-1.11.1/conf/</span><br><span class="line">[root@vm1 flink-1.11.1]# scp conf/flink-conf.yaml vm3:/usr/local/myapp/flink/flink-1.11.1/conf/</span><br><span class="line">[root@vm1 flink-1.11.1]# scp conf/workers vm2:/usr/local/myapp/flink/flink-1.11.1/conf/</span><br><span class="line">[root@vm1 flink-1.11.1]# scp conf/workers vm3:/usr/local/myapp/flink/flink-1.11.1/conf/</span><br><span class="line">[root@vm1 flink-1.11.1]# scp conf/masters vm2:/usr/local/myapp/flink/flink-1.11.1/conf/</span><br><span class="line">[root@vm1 flink-1.11.1]# scp conf/masters vm3:/usr/local/myapp/flink/flink-1.11.1/conf/</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>启动Hadoop集群</li>
+</ol>
+<p>如果Hadoop还没启动，则启动hadoop集群</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# cd /usr/local/myapp/hadoop/hadoop-2.9.2/</span><br><span class="line">[root@vm1 hadoop-2.9.2]# sbin/start-all.sh</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>启动zk集群</li>
+</ol>
+<p>如果zookeeper还没启动，则启动zookeeper集群</p>
+<p>在每台机器的zk安装目录下执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 zookeeper-3.6.1]# zkServer.sh start</span><br><span class="line">[root@vm2 zookeeper-3.6.1]# zkServer.sh start</span><br><span class="line">[root@vm3 zookeeper-3.6.1]# zkServer.sh start</span><br><span class="line"><span class="meta">#</span><span class="bash">过几秒钟查看状态</span></span><br><span class="line">[root@vm1 zookeeper-3.6.1]# zkServer.sh status</span><br><span class="line">[root@vm2 zookeeper-3.6.1]# zkServer.sh status</span><br><span class="line">[root@vm3 zookeeper-3.6.1]# zkServer.sh status</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>启动Flink Standalone HA集群</li>
+</ol>
+<p>在主节点执行启动脚本，并查看各个节点的进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# cd /usr/local/myapp/flink/flink-1.11.1/</span><br><span class="line">[root@vm1 flink-1.11.1]# bin/start-cluster.sh</span><br><span class="line">Starting HA cluster with 2 masters.</span><br><span class="line">Starting standalonesession daemon on host vm1.</span><br><span class="line">Starting standalonesession daemon on host vm2.</span><br><span class="line">Starting taskexecutor daemon on host vm3.</span><br><span class="line"></span><br><span class="line">[root@vm1 flink-1.11.1]# jps</span><br><span class="line">9440 StandaloneSessionClusterEntrypoint</span><br><span class="line">4707 NameNode</span><br><span class="line">9508 Jps</span><br><span class="line">4997 ResourceManager</span><br><span class="line">8873 QuorumPeerMain</span><br><span class="line"></span><br><span class="line">[root@vm2 ~]# jps</span><br><span class="line">7056 QuorumPeerMain</span><br><span class="line">3762 SecondaryNameNode</span><br><span class="line">7476 StandaloneSessionClusterEntrypoint</span><br><span class="line">3678 DataNode</span><br><span class="line">3839 NodeManager</span><br><span class="line">7583 Jps</span><br><span class="line"></span><br><span class="line">[root@vm3 zookeeper-3.6.1]# cd ~</span><br><span class="line">[root@vm3 ~]# jps</span><br><span class="line">4580 DataNode</span><br><span class="line">8421 QuorumPeerMain</span><br><span class="line">4670 NodeManager</span><br><span class="line">8830 TaskManagerRunner</span><br><span class="line">8927 Jps</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>查看web页面</li>
+</ol>
+<p>StandaloneSessionClusterEntrypoint（JobManager）节点都会启动Web服务，因此可以登录主节点的web页面验证</p>
+<p><a target="_blank" rel="noopener" href="http://vm1:8081/">http://vm1:8081/</a></p>
+<p><a target="_blank" rel="noopener" href="http://vm2:8081/">http://vm2:8081/</a></p>
+<p>10）提交任务执行</p>
+<p>无论在哪一台机器上提交任务，都可以被正确执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br><span class="line">[root@vm2 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br><span class="line">[root@vm3 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>验证主进程HA切换</li>
+</ol>
+<p>把vm1机器的StandaloneSessionClusterEntrypoint进程kill掉时，查看能否在vm1上提交任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# kill 9440</span><br><span class="line">[root@vm1 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br></pre></td></tr></table></figure>
+
+<p>通过vm2的web页面查看到任务运行成功，说明vm1上的主进程挂掉之后flink集群依然能够工作</p>
+<p><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101120737628.png" alt="在这里插入图片描述"></p>
+<p>再次kill掉vm2上的StandaloneSessionClusterEntrypoint进程</p>
+<p>此时提交任务便执行失败</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@vm2 flink-1.11.1]# kill 7476</span><br><span class="line"></span><br><span class="line">[root@vm1 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br><span class="line">Executing WordCount example with default input data set.</span><br><span class="line">Use --input to specify file input.</span><br><span class="line">Printing result to stdout. Use --output to specify output path.</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"> The program finished with the following exception:</span><br><span class="line">org.apache.flink.client.program.ProgramInvocationException: The main method caused an error: java.util.concurrent.ExecutionException: org.apache.flink.runtime.client.JobSubmissionException: Failed to submit JobGraph.</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>重启vm1上的主进程</li>
+</ol>
+<p>重启vm1上的StandaloneSessionClusterEntrypoint进程，看能否恢复</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/jobmanager.sh start</span><br><span class="line">[root@vm1 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br><span class="line">[root@vm2 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br><span class="line">[root@vm3 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br></pre></td></tr></table></figure>
+
+<p>由此可见，重启vm1上的flink主进程后，3台flink客户端都可以正常提交任务，恢复正常！</p>
+<ol>
+<li>重启vm2上的主进程</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm2 flink-1.11.1]#  bin/jobmanager.sh start</span><br><span class="line">Starting standalonesession daemon on host vm2.</span><br></pre></td></tr></table></figure>
+
+<p>访问vm2的web页面，发现刚才运行的flink任务已经同步显示，flink集群全部恢复正常了！vm1、vm2的web页面内容一致。<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101120804501.png" alt="在这里插入图片描述"></p>
+<ol>
+<li>停止flink集群</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]#  bin/stop-cluster.sh</span><br><span class="line">Stopping taskexecutor daemon (pid: 8830) on host vm3.</span><br><span class="line">Stopping standalonesession daemon (pid: 9440) on host vm1.</span><br><span class="line">Stopping standalonesession daemon (pid: 7476) on host vm2.</span><br></pre></td></tr></table></figure>
+
+<h4 id="Flink-on-Yarn集群HA"><a href="#Flink-on-Yarn集群HA" class="headerlink" title="Flink on Yarn集群HA"></a>Flink on Yarn集群HA</h4><p>Flink on Yarn模式的HA利用的是YARN的任务恢复机制。Flink on Yarn模式依赖hadoop集群，这里可以使用前文中的hadoop集群。这种模式下的HA虽然依赖YARN的任务恢复机制，但是Flink任务在恢复时，需要依赖检查点产生的快照。快照虽然存储在HDFS上，但是其元数据保存在zk中，所以也需要一个zk集群，使用前文配置好的zk集群即可。</p>
+<p>配置步骤如下：</p>
+<ol>
+<li>修改Hadoop配置文件</li>
+</ol>
+<p> 设置应用程序提交的最大尝试次数</p>
+<p>[root@vm1 hadoop]# vim yarn-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.am.max-attempts<span class="tag">&lt;/<span class="name">name</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>3<span class="tag">&lt;/<span class="name">value</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>  </span><br><span class="line">    The maximum number of application master execution attempts.  </span><br><span class="line">  <span class="tag">&lt;/<span class="name">description</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>拷贝到其它机器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 hadoop]# scp yarn-site.xml vm2:/usr/local/myapp/hadoop/hadoop-2.9.2/etc/hadoop/</span><br><span class="line">[root@vm1 hadoop]# scp yarn-site.xml vm3:/usr/local/myapp/hadoop/hadoop-2.9.2/etc/hadoop/</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修改Flink配置文件</li>
+</ol>
+<p>[root@vm1 conf]# vim flink-conf.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">high-availability:</span> <span class="string">zookeeper</span></span><br><span class="line"><span class="attr">high-availability.storageDir:</span> <span class="string">hdfs://vm1:9000/flink/ha-yarn</span></span><br><span class="line"><span class="attr">high-availability.zookeeper.quorum:</span> <span class="string">vm1:2181,vm2:2181,vm3:2181</span></span><br><span class="line"><span class="string">high-availability.zookeeper.path.root:/flink-yarn</span></span><br><span class="line"><span class="string">yarn.application-attempts:10</span></span><br></pre></td></tr></table></figure>
+
+<p>拷贝到其它机器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 conf]# scp flink-conf.yaml vm2:/usr/local/myapp/flink/flink-1.11.1/conf/</span><br><span class="line">[root@vm1 conf]# scp flink-conf.yaml vm3:/usr/local/myapp/flink/flink-1.11.1/conf/</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>启动Hadoop集群</li>
+</ol>
+<p>[root@vm1 hadoop-2.9.2]# sbin/start-all.sh</p>
+<ol>
+<li>启动zk集群</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# zkServer.sh start</span><br><span class="line">[root@vm2 ~]# zkServer.sh start</span><br><span class="line">[root@vm3 ~]# zkServer.sh start</span><br><span class="line">zkServer.sh status 查看节点状态</span><br></pre></td></tr></table></figure>
+
+<p>5）启动Flink on Yarn集群</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/yarn-session.sh -n 2 -d</span><br><span class="line">2020-10-19 17:49:13,530 INFO  org.apache.flink.shaded.curator4.org.apache.curator.framework.imps.CuratorFrameworkImpl [] - Default schema</span><br><span class="line">2020-10-19 17:49:13,557 ERROR org.apache.flink.shaded.curator4.org.apache.curator.ConnectionState [] - Authentication failed</span><br><span class="line">2020-10-19 17:49:13,588 INFO  org.apache.flink.shaded.zookeeper3.org.apache.zookeeper.ClientCnxn [] - Session establishment complete on server vm2/192.168.174.137:2181, sessionid = 0x20001b4148c0001, negotiated timeout = 40000</span><br><span class="line">2020-10-19 17:49:13,602 INFO  org.apache.flink.shaded.curator4.org.apache.curator.framework.state.ConnectionStateManager [] - State change: CONNECTED</span><br><span class="line">JobManager Web Interface: http://vm3:38392</span><br></pre></td></tr></table></figure>
+
+<p>查看flink在hadoop中的任务信息：</p>
+<p><a target="_blank" rel="noopener" href="http://vm1:8088/cluster">http://vm1:8088/cluster</a><br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101120829133.png" alt="在这里插入图片描述"></p>
+<p>说明Flink的主节点进程JobManager（YarnSessionClusterEntrypoint）在vm3上，想要验证HA，只要将vm3上的Flink主节点进程JobManager（YarnSessionClusterEntrypoint）kill掉。</p>
+<p>验证HA之前，先看下Flink任务能否正常提交运行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br><span class="line"><span class="meta">#</span><span class="bash">运行上述命令，可以发现flink任务运行成功</span></span><br><span class="line"></span><br><span class="line">[root@vm3 flink-1.11.1]# jps</span><br><span class="line">11538 Jps</span><br><span class="line">10228 NodeManager</span><br><span class="line">10149 DataNode</span><br><span class="line">10453 QuorumPeerMain</span><br><span class="line">10902 YarnSessionClusterEntrypoint</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">kill</span>掉vm3上的flink主进程</span></span><br><span class="line">[root@vm3 flink-1.11.1]# kill 10902</span><br></pre></td></tr></table></figure>
+
+<p>kill掉vm3的YarnSessionClusterEntrypoint之后，等一段时间，发现vm2上自动启动了YarnSessionClusterEntrypoint进程：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@vm2 flink-1.11.1]# jps</span><br><span class="line">11520 QuorumPeerMain</span><br><span class="line">13104 Jps</span><br><span class="line">12530 YarnSessionClusterEntrypoint</span><br><span class="line">11206 SecondaryNameNode</span><br><span class="line">11288 NodeManager</span><br><span class="line">11133 DataNode</span><br></pre></td></tr></table></figure>
+
+<p>同时Hadoop管理页面也能看到有新的flink任务出现：<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101120916464.png" alt="在这里插入图片描述"></p>
+<p>此时再在vm1上提交任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]#  bin/flink run ./examples/batch/WordCount.jar </span><br></pre></td></tr></table></figure>
+
+<p>运行成功！表明HA切换成功。</p>
+<p>6）停止flink</p>
+<p>启动flink时控制台有提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Available commands:</span><br><span class="line">help - show these commands</span><br><span class="line">stop - stop the YARN session</span><br></pre></td></tr></table></figure>
+
+<p>输入stop即可！至此Flink的两种集群方式下的HA配置讲解完毕！动手试试吧。</p>
+<h2 id="快速入门案例"><a href="#快速入门案例" class="headerlink" title="快速入门案例"></a>快速入门案例</h2><p>本节以大数据处理领域的“hello world”案例即词频统计，带领初学者对基于Flink的Java应用开发窥一般而知全貌。</p>
+<h3 id="引入pom依赖"><a href="#引入pom依赖" class="headerlink" title="引入pom依赖"></a>引入pom依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.flink<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>flink-streaming-java_2.11<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.flink.api.common.functions.FlatMapFunction;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.api.java.DataSet;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.api.java.ExecutionEnvironment;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.api.java.operators.DataSource;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.api.java.tuple.Tuple2;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.core.fs.FileSystem;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.util.Collector;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用flink实现批处理：统计一个文件中的各个单词出现的频次，并且把结果存储到文件中</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BatchWordCount</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String inputPath = <span class="string">&quot;F:\\data\\file&quot;</span>;</span><br><span class="line">        String outPath = <span class="string">&quot;F:\\data\\result&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取flink批处理的运行环境</span></span><br><span class="line">        ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line">        <span class="comment">//获取文件中的内容</span></span><br><span class="line">        DataSource&lt;String&gt; text = env.readTextFile(inputPath);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//对文件进行处理(分词、分组、计数)</span></span><br><span class="line">        DataSet&lt;Tuple2&lt;String, Integer&gt;&gt; counts = text.flatMap(<span class="keyword">new</span> Tokenizer()).groupBy(<span class="number">0</span>).sum(<span class="number">1</span>);</span><br><span class="line">        counts.writeAsCsv(outPath, <span class="string">&quot;\n&quot;</span>, <span class="string">&quot; &quot;</span>, FileSystem.WriteMode.OVERWRITE).setParallelism(<span class="number">1</span>);</span><br><span class="line">        env.execute(<span class="string">&quot;batch wordCount0&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Tokenizer</span> <span class="keyword">implements</span> <span class="title">FlatMapFunction</span>&lt;<span class="title">String</span>, <span class="title">Tuple2</span>&lt;<span class="title">String</span>, <span class="title">Integer</span>&gt;&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flatMap</span><span class="params">(String value, Collector&lt;Tuple2&lt;String, Integer&gt;&gt; out)</span></span></span><br><span class="line"><span class="function">                <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">            <span class="comment">//匹配非单词字符分割单词，并返回2元组集合</span></span><br><span class="line">            String[] tokens = value.toLowerCase().split(<span class="string">&quot;\\W+&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span> (String token : tokens) &#123;</span><br><span class="line">                <span class="keyword">if</span> (token.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    out.collect(<span class="keyword">new</span> Tuple2&lt;&gt;(token, <span class="number">1</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>file文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello, my name is daniao,hello hello!</span><br><span class="line">bigbird is a famous person,famous!</span><br><span class="line">mi-xi-mi-xi</span><br></pre></td></tr></table></figure>
+
+<p>result文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">daniao 1</span><br><span class="line">name 1</span><br><span class="line">pig 2</span><br><span class="line">big 2</span><br><span class="line">famous 2</span><br><span class="line">hello 5</span><br><span class="line">bigbird 1</span><br><span class="line">is 2</span><br><span class="line">my 1</span><br><span class="line">person 1</span><br><span class="line">a 1</span><br><span class="line">bird 1</span><br><span class="line">mi 2</span><br><span class="line">pird 1</span><br><span class="line">xi 2</span><br></pre></td></tr></table></figure>
+
+<p>注意到代码中使用了扁平化的Map，即FlatMap。因为文本文件存在多行，如果使用Map，则是一行映射一个处理结果。使用FlatMap则是输出所有行整体的统计处理结果。读者可以对比使用Map的效果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BatchWordCountWithMap</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String inputPath = <span class="string">&quot;F:\\data\\file&quot;</span>;</span><br><span class="line">        String outPath = <span class="string">&quot;F:\\data\\result&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取flink批处理的运行环境</span></span><br><span class="line">        ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line">        <span class="comment">//获取文件中的内容</span></span><br><span class="line">        DataSource&lt;String&gt; text = env.readTextFile(inputPath);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//对文件进行处理</span></span><br><span class="line">        MapOperator&lt;String, Map&lt;String, Integer&gt;&gt; counts = text.map(<span class="keyword">new</span> Tokenizer());</span><br><span class="line">        counts.writeAsText(outPath, FileSystem.WriteMode.OVERWRITE).setParallelism(<span class="number">1</span>);</span><br><span class="line">        env.execute(<span class="string">&quot;batch wordCount1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Tokenizer</span> <span class="keyword">implements</span> <span class="title">MapFunction</span>&lt;<span class="title">String</span>, <span class="title">Map</span>&lt;<span class="title">String</span>, <span class="title">Integer</span>&gt;&gt; </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Map&lt;String, Integer&gt; <span class="title">map</span><span class="params">(String value)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">            Map&lt;String, Integer&gt; wordCountMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            <span class="comment">//以空白字符作为分割,包括空格、换行、tab</span></span><br><span class="line">            String[] tokens = value.toLowerCase().split(<span class="string">&quot;\\W+&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span> (String word : tokens) &#123;</span><br><span class="line">                <span class="keyword">if</span> (wordCountMap.get(word) == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    wordCountMap.put(word, <span class="number">1</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    wordCountMap.put(word, wordCountMap.get(word) + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> wordCountMap;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;hello&#x3D;1, pig&#x3D;2, pird&#x3D;1&#125;</span><br><span class="line">&#123;big&#x3D;2, xi&#x3D;2, bird&#x3D;1, hello&#x3D;1, mi&#x3D;2&#125;</span><br><span class="line">&#123;name&#x3D;1, daniao&#x3D;1, is&#x3D;1, hello&#x3D;3, my&#x3D;1&#125;</span><br><span class="line">&#123;bigbird&#x3D;1, a&#x3D;1, famous&#x3D;2, person&#x3D;1, is&#x3D;1&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="流式处理"><a href="#流式处理" class="headerlink" title="流式处理"></a>流式处理</h3><p>流式数据往往是连续不断的数据，我们可以在linux服务器上用netcat 模拟socket服务器，让flink接受来自网络的流数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.flink.api.common.functions.FlatMapFunction;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.api.java.tuple.Tuple2;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.datastream.DataStream;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.datastream.DataStreamSource;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;</span><br><span class="line"><span class="keyword">import</span> org.apache.flink.util.Collector;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用flink实现流处理：基于socket数据源的词频统计</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StreamWordCount1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//模拟socket输入源的服务器hostname(笔者使用的是虚拟机),能通过hostname访问的前提是程序运行时所在机器hosts文件做了域名/ip映射</span></span><br><span class="line">        <span class="keyword">int</span> port = <span class="number">9999</span>;</span><br><span class="line">        String hostname = <span class="string">&quot;vm1&quot;</span>;</span><br><span class="line">        String delimiter = <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="comment">//获取flink流式数据处理运行环境</span></span><br><span class="line">        StreamExecutionEnvironment executionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line">        <span class="comment">//连接socket获取输入数据</span></span><br><span class="line">        DataStreamSource&lt;String&gt; data = executionEnvironment.socketTextStream(hostname, port, delimiter);</span><br><span class="line">        <span class="comment">//进行数据处理:文本行解析、分组、求和</span></span><br><span class="line">        DataStream&lt;Tuple2&lt;String, Integer&gt;&gt; dataStream = data</span><br><span class="line">                .flatMap(<span class="keyword">new</span> Splitter())</span><br><span class="line">                .keyBy(value -&gt; value.f0)</span><br><span class="line">                .sum(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">//设置sink操作并行度为1</span></span><br><span class="line">        dataStream.print().setParallelism(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">//启动计算任务</span></span><br><span class="line">        executionEnvironment.execute(<span class="string">&quot;word count Stream&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//FlatMapFunction&lt;String, WordWithCount&gt;第一个参数是输入类型,第二个参数是输出类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Splitter</span> <span class="keyword">implements</span> <span class="title">FlatMapFunction</span>&lt;<span class="title">String</span>, <span class="title">Tuple2</span>&lt;<span class="title">String</span>, <span class="title">Integer</span>&gt;&gt; </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flatMap</span><span class="params">(String data, Collector&lt;Tuple2&lt;String, Integer&gt;&gt; out)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">            System.out.println(<span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd HH:mm:ss:SSS&quot;</span>).format(<span class="keyword">new</span> Date()) + <span class="string">&quot; received &quot;</span> + data);</span><br><span class="line">            String[] splits = data.split(<span class="string">&quot;\\s&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span> (String word : splits) &#123;</span><br><span class="line">                <span class="comment">//输出一个2元组</span></span><br><span class="line">                out.collect(<span class="keyword">new</span> Tuple2&lt;String, Integer&gt;(word, <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上述Java程序之前，我们先在虚拟机linux服务器vm1上运行 nc -lk 9999开启监听，等待输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# nc -lk 9999</span><br></pre></td></tr></table></figure>
+
+<p>运行Java程序，启动成功后在linux服务器输入数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# nc -lk 9999</span><br><span class="line">12 33 22 22 12 aa bb aa</span><br></pre></td></tr></table></figure>
+
+<p>此时Java程序控制台输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2020-10-31 15:12:36:497 received 12 33 22 22 12 aa bb aa</span><br><span class="line">(12,1)</span><br><span class="line">(33,1)</span><br><span class="line">(22,1)</span><br><span class="line">(22,2)</span><br><span class="line">(12,2)</span><br><span class="line">(aa,1)</span><br><span class="line">(bb,1)</span><br><span class="line">(aa,2)</span><br></pre></td></tr></table></figure>
+
+<p>若再次输入数据，则程序还会累加统计</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# nc -lk 9999</span><br><span class="line">12 33 22 22 12 aa bb aa</span><br><span class="line">22</span><br><span class="line">aa aa </span><br><span class="line">1234</span><br><span class="line">2020-10-31 15:12:49:017 received 22</span><br><span class="line">(22,3)</span><br><span class="line">2020-10-31 15:13:00:603 received aa aa </span><br><span class="line">(aa,3)</span><br><span class="line">(aa,4)</span><br></pre></td></tr></table></figure>
+
+<p>官方提供了一个解析命令行参数的工具类ParameterTool，我们可以参考官方的demo，运行代码时添加启动参数即可<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121032660.png" alt="在这里插入图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用flink实现流处理：基于socket数据源的词频统计</span></span><br><span class="line"><span class="comment"> * 使用Flink自带的参数解析工具、自定义实体类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StreamWordCount2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// the host and the port to connect to</span></span><br><span class="line">        <span class="keyword">final</span> String delimiter = <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">final</span> String hostname;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> port;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">final</span> ParameterTool params = ParameterTool.fromArgs(args);</span><br><span class="line">            hostname = params.has(<span class="string">&quot;hostname&quot;</span>) ? params.get(<span class="string">&quot;hostname&quot;</span>) : <span class="string">&quot;localhost&quot;</span>;</span><br><span class="line">            port = params.getInt(<span class="string">&quot;port&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            System.err.println(<span class="string">&quot;No port specified. Please run &#x27;SocketWindowWordCount &quot;</span> +</span><br><span class="line">                    <span class="string">&quot;--hostname &lt;hostname&gt; --port &lt;port&gt;&#x27;, where hostname (localhost by default) &quot;</span> +</span><br><span class="line">                    <span class="string">&quot;and port is the address of the text server&quot;</span>);</span><br><span class="line">            System.err.println(<span class="string">&quot;To start a simple text server, run &#x27;netcat -l &lt;port&gt;&#x27; and &quot;</span> +</span><br><span class="line">                    <span class="string">&quot;type the input text into the command line&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取flink流式处理运行环境</span></span><br><span class="line">        StreamExecutionEnvironment executionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment();</span><br><span class="line">        <span class="comment">//连接socket获取输入数据</span></span><br><span class="line">        DataStreamSource&lt;String&gt; text = executionEnvironment.socketTextStream(hostname, port, delimiter);</span><br><span class="line">        <span class="comment">//进行数据处理,FlatMapFunction&lt;String, WordWithCount&gt;第一个参数是输入类型,第二个参数是输出类型</span></span><br><span class="line">        SingleOutputStreamOperator&lt;WordWithCount&gt; windowCounts = text</span><br><span class="line">                .flatMap(<span class="keyword">new</span> FlatMapFunction&lt;String, WordWithCount&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">flatMap</span><span class="params">(String data, Collector&lt;WordWithCount&gt; collector)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                        System.out.println(<span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd HH:mm:ss:SSS&quot;</span>).format(<span class="keyword">new</span> Date()) + <span class="string">&quot; received &quot;</span> + data);</span><br><span class="line">                        String[] splits = data.split(<span class="string">&quot;\\s&quot;</span>);</span><br><span class="line">                        <span class="keyword">for</span> (String word : splits) &#123;</span><br><span class="line">                            collector.collect(<span class="keyword">new</span> WordWithCount(word.trim(), <span class="number">1L</span>));</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .keyBy(<span class="string">&quot;word&quot;</span>)</span><br><span class="line">                <span class="comment">//sum函数本质上是个reduce操作</span></span><br><span class="line">                .reduce(<span class="keyword">new</span> ReduceFunction&lt;WordWithCount&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> WordWithCount <span class="title">reduce</span><span class="params">(WordWithCount a, WordWithCount b)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">new</span> WordWithCount(a.word, a.count + b.count);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//把数据打印到控制台并设置并行度</span></span><br><span class="line">        windowCounts.print().setParallelism(<span class="number">1</span>);</span><br><span class="line">        <span class="comment">//执行计算</span></span><br><span class="line">        executionEnvironment.execute(<span class="string">&quot;Socket Window WordCount2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 自定义输出数据类型的实体类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">WordWithCount</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> String word;<span class="comment">//单词</span></span><br><span class="line">        <span class="keyword">public</span> Long count;<span class="comment">//计数</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">WordWithCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">WordWithCount</span><span class="params">(String word, Long count)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.word = word;</span><br><span class="line">            <span class="keyword">this</span>.count = count;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;WordWithCount&#123;&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;word=&#x27;&quot;</span> + word + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                    <span class="string">&quot;, count=&quot;</span> + count +</span><br><span class="line">                    <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交flink集群运行"><a href="#提交flink集群运行" class="headerlink" title="提交flink集群运行"></a>提交flink集群运行</h3><p>上述案例中我们都是直接在本地运行的Java代码，实际生产环境可以打jar包丢到集群中去运行，具体步骤如下</p>
+<p>1）打jar包</p>
+<p>pom文件引入打包所需的插件，使用mvn package命令打包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 编译插件 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- scala编译插件,用于将scala代码编译成class文件 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.alchim31.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>scala-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scalaCompatVersion</span>&gt;</span>2.11<span class="tag">&lt;/<span class="name">scalaCompatVersion</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">scalaVersion</span>&gt;</span>2.11.12<span class="tag">&lt;/<span class="name">scalaVersion</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>compile-scala<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>add-source<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>test-compile-scala<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>test-compile<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>add-source<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>testCompile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 打jar包插件(会包含所有依赖) --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">descriptorRef</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">descriptorRef</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>make-assembly<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>single<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>打包成功后，在工程的target目录下面生成一个jar包：flinkdemo-1.0-SNAPSHOT-jar-with-dependencies.jar</p>
+<p>2）界面方式提交</p>
+<p>提交job之前先运行flink集群；测试服务器开启Linux网络端口监听：nc -lk 9999</p>
+<p>在flink的管理控制台提交job时，选择本地打好的jar包上传即可。可以在web页面指定运行时参数、入口类、并行度等信息；还可以查看Flink作业的<strong>执行计划</strong>，点击submit便可以提交运行。<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121056432.png" alt="在这里插入图片描述"></p>
+<p>运行后还可以在页面上取消任务、查看任务及输出，非常方便管理flink作业<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121115572.png" alt="在这里插入图片描述"></p>
+<p>在linux 使用nc命令监听，并输入数据；flink收到数据计算并输出，在具体干活的机器taskManager上可以看到输出<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121131538.png" alt="在这里插入图片描述"></p>
+<p>3）命令行方式</p>
+<p> 提交</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/flink run -c bigbird.tech.flink.streaming.StreamWordCount2 -p 1 ~/flinkdemo-1.0-SNAPSHOT-jar-with-dependencies.jar --hostname vm2 --port 9999</span><br><span class="line"></span><br><span class="line">Job has been submitted with JobID 41a7db588d15973cc1dee9ba5a61fca6</span><br></pre></td></tr></table></figure>
+
+<p> 查看任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/flink list</span><br><span class="line">Waiting for response...</span><br><span class="line">------------------ Running/Restarting Jobs -------------------</span><br><span class="line">26.10.2020 19:09:04 : 41a7db588d15973cc1dee9ba5a61fca6 : Socket Window WordCount (RUNNING)</span><br><span class="line">--------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p> 取消</p>
+<p> ctrl+c命令只是退出flink客户端，并不能退出正在执行的flink作业；可以在web页面取消flink任务，也可以在命令行操作，取消时需要指定jobId</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/flink cancel 41a7db588d15973cc1dee9ba5a61fca6</span><br><span class="line">Cancelling job 41a7db588d15973cc1dee9ba5a61fca6.</span><br><span class="line">Cancelled job 41a7db588d15973cc1dee9ba5a61fca6.</span><br></pre></td></tr></table></figure>
+
+<p>查看所有任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/flink list -a</span><br><span class="line">Waiting for response...</span><br><span class="line">No running jobs.</span><br><span class="line">No scheduled jobs.</span><br><span class="line">---------------------- Terminated Jobs -----------------------</span><br><span class="line">26.10.2020 18:25:51 : 41f13f01de1df903a0bcb783bf65ccd1 : Socket Window WordCount (FAILED)</span><br><span class="line">26.10.2020 18:37:05 : cf4b8772747a40d1aeb47e5d14c41347 : word count2 (CANCELED)</span><br><span class="line">26.10.2020 18:37:42 : 64e1eff5932ddcbc10e7b592acf082f3 : Socket Window WordCount (FINISHED)</span><br><span class="line">26.10.2020 18:39:13 : 52e7fc692082b3041dbdfff982d901ae : Socket Window WordCount (CANCELED)</span><br><span class="line">26.10.2020 19:09:04 : 41a7db588d15973cc1dee9ba5a61fca6 : Socket Window WordCount (CANCELED)</span><br><span class="line">--------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>停止集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin&#x2F;stop-cluster.sh</span><br></pre></td></tr></table></figure>
+
+<p>此时flink终止运行，web也访问不了。</p>
+<h2 id="Flink核心概念与原理讲解"><a href="#Flink核心概念与原理讲解" class="headerlink" title="Flink核心概念与原理讲解"></a>Flink核心概念与原理讲解</h2><p>本节着重介绍<a target="_blank" rel="noopener" href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/">Flink</a>的一些基础概念和运行原理。</p>
+<h3 id="Flink运行时架构"><a href="#Flink运行时架构" class="headerlink" title="Flink运行时架构"></a>Flink运行时架构</h3><p><a target="_blank" rel="noopener" href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/concepts/flink-architecture.html">Flink</a>遵循 Master-Slave 架构设计原则。Flink运行时架构由两种类型的进程组成：一个JobManager，以及多个TaskManager。运行JobManager进程的节点认为是Master节点，运行TaskManager进程的节点认为是Worker(Slave)节点。组件之间的通信都是借助于Akka框架，包括任务的状态以及 Checkpoint 触发等信息。下图展示了Flink运行时架构。<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121200318.png" alt="在这里插入图片描述"></p>
+<p>由图可见，应用程序通常是由Flink Clinet端提交到flink集群中执行。尽管Flink客户端并不是flink程序执行时的组成部分，但是客户端的作用是很重要的，它负责准备和发送数据流图到JobManager，此后，客户端便可以断开(<em>detached mode</em>)。比如我们在Linux上运行flink命令带参数-d时，便是以detached mode运行，此时ctrl+c强退只是退出客户端，并不会停止flink进程，而是后台运行。当然Clinet端也可以一直和flink服务端保持连接(<em>attached mode</em>)，以接收程序运行报告。Flink Clinet端既可以从命令行启动，也可以是Java或者Scala客户端代码启动。</p>
+<p>JobManager和Taskmanager可以以各种方式启动：作为 standalone集群直接在机器上启动，或者在容器中启动，或者由 <a target="_blank" rel="noopener" href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/ops/deployment/yarn_setup.html">YARN</a> or <a target="_blank" rel="noopener" href="https://ci.apache.org/projects/flink/flink-docs-release-1.11/ops/deployment/mesos.html">Mesos</a>等资源框架管理。TaskManagers连接到JobManagers，声明它们是可用的，可以被分配工作。</p>
+<h4 id="JobManager"><a href="#JobManager" class="headerlink" title="JobManager"></a>JobManager</h4><p>Flink中控制应用程序执行的主进程，负责协调Flink应用程序的分布式执行。JobManager决定着何时开始调度下一个flink任务或者任务集合、对执行成功或者失败的任务作出响应、协调checkpoints、协调Flink应用程序从失败中恢复。</p>
+<p>JobManager进程由3个不同的组件构成：</p>
+<p><strong>ResourceManager</strong></p>
+<p>ResourceManager负责Flink集群中资源的分配和重分配及资源供应。ResourceManager管理着TaskManager中的任务槽(task slots)。任务槽(slot)是flink中资源调度的基本单位。Flink为不同的环境和资源提供者(如YARN、Mesos、Kubernetes和Standalone部署)实现了多个Resourcemanager。在Standalone模式下，ResourceManager只能分发可用的TaskManager的插槽，不能自己启动新的TaskManager进程。容器环境下，当JobManager申请资源时，ResourceManager将有空闲slot的TaskManager分配给JobManager。如果ResourceManager中没有足够的slot，则可以向资源提供平台发起会话，以提供启动了TaskManager进程的容器。</p>
+<p><strong>Dispatcher</strong></p>
+<p>Dispatcher提供了REST接口来提交要执行的Flink应用程序，并为每个提交的作业启动一个新的JobMaster。它还运行Flink WebUI来提供关于Flink作业执行的信息。</p>
+<p><strong>JobMaster</strong></p>
+<p>JobMaster负责管理单个作业图的执行。多个作业可以在一个Flink集群中同时运行，每个作业都有自己的JobMaster。</p>
+<p>JobMaster首先接收到要执行的应用程序，该应用程序包含：作业图(JobGraph)、逻辑数据流图(logical dataflow graph)和打包了所有class、lib和其它资源的jar包。JobMaster把JobGraph转换成物理层面的数据流图(physical dataflow graph)，也称为“执行图”( ExecutionGraph)，执行图包含了所有可以并发执行的任务(task)。</p>
+<p>JobManager向资源管理器(ResourceManager)申请必需的计算资源用于执行任务，也就是TaskManager上的槽（slot）。一旦获取到足够的资源，便将ExecutionGraph中的task分发到真正执行它的TaskManager上。在运行过程中，JobManager会负责所有需要中央协调的操作，比如checkpoints的协调。</p>
+<h4 id="TaskManagers"><a href="#TaskManagers" class="headerlink" title="TaskManagers"></a>TaskManagers</h4><p>TaskManagers 也叫做workers，是Flink中的工作进程，负责执行数据流图中的task、缓冲和交换数据流。Flink集群至少有一个TaskManager运行，通常flink集群中会有多个TaskManager运行。TaskManager中资源调度的最小单元是任务槽(slot)，每个TaskManager都含有一定数量的slots(槽)。槽的数量通常与每个TaskManager的可用CPU内核数呈正相关。slot的数量限制了TaskManager能够并发处理任务的数量，即Flink任务能配置的最大并行度由 TaskManager上可用的 slots数决定。</p>
+<p>TaskManager启动时会向ResourceManager注册它的槽(slots)。收到ResourceManager的指令后，TaskManager会将一个或者多个slot分配给JobManager调用。JobManager就可以向slot分配任务来执行。执行过程中，一个TaskManager可以跟它运行同一应用程序的TaskManager交换数据。</p>
+<h3 id="Flink核心概念与处理流程"><a href="#Flink核心概念与处理流程" class="headerlink" title="Flink核心概念与处理流程"></a>Flink核心概念与处理流程</h3><h4 id="并行度-Parallelism"><a href="#并行度-Parallelism" class="headerlink" title="并行度(Parallelism)"></a>并行度(Parallelism)</h4><p>一个算子(operator)的子任务(subtask)数，称之为该算子的并行度(parallelism)。Flink中一个Stream的并行度，可以认为是其包含的所有算子中的最大的那个并行度。适当提高并行度可以提高Job的执行效率。Parallelism有如下几种设置方式。</p>
+<ol>
+<li>如果不设置的话将使用配置文件flink-conf.yaml中默认配置</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 conf]# cat flink-conf.yaml | grep parallelism</span><br><span class="line"><span class="meta">#</span><span class="bash"> The parallelism used <span class="keyword">for</span> programs that did not specify and other parallelism.</span></span><br><span class="line">parallelism.default: 1</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>命令行提交任务时 -p 指定</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 flink-1.11.1]# bin/flink run -p 4 ~/flinkdemo-1.0-SNAPSHOT-jar-with-dependencies.jar</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>代码中指定</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">executionEnvironment.setParallelism(n)<span class="comment">//通过env指定全局的并行度</span></span><br><span class="line">    </span><br><span class="line">dataStream.print().setParallelism(<span class="number">1</span>);<span class="comment">//也可以在每个算子后面单独指定并行度</span></span><br></pre></td></tr></table></figure>
+
+<p>本地dev环境不使用配置文件默认配置，即我们在本地开发工具中运行flink应用程序时，如果没有设置算子的并行度，则flink默认设置并行度为当前机器的cpu核数。例如快速入门案例中，我们不设置并行度，即将代码<code>dataStream.print().setParallelism(1);</code>改成：<code>dataStream.print();</code>，则控制台输出时结果前便带了一个数字。每行结果前的数字可以认为是并行任务的任务号，笔者机器4核cpu，因此这个数字范围是1-4</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@vm1 ~]# nc -lk 9999</span><br><span class="line">hello word how are you fine thank you and you !</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">2020-10-31 15:34:08:087 received hello word how are you fine thank you and you !</span><br><span class="line">1&gt; (!,1)</span><br><span class="line">3&gt; (word,2)</span><br><span class="line">2&gt; (hello,2)</span><br><span class="line">3&gt; (how,2)</span><br><span class="line">4&gt; (and,2)</span><br><span class="line">2&gt; (are,2)</span><br><span class="line">2&gt; (thank,1)</span><br><span class="line">3&gt; (you,3)</span><br><span class="line">3&gt; (fine,1)</span><br><span class="line">3&gt; (you,4)</span><br><span class="line">3&gt; (you,5)</span><br><span class="line">123456789101112</span><br></pre></td></tr></table></figure>
+
+<p>并行度设置的优先级：</p>
+<p>Operator Level&gt; Execution Environment Level&gt;Client Level&gt;System Level</p>
+<p>即 算子级别 &gt; env级别 &gt; Client级别 &gt; 系统默认级别</p>
+<h4 id="任务槽-Task-Slots"><a href="#任务槽-Task-Slots" class="headerlink" title="任务槽(Task Slots)"></a>任务槽(Task Slots)</h4><p>每个worker (TaskManager)都是一个JVM进程，可以启动单独的线程执行一个或多个子任务。为了控制TaskManager能接受多少任务，提出了任务槽的概念，每个TaskManager至少包含一个任务槽。</p>
+<p>每个任务槽代表TaskManager的一个固定资源子集。例如，一个有三个slot的TaskManager，会将其管理内存的1/3分配给每个slot。对资源进行分槽意味着子任务不会与其他作业的子任务争夺内存资源，而是拥有特定数量的内存资源。注意，TaskManager中的slot只是对内存隔离，并没有CPU隔离。</p>
+<p>通过调整slot的数量，用户可以定义子任务如何相互隔离。比如每个TaskManager有且仅有一个slot，则意味着每个任务组在单独的JVM中运行(例如，JVM可以在单独的容器中启动)。一个TaskManager拥有多个slot则意味着更多子任务共享同一个JVM，即可以执行多个子任务。相同JVM中的任务共享TCP连接(通过多路复用机制)和心跳消息。它们还可以共享数据集和数据结构，从而减少每个任务的开销。TaskManager进程、Task Slot、任务线程关系图如下：<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121236775.png" alt="在这里插入图片描述"></p>
+<h4 id="两者关系"><a href="#两者关系" class="headerlink" title="两者关系"></a>两者关系</h4><p>Slot指的是TaskManager能够提供的并发执行能力，是静态的并行能力的概念。而Parallelism则是TaskManager 实际会使用的并发能力，是动态的并行能力的概念。动态占用的资源总数必须小于静态能够提供的资源数。</p>
+<p>Flink允许子任务共享插槽，即使它们是不同任务的子任务，只要它们来自相同的Job。同一个任务的不同子任务一般占据不同的slot，前后发生的子任务可以共享slot。插槽共享的好处是：Flink集群需要的任务槽数与要执行的Job中使用的最高并行度相同即可，而不需要计算一个程序总共包含多少任务(每个任务具有不同的并行度)。这可以提高slot资源利用率，一个slot便可以hold住这个Job的整条处理链。Slot的数量推荐设置为机器的cpu核心数。Flink任务能配置的最大并行度由TaskManager上可用的Slot数决定。如下图中的Job中，source、map、keyBy、window、apply子任务配置的并行度为6，sink操作的并行度为1，因此运行此任务，flink集群至少有6个slot。如果一个taskmanager只能提供3个，那就需要2个taskmanager。图中也展示了子任务共享slot。</p>
+<p><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121250781.png" alt="在这里插入图片描述"></p>
+<h4 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h4><p>下面看几个官方的例子更加清晰地理解slot和parallelism之间的关系，以及实际应用中如何设置。</p>
+<ol>
+<li>下图展示了一个有3个TaskManager、每个TaskManager设置3个slot的结构图。该配置下的集群启动后共有9个可用的Slot。<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121305676.png" alt="在这里插入图片描述"></li>
+</ol>
+<p>2）Parallelism 指定了TaskManager实际使用的并发能力，如果没有手动指定并行度则使用flink-config.yaml中的默认值。如图所示，Flink配置文件默认设置的并行度为 1，如果使用默认值，此处只会使用有9 个Slot中的1个，其余8个处于空闲状态。适当地根据集群配置、任务大小设置应用程序的并行度，才能提高Flink Job的计算效率。<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121320601.png" alt="在这里插入图片描述"></p>
+<p>3）下图展示了3种设置全局并行度的方式：可以修改配置文件、可以在命令行指定，也可以在应用程序env中指定。若全局指定了并行度为2，则每个算子都将占用2个slot。如图所示，9个空闲slot中的2个被使用。<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/2020110112133721.png" alt="在这里插入图片描述"></p>
+<p>若此处设置并行度为9，则所有的资源被使用，每个slot都被分配任务：<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121351290.png" alt="在这里插入图片描述"></p>
+<p>4）除了可以在应用程序的env中全局指定并行度外，也可以通过.setParallelism(x)为每个算子单独指定并行度。下图展示了在应用程序中单独指定sink操作的并行度为1，其它操作的并行度都是9，多线程处理完后最终由一个线程输出结果。</p>
+<p><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121427999.png" alt="在这里插入图片描述"></p>
+<p><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121447147.png" alt="在这里插入图片描述"></p>
+<p>5）小结。如果Flink应用程序设置的并行度超过了集群中TaskManager可用的Slot总数，则程序一直会等待资源调度，如果超过了一定的时间(该时间可配置)则会抛出异常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.apache.flink.runtime.jobmanager.scheduler.NoResourceAvailableException: Could not allocate the required slot within slot request timeout. Please make sure that the cluster has enough resources.</span><br></pre></td></tr></table></figure>
+
+<p>实际应用中如果某个算子的处理逻辑比较复杂，处理数据比较慢，则可以考虑给该算子单独增加并行度，单不要超过集群中总的slot数。在flink配置文件flink-conf.yaml 配置了taskmanager.numberOfTaskSlots参数指定slot数之后，在web管理页面也能看到集群总的slots数。<br>例如在连接<a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/108770504">Kafka</a>集群时，通常建议Flink Source 侧设置的并行度不要超过<a target="_blank" rel="noopener" href="https://blog.csdn.net/hellozpc/article/details/108770504">Kafka</a> Topic的分区数，Flink的一个并行度可以处理Kafka一个或多个分区的数据，并行度大于topic的分区数则造成并行度空闲，资源浪费，正如<a target="_blank" rel="noopener" href="http://kafka.apache.org/">Kafka</a>消费者线程数据一般不超过topic分区数一样。</p>
+<h4 id="Flink应用程序执行流程"><a href="#Flink应用程序执行流程" class="headerlink" title="Flink应用程序执行流程"></a>Flink应用程序执行流程</h4><p>Flink中所有对数据处理的操作称为Transformation Operator。对于整个Dataflow而言，其开始和结束分别对应着Source Operator和Sink Operator，中间计算处理过程对应着Transformation Operator。</p>
+<p>Flink应用程序的构成：source-&gt;transformation-&gt;sink</p>
+<p>source: 数据输入、负责读取数据源</p>
+<p>transformation: 利用各种算子进行转换处理</p>
+<p>sink: 数据输出、负责结果输出</p>
+<p>一个典型的 Flink 流式应用程序代码结构和流程如下图所示：<br><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121506477.png" alt="在这里插入图片描述"></p>
+<p><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121521630.png" alt="在这里插入图片描述"></p>
+<p>Flink上的程序运行时，会被映射成逻辑数据流(dataflows)，包含上述3个组成部分。每一个dataflow以一个或者多个sources开始、以一个或者多个sink结束。</p>
+<h4 id="Flink任务链"><a href="#Flink任务链" class="headerlink" title="Flink任务链"></a>Flink任务链</h4><p>Flink采用了任务链优化技术，对于分布式执行的操作(operator)，Flink将operator子任务链接到一起，由一个线程执行。说白了就是把符合某种条件的子任务合并在一起，构成一个大任务。每个执行链会在 TaskManager 上的一个独立线程中执行，因此将多个operator子任务链接到一起减少了线程数以及多线程间的切换和缓冲开销，避免了数据在算子之间传输序列化与反序列化开销，提高了总体吞吐量，同时减少了延迟，可以在特定条件下减少本地通信开销。试想如果一个任务的不同子任务分不到不同的slot执行，甚至跨TaskManager执行，其网络通信开销必然比在同一个线程中本地调用大。</p>
+<p>那么什么样的子任务是可以合并、构成所谓的operator chain的呢，下面娓娓道来。</p>
+<p>首先要明白flink中的数据传输形式。</p>
+<p>在Flink中，算子之间的数据传输形式可以是one-to-one(forwarding)模式，也可以是redistributing模式，具体是哪一种形式，取决于算子的种类。</p>
+<p>one-to-one模式：Flink Stream 维护分区及元素的顺序。比如source和map之间，map算子的子任务接收到的元素个数以及顺序和source算子的子任务产生的元素个数及顺序相同。map、filter、flatMap等算子都是one-to-one的映射关系。</p>
+<p>redistributing模式：Stream 的分区会发生改变。每个算子的子任务依据所选择的transformation发送到不同的目标任务。比如keyBy操作根据hashCode重分区，broadcast、rebalance随机重分区。这类算子引发redistribute过程，flink中的redistribute过程类似hadoop和spark中的shuffle过程。</p>
+<p>如果算子本身是one-to-one操作，但是后续操作并行度调整了，和前面的操作并行度不一致，也将引发redistribute过程。毕竟Flink是允许一个程序中不同的算子设置不同的并行度。</p>
+<p>由此可见，为了满足任务链的要求，Flink Stream中的多个算子需要设置相同的并行度，并且是通过local forward方式进行连接。只有相同并行度的one-to-one操作才能链接在一起形成一个Task，原来的算子成为其subTask。并行度相同、并且是one-to-one操作，两个条件缺一不可。</p>
+<p>下面结合一个案例，来介绍Flink是如何进行任务合并的。</p>
+<p>如下图所示，从逻辑视图中可以看出有一个Flink Stream Job，包含source、flatMap、keyBy、sink算子。并行化视图中可以看到除了source算子并行度设为1之外的其它算子并行度都设置为2。source和flatMap并行度不一致，所以不能合并。flatMap到keyBy之间从一个one-to-one操作到一个重分区操作存在redistribute过程，所以也不能合并为执行链。只有keyBy-&gt;sink之间数据传输方式是forward直传(没有数据shuffle)，且并行度相同都是2，因此满足合并任务链的条件，可以合并，占用一个slot即可。原始的4个步骤，设置并行度之后应该是7个任务，理论上会占用7个slot，优化合并之后只剩5个，可见TaskManager的slot利用率得以提升。</p>
+<p><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/2020110112160488.png" alt="在这里插入图片描述"></p>
+<p>比如Wordcount的案例，我们在web页面submit new job时可以show plan查看执行计划：默认没有设置并行度时，所有算子并行度都是1，因此source和flatMap可以chain在一起，同样keyBy聚合和sink也可以合并。</p>
+<p><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121619784.png" alt="在这里插入图片描述"></p>
+<p>如果我们手动设置并行度为2。那么由于source和FlatMap之间发生并行度调整，将需要Rebalance，无法合并。同理，keyBy和sink之间也是如此。整个任务拆分为4个部分。</p>
+<p><img src="/../images/%E5%A4%A7%E6%95%B0%E6%8D%AEFlink%E8%AF%A6%E7%BB%86%E6%95%99%E7%A8%8B(%E5%89%8D%E7%AF%87)/20201101121635281.png" alt="在这里插入图片描述"></p>
+<p>改变任务链</p>
+<p>有时单个任务业务复杂、计算量巨大，合并在一起更加耗时。而flink默认是开启了任务合并功能的，只要满足合并要求的都会自动合并。那么能不能定制此项功能呢？答案是肯定的。Operator chain的行为可以通过API在代码中指定。可以在DataStream的operator后面（如someStream.map(…))调用startNewChain()来指定从该operator开始一个新的chain（与前一个操作断链，不会被chain到前一个操作）。调用disableChaining()禁止该operator参与chaining（不会与前后的operator chain一起，前后都断开）。也可以通过evn设置全局的开关，比如调用StreamExecutionEnvironment.disableOperatorChaining()全局禁用chaining。</p>
+<p>如果想打破slot共享机制，让某些任务独享slot则可以设置Slot group。在代码中具体的算子后调用slotSharingGroup即可，比如someStream.filter(…).slotSharingGroup(“a”)。该设置为filter操作及后续操作单独开启了一个名称为a的slot组，和前面的操作比如source就分开了。在同一个slotSharingGroup中的任务都可以共享slot。不同的slotSharingGroup中的任务一定分配到不同的slot中执行。因此如果使用了slotSharingGroup，则Flink Stream的并行度是每个slot共享组的最大并行度叠加之后的值。</p>
+<h2 id="本篇总结"><a href="#本篇总结" class="headerlink" title="本篇总结"></a>本篇总结</h2><p>介绍完Flink的安装配置、基本原理、入门案例之后，下面就要进入贴近实战开发的内容讲解了。掌握上述基本概念和运行原理有助于进行Flink调优。在实际项目中难免会碰到性能问题，熟悉原理，不管是代码层面调优还是配置运维调优都能游刃有余。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">文章目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flink%E6%A6%82%E8%BF%B0"><span class="toc-number"></span> <span class="toc-text">Flink概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flink%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2"><span class="toc-number"></span> <span class="toc-text">Flink安装部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">本地模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.1.</span> <span class="toc-text">下载安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E5%B9%B6%E8%A7%A3%E5%8E%8B%E8%87%B3linux"><span class="toc-number">1.2.</span> <span class="toc-text">上传并解压至linux</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8Flink"><span class="toc-number">1.3.</span> <span class="toc-text">启动Flink</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">1.4.</span> <span class="toc-text">关闭防火墙</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">集群模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Standalone%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">Standalone模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Linux%E6%9C%BA%E5%99%A8%E8%A7%84%E5%88%92"><span class="toc-number">2.1.1.</span> <span class="toc-text">Linux机器规划</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95"><span class="toc-number">2.1.2.</span> <span class="toc-text">设置免密登录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5"><span class="toc-number">2.1.3.</span> <span class="toc-text">设置主机时间同步</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Flink%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.1.4.</span> <span class="toc-text">Flink安装步骤</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flink-on-YARN-%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">Flink on YARN 模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA"><span class="toc-number">2.2.1.</span> <span class="toc-text">Hadoop集群搭建</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Flink-on-Yarn%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.2.</span> <span class="toc-text">Flink on Yarn的两种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AC%AC1%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">第1种方式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AC%AC2%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">第2种方式</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flink%E9%AB%98%E5%8F%AF%E7%94%A8-HA"><span class="toc-number">3.</span> <span class="toc-text">Flink高可用(HA)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Standalone%E9%9B%86%E7%BE%A4HA"><span class="toc-number">3.1.</span> <span class="toc-text">Standalone集群HA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flink-on-Yarn%E9%9B%86%E7%BE%A4HA"><span class="toc-number">3.2.</span> <span class="toc-text">Flink on Yarn集群HA</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B"><span class="toc-number"></span> <span class="toc-text">快速入门案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5pom%E4%BE%9D%E8%B5%96"><span class="toc-number">1.</span> <span class="toc-text">引入pom依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E5%A4%84%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">批处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">流式处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4flink%E9%9B%86%E7%BE%A4%E8%BF%90%E8%A1%8C"><span class="toc-number">4.</span> <span class="toc-text">提交flink集群运行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flink%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3"><span class="toc-number"></span> <span class="toc-text">Flink核心概念与原理讲解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flink%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9E%B6%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">Flink运行时架构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JobManager"><span class="toc-number">1.1.</span> <span class="toc-text">JobManager</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TaskManagers"><span class="toc-number">1.2.</span> <span class="toc-text">TaskManagers</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flink%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">Flink核心概念与处理流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E5%BA%A6-Parallelism"><span class="toc-number">2.1.</span> <span class="toc-text">并行度(Parallelism)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E6%A7%BD-Task-Slots"><span class="toc-number">2.2.</span> <span class="toc-text">任务槽(Task Slots)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E8%80%85%E5%85%B3%E7%B3%BB"><span class="toc-number">2.3.</span> <span class="toc-text">两者关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">2.4.</span> <span class="toc-text">最佳实践</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flink%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-number">2.5.</span> <span class="toc-text">Flink应用程序执行流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flink%E4%BB%BB%E5%8A%A1%E9%93%BE"><span class="toc-number">2.6.</span> <span class="toc-text">Flink任务链</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E7%AF%87%E6%80%BB%E7%BB%93"><span class="toc-number"></span> <span class="toc-text">本篇总结</span></a>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spring Cloud与Docker的完美结合 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,"> 
+    <meta name="description" content="肖日宁,xiaorining, 运维号称背锅侠，系统升级出现问题、网络出现问题、系统宕机等都会被推到运维头上，就连各大网络公司平台一旦出现问题，也总是运维人员来背锅，包括前段时间阿里云故障，据说也是运维失误造成的！这些问题说明运,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    
+    <h3 class="subtitle">Spring Cloud与Docker的完美结合</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Spring Cloud与Docker的完美结合</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-Spring-Cloud-Docker/" rel="tag">微服务,Spring Cloud,Docker</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p> 运维号称背锅侠，系统升级出现问题、网络出现问题、系统宕机等都会被推到运维头上，就连各大网络公司平台一旦出现问题，也总是运维人员来背锅，包括前段时间阿里云故障，据说也是运维失误造成的！这些问题说明运维工作的复杂性、重要性以及危险性，稍有不慎就有可能“灾难降临”。我以前的一个运维同事经常说，每次升级的时候都胆战心惊，真应该请尊菩萨来拜拜，而我也何尝不是呢？曾经我们每次升级都不是那么顺利，总会有不同的问题出现，复杂的时候可能会折腾一宿。印象最深刻的一次是因为运维升级的失误差点让我们整个技术团队集体“下课”：那天下午两点当时公司的老板要参加一个互联网大会来宣传我们平台的新产品，而我们由于系统还有一些问题需要临时升级，本来想着挺简单的一次升级，却在升级过程中由于操作不当整个平台被全部宕掉，怎么都无法启动。当时脑子一片混乱、手脚发麻（因为我是技术负责人），却怎么也排查不出问题，我当时都想好了要引咎辞职，幸好在大会开始前半个小时终于查到了原因，顺利的恢复了系统的运行！这次事件给我们所有人都上了一课，一定要重视运维，并且一定要做到全自动化运维，一键部署那种！但是由于当时我们技术的局限性，运维人员也不是太专业，好的运维人员又请不起，我们只能自己研究，自己一点点去完善。</p>
+<p>​     后来我在搭建新的技术平台做技术选型时采用了spring cloud这种新型微服务架构，在研究这个框架时接触到了docker，在深入了解spring cloud和docker的机制及运行特性后，我看到了一键式部署的曙光！说干就干，我马上召集了我团队的另外一个技术人员，我们分工研究，并结合阿里云平台，最终完美实现了真正的一键部署！下面我主要介绍一下我们的搭建思路，本文仅提供大致的解决方案，不去做深入的理论探讨，由于作者水平有限、平台较小，所以很多问题可能没有考虑到或者没有做到更好，也欢迎大家共同探讨！</p>
+<p>​    <strong>一、采用swarm集群</strong></p>
+<p>​    由于多docker之间的相互访问只能在同一宿主机，而我们在真正使用中肯定不止一台宿主机，所以我们采用了swarm集群！我的理解是swarm集群将多台宿主机装在一个大的主机盒子里，让docker认为swarm集群就是一台大的宿主机，从而实现只要在这个大的集群中所有的docker均可相互访问。当然，我们宿主机全部采用的是阿里云的ECS，所以我们也就理所应当的采用了阿里云的Swarm集群！</p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/2018090212004852.jpg" alt="img"></p>
+<p>​    <strong>二、将服务打包成镜像</strong></p>
+<p>​    Docker一般采用“一个容器一个进程”的方式，而我们每个微服务也都是一个spring boot应用单进程，直接采用java -jar的形式即可运行应用，那么我们只需将我们的一个服务打包到一个镜像中即可。那你可能要问了，那不同环境下配置文件不同，岂不是不同环境同一个服务要打多个镜像？非也，你可能忘了spring cloud是有专门的配置管理服务的，spring boot是可以读取docker中的环境变量的，而docker的启动是可以采用docker-compose来编排指定的，我们放在后边讨论！我们是采用maven来管理项目的，打包镜像这事是否也可以交给maven来做呢？是的，maven有专门提供docker打包的插件！每个服务下面都有一个专门的docker目录，放置了Dockerfile及镜像中需要用到的文件，Dockerfile的内容就不再专门讲解了，你可以根据自己项目情况来编写自己的Dockerfile！需要注意的是截图中的镜像版本号是一个动态的，每次升级可能都会进行改变，方便紧急的时候回退到某个版本。</p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120127609.jpg" alt="img"></p>
+<p>​     <strong>三、配置Jenkins</strong></p>
+<p>​    采用jenkins来进行统一的项目打包、镜像推送。其实我说的一键部署就是指Jenkins中的“立即构建”这一键！jenkins普通的打包编译配置就不再讲了，主要就是下图中来真正实现这关键的一键的。通过下图shell操作后jenkins会将打好的镜像包推送到阿里云容器服务中的镜像库中。</p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120149613.jpg" alt="img"></p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/201809021202081.jpg" alt="img"></p>
+<p>​    <strong>四、用docker-compose进行服务编排</strong></p>
+<p>​    微服务一般都会有数个、数十个甚至数百个服务在运行，而且每个服务有可能还会同时跑多个，我们不可能手动进行启动运行，那么这时候我们就需要进行服务编排了！</p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120233523.jpg" alt="img"></p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120251297.jpg" alt="img"></p>
+<p>这里我们指定了该服务启动时的运行环境、运行数量、数据卷映射（可以创建NAS数据卷做为通用数据存储）、指向的阿里云SLB等，结合着spring cloud的统一配置服务，我们可以通过采用不同的docker-compose编排来区分不同环境</p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120343446.jpg" alt="img"></p>
+<p>   <strong>五、创建应用</strong></p>
+<p>  在服务编排做好之后，就可以直接使用该服务编排去创建一个应用了，创建完成之后即可直接进行启动</p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120402116.jpg" alt="img"></p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120423888.jpg" alt="img"></p>
+<p>启动中指定要使用的镜像版本，请关联第二步的镜像版本号</p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120445712.jpg" alt="img"></p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120508134.jpg" alt="img"></p>
+<p>补充，第三步的时候并没有真正的完全做到一键部署，除了点击立即构建之外，还需要到阿里云容器服务的应用中点击重新部署，如果需要完全实现一键部署，那就需要在应用中创建触发器，并完善到jenkins配置的脚本中即可</p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120532622.jpg" alt="img"></p>
+<p>​    <strong>六、部署到生产环境</strong></p>
+<p>​    测试通过之后需要部署到生产环境，传统的部署方式要么是通过对测试通过的代码包进行拷贝，并对配置文件进行更改；要么就是通过svn/git中的版本控制从测试到生产的迁移，再进行jenkins的预生产环境测试，但是无论哪种部署方式都很容易出问题：一、漏改、错改配置文件；二、代码合并/迁移过程中产生新的问题；三、生产、测试服务器环境不同，环境差异造成的问题。但docker镜像是一个单进程的应用，而且只要宿主机运行docker没问题，那么docker重的环境也不会出现任何问题，我们将通过测试的应用从测试环境迁移到生产环境就很简单了，只用提供不同的docker-compose服务编排，生产环境直接通过变更配置更改镜像版本号即可</p>
+<p>​    <strong>七、日志采集</strong></p>
+<p>​    Docker容器无法进行存储，只要容器重新启动，那么所有在启动过程中产生的数据都不复存在，如何存储日志呢？第四步中我们做的数据卷映射就可以派上用场了，我们采用的是一个网络NAS盘，将这块硬盘同时挂载到另外一台单独的ECS服务器上就可以访问所有的日志文件了，这里我采用的是ELK来进行日志搜集，这里就不再细讲了</p>
+<p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120602746.jpg" alt="img"></p>
+<p> 通过以上操作，我们真正的实现了一键式部署，而且阿里云针对swarm集群提供了各种方式的数据监控，完全可以满足你的要求！对于集群扩容也很简单，只用选择相应的集群，直接选择添加已有节点或扩容即可随时扩容，你需要做的就是点击下相应应用的重新部署即可。我们现在有数十台服务器，而且没有运维人员，只安排了一个研发工程师来进行日常的升级部署，已经稳定运行了一年多。在日常的升级过程中，除了偶尔的服务器硬件不足，从来没有再出现过因部署失误而产生的问题！</p>
+<p>  再次强调以上方案仅供小公司运维参考，由于本人运维经验有限，可能会有很多考虑不足的地方，欢迎指正探讨，我们只为系统更稳定！</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
