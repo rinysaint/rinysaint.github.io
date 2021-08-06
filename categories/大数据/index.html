@@ -16,6 +16,7 @@
     
     
 <link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
 
 <meta name="generator" content="Hexo 5.4.0"></head>
 
@@ -102,12 +103,20 @@
 			            
             <div class="iconfont icon-menu switchmenu"></div>
         </div>
-        <!-- 网易云音乐插件 -->
-
-    <div style="float:right; bottom:120px left:auto; ">
-        <embed frameborder="no" border="0" marginwidth="0" marginheight="0" width="400" height="400" src="//music.163.com/outchain/player?type=0&id=2250011882&auto=1"></iframe>
-    </div>
-
+        <!-- 云音乐插件 -->
+        
+        <div style="float:right;width:400; height:400;">
+        <meting-js
+            server="netease"
+            type="playlist"
+            order="random"
+            id="2250011882"
+            autoplay="true"
+            preload="auto"
+            mutex="true">
+        </meting-js>
+         </div>
+        
     </div>
     
     <div id="post0">
@@ -123,7 +132,7 @@
         
 <div class="post">
     <a href="/post/72a100cc.html" title="有了数据湖，距离数据仓库消失还有几年？">
-        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover2.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>十一月 13, 2020</p>
@@ -136,7 +145,7 @@
 
 <div class="post">
     <a href="/post/7f834cb4.html" title="大数据Flink详细教程(中篇)">
-        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2019</p>
@@ -148,7 +157,7 @@
 
 <div class="post">
     <a href="/post/d713bc0c.html" title="大数据Flink详细教程(前篇)">
-        <img src="/img/cover2.jpg" class="cover" width="680" height="440">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2019</p>
@@ -161,7 +170,7 @@
 
 <div class="post">
     <a href="/post/c1de84f3.html" title="大数据Flink详细教程(终篇)">
-        <img src="/img/cover3.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2019</p>
@@ -173,7 +182,7 @@
 
 <div class="post">
     <a href="/post/a3a76214.html" title="Kafka与Flink集成">
-        <img src="/img/cover3.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -203,6 +212,8 @@
 <script src="/js/plugin.js"></script>
 <script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/Meting.min.js"></script>
 
 
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">

@@ -16,6 +16,7 @@
     
     
 <link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
 
 <meta name="generator" content="Hexo 5.4.0"></head>
 
@@ -102,12 +103,20 @@
 			            
             <div class="iconfont icon-menu switchmenu"></div>
         </div>
-        <!-- 网易云音乐插件 -->
-
-    <div style="float:right; bottom:120px left:auto; ">
-        <embed frameborder="no" border="0" marginwidth="0" marginheight="0" width="400" height="400" src="//music.163.com/outchain/player?type=0&id=2250011882&auto=1"></iframe>
-    </div>
-
+        <!-- 云音乐插件 -->
+        
+        <div style="float:right;width:400; height:400;">
+        <meting-js
+            server="netease"
+            type="playlist"
+            order="random"
+            id="2250011882"
+            autoplay="true"
+            preload="auto"
+            mutex="true">
+        </meting-js>
+         </div>
+        
     </div>
     
     <div id="post0">
@@ -124,7 +133,7 @@ n...</p>
         
 <div class="post">
     <a href="/post/16edc217.html" title="PB级别的数据和能应对百万级的流量，百万级并发量">
-        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -138,7 +147,7 @@ keycloak是一个集成的登陆技术，即SSO一个比较好的技术，keyclo
 
 <div class="post">
     <a href="/post/5ec13099.html" title="eureka分布式框架demo（springboot、springcloud、Feign、zuul、Mybatis）">
-        <img src="/img/cover2.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover3.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -164,7 +173,7 @@ eureka分布式框架，内含以下模块：eureka server、zuul 网关、commo
 
 <div class="post">
     <a href="/post/6be2b89c.html" title="《分布式单点登录框架XXL-SSO》">
-        <img src="/img/cover2.jpg" class="cover" width="680" height="440">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -193,6 +202,8 @@ eureka分布式框架，内含以下模块：eureka server、zuul 网关、commo
 <script src="/js/plugin.js"></script>
 <script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/Meting.min.js"></script>
 
 
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">

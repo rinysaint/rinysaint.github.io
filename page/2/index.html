@@ -16,6 +16,7 @@
     
     
 <link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
 
 <meta name="generator" content="Hexo 5.4.0"></head>
 
@@ -102,12 +103,20 @@
 			            
             <div class="iconfont icon-menu switchmenu"></div>
         </div>
-        <!-- 网易云音乐插件 -->
-
-    <div style="float:right; bottom:120px left:auto; ">
-        <embed frameborder="no" border="0" marginwidth="0" marginheight="0" width="400" height="400" src="//music.163.com/outchain/player?type=0&id=2250011882&auto=1"></iframe>
-    </div>
-
+        <!-- 云音乐插件 -->
+        
+        <div style="float:right;width:400; height:400;">
+        <meting-js
+            server="netease"
+            type="playlist"
+            order="random"
+            id="2250011882"
+            autoplay="true"
+            preload="auto"
+            mutex="true">
+        </meting-js>
+         </div>
+        
     </div>
     
     <div id="post0">
@@ -122,7 +131,7 @@
         
 <div class="post">
     <a href="/post/c1de84f3.html" title="大数据Flink详细教程(终篇)">
-        <img src="/img/cover2.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2019</p>
@@ -133,8 +142,20 @@
 
 
 <div class="post">
+    <a href="/post/a7e9e655.html" title="Aplayer搭配MetingJS音乐插件的使用">
+        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>十二月 23, 2018</p>
+        <h3><a href="/post/a7e9e655.html" title="Aplayer搭配MetingJS音乐插件的使用" class="posttitle">Aplayer搭配MetingJS音乐插件的使用</a></h3>
+        <p>1. Aplayer和MetingJ的介绍Aplayer官网文档：https://aplayer.js.org/#/Metingjs官网文档：https:...</p>
+    </div>
+</div>
+
+
+<div class="post">
     <a href="/post/d1234036.html" title="拷贝网页上的公式到本地">
-        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover2.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>十二月 23, 2018</p>
@@ -146,7 +167,7 @@
 
 <div class="post">
     <a href="/post/c004a920.html" title="通过广域网(Intelnet)进行远程唤醒[或开机] 图解">
-        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>十二月 23, 2018</p>
@@ -158,7 +179,7 @@
 
 <div class="post">
     <a href="/post/1176dd62.html" title="海淘新手入门必看——2018最新美国亚马逊海淘攻略！含海淘转运攻略海淘教程">
-        <img src="/img/cover3.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>十二月 23, 2018</p>
@@ -170,7 +191,7 @@
 
 <div class="post">
     <a href="/post/88bd6452.html" title="15种微服务架构框架汇总">
-        <img src="/img/cover.jpg" class="cover" width="680" height="440">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -182,7 +203,7 @@
 
 <div class="post">
     <a href="/post/464f099f.html" title="6种微服务RPC框架，你知道几个？">
-        <img src="/img/cover3.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -197,7 +218,7 @@ Du...</p>
 
 <div class="post">
     <a href="/post/27fc2280.html" title="Dubbo环境搭建-管理控制台dubbo-admin实现服务监控">
-        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover3.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -210,7 +231,7 @@ https://blog.csdn.net/BADAO_LIUMANG_QIZHI/article/...</p>
 
 <div class="post">
     <a href="/post/a3a76214.html" title="Kafka与Flink集成">
-        <img src="/img/cover3.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -239,20 +260,6 @@ nginx 进程数，建议按照cpu 数目来...</p>
 </div>
 
 
-<div class="post">
-    <a href="/post/16edc217.html" title="PB级别的数据和能应对百万级的流量，百万级并发量">
-        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
-    </a>
-    <div class="else">
-        <p>九月 28, 2018</p>
-        <h3><a href="/post/16edc217.html" title="PB级别的数据和能应对百万级的流量，百万级并发量" class="posttitle">PB级别的数据和能应对百万级的流量，百万级并发量</a></h3>
-        <p>PB级别的数据和能应对百万级的流量，百万级并发量
-集成认证：
-keycloak是一个集成的登陆技术，即SSO一个比较好的技术，keycloak挂载至云服务...</p>
-    </div>
-</div>
-
-
     </div>
     
     <div id="pager"><a href="/page/3/" class="more">加载更多</a></div>
@@ -269,6 +276,8 @@ keycloak是一个集成的登陆技术，即SSO一个比较好的技术，keyclo
 <script src="/js/plugin.js"></script>
 <script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/Meting.min.js"></script>
 
 
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">

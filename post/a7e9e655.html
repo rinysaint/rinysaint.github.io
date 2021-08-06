@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aplayer搭配MetingJS音乐插件的使用 - 肖日宁的小站</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="keywords" content="肖日宁,Aplayer,MetingJS,音乐插件"> 
+    <meta name="description" content="肖日宁,xiaorining,1. Aplayer和MetingJ的介绍Aplayer官网文档：https://aplayer.js.org/#/Metingjs官网文档：https://github.com/metowolf/,"> 
+    <meta name="author" content="肖日宁"> 
+    <link rel="alternative" href="atom.xml" title="肖日宁的小站" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">肖日宁的小站</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+    
+    <h3 class="subtitle">Aplayer搭配MetingJS音乐插件的使用</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Aplayer搭配MetingJS音乐插件的使用</h1>
+        <div class="stuff">
+            <span>十二月 23, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Aplayer/" rel="tag">Aplayer</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h2 id="1-Aplayer和MetingJ的介绍"><a href="#1-Aplayer和MetingJ的介绍" class="headerlink" title="1. Aplayer和MetingJ的介绍"></a>1. Aplayer和MetingJ的介绍</h2><p><strong>Aplayer官网文档：<a target="_blank" rel="noopener" href="https://aplayer.js.org/#/">https://aplayer.js.org/#/</a><br>Metingjs官网文档：<a target="_blank" rel="noopener" href="https://github.com/metowolf/MetingJS">https://github.com/metowolf/MetingJS</a></strong></p>
+<p>Aplayer是一个功能强大的HTML5音乐播放器，Metingjs基于Aplayer插件封装好的插件，开箱即用。</p>
+<h2 id="2-MetingJS的简单使用"><a href="#2-MetingJS的简单使用" class="headerlink" title="2. MetingJS的简单使用"></a>2. MetingJS的简单使用</h2><h3 id="MetingJS支持Aplayer版本"><a href="#MetingJS支持Aplayer版本" class="headerlink" title="MetingJS支持Aplayer版本"></a>MetingJS支持Aplayer版本</h3><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>API Status</th>
+<th>APlayer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.2.x</td>
+<td>Supported</td>
+<td>1.10.0</td>
+</tr>
+<tr>
+<td>2.0.x</td>
+<td>Latest</td>
+<td>1.10.0</td>
+</tr>
+</tbody></table>
+<h3 id="支持的浏览器"><a href="#支持的浏览器" class="headerlink" title="支持的浏览器"></a>支持的浏览器</h3><ul>
+<li>Chrome</li>
+<li>Firefox</li>
+<li>Safari</li>
+<li>Internet Explorer 11</li>
+<li>Microsoft Edge</li>
+</ul>
+<h2 id="3-使用详解"><a href="#3-使用详解" class="headerlink" title="3. 使用详解"></a>3. 使用详解</h2><h3 id="简单使用实例"><a href="#简单使用实例" class="headerlink" title="简单使用实例"></a>简单使用实例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span>	</span><br><span class="line">	<span class="comment">&lt;!-- require APlayer --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- require MetingJS --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">meting-js</span> <span class="attr">server</span>=<span class="string">&quot;netease&quot;</span> <span class="attr">type</span>=<span class="string">&quot;playlist&quot;</span> <span class="attr">id</span>=<span class="string">&quot;60198&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">meting-js</span>&gt;</span></span><br><span class="line">		</span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 解析：server=&quot;netease&quot; type=&quot;playlist&quot; id=&quot;60198&quot;</span><br><span class="line"></span><br><span class="line">server指音乐平台，netease指网易云音乐， type类型，playlist列表，id指歌曲的i或者专辑或列表外链id</span><br><span class="line">因此重点在于指定平台，指定外链id</span><br></pre></td></tr></table></figure>
+
+<p><strong>中文版选项</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>默认</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id(编号)</td>
+<td><strong>require</strong></td>
+<td>歌曲ID /播放列表ID /专辑ID /搜索关键字</td>
+</tr>
+<tr>
+<td>server(平台)</td>
+<td><strong>require</strong></td>
+<td>音乐平台：<code>netease</code>，<code>tencent</code>，<code>kugou</code>，<code>xiami</code>，<code>baidu</code></td>
+</tr>
+<tr>
+<td>type（类型）</td>
+<td><strong>require</strong></td>
+<td><code>song</code>，<code>playlist</code>，<code>album</code>，<code>search</code>，<code>artist</code></td>
+</tr>
+<tr>
+<td>auto（支持类种 类）</td>
+<td>options</td>
+<td>音乐链接，支持：<code>netease</code>，<code>tencent</code>，<code>xiami</code></td>
+</tr>
+<tr>
+<td>fixed（固定模式）</td>
+<td><code>false</code></td>
+<td>启用固定模式，默认<code>false</code></td>
+</tr>
+<tr>
+<td>mini（迷你模式）</td>
+<td><code>false</code></td>
+<td>启用迷你模式,默认<code>false</code></td>
+</tr>
+<tr>
+<td>autoplay（自动播放）</td>
+<td><code>false</code></td>
+<td>音频自动播放，默认<code>false</code></td>
+</tr>
+<tr>
+<td>theme(主题颜色)</td>
+<td><code>#2980b9</code></td>
+<td>默认<code>#2980b9</code></td>
+</tr>
+<tr>
+<td>loop（循环）</td>
+<td><code>all</code></td>
+<td>播放器循环播放，值：“all”，one”，“none”</td>
+</tr>
+<tr>
+<td>order(顺序)</td>
+<td><code>list</code></td>
+<td>播放器播放顺序，值：“list”，“random”</td>
+</tr>
+<tr>
+<td>preload(加载)</td>
+<td><code>auto</code></td>
+<td>值：“none”，“metadata”，“’auto”</td>
+</tr>
+<tr>
+<td>volume（声量）</td>
+<td><code>0.7</code></td>
+<td>默认音量，请注意播放器会记住用户设置，用户自己设置音量后默认音量将不起作用</td>
+</tr>
+<tr>
+<td>mutex（限制）</td>
+<td><code>true</code></td>
+<td>防止同时播放多个玩家，在该玩家开始播放时暂停其他玩家</td>
+</tr>
+<tr>
+<td>lrc-type（歌词）</td>
+<td><code>0</code></td>
+<td>歌词显示</td>
+</tr>
+<tr>
+<td>list-folded（列表折叠）</td>
+<td><code>false</code></td>
+<td>指示列表是否应该首先折叠</td>
+</tr>
+<tr>
+<td>list-max-height（最大高度）</td>
+<td><code>340px</code></td>
+<td>列出最大高度</td>
+</tr>
+<tr>
+<td>storage-name（储存名称）</td>
+<td><code>metingjs</code></td>
+<td>存储播放器设置的localStorage键</td>
+</tr>
+</tbody></table>
+<p><strong>英文版选项</strong></p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td><strong>require</strong></td>
+<td>song id / playlist id / album id / search keyword</td>
+</tr>
+<tr>
+<td>server</td>
+<td><strong>require</strong></td>
+<td>music platform: <code>netease</code>, <code>tencent</code>, <code>kugou</code>, <code>xiami</code>, <code>baidu</code></td>
+</tr>
+<tr>
+<td>type</td>
+<td><strong>require</strong></td>
+<td><code>song</code>, <code>playlist</code>, <code>album</code>, <code>search</code>, <code>artist</code></td>
+</tr>
+<tr>
+<td>auto</td>
+<td>options</td>
+<td>music link, support: <code>netease</code>, <code>tencent</code>, <code>xiami</code></td>
+</tr>
+<tr>
+<td>fixed</td>
+<td><code>false</code></td>
+<td>enable fixed mode</td>
+</tr>
+<tr>
+<td>mini</td>
+<td><code>false</code></td>
+<td>enable mini mode</td>
+</tr>
+<tr>
+<td>autoplay</td>
+<td><code>false</code></td>
+<td>audio autoplay</td>
+</tr>
+<tr>
+<td>theme</td>
+<td><code>#2980b9</code></td>
+<td>main color</td>
+</tr>
+<tr>
+<td>loop</td>
+<td><code>all</code></td>
+<td>player loop play, values: ‘all’, ‘one’, ‘none’</td>
+</tr>
+<tr>
+<td>order</td>
+<td><code>list</code></td>
+<td>player play order, values: ‘list’, ‘random’</td>
+</tr>
+<tr>
+<td>preload</td>
+<td><code>auto</code></td>
+<td>values: ‘none’, ‘metadata’, ‘auto’</td>
+</tr>
+<tr>
+<td>volume</td>
+<td><code>0.7</code></td>
+<td>default volume, notice that player will remember user setting, default volume will not work after user set volume themselves</td>
+</tr>
+<tr>
+<td>mutex</td>
+<td><code>true</code></td>
+<td>prevent to play multiple player at the same time, pause other players when this player start play</td>
+</tr>
+<tr>
+<td>lrc-type</td>
+<td><code>0</code></td>
+<td>lyric type</td>
+</tr>
+<tr>
+<td>list-folded</td>
+<td><code>false</code></td>
+<td>indicate whether list should folded at first</td>
+</tr>
+<tr>
+<td>list-max-height</td>
+<td><code>340px</code></td>
+<td>list max height</td>
+</tr>
+<tr>
+<td>storage-name</td>
+<td><code>metingjs</code></td>
+<td>localStorage key that store player setting</td>
+</tr>
+</tbody></table>
+<h2 id="3-迷你版背景音乐"><a href="#3-迷你版背景音乐" class="headerlink" title="3. 迷你版背景音乐"></a>3. 迷你版背景音乐</h2><p>根据以上参数，写好了迷你版背景音乐，默认在左下角显示，默认列表折叠，默认不显示歌词</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span>	</span><br><span class="line">	<span class="comment">&lt;!-- require APlayer --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- require MetingJS --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meting-js</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">server</span>=<span class="string">&quot;netease&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">type</span>=<span class="string">&quot;playlist&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">id</span>=<span class="string">&quot;60198&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">fixed</span>=<span class="string">&quot;true&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">autoplay</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">loop</span>=<span class="string">&quot;all&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">order</span>=<span class="string">&quot;random&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">preload</span>=<span class="string">&quot;auto&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">list-folded</span>=<span class="string">&quot;ture&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">list-max-height</span>=<span class="string">&quot;500px&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">lrc-type</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">meting-js</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>抽取出来</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--css--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--js--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--使用--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meting-js</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">server</span>=<span class="string">&quot;netease&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">type</span>=<span class="string">&quot;playlist&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">id</span>=<span class="string">&quot;60198&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">fixed</span>=<span class="string">&quot;true&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">autoplay</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">loop</span>=<span class="string">&quot;all&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">order</span>=<span class="string">&quot;random&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">preload</span>=<span class="string">&quot;auto&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">list-folded</span>=<span class="string">&quot;ture&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">list-max-height</span>=<span class="string">&quot;500px&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">lrc-type</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">meting-js</span>&gt;</span></span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-网易云音乐外链获取方法"><a href="#4-网易云音乐外链获取方法" class="headerlink" title="4. 网易云音乐外链获取方法"></a>4. 网易云音乐外链获取方法</h2><h2 id="1、打开网页版网易云音乐：https-music-163-com"><a href="#1、打开网页版网易云音乐：https-music-163-com" class="headerlink" title="1、打开网页版网易云音乐：https://music.163.com/#"></a>1、打开网页版网易云音乐：<a target="_blank" rel="noopener" href="https://music.163.com/#">https://music.163.com/#</a></h2><p>2、选择播放的的歌单，（由于部分歌曲限制外链，只能另辟蹊径通过分享获得歌单id），如图分享：</p>
+<p><img src="/../images/Aplayer%E6%90%AD%E9%85%8DMetingjs%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/2311623-20210315154729912-1432011760.png" alt="歌单分享"></p>
+<p>3、打开分享的链接（如图我是分享到微博中，打开该链接）</p>
+<p><img src="/../images/Aplayer%E6%90%AD%E9%85%8DMetingjs%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/2311623-20210315155001986-1866875527.png" alt="微博分享链接"></p>
+<p>4、点击链接，打开后，可以看到地址栏中该字段值就是歌单id，填写到上述的id中即可；</p>
+<p><img src="/../images/Aplayer%E6%90%AD%E9%85%8DMetingjs%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/2311623-20210315155134243-1310613511.png" alt="歌单id"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Aplayer%E5%92%8CMetingJ%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">1. Aplayer和MetingJ的介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-MetingJS%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">2. MetingJS的简单使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MetingJS%E6%94%AF%E6%8C%81Aplayer%E7%89%88%E6%9C%AC"><span class="toc-number">2.1.</span> <span class="toc-text">MetingJS支持Aplayer版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="toc-number">2.2.</span> <span class="toc-text">支持的浏览器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">3. 使用详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="toc-number">3.1.</span> <span class="toc-text">简单使用实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%BF%B7%E4%BD%A0%E7%89%88%E8%83%8C%E6%99%AF%E9%9F%B3%E4%B9%90"><span class="toc-number">4.</span> <span class="toc-text">3. 迷你版背景音乐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E5%A4%96%E9%93%BE%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">4. 网易云音乐外链获取方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%89%93%E5%BC%80%E7%BD%91%E9%A1%B5%E7%89%88%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%EF%BC%9Ahttps-music-163-com"><span class="toc-number">6.</span> <span class="toc-text">1、打开网页版网易云音乐：https:&#x2F;&#x2F;music.163.com&#x2F;#</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/Meting.min.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
