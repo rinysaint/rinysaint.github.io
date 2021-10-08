@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>用frp内网穿透实现windows远程登录内网机器 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,frp,内网穿透,远程桌面"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,步骤如下：
+
+阿里云购买服务器最低配置，30元/月即可。 
+
+为服务器安装git先更新apt再安装，否则可能会失败
+
+
+用frp实现内网穿透非常简单，但是前提是你有一个公网IP的机器，没有的话你需要,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">用frp内网穿透实现windows远程登录内网机器</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">用frp内网穿透实现windows远程登录内网机器</h1>
+        <div class="stuff">
+            <span>九月 29, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" rel="tag">内网穿透</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>步骤如下：</p>
+<ol>
+<li><p>阿里云购买服务器<br>最低配置，30元/月即可。 </p>
+</li>
+<li><p>为服务器安装git<br>先更新apt再安装，否则可能会失败</p>
+</li>
+</ol>
+<p>用frp实现内网穿透非常简单，但是前提是你有一个公网IP的机器，没有的话你需要先买个vps，如果你已经有了，那么可以继续往下看了。</p>
+<ol start="3">
+<li><p>我们需要从frp官网下载frp软件 <a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/fatedier/frp/releases">下载地址</a><br> 你需要根据你的vps系统来选择对应的版本，我的vps是ubuntu的，我选的是<code>frp_0.27.0_linux_amd64.tar.gz</code><br> 那么直接ssh登录到vps上用命令：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget <span class="symbol">https:</span>/<span class="regexp">/github.com/fatedier</span><span class="regexp">/frp/releases</span><span class="regexp">/download/v</span>0.<span class="number">27.0</span>/frp_0.<span class="number">27</span>.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>下载到本地，然后解压：   </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir /usr/local/frp/</span><br><span class="line">mv frp_0.<span class="number">27.0</span>_linux_amd64<span class="selector-class">.tar</span><span class="selector-class">.gz</span> /usr/local/frp/</span><br><span class="line"><span class="selector-attr">[root@izbp147qkvfxrb2efks5y9z ~]</span># cd /usr/local/frp/</span><br><span class="line"><span class="selector-attr">[root@izbp147qkvfxrb2efks5y9z frp]</span># tar -zxvf frp_0.<span class="number">27.0</span>_linux_amd64<span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure>
+
+<p>进frp目录：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[root@izbp147qkvfxrb2efks5y9z ~]</span># cd /usr/local/frp/frp_0.<span class="number">27.0</span>_linux_amd64/</span><br></pre></td></tr></table></figure>
+
+<p>这个目录下有个frps.ini文件，这是服务端的配置文件，内容如下：   </p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">common</span>]</span><br><span class="line">bind_port = <span class="number">7000</span></span><br></pre></td></tr></table></figure>
+
+<p>记住这个7000端口，文件内容我们不用修改。</p>
+<blockquote>
+<p>vps上的frp是做服务端</p>
+</blockquote>
+<p>因此，我们运行这个服务端   </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup <span class="operator">./</span>frps <span class="operator">-</span>c <span class="operator">./</span>frps.ini <span class="operator">&amp;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>问题:</p>
+<p>运行./frps -c ./frps.ini时，-bash: ./frps: Permission denied</p>
+<p>解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 .&#x2F;frps -c .&#x2F;frps.ini</span><br></pre></td></tr></table></figure>
+
+<p>即可</p>
+<p>其中，frps.ini可为：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">common</span>]</span><br><span class="line">bind_port = <span class="number">7000</span> <span class="meta">#frps服务端口</span></span><br><span class="line"></span><br><span class="line">vhost_http_port = <span class="number">8080</span> <span class="meta">#http转发端口</span></span><br><span class="line"></span><br><span class="line">vhost_https_port = <span class="number">8081</span> <span class="meta">#https转发端口</span></span><br><span class="line"></span><br><span class="line">token=<span class="number">12345</span> <span class="meta">#frp认证密钥</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">#frpweb视图端口</span></span><br><span class="line">dashboard_addr = <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">dashboard_port = <span class="number">7500</span>  </span><br><span class="line"><span class="meta">#frpweb视图账号密码</span></span><br><span class="line">dashboard_user = admin</span><br><span class="line">dashboard_pwd = admin</span><br></pre></td></tr></table></figure></li>
+<li><p>FRP设置开机自启</p>
+</li>
+</ol>
+<p>开机自启脚本frpstart.sh：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">#chkconfig: 345 88 14</span><br><span class="line">#description:FRP1 &#x2F;&#x2F;此行必写,描述服务.</span><br><span class="line"></span><br><span class="line">nohup &#x2F;usr&#x2F;local&#x2F;frp&#x2F;frp_0.27.0_linux_amd64&#x2F;frps -c &#x2F;usr&#x2F;local&#x2F;frp&#x2F;frp_0.27.0_linux_amd64&#x2F;frps.ini &amp;</span><br></pre></td></tr></table></figure>
+
+<p>增加脚本可执行权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 frpstart.sh</span><br></pre></td></tr></table></figure>
+
+<p>将脚本移动到/etc/rc.d/init.d目录下，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@izbp147qkvfxrb2efks5y9z frp_0.27.0_linux_amd64]#mv frpstart.sh &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>添加开机自启脚本到自动启动项目中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@izbp147qkvfxrb2efks5y9z frp_0.27.0_linux_amd64]# cd &#x2F;etc&#x2F;rc.d&#x2F;init.d</span><br><span class="line">[root@izbp147qkvfxrb2efks5y9z init.d]# chkconfig --add frpstart.sh</span><br><span class="line">[root@izbp147qkvfxrb2efks5y9z init.d]# chkconfig frpstart.sh on</span><br></pre></td></tr></table></figure>
+
+
+
+
+<ol start="5">
+<li>进入阿里云控制台，添加入站规则，否则客户端可能会连接失败<br>（报错：[service.go:97] login to server failed: dial tcp 47.114.55.62:7000: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.<br>dial tcp 47.114.55.62:7000: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;7000&#x2F;tcp --permanent</span><br><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;7500&#x2F;tcp --permanent</span><br><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;8080&#x2F;tcp --permanent</span><br><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;8081&#x2F;tcp --permanent</span><br><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;3389&#x2F;tcp --permanent</span><br><span class="line">#重启防火墙服务</span><br><span class="line">systemctl restart firewalld.service </span><br><span class="line">查看所有打开的端口：</span><br><span class="line">firewall-cmd --zone&#x3D;public --list-ports</span><br><span class="line">也可以直接关闭防火墙服务，因为阿里云有实例安全组规则配置相当于防火墙，关闭后就不用两头配置了，节约时间。</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/images/%E7%94%A8frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0windows%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E5%86%85%E7%BD%91%E6%9C%BA%E5%99%A8/20190511102320416.png" alt="在这里插入图片描述"></p>
+<ol start="6">
+<li><p>从frp官网下载frp软件的windows版本<br> 这次我们要下载的是windows版本<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/fatedier/frp/releases/download/v0.27.0/frp_0.27.0_windows_amd64.zip">frp_0.27.0_windows_amd64.zip</a></p>
+<blockquote>
+<p>windows版本是做frp客户端</p>
+</blockquote>
+<p>解压出来的文件夹里有个<code>frpc.ini</code>文件，这是客户端的配置文件， 我们需要修改这个文件。</p>
+</li>
+<li><p>进入客户端（想要控制的内网windows），下载frpc配置frpc.ini:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">common</span>]</span><br><span class="line">server_addr = 公网IP</span><br><span class="line">server_port = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line">[<span class="meta">RDP</span>]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">local_port = <span class="number">3389</span></span><br><span class="line">remote_port = <span class="number">3389</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在<code>server_addr</code>这里填入你的公网ip，下面的<code>remote_port</code>里填写一个你自己定的端口，这个端口不要和现有端口冲突即可，我这里写的是3389，后来我们就需要用这个端口来连接远程桌面<br> 配置好文件以后，用命令：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frpc<span class="selector-class">.exe</span> -c frpc<span class="selector-class">.ini</span></span><br></pre></td></tr></table></figure>
+
+<p>来启动客户端，此时会弹出来一个控制台窗口，不用关闭，最小化即可。</p>
+</li>
+<li><p>现在我们可以来远程连接了<br> 在另一个内网的机器上运行windows远程桌面：<br> 在运行中输入命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mstsc</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>来打开远程桌面窗口，输入<code>你的vps公网ip:你刚才设置的remote_port</code>，比如:49.168.168.168:3389回车，然后等待连接建立吧，速度取决于你的VPS带宽。</p>
+<ol start="10">
+<li>被控端控制面板–&gt;远程桌面–&gt;允许远程桌面</li>
+</ol>
+<p><img src="/post/images/%E7%94%A8frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0windows%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E5%86%85%E7%BD%91%E6%9C%BA%E5%99%A8/20200115201633964.png" alt="img"></p>
+<ol start="11">
+<li><p>各个平台下输入ip:3399远程控制和账户名、密码即可。<br>控制端使用Micosoft remote desktop即可，在IOS， Android， MAC上均有app；</p>
+<p>若控制端为windows，则使用自带的远程桌面连接即可。</p>
+<p>ps: 比TeamViewer免费版快多了，而且没有设备数量限制</p>
+</li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/Meting.min.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
