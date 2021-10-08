@@ -121,7 +121,7 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;7000&#x2F;tcp --permanent</span><br><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;7500&#x2F;tcp --permanent</span><br><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;8080&#x2F;tcp --permanent</span><br><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;8081&#x2F;tcp --permanent</span><br><span class="line">firewall-cmd --zone&#x3D;public --add-port&#x3D;3389&#x2F;tcp --permanent</span><br><span class="line">#重启防火墙服务</span><br><span class="line">systemctl restart firewalld.service </span><br><span class="line">查看所有打开的端口：</span><br><span class="line">firewall-cmd --zone&#x3D;public --list-ports</span><br><span class="line">也可以直接关闭防火墙服务，因为阿里云有实例安全组规则配置相当于防火墙，关闭后就不用两头配置了，节约时间。</span><br></pre></td></tr></table></figure>
 
-<p><img src="/post/images/%E7%94%A8frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0windows%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E5%86%85%E7%BD%91%E6%9C%BA%E5%99%A8/20190511102320416.png" alt="在这里插入图片描述"></p>
+<p><img src="/../images/%E7%94%A8frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0windows%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E5%86%85%E7%BD%91%E6%9C%BA%E5%99%A8/20190511102320416.png" alt="在这里插入图片描述"></p>
 <ol start="6">
 <li><p>从frp官网下载frp软件的windows版本<br> 这次我们要下载的是windows版本<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://github.com/fatedier/frp/releases/download/v0.27.0/frp_0.27.0_windows_amd64.zip">frp_0.27.0_windows_amd64.zip</a></p>
 <blockquote>
@@ -143,7 +143,7 @@
 <ol start="10">
 <li>被控端控制面板–&gt;远程桌面–&gt;允许远程桌面</li>
 </ol>
-<p><img src="/post/images/%E7%94%A8frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0windows%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E5%86%85%E7%BD%91%E6%9C%BA%E5%99%A8/20200115201633964.png" alt="img"></p>
+<p><img src="/../images/%E7%94%A8frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%9E%E7%8E%B0windows%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E5%86%85%E7%BD%91%E6%9C%BA%E5%99%A8/20200115201633964.png" alt="img"></p>
 <ol start="11">
 <li><p>各个平台下输入ip:3399远程控制和账户名、密码即可。<br>控制端使用Micosoft remote desktop即可，在IOS， Android， MAC上均有app；</p>
 <p>若控制端为windows，则使用自带的远程桌面连接即可。</p>
