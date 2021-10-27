@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shell脚本调用阿里云API实现DDNS动态域名解析 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,文章目录
+
+前言
+申请AccessKey
+
+创建用户
+创建用户组
+用户组添加成员
+用户组添加权限
+
+
+Shell脚本
+
+
+
+前言由于服务器的外网是动态拨号，每次获取的外网IP都不同。手头上刚好有阿里,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">Shell脚本调用阿里云API实现DDNS动态域名解析</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Shell脚本调用阿里云API实现DDNS动态域名解析</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/DDNS-%E9%98%BF%E9%87%8C%E4%BA%91-Shell%E8%84%9A%E6%9C%AC/" rel="tag">DDNS,阿里云,Shell脚本</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h3 id="文章目录"><a href="#文章目录" class="headerlink" title="文章目录"></a>文章目录</h3><ul>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/GerZhouGengCheng/article/details/106165329#_1">前言</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/GerZhouGengCheng/article/details/106165329#AccessKey_3">申请AccessKey</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/GerZhouGengCheng/article/details/106165329#_9">创建用户</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/GerZhouGengCheng/article/details/106165329#_19">创建用户组</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/GerZhouGengCheng/article/details/106165329#_23">用户组添加成员</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/GerZhouGengCheng/article/details/106165329#_28">用户组添加权限</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/GerZhouGengCheng/article/details/106165329#Shell_36">Shell脚本</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于服务器的外网是动态拨号，每次获取的外网IP都不同。手头上刚好有阿里云的域名。为此，想通过编写一个Shell脚本，定期通过互联网服务获取当前机器所在网络的外部IP地址，并将新的IP地址通过阿里云提供的API，更新到对应的域名解析记录。</p>
+<h2 id="申请AccessKey"><a href="#申请AccessKey" class="headerlink" title="申请AccessKey"></a>申请AccessKey</h2><p>登陆阿里云<a target="_blank" rel="noopener" href="https://account.aliyun.com/">官网</a>，在控制台的右上角，将鼠标移动到头像上，会出现如下列表：<br><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516212543834.png" alt="AccessKey管理入口"><br>选择AccessKey管理，会弹出如下提示：<br><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516212657728.png" alt="子用户AccessKey入口"><br>选择<code>开始使用子用户AccessKey</code>，这里不选择<code>继续使用AccessKey</code>，原因是当前进入的页面是主账号，拥有所有的权限，建议通过使用子账户来配置，控制权限。</p>
+<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><p><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516213109622.png" alt="创建用户信息页面"><br>填写要创建的登陆名称和显示名称，这里可以按照需要进行填写，然后点击<code>确定</code>完成创建用户。如果弹出要验证短信，则按提示完成即可。<br><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516213245131.png" alt="创建用户完成页面"><br>创建完成后，默认账户没有<code>AccessKey ID</code>和<code>AccessKey Secret</code>。<br>选择左侧用户列表，点击新创建的用户名，出现如下设置：<br><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516220809512.png" alt="创建用户AccessKey入口"><br>选择<code>创建AccessKey</code><br><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516220924324.png" alt="AccessKey信息页面"><br>保存创建好的<code>AccessKey ID</code>和<code>AccessKey Secret</code>，注意<code>AccessKey Secret</code>只会在这一次显示，后续无法在此查看。如果忘记了，只能删除掉重新添加新的。</p>
+<h3 id="创建用户组"><a href="#创建用户组" class="headerlink" title="创建用户组"></a>创建用户组</h3><p>点击用户组，选择<code>创建用户组</code>，并填写用户组的相关信息。<br><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516215645451.png" alt="创建用户组信息页面"><br>点击<code>确定</code>，创建用户组。</p>
+<h3 id="用户组添加成员"><a href="#用户组添加成员" class="headerlink" title="用户组添加成员"></a>用户组添加成员</h3><p><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516220617658.png" alt="添加组成员入口"><br>在用户组后面选择<code>添加组成员</code><br><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516220511597.png" alt="添加组成员页面"><br>选择要添加的用户进行添加，然后点击<code>确定</code>。</p>
+<h3 id="用户组添加权限"><a href="#用户组添加权限" class="headerlink" title="用户组添加权限"></a>用户组添加权限</h3><p><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516215815208.png" alt="添加权限入口"><br>在用户组后面选择<code>添加权限</code><br><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516220017997.png" alt="添加权限页面"><br>点击<code>确定</code>，添加权限。<br><img src="/../images/Shell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91API%E5%AE%9E%E7%8E%B0DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/20200516220201157.png" alt="添加权限结果页面"><br>到这里，子账户的创建及权限配置就已经完成。</p>
+<h2 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">echo &quot;[$(date &quot;+%G/%m/%d %H:%M:%S&quot;)] AliDDNS.sh start...&quot;</span><br><span class="line"></span><br><span class="line">while true</span><br><span class="line">do</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置需要DDNS的地址，格式为 AliDDNS_SubDomainName.AliDDNS_DomainName ,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如 AliDDNS_DomainName 为 example.com, AliDDNS_SubDomainName 为 ddns ,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 连接起来就是 ddns.example.com</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="bash"><span class="comment"># 设置需要DDNS的域名 &lt;DomainName&gt;</span></span></span><br><span class="line">AliDDNS_DomainName=&quot;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置需要DDNS的子域名 &lt;SubDomainName&gt;</span></span><br><span class="line">AliDDNS_SubDomainName=&quot;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置域名记录的TTL (生存周期)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 免费版产品最低为600(10分钟)~86400(1天), 付费版(企业版)包括以上范围, 还可以按照购买产品配置设置为：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 600(10分钟)、120(2分钟)、60(1分钟)、10(10秒)、5(5秒)、1(1秒),</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> 请按照自己的产品配置和DDNS解析速度需求妥善配置TTL值, 免费版设置低于600的TTL将会报错。</span></span><br><span class="line">AliDDNS_TTL=&quot;600&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置阿里云的AccessKeyId/AccessKeySecret,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可在 https://ak-console.aliyun.com/ 处获取 ,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 推荐使用 https://ram.console.aliyun.com/<span class="comment">#/user/list 生成的AK/SK, 更安全</span></span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="bash"><span class="comment"># 设置阿里云的Access Key</span></span></span><br><span class="line">AliDDNS_AK=&quot;&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置阿里云的Secret Key</span></span><br><span class="line">AliDDNS_SK=&quot;&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置获取本机IP需要执行的命令 (用于nslookup命令获取DDNS域名的当前IP)</span></span><br><span class="line">AliDDNS_LocalIP=&quot;curl -s whatismyip.akamai.com&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设置解析使用的DNS服务器 (推荐使用 223.5.5.5/223.6.6.6 , 毕竟都是阿里家的东西)</span></span><br><span class="line">AliDDNS_DomainServerIP=&quot;223.5.5.5&quot;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 防止用户忘记设置参数导致程序报错，部分参数如果检测到空值，自动使用默认值</span></span><br><span class="line">[ &quot;$AliDDNS_LocalIP&quot; = &quot;&quot; ] &amp;&amp; AliDDNS_LocalIP=&quot;curl -s whatismyip.akamai.com&quot;</span><br><span class="line">[ &quot;$AliDDNS_DomainServerIP&quot; = &quot;&quot; ] &amp;&amp; $AliDDNS_DomainServerIP=&quot;223.5.5.5&quot;</span><br><span class="line">[ &quot;$AliDDNS_TTL&quot; = &quot;&quot; ] &amp;&amp; AliDDNS_TTL=&quot;600&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取本机公网IP</span></span><br><span class="line">AliDDNS_LocalIP=`$AliDDNS_LocalIP 2&gt;&amp;1` || die &quot;$AliDDNS_LocalIP&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取DDNS域名当前解析记录IP</span></span><br><span class="line">AliDDNS_DomainIP=`nslookup $AliDDNS_SubDomainName.$AliDDNS_DomainName $AliDDNS_DomainServerIP 2&gt;&amp;1`</span><br><span class="line"><span class="meta">#</span><span class="bash"> 判断上一条命令的执行是否成功</span></span><br><span class="line">if [ &quot;$?&quot; -eq &quot;0&quot; ]</span><br><span class="line">then</span><br><span class="line">    # 如果执行成功，分离出结果中的IP地址</span><br><span class="line">    AliDDNS_DomainIP=`echo &quot;$AliDDNS_DomainIP&quot; | grep &#x27;Address:&#x27; | tail -n1 | awk &#x27;&#123;print $NF&#125;&#x27;`</span><br><span class="line">    # 进行判断，如果本次获取的新IP和旧IP相同，则进行休眠一分钟后再继续判断</span><br><span class="line">    if [ &quot;$AliDDNS_LocalIP&quot; = &quot;$AliDDNS_DomainIP&quot; ]</span><br><span class="line">    then</span><br><span class="line">        echo &quot;[$(date &quot;+%G/%m/%d %H:%M:%S&quot;)] Local IP ($AliDDNS_LocalIP) is the same with Domain IP ($AliDDNS_DomainIP)&quot;</span><br><span class="line">        echo &quot;[$(date &quot;+%G/%m/%d %H:%M:%S&quot;)] No change modified ...&quot;</span><br><span class="line">	sleep 60</span><br><span class="line">	continue</span><br><span class="line">    fi </span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果IP发生变动，开始进行修改</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 生成时间戳</span></span><br><span class="line">timestamp=`date -u &quot;+%Y-%m-%dT%H%%3A%M%%3A%SZ&quot;`</span><br><span class="line"><span class="meta">#</span><span class="bash"> URL加密函数</span></span><br><span class="line">urlencode() &#123;</span><br><span class="line">    # urlencode &lt;string&gt;</span><br><span class="line">    out=&quot;&quot;</span><br><span class="line">    while read -n1 c</span><br><span class="line">    do</span><br><span class="line">        case $c in</span><br><span class="line">            [a-zA-Z0-9._-]) out=&quot;$out$c&quot; ;;</span><br><span class="line">            *) out=&quot;$out`printf &#x27;%%%02X&#x27; &quot;&#x27;$c&quot;`&quot; ;;</span><br><span class="line">        esac</span><br><span class="line">    done</span><br><span class="line">    echo -n $out</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> URL加密命令</span></span><br><span class="line">enc() &#123;</span><br><span class="line">    echo -n &quot;$1&quot; | urlencode</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 发送请求函数</span></span><br><span class="line">send_request() &#123;</span><br><span class="line">    local args=&quot;AccessKeyId=$AliDDNS_AK&amp;Action=$1&amp;Format=json&amp;$2&amp;Version=2015-01-09&quot;</span><br><span class="line">    local hash=$(echo -n &quot;GET&amp;%2F&amp;$(enc &quot;$args&quot;)&quot; | openssl dgst -sha1 -hmac &quot;$AliDDNS_SK&amp;&quot; -binary | openssl base64)</span><br><span class="line">    curl -s &quot;http://alidns.aliyuncs.com/?$args&amp;Signature=$(enc &quot;$hash&quot;)&quot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取记录值 (RecordID)</span></span><br><span class="line">get_recordid() &#123;</span><br><span class="line">    grep -Eo &#x27;&quot;RecordId&quot;:&quot;[0-9]+&quot;&#x27; | cut -d&#x27;:&#x27; -f2 | tr -d &#x27;&quot;&#x27;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 请求记录值 (RecordID)</span></span><br><span class="line">query_recordid() &#123;</span><br><span class="line">    send_request &quot;DescribeSubDomainRecords&quot; &quot;SignatureMethod=HMAC-SHA1&amp;SignatureNonce=$timestamp&amp;SignatureVersion=1.0&amp;SubDomain=$AliDDNS_SubDomainName.$AliDDNS_DomainName&amp;Timestamp=$timestamp&quot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 更新记录值 (RecordID)</span></span><br><span class="line">update_record() &#123;</span><br><span class="line">    send_request &quot;UpdateDomainRecord&quot; &quot;RR=$AliDDNS_SubDomainName&amp;RecordId=$1&amp;SignatureMethod=HMAC-SHA1&amp;SignatureNonce=$timestamp&amp;SignatureVersion=1.0&amp;TTL=$AliDDNS_TTL&amp;Timestamp=$timestamp&amp;Type=A&amp;Value=$AliDDNS_LocalIP&quot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加记录值 (RecordID)</span></span><br><span class="line">add_record() &#123;</span><br><span class="line">    send_request &quot;AddDomainRecord&amp;DomainName=$AliDDNS_DomainName&quot; &quot;RR=$AliDDNS_SubDomainName&amp;SignatureMethod=HMAC-SHA1&amp;SignatureNonce=$timestamp&amp;SignatureVersion=1.0&amp;TTL=$AliDDNS_TTL&amp;Timestamp=$timestamp&amp;Type=A&amp;Value=$AliDDNS_LocalIP&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 判断RecordIP是否为空</span></span><br><span class="line">if [ &quot;$AliDDNS_RecordID&quot; = &quot;&quot; ]</span><br><span class="line">then</span><br><span class="line">    AliDDNS_RecordID=`query_recordid | get_recordid`</span><br><span class="line">fi</span><br><span class="line">if [ &quot;$AliDDNS_RecordID&quot; = &quot;&quot; ]</span><br><span class="line">then</span><br><span class="line">    AliDDNS_RecordID=`add_record | get_recordid`</span><br><span class="line">    echo &quot;[$(date &quot;+%G/%m/%d %H:%M:%S&quot;)] Added RecordID : $AliDDNS_RecordID&quot;</span><br><span class="line">else</span><br><span class="line">    update_record $AliDDNS_RecordID</span><br><span class="line">    echo &quot;[$(date &quot;+%G/%m/%d %H:%M:%S&quot;)] Updated RecordID : $AliDDNS_RecordID&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 输出最终结果</span></span><br><span class="line">if [ &quot;$AliDDNS_RecordID&quot; = &quot;&quot; ]; then</span><br><span class="line">    # 输出失败结果 (因为没有获取到RecordID)</span><br><span class="line">    echo &quot;[$(date &quot;+%G/%m/%d %H:%M:%S&quot;)] DDNS Update Failed !&quot;</span><br><span class="line">else</span><br><span class="line">    # 输出成功结果</span><br><span class="line">    echo &quot;[$(date &quot;+%G/%m/%d %H:%M:%S&quot;)] DDNS Update Success, New IP is : $AliDDNS_LocalIP&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">sleep 30</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>填入要管理的域名和对应的子域名，并将上一步获得的<code>AccessKey ID</code>和<code>AccessKey Secret</code>填入。运行脚本即可定时检测当前外网IP，并更新到对应的子域名记录里面。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E7%9B%AE%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">文章目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number"></span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B3%E8%AF%B7AccessKey"><span class="toc-number"></span> <span class="toc-text">申请AccessKey</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7"><span class="toc-number">1.</span> <span class="toc-text">创建用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E7%BB%84"><span class="toc-number">2.</span> <span class="toc-text">创建用户组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%BB%84%E6%B7%BB%E5%8A%A0%E6%88%90%E5%91%98"><span class="toc-number">3.</span> <span class="toc-text">用户组添加成员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%BB%84%E6%B7%BB%E5%8A%A0%E6%9D%83%E9%99%90"><span class="toc-number">4.</span> <span class="toc-text">用户组添加权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell%E8%84%9A%E6%9C%AC"><span class="toc-number"></span> <span class="toc-text">Shell脚本</span></a>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/Meting.min.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
