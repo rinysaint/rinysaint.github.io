@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hexo部署到个人服务器 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,在CentOS 7中搭建Git服务器环境说明
+
+CentOS 7.x 最小安装
+配置网络连接
+
+
+安装Git及创建用户123456# 安装Git $ yum install git # 创建一个gi,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">Hexo部署到个人服务器</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Hexo部署到个人服务器</h1>
+        <div class="stuff">
+            <span>九月 28, 2018</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Hexo-%E4%B8%AA%E4%BA%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Hexo,个人服务器</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="在CentOS-7中搭建Git服务器"><a href="#在CentOS-7中搭建Git服务器" class="headerlink" title="在CentOS 7中搭建Git服务器"></a>在CentOS 7中搭建Git服务器</h1><p>环境说明</p>
+<ul>
+<li>CentOS 7.x 最小安装</li>
+<li>配置网络连接</li>
+</ul>
+<ol>
+<li>安装Git及创建用户<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 安装Git </span><br><span class="line">$ yum install git </span><br><span class="line"></span><br><span class="line"># 创建一个git用户组和用户，用来运行git服务 </span><br><span class="line">$ groupadd git </span><br><span class="line">$ adduser git -g git</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>禁止git用户登录:</p>
+<p>修改/etc/passwd文件，修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 找到这句： </span><br><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line"># 改为： </span><br><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;bin&#x2F;git-shell</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li>创建证书登录</li>
+</ol>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir &#x2F;home&#x2F;git&#x2F;.ssh </span><br><span class="line">$ chmod 700 &#x2F;home&#x2F;git&#x2F;.ssh </span><br><span class="line">$ touch 700 &#x2F;home&#x2F;git&#x2F;.ssh&#x2F;authorized_keys </span><br><span class="line">$ chmod 600 &#x2F;home&#x2F;git&#x2F;.ssh&#x2F;authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>  注意，如果是采用的sudo方式来创建git和相应的文件的，需要设置/home/git/.ssh/的owner为git，否则还是每次要输入密码的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># owner改为git </span><br><span class="line">$ sudo chown -R git:git &#x2F;home&#x2F;git&#x2F;.ssh&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>编辑/home/git/.ssh/authorized_keys，把客户端的公钥放进去，1个公钥1行。</p>
+<p>附：如何创建私钥：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 创建私钥，文件位于用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件 </span><br><span class="line">$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>3.初始化Git仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ cd &#x2F;srv </span><br><span class="line">$ mkdir gitrepo </span><br><span class="line">$ chown git:git gitrepo&#x2F; </span><br><span class="line">$ cd gitrepo </span><br><span class="line"></span><br><span class="line"># 创建一个空的Git仓库，服务器上的Git仓库通常都以.git结尾 </span><br><span class="line">$ git init --bare project.git </span><br><span class="line"></span><br><span class="line"># 将仓库所属用户改为git </span><br><span class="line">$ chown -R git:git project.git</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="4">
+<li>克隆仓库<br>在另一台电脑上（下面称为：Client），安装git，并且运行下面的命令：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@10.123.123.123:&#x2F;srv&#x2F;gitrepo&#x2F;project.git</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>验证安装</li>
+<li><ol>
+<li>推送到远程服务器<br>在本地Client的project目录下，创建一个文件：text.txt，内容随意，然后上传到远端：</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>5.2. 检验<br>在本地Client的另外一个目录下，克隆一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@10.123.123.123:&#x2F;srv&#x2F;gitrepo&#x2F;project.git</span><br></pre></td></tr></table></figure>
+
+<p>看看text.txt文件是否存在，内容是否对。</p>
+<p>5.3. 常用的Git命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git add . 添加所有文件  注意有个 . </span><br><span class="line">$ git commit -m &#39;注释&#39; 提交本地</span><br><span class="line">$ git push origin master提交给默认分支</span><br><span class="line">$ git -rm 删除</span><br><span class="line">$ git pull origin master 从默认分支下载</span><br><span class="line">$ git branch -v 查看所有分支</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Hexo是一个快速、简洁且高效的博客框架。"><a href="#Hexo是一个快速、简洁且高效的博客框架。" class="headerlink" title="Hexo是一个快速、简洁且高效的博客框架。"></a>Hexo是一个快速、简洁且高效的博客框架。</h3><p>Hexo基于JS脚本语言结合Markdown文本解析生成静态的HTML页面；本地基于Node环境就可初始化一个带有简单主题的博客网站；<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>官网对Hexo的介绍也比较清楚。推荐个<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Ud1xAhu7t2Y&index=1&list=PLXbU-2B80FvDjD_RiuNwsSQ4eF8pkwAIa">Hexo视频讲解地址</a>。</p>
+<p>Hexo+Github Pages 是大部分博主选择部署Hexo的方式，得到Github pages分配的IP地址然后再和自己申请的域名进行绑定；这种方式相对简单；官方和网上介绍也有很多。</p>
+<p>将个人项目放在别人的服务器上，这种寄人篱下的感觉你懂得；并且Github服务器上的项目响应速度国内也并不是太好；所以还是决定在自己服务器上搭建Hexo。</p>
+<p>准备工作：</p>
+<ul>
+<li>需要一台自己的云服务器(本站CentOS)</li>
+<li>具备生成Hexo个人博客网站计算机一台</li>
+</ul>
+<p>介绍下实现的思路：</p>
+<ul>
+<li>浏览器访问的地址需要映射到项目的静态文件，也就是Hexo g运行后在项目中生成的public文件夹。</li>
+<li>官方文档<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/deployment">部署</a>介绍了，配置文件_config.yml中的deploy配置选项可以将项目在运行hexo d的时候；推送到指定的Gitlab仓库中。</li>
+<li>在个人服务器上搭建一个Git服务端-<a target="_blank" rel="noopener" href="https://blog.csdn.net/martinwangjun/article/details/78780885">传送门</a>。</li>
+<li>域名或IP访问内容服务器上需要Nginx配置映射。</li>
+</ul>
+<h4 id="具体实现："><a href="#具体实现：" class="headerlink" title="具体实现："></a>具体实现：</h4><h4 id="本地-config-yml配置"><a href="#本地-config-yml配置" class="headerlink" title="本地_config.yml配置"></a>本地_config.yml配置</h4><p>本地已生成了一个自己满意的网站后；将_config.yml中deploy配置修改为服务器自己生成的个人仓库地址；例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    <span class="built_in">type</span>: git</span><br><span class="line">    message: update</span><br><span class="line">    repo: git@服务器IP:/srv/blog.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure>
+
+<h4 id="Git脚本"><a href="#Git脚本" class="headerlink" title="Git脚本"></a>Git脚本</h4><p>成功推送到自己的仓库后；需要利用脚本将仓库的public资源拉取到一个文件夹下，作为Nginx后面在配置的映射地址；进入配置的仓库下的Hooks文件夹;例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /srv/blog.git/hooks</span><br><span class="line"></span><br><span class="line">touch post-receive</span><br><span class="line"></span><br><span class="line">vim post-receive</span><br></pre></td></tr></table></figure>
+
+<p>写入以下脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">GIT_REPO=/srv/blog.git</span><br><span class="line">TMP_GIT_CLONE=/srv/tmp/blog</span><br><span class="line">PUBLIC_WWW=/srv/project/blog</span><br><span class="line"></span><br><span class="line">rm -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span></span><br><span class="line">git <span class="built_in">clone</span> <span class="variable">$GIT_REPO</span> <span class="variable">$TMP_GIT_CLONE</span></span><br><span class="line">rm -rf <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br><span class="line">cp -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span> <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>脚本内容是为了让Git仓库每次检测到push行为后，将最新的资源文件Git clone在你要访问的文件夹下。</p>
+<p>并且需要修改文件夹的读写权限，不然是无法自动执行该脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R root:git /srv/tmp/</span><br><span class="line">chmod -R g+w /srv/tmp/</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置Nginx"><a href="#配置Nginx" class="headerlink" title="配置Nginx"></a>配置Nginx</h4><p>Nginx怎么搭建，网上有很多。<br> 配置修改，例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">server &#123;                                                                               </span><br><span class="line">    listen 80 default_server;</span><br><span class="line">    listen [::]:80 default_server ipv6only=on;</span><br><span class="line"></span><br><span class="line">    root /srv/project/blog;    </span><br><span class="line">                                                    </span><br><span class="line">    server_name 域名或IP;    </span><br><span class="line">                                             </span><br><span class="line">    access_log  /srv/nginxlog/blog_access.log;                                    </span><br><span class="line">    error_log   /srv/nginxlog/blog_error.log;                                            </span><br><span class="line">    location ~* ^.+\.(ico|gif|jpg|jpeg|png)$ &#123;                            </span><br><span class="line">            root /srv/project/blog;                                    </span><br><span class="line">            access_log   off;                 </span><br><span class="line">            expires      1d;                            </span><br><span class="line">    &#125;                                                                              </span><br><span class="line">    location ~* ^.+\.(css|js|txt|xml|swf|wav)$ &#123;                                   </span><br><span class="line">        root /srv/project/blog;                                                        </span><br><span class="line">        access_log   off;                                                          </span><br><span class="line">        expires      10m;                                                          </span><br><span class="line">    &#125;                                                                              </span><br><span class="line">    location / &#123;                                                                   </span><br><span class="line">        root /srv/project/blog;                                                </span><br><span class="line">        <span class="keyword">if</span> (-f <span class="variable">$request_filename</span>) &#123;                                            </span><br><span class="line">            rewrite ^/(.*)$  /<span class="variable">$1</span> <span class="built_in">break</span>;                                    </span><br><span class="line">        &#125;                                                                      </span><br><span class="line">    &#125;                      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样本地执行hexo g;hexo d后浏览器就可以通过访问服务器进行hexo博客访问~~~<br> 个人网站地址：<a target="_blank" rel="noopener" href="https://www.onethreeone.top/">https://www.onethreeone.top</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8CentOS-7%E4%B8%AD%E6%90%AD%E5%BB%BAGit%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">在CentOS 7中搭建Git服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo%E6%98%AF%E4%B8%80%E4%B8%AA%E5%BF%AB%E9%80%9F%E3%80%81%E7%AE%80%E6%B4%81%E4%B8%94%E9%AB%98%E6%95%88%E7%9A%84%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E3%80%82"><span class="toc-number">1.0.1.</span> <span class="toc-text">Hexo是一个快速、简洁且高效的博客框架。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">具体实现：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0-config-yml%E9%85%8D%E7%BD%AE"><span class="toc-number">1.0.1.2.</span> <span class="toc-text">本地_config.yml配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Git%E8%84%9A%E6%9C%AC"><span class="toc-number">1.0.1.3.</span> <span class="toc-text">Git脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AENginx"><span class="toc-number">1.0.1.4.</span> <span class="toc-text">配置Nginx</span></a></li></ol></li></ol></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/Meting.min.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
