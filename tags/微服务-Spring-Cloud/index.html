@@ -101,18 +101,22 @@
             <div class="iconfont icon-menu switchmenu"></div>
         </div>
         <!-- 云音乐插件 -->
-        
-        <div style="float:right;width:400px;height:360px;">
-        <meting-js muted="true" 
-            server="netease"
-            type="playlist"
-            order="random"
-            id="6771987564"
-            autoplay="true"
-            preload="auto"
-            list-folded="">
-        </meting-js>
-         </div>
+                
+            <div id="aplayer" style="float:right;width:400px;height:250px;">
+            <script src="/js/APlayer.min.js"></script>
+            
+            <script src="/js/Meting.min.js"></script>
+            <meting-js
+                server="netease"
+                type="playlist"
+                order="random"
+                id="6771987564"
+                autoplay="true"
+                preload="auto"
+                list-folded="">
+            </meting-js> 
+                               
+            </div> 
         
     </div>
     
@@ -129,7 +133,7 @@
         
 <div class="post">
     <a href="/post/336f45ae.html" title="基于 Spring Cloud 的完整微服务项目">
-        <img src="/img/cover3.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -142,7 +146,7 @@
 
 <div class="post">
     <a href="/post/cb33e573.html" title="一个项目的SpringCloud微服务改造过程">
-        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -154,7 +158,7 @@
 
 <div class="post">
     <a href="/post/7411a531.html" title="微服务架构实践">
-        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>九月 28, 2018</p>
@@ -195,8 +199,6 @@
 <script src="/js/plugin.js"></script>
 <script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
-<script src="/js/APlayer.min.js"></script>
-<script src="/js/Meting.min.js"></script>
 
 
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">

@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>hexo d部署到个人服务器git仓库上 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,本篇前置条件：1 个人服务器已安装git，则可创建git仓库，参考/post/c4bcdb47.html2 本地PC机已安装node，hexo，参考对应官方网站手册即可
+以下为具体步骤：第一步：服务,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">hexo d部署到个人服务器git仓库上</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">hexo d部署到个人服务器git仓库上</h1>
+        <div class="stuff">
+            <span>九月 28, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Hexo-git%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">Hexo,git服务器</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>本篇前置条件：<br>1 个人服务器已安装git，则可创建git仓库，参考<a href="/post/c4bcdb47.html">/post/c4bcdb47.html</a><br>2 本地PC机已安装node，hexo，参考对应官方网站手册即可</p>
+<p>以下为具体步骤：<br>第一步：服务端创建对应git仓库：hexo-blog.git</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;home&#x2F;git </span><br><span class="line">su - git （因我的git账户名为git，需切换权限）</span><br><span class="line">mkdir hexo-blog.git</span><br><span class="line">cd hexo-blog.git</span><br><span class="line">git --bare init</span><br></pre></td></tr></table></figure>
+
+<p>则此时git地址为：<a href="mailto:&#103;&#105;&#x74;&#64;&#x31;&#x32;&#x37;&#x2e;&#49;&#x2e;&#x31;&#x2e;&#49;">&#103;&#105;&#x74;&#64;&#x31;&#x32;&#x37;&#x2e;&#49;&#x2e;&#x31;&#x2e;&#49;</a>:/home/git/hexo-blog.git<br>git 为您的账号<br>127.1.1.1 为您的服务器ip<br>/home/git/hexo-blog.git 为仓库目录</p>
+<p>可以在本地PC验证服务端git仓库有效性：<br>git clone <a href="mailto:&#103;&#105;&#116;&#x40;&#x31;&#50;&#x37;&#46;&#49;&#x2e;&#x31;&#46;&#49;">&#103;&#105;&#116;&#x40;&#x31;&#50;&#x37;&#46;&#49;&#x2e;&#x31;&#46;&#49;</a>:/home/git/hexo-blog.git</p>
+<p>第二步：本地PC端 安装hexo-deployer-git，并配置hexo项目的 _config.yml 文件</p>
+<p>hexo项目中安装hexo-deployer-git：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git –save</span><br></pre></td></tr></table></figure>
+
+<p>配置_config.yml 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  message: update files</span><br><span class="line">  repo: git@127.1.1.1:&#x2F;home&#x2F;git&#x2F;hexo-blog.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>注意，此处有坑！<br>注意，此处有坑！<br>注意，此处有坑！<br>重要的事情说三遍！！！<br>因本地PC机用的window电脑，故冒号后面需带有空格，否则hexo d 不生效<br>即：“type: git”</p>
+<p>第三步：提交部署hexo到服务端git仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d （输入您的git账户密码即可）</span><br></pre></td></tr></table></figure>
+
+<p>第四步：用脚本将仓库的资源拉取到nginx代理的对应目录下</p>
+<p>让Git仓库每次检测到push行为后，将最新的资源文件Git clone在你要访问的文件夹下，这样达到自动化部署blog项目</p>
+<p>1 进入git仓库下的Hooks目录，配置回调post-receive，执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;home&#x2F;git&#x2F;hexo-blog.git&#x2F;hooks</span><br><span class="line"></span><br><span class="line">touch post-receive</span><br><span class="line"></span><br><span class="line">vim post-receive</span><br></pre></td></tr></table></figure>
+
+<p>2 写入以下脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;sh</span><br><span class="line">GIT_REPO&#x3D;&#x2F;home&#x2F;git&#x2F;hexo-blog.git</span><br><span class="line">TMP_GIT_CLONE&#x3D;&#x2F;home&#x2F;git&#x2F;tmp&#x2F;hexo-blog</span><br><span class="line">PUBLIC_WWW&#x3D;&#x2F;home&#x2F;git&#x2F;www&#x2F;hexo</span><br><span class="line"></span><br><span class="line">rm -rf $&#123;TMP_GIT_CLONE&#125;</span><br><span class="line">git clone $GIT_REPO $TMP_GIT_CLONE</span><br><span class="line">rm -rf $&#123;PUBLIC_WWW&#125;</span><br><span class="line">cp -rf $&#123;TMP_GIT_CLONE&#125; $&#123;PUBLIC_WWW&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中public_www就是用于最终存放nginx映射的静态资源文件目录</p>
+<p>3 修改目录权限修</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chmod +x post-receive</span><br><span class="line"></span><br><span class="line">chmod 777 -R &#x2F;home&#x2F;git&#x2F;www&#x2F;hexo</span><br><span class="line"></span><br><span class="line">chmod 777 -R &#x2F;home&#x2F;git&#x2F;tmp&#x2F;hexo-blog</span><br></pre></td></tr></table></figure>
+
+<p>对应的目录，务必保证有权限，否则不能正确执行脚本，不能拷贝对应目录文件</p>
+<p>第五步：nginx配置</p>
+<pre><code>server &#123;
+    listen 80 ;
+
+    root /home/git/www/hexo;
+
+    server_name hexo.ixiewei.com;                                 
+
+    location / &#123;                                                             
+
+        root /home/git/www/hexo;
+
+        if (-f $request_filename) &#123;
+
+            rewrite ^/(.*)$  /$1 break;
+
+        &#125;
+
+    &#125;                                                  
+&#125;
+</code></pre>
+<p>此处保证nginx运行账户，拥有/home/git/www/hexo各级目录权限，否则可能出现403</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

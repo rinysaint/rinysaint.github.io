@@ -101,23 +101,27 @@
             <div class="iconfont icon-menu switchmenu"></div>
         </div>
         <!-- 云音乐插件 -->
-        
-        <div style="float:right;width:400px;height:360px;">
-        <meting-js muted="true" 
-            server="netease"
-            type="playlist"
-            order="random"
-            id="6771987564"
-            autoplay="true"
-            preload="auto"
-            list-folded="">
-        </meting-js>
-         </div>
+                
+            <div id="aplayer" style="float:right;width:400px;height:250px;">
+            <script src="/js/APlayer.min.js"></script>
+            
+            <script src="/js/Meting.min.js"></script>
+            <meting-js
+                server="netease"
+                type="playlist"
+                order="random"
+                id="6771987564"
+                autoplay="true"
+                preload="auto"
+                list-folded="">
+            </meting-js> 
+                               
+            </div> 
         
     </div>
     
     <div id="post0">
-        <p>九月 28, 2018</p>
+        <p>九月 28, 2019</p>
         <h2><a href="/post/6d0bc8dc.html" title="Hexo部署到个人服务器" class="posttitle">Hexo部署到个人服务器</a></h2>
         <p class="summary">在CentOS 7中搭建Git服务器环境说明
 
@@ -132,6 +136,18 @@ CentOS 7.x 最小安装
 
     <div id="primary">
         
+<div class="post">
+    <a href="/post/24f7247.html" title="hexo d部署到个人服务器git仓库上">
+        <img src="/img/cover3.jpg" class="cover" width="680" height="440">
+    </a>
+    <div class="else">
+        <p>九月 28, 2019</p>
+        <h3><a href="/post/24f7247.html" title="hexo d部署到个人服务器git仓库上" class="posttitle">hexo d部署到个人服务器git仓库上</a></h3>
+        <p>本篇前置条件：1 个人服务器已安装git，则可创建git仓库，参考/post/c4bcdb47.html2 本地PC机已安装node，hexo，参考对应官...</p>
+    </div>
+</div>
+
+
     </div>
     
 </div>
@@ -147,8 +163,6 @@ CentOS 7.x 最小安装
 <script src="/js/plugin.js"></script>
 <script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
-<script src="/js/APlayer.min.js"></script>
-<script src="/js/Meting.min.js"></script>
 
 
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">

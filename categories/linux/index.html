@@ -101,18 +101,22 @@
             <div class="iconfont icon-menu switchmenu"></div>
         </div>
         <!-- 云音乐插件 -->
-        
-        <div style="float:right;width:400px;height:360px;">
-        <meting-js muted="true" 
-            server="netease"
-            type="playlist"
-            order="random"
-            id="6771987564"
-            autoplay="true"
-            preload="auto"
-            list-folded="">
-        </meting-js>
-         </div>
+                
+            <div id="aplayer" style="float:right;width:400px;height:250px;">
+            <script src="/js/APlayer.min.js"></script>
+            
+            <script src="/js/Meting.min.js"></script>
+            <meting-js
+                server="netease"
+                type="playlist"
+                order="random"
+                id="6771987564"
+                autoplay="true"
+                preload="auto"
+                list-folded="">
+            </meting-js> 
+                               
+            </div> 
         
     </div>
     
@@ -131,7 +135,7 @@ raid...</p>
         
 <div class="post">
     <a href="/post/8ff6ed20.html" title="VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统">
-        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>十二月 23, 2016</p>
@@ -143,7 +147,7 @@ raid...</p>
 
 <div class="post">
     <a href="/post/8ff6ed20.html" title="VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统">
-        <img src="/img/cover2.jpg" class="cover" width="680" height="440">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>十二月 23, 2016</p>
@@ -155,7 +159,7 @@ raid...</p>
 
 <div class="post">
     <a href="/post/f6a907c.html" title="linux文件共享之nfs和smaba">
-        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
+        <img src="/img/welcome-cover.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>十二月 23, 2016</p>
@@ -182,8 +186,6 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <script src="/js/plugin.js"></script>
 <script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
-<script src="/js/APlayer.min.js"></script>
-<script src="/js/Meting.min.js"></script>
 
 
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">

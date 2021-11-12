@@ -101,18 +101,22 @@
             <div class="iconfont icon-menu switchmenu"></div>
         </div>
         <!-- 云音乐插件 -->
-        
-        <div style="float:right;width:400px;height:360px;">
-        <meting-js muted="true" 
-            server="netease"
-            type="playlist"
-            order="random"
-            id="6771987564"
-            autoplay="true"
-            preload="auto"
-            list-folded="">
-        </meting-js>
-         </div>
+                
+            <div id="aplayer" style="float:right;width:400px;height:250px;">
+            <script src="/js/APlayer.min.js"></script>
+            
+            <script src="/js/Meting.min.js"></script>
+            <meting-js
+                server="netease"
+                type="playlist"
+                order="random"
+                id="6771987564"
+                autoplay="true"
+                preload="auto"
+                list-folded="">
+            </meting-js> 
+                               
+            </div> 
         
     </div>
     
@@ -130,7 +134,7 @@
         
 <div class="post">
     <a href="/post/6f1c150b.html" title="《上古卷轴5：天际》人物美化过程">
-        <img src="/img/cover2.jpg" class="cover" width="680" height="440">
+        <img src="/img/cover1.jpg" class="cover" width="680" height="440">
     </a>
     <div class="else">
         <p>十二月 23, 2016</p>
@@ -155,8 +159,6 @@
 <script src="/js/plugin.js"></script>
 <script src="/js/typed.js"></script>
 <script src="/js/diaspora.js"></script>
-<script src="/js/APlayer.min.js"></script>
-<script src="/js/Meting.min.js"></script>
 
 
 <link rel="stylesheet" href="/photoswipe/photoswipe.css">
