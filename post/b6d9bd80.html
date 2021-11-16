@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Git系列自动化部署 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,Git服务器搭建这篇教程的前提是你的服务器已经安装了Git环境，在终端中输入
+1$ git --version
+
+如果没有报错，并且显示了
+git version 1.7.1
+ 则是已经安装了，我的,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">Git系列自动化部署</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Git系列自动化部署</h1>
+        <div class="stuff">
+            <span>九月 28, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/Git-git%E6%9C%8D%E5%8A%A1%E5%99%A8-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" rel="tag">Git,git服务器,自动化部署</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="Git服务器搭建"><a href="#Git服务器搭建" class="headerlink" title="Git服务器搭建"></a>Git服务器搭建</h1><p>这篇教程的前提是你的服务器已经安装了Git环境，在终端中输入</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git --version</span><br></pre></td></tr></table></figure>
+
+<p>如果没有报错，并且显示了</p>
+<p><code>git version 1.7.1</code></p>
+<p> 则是已经安装了，我的服务器上的git版本是1.7.1，若没有，请自己部署git环境。这里不做赘述。</p>
+<blockquote>
+<p>开始搭建</p>
+</blockquote>
+<ul>
+<li>第一步，创建git管理用户：</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo adduser git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二步，创建证书登录：</li>
+</ul>
+<p>在<code>/home/git/</code>目录下新建<code>.ssh</code></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cd /home/git</span><br><span class="line"><span class="variable">$ </span>mkdir .ssh</span><br><span class="line"><span class="variable">$ </span>cd .ssh</span><br></pre></td></tr></table></figure>
+
+<p>然后手动生成证书</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<p>将生成的.pub文件内容copy到<code>/root/.ssh/authorized_keys</code>文件中，一行一个。</p>
+<ul>
+<li>第三步，初始化git仓库：</li>
+</ul>
+<p>选定一个目录作为git仓库，例如<code>/git/sample.git</code></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo git <span class="keyword">init</span> --bare sample.git</span><br></pre></td></tr></table></figure>
+
+<p>Git就会创建一个裸仓库，裸仓库没有工作区，因为服务器上的Git仓库纯粹是为了共享，所以不让用户直接登录到服务器上去改工作区，并且服务器上的Git仓库通常都以<code>.git</code>结尾。然后，把owner改为<code>git</code>：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo chown -R <span class="symbol">git:</span>git sample.git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第四步，禁用shell登录：</li>
+</ul>
+<p>出于安全考虑，创建的git用户不允许登录shell，这可以通过编辑<code>/etc/passwd</code>文件完成。找到类似下面的一行：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git:</span><span class="symbol">x:</span><span class="number">505</span><span class="symbol">:</span><span class="number">505</span><span class="symbol">:</span><span class="symbol">:/home/git</span><span class="symbol">:/bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<p>改为：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git:</span><span class="symbol">x:</span><span class="number">505</span><span class="symbol">:</span><span class="number">505</span><span class="symbol">:</span><span class="symbol">:/home/git</span><span class="symbol">:/usr/bin/git-shell</span></span><br></pre></td></tr></table></figure>
+
+<p>具体命令：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>usermod -s /usr/bin/git-shell git</span><br></pre></td></tr></table></figure>
+
+<p>这样，git用户可以正常通过ssh使用git，但无法登录<code>shell</code>，因为我们为git用户指定的<code>git-shell</code>每次一登录就自动退出。</p>
+<ul>
+<li>第五步，克隆远程仓库：</li>
+</ul>
+<p>现在，可以通过<code>git clone</code>命令克隆远程仓库了，在各自的电脑上运行：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git clone git<span class="variable">@server</span><span class="symbol">:/git/sample</span>.git</span><br><span class="line">Cloning into <span class="string">&#x27;sample&#x27;</span>...</span><br><span class="line"><span class="symbol">warning:</span> You appear to have cloned an empty repository.</span><br></pre></td></tr></table></figure>
+
+<p>剩下的就是git操作了，具体查看git命令。</p>
+<p>对于已经搭建好了的git服务器，现在需要实现在用户push时，将项目自动部署到服务器上，例如将上个教程中的<code>/git/sample.git</code>部署到<code>/public/sample/</code>下，这就要利用git的hooks中的<code>post-receive</code>来实现代码提交完成之后的动作。将仓库指定一个<code>--work-tree</code>然后进行检出操作<code>checkout --force</code>。</p>
+<blockquote>
+<p>具体步骤：</p>
+</blockquote>
+<p>新建sample文件夹，并给777权限。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cd /public</span><br><span class="line"><span class="variable">$ </span>mkdir sample</span><br><span class="line"><span class="variable">$ </span>chmod -R <span class="number">777</span> sample/</span><br></pre></td></tr></table></figure>
+
+<p>进入<code>/git/sample.git/hooks</code>，并将<code>post-receive.sample</code>复制一份<code>post-receive</code>，并且编写代码如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定我的代码检出目录</span></span><br><span class="line">DIR=/public/sample/</span><br><span class="line">git --work-tree=<span class="variable">$&#123;DIR&#125;</span> clean -fd</span><br><span class="line"><span class="comment"># 直接强制检出</span></span><br><span class="line">git --work-tree=<span class="variable">$&#123;DIR&#125;</span> checkout --force</span><br></pre></td></tr></table></figure>
+
+<p>保存退出即可。</p>
+<blockquote>
+<p>注意点</p>
+</blockquote>
+<ol>
+<li>如果我们没有配置<code>ssh免密码登陆</code>的话，我们需要在<code>push</code>代码的时候输入密码</li>
+<li>如果我们添加的远程仓库不是<code>root@xxx.xxx.xx.xx</code>，例如是<code>abc@xx.xx.xx.xx</code>，那么我们要确保<code>abc</code>用户对<code>wx.git</code>目录下的文件有<code>777</code>权限。</li>
+</ol>
+<p>由于<code>Git系列（一）Git服务器搭建</code>已经设置了免密登陆，所以大胆push吧</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Git%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">Git服务器搭建</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
