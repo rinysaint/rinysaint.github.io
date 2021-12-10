@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DockerFiles_alpine - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,docker,DockerFiles"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,1docker build -t nginx_alpine:v1 .
+
+1234567891011###alpine-bashfrom alpine:latestMAINTAINER RinySai,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">DockerFiles_alpine</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">DockerFiles_alpine</h1>
+        <div class="stuff">
+            <span>十二月 23, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t nginx_alpine:v1 .</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">###alpine-bash</span><br><span class="line">from alpine:latest</span><br><span class="line"></span><br><span class="line">MAINTAINER RinySaint</span><br><span class="line"></span><br><span class="line">RUN alpine_version&#x3D;&#96;cat &#x2F;etc&#x2F;issue | head -1 | awk &#39;&#123;print $5&#125;&#39;&#96; \</span><br><span class="line">    &amp;&amp; echo &quot;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;alpine&#x2F;v$&#123;alpine_version&#125;&#x2F;main&#x2F;&quot; &gt; &#x2F;etc&#x2F;apk&#x2F;repositories   \</span><br><span class="line">    &amp;&amp; apk update &amp;&amp; apk upgrade &amp;&amp; apk add --no-cache bash bash-doc bash-completion \</span><br><span class="line">    &amp;&amp; rm -rf &#x2F;var&#x2F;cache&#x2F;apk&#x2F;*</span><br><span class="line"></span><br><span class="line">CMD [&quot;&#x2F;bin&#x2F;bash&quot;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">###alpine-sshd</span><br><span class="line">FROM alpine:latest</span><br><span class="line"></span><br><span class="line">MAINTAINER RinySaint</span><br><span class="line"></span><br><span class="line">RUN sed -i &#39;s&#x2F;dl-cdn.alpinelinux.org&#x2F;mirrors.aliyun.com&#x2F;g&#39; &#x2F;etc&#x2F;apk&#x2F;repositories \ </span><br><span class="line">&amp;&amp; apk update \ </span><br><span class="line">&amp;&amp; apk add --no-cache openssh tzdata \ </span><br><span class="line">&amp;&amp; cp &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime \ </span><br><span class="line">&amp;&amp; sed -i &quot;s&#x2F;#PermitRootLogin.*&#x2F;PermitRootLogin yes&#x2F;g&quot; &#x2F;etc&#x2F;ssh&#x2F;sshd_config \ </span><br><span class="line">&amp;&amp; ssh-keygen -t dsa -P &quot;&quot; -f &#x2F;etc&#x2F;ssh&#x2F;ssh_host_dsa_key \ </span><br><span class="line">&amp;&amp; ssh-keygen -t rsa -P &quot;&quot; -f &#x2F;etc&#x2F;ssh&#x2F;ssh_host_rsa_key \ </span><br><span class="line">&amp;&amp; ssh-keygen -t ecdsa -P &quot;&quot; -f &#x2F;etc&#x2F;ssh&#x2F;ssh_host_ecdsa_key \ </span><br><span class="line">&amp;&amp; ssh-keygen -t ed25519 -P &quot;&quot; -f &#x2F;etc&#x2F;ssh&#x2F;ssh_host_ed25519_key \ </span><br><span class="line">&amp;&amp; echo &quot;root:root&quot; | chpasswd </span><br><span class="line"></span><br><span class="line">EXPOSE 22 </span><br><span class="line"></span><br><span class="line">CMD [&quot;&#x2F;usr&#x2F;sbin&#x2F;sshd&quot;, &quot;-D&quot;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">###alpine-nginx</span><br><span class="line">FROM alpine:latest</span><br><span class="line">maintainer RinySaint</span><br><span class="line">COPY repositories &#x2F;etc&#x2F;apk&#x2F;repositories</span><br><span class="line">RUN apk update &amp;&amp; apk add iotop gcc libgcc libc-dev libcurl libc-utils pcre-dev zlib-dev libnfs make pcre pcre2 zip unzip net-tools pstree wget libevent libevent-dev iproute2 </span><br><span class="line"></span><br><span class="line">ADD nginx-1.16.1.tar.gz &#x2F;opt&#x2F; </span><br><span class="line">RUN cd &#x2F;opt&#x2F;nginx-1.16.1 &amp;&amp; .&#x2F;configure --prefix&#x3D;&#x2F;apps&#x2F;nginx &amp;&amp; make &amp;&amp; make install &amp;&amp; ln -sv &#x2F;apps&#x2F;nginx&#x2F;sbin&#x2F;nginx &#x2F;usr&#x2F;bin&#x2F; </span><br><span class="line"></span><br><span class="line">RUN addgroup -g 2019 -S nginx &amp;&amp; adduser -s &#x2F;sbin&#x2F;nologin -S -D -u 2019 -G nginx nginx </span><br><span class="line"></span><br><span class="line">COPY nginx.conf &#x2F;apps&#x2F;nginx&#x2F;conf&#x2F;nginx.conf </span><br><span class="line">ADD linux37.tar.gz &#x2F;data&#x2F;nginx&#x2F;html </span><br><span class="line"></span><br><span class="line">RUN chown nginx.nginx &#x2F;data&#x2F;nginx&#x2F; &#x2F;apps&#x2F;nginx&#x2F; -R </span><br><span class="line"></span><br><span class="line">EXPOSE 80 443 </span><br><span class="line">CMD [&quot;nginx&quot;]</span><br></pre></td></tr></table></figure>
+
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

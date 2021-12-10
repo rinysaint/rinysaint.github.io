@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Docker Toolbox for Windows之安装二三事 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,docker,Toolbox,Windows"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,安装所需的环境1、Win7 及以上版本，Win10 以上可以安装 Docker for Windows 2、MacType 和 VirtualBox 冲突，导致无法启动虚拟机 3、安装 Virtua,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">Docker Toolbox for Windows之安装二三事</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Docker Toolbox for Windows之安装二三事</h1>
+        <div class="stuff">
+            <span>十二月 23, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h3 id="安装所需的环境"><a href="#安装所需的环境" class="headerlink" title="安装所需的环境"></a>安装所需的环境</h3><p>1、Win7 及以上版本，Win10 以上可以安装 <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://docs.docker.com/docker-for-windows/install/">Docker for Windows</a><br> 2、MacType 和 VirtualBox 冲突，导致无法启动虚拟机<br> 3、安装 VirtualBox 时选择 NDIS5 驱动器。根据官方的说法，从 Windows Vista 开始， VirtualBox 默认安装 NDIS6 驱动，但是可能会导致虚拟机从系统变慢到网络异常的一系列问题，所以如果不幸出现了问题，可以重装 Docker Toolbox，选择用 NDIS5 驱动安装 VirtualBox<br> <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://docs.docker.com/toolbox/toolbox_install_windows/%23looking-for-troubleshooting-help">点击查看官方说法</a></p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>点击 Docker Quickstart Terminal</p>
+<blockquote>
+<p>有时点击可能无效，是因为之前有安装过 git 了，但是 git 的安装路径不对，点击<code>右键 - 属性 - 快捷方式</code> 修改 bash 的路径即可</p>
+</blockquote>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-e52468f17ccb66bf.png" alt="img"></p>
+<p>不出意外会需要更新 <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://github.com/boot2docker/boot2docker/releases">boot2docker.iso</a> 文件，但是下载很慢，此时可以退出直接去 <code>github</code> 下载最新版的 <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://github.com/boot2docker/boot2docker/releases">boot2docker.iso</a> 到 <code>C:\Users\Administrator\.docker\machine\cache</code>路径下</p>
+<p>重新点击，启动成功</p>
+<blockquote>
+<p>此前电脑上装了 MacType，导致一直无法启动 VirtualBox 的虚拟机，这里再次提个醒。其实以前安装 Genymotion 的时候就遇到过 MacType 和 VirtualBox 冲突的情况，只是一直没有联系到一起</p>
+</blockquote>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-9848860e09999627.png" alt="img"></p>
+<p>创建虚拟机 default</p>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-9b9572c4ac43cc4e.png" alt="img"></p>
+<p>鲸鱼出现说明启动成功了！</p>
+<p>现在可以 Hello World 了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-c7f737c80adf52ac.png" alt="img"></p>
+<p>Hello World</p>
+<p>现在你有一个镜像 (image) 和一个容器(container)了</p>
+<blockquote>
+<p>镜像和容器，可以用类和实例类比，镜像是模版，容器是实例</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker images <span class="comment">// 查看所有镜像</span></span><br><span class="line">docker container ls <span class="comment">// 查看正在运行的容器，辛辛苦苦敲了这几个单词却没有显示容器怎么办？</span></span><br><span class="line">docker container ls -a <span class="comment">// 可以带上 -a 参数，列出所有的容器，此时可以看到刚才的 hello-world 容器了，因为它运行完就退出了</span></span><br><span class="line">docker rm -f container CONTAINER ID <span class="comment">// 删除容器</span></span><br><span class="line">docker rmi IMAGE ID <span class="comment">// 删除镜像</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="设置国内镜像源"><a href="#设置国内镜像源" class="headerlink" title="设置国内镜像源"></a>设置国内镜像源</h3><p>如果尝试拉取一个比较大的镜像，比如<code>nginx</code>，你会发现速度慢得让人怀疑人生，此时可以设置一下国内的镜像源，让下载速度起飞</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh <span class="literal">default</span> <span class="comment">// 先进入虚拟机，default 是默认的虚拟机名称</span></span><br><span class="line">sudo vi /<span class="keyword">var</span>/lib/boot2docker/profile <span class="comment">// 编辑这个文件，添加镜像源 --registry-mirror https://registry.docker-cn.com</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-02bccbeb80092bc4.png" alt="img"></p>
+<p>sudo vi /var/lib/boot2docker/profile</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/docker restart <span class="comment">// 重启 docker 进程</span></span><br><span class="line"><span class="built_in">exit</span> <span class="comment">// 退出虚拟机</span></span><br><span class="line">docker info <span class="comment">// 看一下镜像源是否设置成功（是否有刚刚设置的 --registry-mirror 这一行）</span></span><br><span class="line">docker pull nginx <span class="comment">// 现在可以愉快地拉取`nginx`镜像了</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里有个问题，对于虚拟机中的配置的修改，在重启虚拟机之后（比如关机再开机）配置又被重置了，导致每次开机都要重新配置一遍，比如上面的镜像源配置。Github 上也有不少这方面的 issue <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://github.com/docker/machine/issues/1718%23%23issuecomment-176653850">#1718 这个描述得比较清晰</a>，暂时的解决方案也很简单，第一次启动后修改启动脚本 <code>start.sh</code> 注释掉 <code>yes | &quot;$&#123;DOCKER_MACHINE&#125;&quot; regenerate-certs &quot;$&#123;VM&#125;&quot;</code> 这一行即可</p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="subst">$&#123;VM_STATUS&#125;</span>&quot;</span> != <span class="string">&quot;Running&quot;</span> ]; then</span><br><span class="line">  <span class="string">&quot;<span class="subst">$&#123;DOCKER_MACHINE&#125;</span>&quot;</span> start <span class="string">&quot;<span class="subst">$&#123;VM&#125;</span>&quot;</span></span><br><span class="line">  # yes | <span class="string">&quot;<span class="subst">$&#123;DOCKER_MACHINE&#125;</span>&quot;</span> regenerate-certs <span class="string">&quot;<span class="subst">$&#123;VM&#125;</span>&quot;</span></span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件夹权限"><a href="#文件夹权限" class="headerlink" title="文件夹权限"></a>文件夹权限</h3><p>在 boot2docker 中，默认的用户名和密码是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user: docker pass: tcuser</span><br></pre></td></tr></table></figure>
+
+<p>Toolbox 默认只能访问 <code>C:\Users</code> 这个文件夹下的内容，映射到虚拟机上就是 <code>/c/Users</code></p>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-8df6d1b4263d241c.png" alt="img"></p>
+<blockquote>
+<p>注意：<code>c</code> 是小写，<code>Users</code> 是大写开头</p>
+</blockquote>
+<p>如果你的项目在这个目录内，在添加数据卷（Volume）挂载本机目录时，可以使用相对路径， 比如这样</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">redis:</span><br><span class="line">  ...</span><br><span class="line">  volumes:</span><br><span class="line">    - ./<span class="keyword">data</span>:/<span class="keyword">data</span></span><br><span class="line">  ...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>如果你本机的项目放在其他目录，或者需要进入到其他目录的权限，需要添加该目录到虚拟机的共享文件夹</p>
+<ol>
+<li><p>打开 VirtualBox</p>
+</li>
+<li><p>选择虚拟机，点击设置，这里是 default</p>
+</li>
+<li><p>选择共享文件夹，添加目录，映射到虚拟机的对应路径（截图显示是映射到 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;Dockerfile</span><br></pre></td></tr></table></figure>
+
+<p> 文件夹）</p>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-e7cd4526e6d754c9.png" alt="img"></p>
+<p>添加共享文件夹</p>
+</li>
+<li><p>重启虚拟机</p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine restart <span class="keyword">default</span></span><br></pre></td></tr></table></figure>
+
+<p>这样就可以愉快地写数据卷（Volume）了，比如这样：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="symbol">redis:</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="symbol">volumes:</span></span><br><span class="line">    - <span class="regexp">/Dockerfile/data</span><span class="symbol">:/data</span> <span class="comment">#这里就只能使用绝对路径了</span></span><br><span class="line">  ...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker-开机自启动"><a href="#Docker-开机自启动" class="headerlink" title="Docker 开机自启动"></a>Docker 开机自启动</h3><p>将 <code>Docker Quickstart Terminal</code> 快捷方式拖到开始菜单『启动』文件夹下即可，这样 Docker 每次开机都会自行启动，相应的为了能让容器也重新启动（因为关机等原因容器停止运行了，但是并未删除，只需重新启动即可），可以加一条重启的命令：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="symbol">redis:</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="symbol">restart:</span> always <span class="comment"># 加一条重启的命令</span></span><br><span class="line">  <span class="symbol">volumes:</span></span><br><span class="line">    - <span class="regexp">/Dockerfile/data</span><span class="symbol">:/data</span> </span><br><span class="line">  ...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="卸载-Toolbox"><a href="#卸载-Toolbox" class="headerlink" title="卸载 Toolbox"></a>卸载 Toolbox</h3><p>进入控制面板，先卸载 Toolbox，再卸载 VirtualBox，<code>C:\Users\Administor\.docker</code> 需要手动删除。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%89%80%E9%9C%80%E7%9A%84%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">安装所需的环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">2.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90"><span class="toc-number">3.</span> <span class="toc-text">设置国内镜像源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%83%E9%99%90"><span class="toc-number">4.</span> <span class="toc-text">文件夹权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">5.</span> <span class="toc-text">Docker 开机自启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD-Toolbox"><span class="toc-number">6.</span> <span class="toc-text">卸载 Toolbox</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Windows10 使用docker toolbox安装docker - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,win10,docker toolbox"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,Windows10 使用docker toolbox安装docker一、介绍　　　　Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">Windows10 使用docker toolbox安装docker</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Windows10 使用docker toolbox安装docker</h1>
+        <div class="stuff">
+            <span>十二月 23, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/docker/" rel="tag">docker</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="Windows10-使用docker-toolbox安装docker"><a href="#Windows10-使用docker-toolbox安装docker" class="headerlink" title="Windows10 使用docker toolbox安装docker"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shaosks/p/6932319.html">Windows10 使用docker toolbox安装docker</a></h1><h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>　　　　Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 <a target="_blank" rel="noopener" href="http://baike.baidu.com/item/Linux">Linux</a> 机器上，也可以实现<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E5%8C%96">虚拟化</a>。容器是完全使用<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/%E6%B2%99%E7%AE%B1/393318">沙箱</a>机制，相互之间不会有任何接口。</p>
+<h2 id="二、-使用docker-toolbox安装docker"><a href="#二、-使用docker-toolbox安装docker" class="headerlink" title="二、 使用docker toolbox安装docker"></a><strong>二、 使用docker toolbox安装docker</strong></h2><p>　　　　对于Windows用户来说，使用docker toolbox来安装docker是最简单的方式</p>
+<p>　　　　docker toolbox是一个工具集，它主要包含以下一些内容：</p>
+<p>　　　　　1、Docker CLI 客户端，用来运行docker引擎创建镜像和容器</p>
+<p>　　　　　2、Docker Machine. 可以让你在windows的命令行中运行docker引擎命令</p>
+<p>　　　　　3、Docker Compose. 用来运行docker-compose命令</p>
+<p>　　　　　4、Kitematic. 这是Docker的GUI版本</p>
+<p>　　　　　5、Docker QuickStart shell. 这是一个已经配置好Docker的命令行环境</p>
+<p>　　　　　6、Oracle VM Virtualbox. 虚拟机</p>
+<p>　　　　由于Docker引擎的守护进程使用的是Linux的内核，所以我们不能够直接在windows中运行docker引擎。而是需要运行Docker Machine命令 docker-machine， 在你的机器上创建和获得一个Linux虚拟机，</p>
+<p>　　　　用这个虚拟机才可以在你的windows系统上运行Docker引擎</p>
+<h3 id="第一步：检查你当前的windows系统是否符合要求："><a href="#第一步：检查你当前的windows系统是否符合要求：" class="headerlink" title="第一步：检查你当前的windows系统是否符合要求："></a><strong>第一步：检查你当前的windows系统是否符合要求：</strong></h3><p>　　　　为了运行Docker，你的机器必须是windows7或以上版本的64bit系统</p>
+<p>　　　　<img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/194720-20170602110131539-359118712.png" alt="img"></p>
+<p>　　　　另外，你的机器必须支持硬件虚拟化技术(Hardware Virtualization Technology)并且已被启用。（<a target="_blank" rel="noopener" href="http://baike.baidu.com/link?url=biNzwBpZdgOqOfSeWSQMxzRYLRIrptU_YfFFmbwfROINwdLm11LkKQ-u0AADJAdSX85ejZtUV6h9kKiRohRbIq">什么是硬件虚拟化技术</a>）</p>
+<p>　　　　对于windows10系统来说，你可以在 任务管理器-&gt;性能 中查看到你的电脑是否开启了虚拟化</p>
+<p> 　　　<img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/194720-20170602110326727-318477468.png" alt="img"></p>
+<p>　　　　<strong>第二步：安装Docker Toolbox</strong></p>
+<p>　　　　下载地址：<a target="_blank" rel="noopener" href="http://get.daocloud.io/#install-docker-for-mac-windows">http://get.daocloud.io/#install-docker-for-mac-windows</a> </p>
+<p>　　　　<img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/194720-20170602110538336-1929398571.png" alt="img"></p>
+<p>　　　　或者在：<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-toolbox%E4%B8%8B%E8%BD%BD%EF%BC%8C%E8%BF%99%E4%B8%AA%E4%B8%8B%E8%BD%BD%E6%AF%94%E8%BE%83%E6%85%A2">https://www.docker.com/products/docker-toolbox下载，这个下载比较慢</a></p>
+<p>　　　　<img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/194720-20170602110702946-2060372446.png" alt="img"></p>
+<p>　　　　下载完成后安装　　</p>
+<p>　　　　在这一步，你将安装Docker Toolbox。安装后你的系统将会安装以下几个软件：</p>
+<p>　　　　1、Windows版的Docker客户端</p>
+<p>　　　　2、Docker Toolbox管理工具和ISO镜像</p>
+<p>　　　　3、Oracle VM Virtualbox</p>
+<p>　　　　4、Git MSYS-git Unix 工具</p>
+<p> Docker Toolbox下载地址：get.daocloud.io/toolbox/ 推荐这个地址下载，比较快</p>
+<h3 id="第二步：检查你当前的windows系统是否符合要求：下载好以后开始安装"><a href="#第二步：检查你当前的windows系统是否符合要求：下载好以后开始安装" class="headerlink" title="第二步：检查你当前的windows系统是否符合要求：下载好以后开始安装"></a><strong>第二步：检查你当前的windows系统是否符合要求：</strong>下载好以后开始安装</h3><ul>
+<li>第二步安装配置选项<br><img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/2008270-20201026193809079-2089550110.png" alt="img"><ul>
+<li>docker compose 是编排docker容器的一种技术，能够同时操作多个docker容器，能够配合使用</li>
+<li>VirtualBox必选</li>
+<li>git之前安装过就不用在勾选</li>
+<li><img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/2008270-20201026193951659-1634068379.png" alt="img"></li>
+</ul>
+</li>
+<li>默认配置不需要修改<ul>
+<li><img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/2008270-20201026193838143-36771386.png" alt="img"></li>
+<li><img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/2008270-20201026194212258-1954880672.png" alt="img"></li>
+</ul>
+</li>
+<li>安装完成后右键属性配置git位置<ul>
+<li><img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/2008270-20201026194347190-1992497615.png" alt="img"></li>
+</ul>
+</li>
+<li>然后打开，第一次打开可能比较慢，还要下载一个：<code>C:\Users\ASUS\.docker\machine\cache</code> 下的<code>boot2docker.iso</code>文件，当文件下载完成出现如下就代表成功</li>
+</ul>
+<p>　　　　<strong>第三步、 确认是否安装成功</strong></p>
+<p> 　　　　安装完成后，你会在你的电脑桌面上看到新增了三个图标</p>
+<p>　　　　<img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/194720-20170602111314930-450753728.png" alt="img"></p>
+<p>　　　　双击Docker Quickstart Terminal图标，启动一个终端</p>
+<p>　　　　第一次启动的话你会看到命令行会输出一些东西，等待一下，它会配置Docker Toolbox，之后，当它完成后，你会看到启动成功的画面</p>
+<p>　　　　若在bash界面提示没有boot2docker镜像，需要在github上下载，提示大概如下</p>
+<p>　　　　<img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/194720-20170602111742321-592905625.png" alt="img"></p>
+<p>　　　　</p>
+<p>　　　　这是因为没有找到默认的boot2docker镜像的原因，提示正在下载，然而github的下载速度不可恭维，第一反应都是找别的站资源下载。</p>
+<p>　　　　在此要注意了，不同的docker版本最好要对应相同的boot2docker版本，相信打开github下载页的应该都留意到。最后我才发现，其实不用下载，</p>
+<p>　　　　在一开始安装好的DockerToolbox根目录下就有一个boot2docker，并且可以推断就是对应的版本。</p>
+<p>　　　　<img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/194720-20170602112022961-179914100.png" alt="img"></p>
+<p>　　　　　　把boot2docker.iso复制到，bash所提示找不到的那个目录下（我这里是C:\Users\Administrator.docker\machine\cache）。</p>
+<p>　　　　　　然后再次双击Docker Quickstart Terminal图标，出现如下界面，说明安装成功了。</p>
+<p>　　　　　　<img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/194720-20170602111623008-429278212.png" alt="img"></p>
+<p>　　　　在命令行中输入docker run hello-world并按回车键，如果docker配置成功的话，你会看到命令行中有如下输出：</p>
+<p>　　　　<img src="/../images/Windows10%E4%BD%BF%E7%94%A8dockertoolbox%E5%AE%89%E8%A3%85docker/194720-20170602112516305-1088532059.png" alt="img"></p>
+<p>　　　　自此，我们便在我们的windows下安装好了docker环境了</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows10-%E4%BD%BF%E7%94%A8docker-toolbox%E5%AE%89%E8%A3%85docker"><span class="toc-number">1.</span> <span class="toc-text">Windows10 使用docker toolbox安装docker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">一、介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-%E4%BD%BF%E7%94%A8docker-toolbox%E5%AE%89%E8%A3%85docker"><span class="toc-number">1.2.</span> <span class="toc-text">二、 使用docker toolbox安装docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%A3%80%E6%9F%A5%E4%BD%A0%E5%BD%93%E5%89%8D%E7%9A%84windows%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%90%A6%E7%AC%A6%E5%90%88%E8%A6%81%E6%B1%82%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">第一步：检查你当前的windows系统是否符合要求：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E6%A3%80%E6%9F%A5%E4%BD%A0%E5%BD%93%E5%89%8D%E7%9A%84windows%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%90%A6%E7%AC%A6%E5%90%88%E8%A6%81%E6%B1%82%EF%BC%9A%E4%B8%8B%E8%BD%BD%E5%A5%BD%E4%BB%A5%E5%90%8E%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.2.</span> <span class="toc-text">第二步：检查你当前的windows系统是否符合要求：下载好以后开始安装</span></a></li></ol></li></ol></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
