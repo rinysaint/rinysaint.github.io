@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CentOS7安装k8s （kubernetes）教程 yum方式 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,CentOS7,k8s,kubernetes"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,介绍 kubernetes和docker以及服务之间的关系
+kubernetes集群包括master主机和node从机  以下放个简单的关系图 具体文档介绍地址可参考 Kubernetes教程
+
+1,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">CentOS7安装k8s （kubernetes）教程 yum方式</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">CentOS7安装k8s （kubernetes）教程 yum方式</h1>
+        <div class="stuff">
+            <span>十月 23, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/CentOS7/" rel="tag">CentOS7</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>介绍<br> kubernetes和docker以及服务之间的关系</p>
+<p>kubernetes集群包括master主机和node从机  以下放个简单的关系图 具体文档介绍地址可参考 Kubernetes教程</p>
+<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/image-20211224103654696.png" alt="image-20211224103654696"></p>
+<p>1.安装准备<br>    1.1.所有机器更新yum源</p>
+<p>yum update -y<br>   1.2 所有机器 安装 epel-release源  这个软件为“红帽系”的操作系统提供额外的软件包，适用于RHEL、CentOS和Scientific Linux这个软件包会自动配置yum的软件仓库。</p>
+<p>yum -y install epel-release<br>  1.3 所有机器关闭防火墙 关闭 swap分区 关闭 SELinux (seLinux是一个安全增强型的linux内核模块，也是linux的一个安全子系统)</p>
+<p>#关闭防火墙<br>systemctl stop firewalld</p>
+<p>#禁用开机自启动<br>systemctl disable firewalld</p>
+<p>#关闭SELinux<br>setenforce 0  #临时关闭</p>
+<p>#永久关闭selinux：<br>vim /etc/sysconfig/selinux<br>SELINUX=enforcing 替换为SELINUX=disabled 需重启机器</p>
+<p>#关闭swap<br>swapoff -a  #临时关闭</p>
+<p>#永久关闭swap<br>vi /etc/fstab  #注释掉最后一行关于swap的配置  可参考我的Linux分类中的其他博客<br>  1.4 机器准备</p>
+<p>服务器    操作系统    IP    需要组件<br>master    centOs7    192.168.33.229    etcd,kube-apiserver,kube-scheduler,kube-controller-manager,docker(看个人需要)<br>node1    centOs7    192.168.33.226    kube-proxy,kubelet,docker<br>node2    centOs7    192.168.33.227    kube-proxy,kubelet,docker<br>  1.5 组件介绍：</p>
+<pre><code>master主机组件：
+</code></pre>
+<p>　　　etcd：提供分布式数据存储的数据库吧，用于持久化存储k8s集群的配置和状态</p>
+<p>　　　kube-apiserver：api service提供了http rest接口，是整个集群的入口，K8s其它组件之间不直接通信，而是通过API server通信的。（只有API server连接了etcd，即其它组件更新K8s集群的状态时，只能通过API server读写etcd中的数据）</p>
+<p>　　　kube-scheduler：scheduler负责资源的调度</p>
+<p>　　　kube-controller-manager：整个集群的管理控制中心，此组件里面是由多个控制器组成的</p>
+<p>   node机器组件：</p>
+<p>　　　kube-proxy：用来负载均衡网络流量</p>
+<p>　　　kubelet：用来管理node节点机上的容器</p>
+<p>　　　docker：运行项目镜像容器的组件</p>
+<pre><code>  组件具体介绍这里可以参考 官方kubernetes组件介绍
+</code></pre>
+<p>2.在Master机器上安装kubernetes-master和etcd<br>   2.1 分别修改三台服务器的 /etc/hosts 文件 增加以下ip配置</p>
+<p>  192.168.33.229  k8s-master<br>  192.168.33.226  k8s-node1<br>  192.168.33.227  k8s-node2</p>
+<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115116452.png" alt="img"></p>
+<p>   2.2 使用yum安装etcd、kubernetes-master</p>
+<p>yum -y install etcd kubernetes-master<br>   2.3.编辑  vi /etc/etcd/etcd.conf 修改如下</p>
+<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115530626.png" alt="img"></p>
+<p>   2.4 编辑 vi /etc/kubernetes/apiserver 修改如下</p>
+<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115846650.png" alt="img"></p>
+<p>  2.5 编辑  vi /etc/kubernetes/config 修改如下</p>
+<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/2020070912004248.png" alt="img"></p>
+<p>2.6 启动 etcd ,kube-apiserver, kube-controller-manager, kube-scheduler 等服务 并设置开机自启动</p>
+<p>for SERVICES in etcd docker kube-apiserver kube-controller-manager kube-scheduler; </p>
+<p>do systemctl restart $SERVICES;</p>
+<p>systemctl enable $SERVICES;</p>
+<p>systemctl status $SERVICES; </p>
+<p>done</p>
+<p>到此 以上Master主机配置完毕 </p>
+<p>3.接下来配置node从机配置<br>   3.1 在node1机器上安装 kubernetes-node 组件 192.168.33.226</p>
+<p>yum -y install kubernetes-node<br>  3.2 编辑 /etc/sysconfig/flanneld 修改如下 (flannel暂不安装后续单独做配置 该步骤可忽略 不影响其他)</p>
+<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121037854.png" alt="img"></p>
+<p>  3.3  编辑 vi /etc/kubernetes/config 修改如下</p>
+<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121159502.png" alt="img"></p>
+<p>  3.4. 编辑 vi /etc/kubernetes/kubelet 修改如下</p>
+<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121412434.png" alt="img"></p>
+<p>  3.5 启动 kube-proxy，kubelet, docker 等服务 并设置开机自启</p>
+<p>for SERVICES in docker kubelet kube-proxy;do systemctl start $SERVICES;systemctl enable $SERVICES;systemctl status $SERVICES; done<br>node2服务器参考node1配置</p>
+<p>至此 k8s 的主从服务器都配置完毕<br>然后在master服务器上执行如下命令 查看运行的node节点机器</p>
+<p>kubectl get nodes<br>成功如下</p>
+<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/2020070912173758.png" alt="img"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

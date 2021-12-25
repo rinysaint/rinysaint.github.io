@@ -72,7 +72,7 @@
 
 
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 启动nginx服务器</span><br><span class="line">docker run -d  --restart&#x3D;always --name nginxserver --net mynetwork --ip 172.18.0.3 -p 80:80 -p 443:443  nginx:latest</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 启动nginx服务器</span><br><span class="line">docker run -itd  --restart&#x3D;always --name nginxserver --net mynetwork --ip 172.18.0.3 -p 80:80 -p 443:443 -v &#x2F;www:&#x2F;www nginx:latest</span><br></pre></td></tr></table></figure>
 
 
 

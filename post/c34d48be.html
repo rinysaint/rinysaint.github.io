@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>K8S命令 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,服务器1123# 在本地服务器打包镜像docker save -o my_image.tar &amp;#x2F;my_image:v3 （打包）docker save my_image:v3 | gzip,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">K8S命令</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">K8S命令</h1>
+        <div class="stuff">
+            <span>九月 28, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/K8S-%E5%91%BD%E4%BB%A4/" rel="tag">K8S,命令</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h1 id="服务器1"><a href="#服务器1" class="headerlink" title="服务器1"></a>服务器1</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 在本地服务器打包镜像</span><br><span class="line">docker save -o my_image.tar &#x2F;my_image:v3 （打包）</span><br><span class="line">docker save my_image:v3 | gzip &gt; my_image.tar.gz（打包压缩）</span><br></pre></td></tr></table></figure>
+
+<h1 id="服务器2-打开窗口1"><a href="#服务器2-打开窗口1" class="headerlink" title="服务器2 - 打开窗口1"></a>服务器2 - 打开窗口1</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 将打包好的容器，load到新的服务器</span><br><span class="line"># docker load -i my_image.tar.gz </span><br><span class="line"># 运行镜像成容器</span><br><span class="line">docker run -i -d my_image:v3</span><br><span class="line"># 查询容器Id</span><br><span class="line">docker ps | grep my_image</span><br><span class="line"># 进入容器内部</span><br><span class="line">docker exec -it  容器Id bash</span><br><span class="line"># 修改需要修改的内容</span><br><span class="line"># 方法一内部修改  &gt;直接取代  &gt;&gt;追加</span><br><span class="line">echo &quot;text&quot; &gt; filename</span><br><span class="line"># 方法二 外部送入， ！！！得另开一个窗口, 在正常服务器路径下不在docker容器内部</span><br><span class="line">docker  cp &#x2F;newfile.xx 容器Id:&#x2F;needDir&#x2F;newfile.xx</span><br><span class="line"># 返回窗口1查看效果 cat newfile.xx, 然后可以退出容器</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<h1 id="服务器2-打开窗口2"><a href="#服务器2-打开窗口2" class="headerlink" title="服务器2 - 打开窗口2"></a>服务器2 - 打开窗口2</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 打包成新的镜像</span><br><span class="line">docker commit -m &quot;des&quot; -a &quot;name&quot; 容器Id newImageName:v1</span><br><span class="line">docker images | grep newImageName</span><br><span class="line"># 加载到k8s的镜像集</span><br><span class="line">docker tag newImageName:v1 docker.oa.com:8080&#x2F;tce&#x2F;newImageName:v1</span><br><span class="line">docker push docker.oa.com:8080&#x2F;tce&#x2F;newImageName:v1</span><br></pre></td></tr></table></figure>
+
+<h1 id="服务器2-进入yml文件路径下"><a href="#服务器2-进入yml文件路径下" class="headerlink" title="服务器2 - 进入yml文件路径下"></a>服务器2 - 进入yml文件路径下</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 查看端口</span><br><span class="line">netstat -lntup | grep 8000</span><br><span class="line"># 创建</span><br><span class="line">kubectl create -f xxx.yml</span><br><span class="line"># 删除</span><br><span class="line">kubectl delete -f xxx.yml</span><br><span class="line"># 更新配置文件，重载</span><br><span class="line">kubectl apply -f xxx.yml</span><br><span class="line"># 获取命名空间</span><br><span class="line">kubectl get ns</span><br><span class="line"># 获取pod容器</span><br><span class="line">kubectl get pod -n 命名空间</span><br><span class="line"># 获取pod状态</span><br><span class="line">kubectl get pod -n  命名空间 -o wide</span><br><span class="line"># 查看pod详细状态</span><br><span class="line">kubectl describe pod pod容器name -n namespace -o wide</span><br><span class="line"># 获取service</span><br><span class="line">kubectl get svc -n  命名空间</span><br><span class="line">kubectl get svc,pod -n  命名空间</span><br><span class="line"># 进入内部, 可以直接用curl命令直接访问容器内部的连接，看是否有返回的页面数据，可以ping外部的ip等等检测</span><br><span class="line">kubectl exec -it pod容器name -n  命名空间 bash</span><br></pre></td></tr></table></figure>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A81"><span class="toc-number">1.</span> <span class="toc-text">服务器1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A82-%E6%89%93%E5%BC%80%E7%AA%97%E5%8F%A31"><span class="toc-number">2.</span> <span class="toc-text">服务器2 - 打开窗口1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A82-%E6%89%93%E5%BC%80%E7%AA%97%E5%8F%A32"><span class="toc-number">3.</span> <span class="toc-text">服务器2 - 打开窗口2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A82-%E8%BF%9B%E5%85%A5yml%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E4%B8%8B"><span class="toc-number">4.</span> <span class="toc-text">服务器2 - 进入yml文件路径下</span></a></li></ol>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
