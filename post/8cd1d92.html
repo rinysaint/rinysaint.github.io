@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>windows下kafka的搭建及配置 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,win10,kafka"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,windows下kafka的搭建及配置
+1、kafka简介
+
+1.1 介绍
+1.2 使用场景
+1.3 详细介绍
+
+
+2、环境
+3、安装
+
+3.1 JDK安装
+3.2 Zookeeper安装
+3.3 ,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">windows下kafka的搭建及配置</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">windows下kafka的搭建及配置</h1>
+        <div class="stuff">
+            <span>十月 23, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/kafka/" rel="tag">kafka</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h3 id="windows下kafka的搭建及配置"><a href="#windows下kafka的搭建及配置" class="headerlink" title="windows下kafka的搭建及配置"></a>windows下kafka的搭建及配置</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#1kafka_2">1、kafka简介</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#11__3">1.1 介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#12__8">1.2 使用场景</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#13__11">1.3 详细介绍</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#2_21">2、环境</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#3_28">3、安装</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#31_JDK_29">3.1 JDK安装</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#32_Zookeeper_32">3.2 Zookeeper安装</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#33_Kafka_82">3.3 Kafka安装</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#4_91">4、运行测试</a></li>
+<li><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#41__97">4.1 创建主题</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#42__104">4.2 创建生产者</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#43__107">4.3 创建消费者</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#44_topic_114">4.4 删除会话topic</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44575542/article/details/88391576#5_118">5、补充</a></li>
+</ul>
+<h1 id="1、kafka简介"><a href="#1、kafka简介" class="headerlink" title="1、kafka简介"></a>1、kafka简介</h1><h2 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1 介绍"></a>1.1 介绍</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Kafka 是一个消息系统，原本开发自 LinkedIn，用作 LinkedIn 的活动流（Activity Stream）和运营数据处理管道（Pipeline）的基础。</span><br><span class="line">1.发布和订阅消息流，这个功能类似于消息队列，这也是kafka归类为消息队列框架的原因</span><br><span class="line">2.以容错的方式记录消息流，kafka以文件的方式来存储消息流</span><br><span class="line">3.可以再消息发布的时候进行处理</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-使用场景"><a href="#1-2-使用场景" class="headerlink" title="1.2 使用场景"></a>1.2 使用场景</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在系统或应用程序之间构建可靠的用于传输实时数据的管道，消息队列功能</span><br><span class="line">构建实时的流数据处理程序来变换或处理数据流，数据处理功能</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-详细介绍"><a href="#1-3-详细介绍" class="headerlink" title="1.3 详细介绍"></a>1.3 详细介绍</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Kafka 专用术语</span><br><span class="line">   Broker：Kafka 集群包含一个或多个服务器，这种服务器被称为 broker。</span><br><span class="line">   Topic：每条发布到 Kafka 集群的消息都有一个类别，这个类别被称为 Topic。（物理上不同 Topic 的消息分开存储，逻辑上一个 Topic 的消息虽然保存于一个或多个 broker 上，但用户只需指定消息的 Topic 即可生产或消费数据而不必关心数据存于何处）。</span><br><span class="line">   Partition：Partition 是物理上的概念，每个 Topic 包含一个或多个 Partition。</span><br><span class="line">   Producer：负责发布消息到 Kafka broker。</span><br><span class="line">   Consumer：消息消费者，向 Kafka broker 读取消息的客户端。</span><br><span class="line">   Consumer Group：每个 Consumer 属于一个特定的 Consumer Group（可为每个 Consumer 指定 group name，若不指定 group name 则属于默认的 group）。</span><br><span class="line"></span><br><span class="line">   Kafka 是一个基于分布式的消息发布-订阅系统，它被设计成快速、可扩展的、持久的。与其他消息发布-订阅系统类似，Kafka 在主题当中保存消息的信息。生产者向主题写入数据，消费者从主题读取数据。由于 Kafka 的特性是支持分布式，同时也是基于分布式的，所以主题也是可以在多个节点上被分区和覆盖的。</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、环境"><a href="#2、环境" class="headerlink" title="2、环境"></a>2、环境</h1><table>
+<thead>
+<tr>
+<th>内容</th>
+<th>版本号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>系统版本</td>
+<td>windows10</td>
+</tr>
+<tr>
+<td>JDK</td>
+<td>1.8.0_201</td>
+</tr>
+<tr>
+<td>kafka</td>
+<td>2.12-2.1.1</td>
+</tr>
+<tr>
+<td>zookeeper</td>
+<td>3.4.13</td>
+</tr>
+</tbody></table>
+<h1 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h1><h2 id="3-1-JDK安装"><a href="#3-1-JDK安装" class="headerlink" title="3.1 JDK安装"></a>3.1 JDK安装</h2><p>下载地址：<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html</a><br>具体安装过程可百度</p>
+<h2 id="3-2-Zookeeper安装"><a href="#3-2-Zookeeper安装" class="headerlink" title="3.2 Zookeeper安装"></a>3.2 Zookeeper安装</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://zookeeper.apache.org/releases.html">https://zookeeper.apache.org/releases.html</a><br>1、下载后，解压放在目录F:\bigdata（本文所用的目录）下，关于zookeeper以及kafka的目录，路径中最好不要出现空格，比如D:\Program Files，尽量别用，运行脚本时会有问题。<br>2、进入zookeeper的相关设置所在的文件目录，例如本文的：D:\bigdata\zookeeper-3.4.13\conf<br>3、将”zoo_sample.cfg”重命名为”zoo.cfg”<br>4、打开zoo.cfg(至于使用什么编辑器，根据自己喜好选即可)，找到并编辑：<br>dataDir=/tmp/zookeeper 改为 F:/bigdata/zookeeper-3.4.13/data或 F:\bigdata\zookeeper-3.4.13\data(路径仅为示例，具体可根据需要配置)<br>这里注意，路径要么是”/“分割，要么是转义字符”&quot;，这样才是正确的路径(层级，子目录)。<br>5、在系统环境变量中添加：<br>系统变量中添加ZOOKEEPER_HOME=D:\bigdata\zookeeper-3.4.13<br><img src="/../images/windows%E4%B8%8Bkafka%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/20190311113742249.png" alt="在这里插入图片描述"><br>编辑系统变量中的path变量，增加%ZOOKEEPER_HOME%\bin<br><img src="/../images/windows%E4%B8%8Bkafka%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/20190311113904224.png" alt="在这里插入图片描述"><br>6.在zoo.cfg文件中修改默认的Zookeeper端口(默认端口2181)<br>配置文件如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># The number of milliseconds of each tick</span><br><span class="line">tickTime&#x3D;2000</span><br><span class="line"># The number of ticks that the initial </span><br><span class="line"># synchronization phase can take</span><br><span class="line">initLimit&#x3D;10</span><br><span class="line"># The number of ticks that can pass between </span><br><span class="line"># sending a request and getting an acknowledgement</span><br><span class="line">syncLimit&#x3D;5</span><br><span class="line"># the directory where the snapshot is stored.</span><br><span class="line"># do not use &#x2F;tmp for storage, &#x2F;tmp here is just </span><br><span class="line"># example sakes.</span><br><span class="line">dataDir&#x3D;F:&#x2F;bigdata&#x2F;zookeeper-3.4.13&#x2F;data</span><br><span class="line"># the port at which the clients will connect</span><br><span class="line">clientPort&#x3D;2181</span><br><span class="line"># the maximum number of client connections.</span><br><span class="line"># increase this if you need to handle more clients</span><br><span class="line">#maxClientCnxns&#x3D;60</span><br><span class="line">#</span><br><span class="line"># Be sure to read the maintenance section of the </span><br><span class="line"># administrator guide before turning on autopurge.</span><br><span class="line">#</span><br><span class="line"># http:&#x2F;&#x2F;zookeeper.apache.org&#x2F;doc&#x2F;current&#x2F;zookeeperAdmin.html#sc_maintenance</span><br><span class="line">#</span><br><span class="line"># The number of snapshots to retain in dataDir</span><br><span class="line">#autopurge.snapRetainCount&#x3D;3</span><br><span class="line"># Purge task interval in hours</span><br><span class="line"># Set to &quot;0&quot; to disable auto purge feature</span><br><span class="line">#autopurge.purgeInterval&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<p>打开cmd窗口，输入zkserver，运行Zookeeper，运行结果如下：<br><img src="/../images/windows%E4%B8%8Bkafka%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/20190311114948713.png" alt="在这里插入图片描述"><br>恭喜，Zookeeper已经安装完成，已在2181端口运行。</p>
+<h2 id="3-3-Kafka安装"><a href="#3-3-Kafka安装" class="headerlink" title="3.3 Kafka安装"></a>3.3 Kafka安装</h2><p>下载地址：<a target="_blank" rel="noopener" href="http://kafka.apache.org/downloads">http://kafka.apache.org/downloads</a><br>下载Binary downloads这个类型。下载后，解压放在F:\bigdata目录下。<br>1、进入kafka配置文件所在目录，F:\bigdata\kafka_2.12-2.1.1\config<br>2、编辑文件”server.properties”，找到并编辑：<br>log.dirs=/tmp/kafka-logs 改为 log.dirs=F:/bigdata/kafka_2.12-2.1.1/logs<br>注意事项：log.dirs不能跟安装目录一样，否则会报错。路径要么是”/“分割，要么是转义字符”&quot;，这样会生成正确的路径(层级，子目录)。<br>3、在server.properties文件中，zookeeper.connect=localhost:2181代表kafka所连接的zookeeper所在的服务器IP以及端口，可根据需要更改。本文在同一台机器上使用，故不用修改。<br>4、kafka会按照默认配置，在9092端口上运行，并连接zookeeper的默认端口2181</p>
+<h1 id="4、运行测试"><a href="#4、运行测试" class="headerlink" title="4、运行测试"></a>4、运行测试</h1><p>提示：请确保启动kafka服务器前，Zookeeper实例已经在运行，因为kafka的运行是需要zookeeper这种分布式应用程序协调服务。<br>1、进入kafka安装目录F:\bigdata\kafka_2.12-2.1.1<br>2、按下shift+鼠标右键，选择”在此处打开命令窗口”，打开命令行。<br>3、在命令行中输入：.\bin\windows\kafka-server-start.bat .\config\server.properties 回车。<br>到目前为止，zookeeper以及kafka都已正确运行。保持运行状态，不要关闭。</p>
+<h2 id="4-1-创建主题"><a href="#4-1-创建主题" class="headerlink" title="4.1 创建主题"></a>4.1 创建主题</h2><p>创建主题，命名为”demo”，replicationfactor=1(因为只有一个kafka服务器在运行)。可根据集群中kafka服务器个数来修改replicationfactor的数量，以便提高系统容错性等。<br>进入kafka安装目录F:\bigdata\kafka_2.12-2.1.1目录下打开新的命令行窗口<br>.\bin\windows\kafka-topics.bat –create –zookeeper localhost:2181 –replication-factor 1 –partitions 1 –topic demo<br>提示返回：Created topic “test”.<br>查看创建的topic<br>bin\windows\kafka-topics.bat –list –zookeeper localhost:2181</p>
+<h2 id="4-2-创建生产者"><a href="#4-2-创建生产者" class="headerlink" title="4.2 创建生产者"></a>4.2 创建生产者</h2><p>启动生产者 producer<br>bin\windows\kafka-console-producer.bat –broker-list localhost:9092 –topic demo</p>
+<h2 id="4-3-创建消费者"><a href="#4-3-创建消费者" class="headerlink" title="4.3 创建消费者"></a>4.3 创建消费者</h2><p>启动消费者 customer<br>bin\windows\kafka-console-consumer.bat –zookeeper localhost:2181 –topic demo –from-beginning<br>无法启动<br>kafka版本1.2.2后，启动消费者命令变为：<br>bin\windows\kafka-console-consumer.bat –bootstrap-server localhost:9092 –topic demo<br><img src="/../images/windows%E4%B8%8Bkafka%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/2019031112323512.png" alt="在这里插入图片描述"></p>
+<h2 id="4-4-删除会话topic"><a href="#4-4-删除会话topic" class="headerlink" title="4.4 删除会话topic"></a>4.4 删除会话topic</h2><p>bin\windows\kafka-topics.bat –delete –topic demo –zookeeper localhost:2181<br>再使用命令查看<br>bin\windows\kafka-topics.bat –list –zookeeper localhost:2181</p>
+<h1 id="5、补充"><a href="#5、补充" class="headerlink" title="5、补充"></a>5、补充</h1><p>Kafka日志及Topic数据清理：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/moonandstar08/p/6204581.html">https://www.cnblogs.com/moonandstar08/p/6204581.html</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#windows%E4%B8%8Bkafka%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">windows下kafka的搭建及配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81kafka%E7%AE%80%E4%BB%8B"><span class="toc-number"></span> <span class="toc-text">1、kafka简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%8B%E7%BB%8D"><span class="toc-number"></span> <span class="toc-text">1.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number"></span> <span class="toc-text">1.2 使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D"><span class="toc-number"></span> <span class="toc-text">1.3 详细介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E7%8E%AF%E5%A2%83"><span class="toc-number"></span> <span class="toc-text">2、环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85"><span class="toc-number"></span> <span class="toc-text">3、安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-JDK%E5%AE%89%E8%A3%85"><span class="toc-number"></span> <span class="toc-text">3.1 JDK安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Zookeeper%E5%AE%89%E8%A3%85"><span class="toc-number"></span> <span class="toc-text">3.2 Zookeeper安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-Kafka%E5%AE%89%E8%A3%85"><span class="toc-number"></span> <span class="toc-text">3.3 Kafka安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E3%80%81%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="toc-number"></span> <span class="toc-text">4、运行测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98"><span class="toc-number"></span> <span class="toc-text">4.1 创建主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E5%88%9B%E5%BB%BA%E7%94%9F%E4%BA%A7%E8%80%85"><span class="toc-number"></span> <span class="toc-text">4.2 创建生产者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E5%88%9B%E5%BB%BA%E6%B6%88%E8%B4%B9%E8%80%85"><span class="toc-number"></span> <span class="toc-text">4.3 创建消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%88%A0%E9%99%A4%E4%BC%9A%E8%AF%9Dtopic"><span class="toc-number"></span> <span class="toc-text">4.4 删除会话topic</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5%E3%80%81%E8%A1%A5%E5%85%85"><span class="toc-number"></span> <span class="toc-text">5、补充</span></a>	
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

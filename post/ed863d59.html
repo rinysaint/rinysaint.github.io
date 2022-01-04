@@ -10,13 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,"> 
-    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,1.整合redis:
-
-添加redis依赖并在要调用这个方法的工程配置redis:
-
-123spring:   redis:    host: localhost
-
-12345&amp;lt;depende,"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,微服务的概念源于2014年3月Martin Fowler所写的一篇文章“Microservices”。
+微服务架构是一种架构模式，它提倡将单一应用程序划分成一组小的服务，服务之间互相协调、互相配合，,"> 
     <meta name="author" content="萧日宁"> 
     <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -55,178 +50,91 @@
         <div class="stuff">
             <span>九月 28, 2018</span>
             
-  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-Spring-Cloud-redis-token/" rel="tag">微服务,Spring Cloud,redis,token</a></li></ul>
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-Spring-Cloud/" rel="tag">微服务,Spring Cloud</a></li></ul>
 
 
         </div>
         <div class="content markdown">
-            <p>1.整合redis:</p>
-<ol>
-<li>添加redis依赖并在要调用这个方法的工程配置redis:</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring: </span><br><span class="line">  redis:</span><br><span class="line">    host: localhost</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.data&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-data-redis&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
+            <p>微服务的概念源于2014年3月Martin Fowler所写的一篇文章“Microservices”。</p>
+<p>微服务架构是一种架构模式，它提倡将单一应用程序划分成一组小的服务，服务之间互相协调、互相配合，为用户提供最终价值。每个服务运行在其独立的进程中，服务与服务间采用轻量级的通信机制互相沟通（通常是基于HTTP的RESTful API）。每个服务都围绕着具体业务进行构建，并且能够被独立地部署到生产环境、类生产环境等。另外，应尽量避免统一的、集中式的服务管理机制，对具体的一个服务而言，应根据业务上下文，选择合适的语言、工具对其进行构建。</p>
+<p>微服务是一种架构风格，一个大型复杂软件应用由一个或多个微服务组成。系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅关注于完成一件任务并很好地完成该任务。在所有情况下，每个任务代表着一个小的业务能力。</p>
+<h3 id="微服务架构优势"><a href="#微服务架构优势" class="headerlink" title="微服务架构优势"></a>微服务架构优势</h3><p>复杂度可控：在将应用分解的同时，规避了原本复杂度无止境的积累。每一个微服务专注于单一功能，并通过定义良好的接口清晰表述服务边界。由于体积小、复杂度低，每个微服务可由一个小规模开发团队完全掌控，易于保持高可维护性和开发效率。</p>
+<p>独立部署：由于微服务具备独立的运行进程，所以每个微服务也可以独立部署。当某个微服务发生变更时无需编译、部署整个应用。由微服务组成的应用相当于具备一系列可并行的发布流程，使得发布更加高效，同时降低对生产环境所造成的风险，最终缩短应用交付周期。</p>
+<p>技术选型灵活：微服务架构下，技术选型是去中心化的。每个团队可以根据自身服务的需求和行业发展的现状，自由选择最适合的技术栈。由于每个微服务相对简单，故需要对技术栈进行升级时所面临的风险就较低，甚至完全重构一个微服务也是可行的。</p>
+<p>容错：当某一组建发生故障时，在单一进程的传统架构下，故障很有可能在进程内扩散，形成应用全局性的不可用。在微服务架构下，故障会被隔离在单个服务中。若设计良好，其他服务可通过重试、平稳退化等机制实现应用层面的容错。</p>
+<p>扩展：单块架构应用也可以实现横向扩展，就是将整个应用完整的复制到不同的节点。当应用的不同组件在扩展需求上存在差异时，微服务架构便体现出其灵活性，因为每个服务可以根据实际需求独立进行扩展。</p>
+<h3 id="什么是Spring-Boot"><a href="#什么是Spring-Boot" class="headerlink" title="什么是Spring Boot"></a>什么是Spring Boot</h3><p>Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。用我的话来理解，就是Spring Boot其实不是什么新的框架，它默认配置了很多框架的使用方式，就像maven整合了所有的jar包，Spring Boot整合了所有的框架（不知道这样比喻是否合适）。</p>
+<p>Spring Boot简化了基于Spring的应用开发，通过少量的代码就能创建一个独立的、产品级别的Spring应用。 Spring Boot为Spring平台及第三方库提供开箱即用的设置，这样你就可以有条不紊地开始。Spring Boot的核心思想就是约定大于配置，多数Spring Boot应用只需要很少的Spring配置。采用Spring Boot可以大大的简化你的开发模式，所有你想集成的常用框架，它都有对应的组件支持。</p>
+<h3 id="Spring-Cloud都做了哪些事"><a href="#Spring-Cloud都做了哪些事" class="headerlink" title="Spring Cloud都做了哪些事"></a>Spring Cloud都做了哪些事</h3><p>Spring Cloud是一系列框架的有序集合。它利用Spring Boot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用Spring Boot的开发风格做到一键启动和部署。Spring并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过Spring Boot风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包</p>
+<p>以下为Spring Cloud的核心功能：</p>
+<ul>
+<li>分布式/版本化配置</li>
+<li>服务注册和发现</li>
+<li>路由</li>
+<li>服务和服务之间的调用</li>
+<li>负载均衡</li>
+<li>断路器</li>
+<li>分布式消息传递</li>
+</ul>
+<p>我们再来看一张图：</p>
+<p><img src="/../images/SpringCloud%E4%BD%93%E7%B3%BB%E4%BB%8B%E7%BB%8D/20180207215150790.png" alt="img"></p>
+<p>通过这张图，我们来了解一下各组件配置使用运行流程：</p>
+<ul>
+<li>1、请求统一通过API网关（Zuul）来访问内部服务.</li>
+<li>2、网关接收到请求后，从注册中心（Eureka）获取可用服务</li>
+<li>3、由Ribbon进行均衡负载后，分发到后端具体实例</li>
+<li>4、微服务之间通过Feign进行通信处理业务</li>
+<li>5、Hystrix负责处理服务超时熔断</li>
+<li>6、Turbine监控服务间的调用和熔断相关指标</li>
+</ul>
+<h3 id="Spring-Cloud体系介绍"><a href="#Spring-Cloud体系介绍" class="headerlink" title="Spring Cloud体系介绍"></a>Spring Cloud体系介绍</h3><p>上图只是Spring Cloud体系的一部分，Spring Cloud共集成了19个子项目，里面都包含一个或者多个第三方的组件或者框架！</p>
+<p>Spring Cloud 工具框架</p>
+<p>1、Spring Cloud Config 配置中心，利用git集中管理程序的配置。 </p>
+<p>2、Spring Cloud Netflix 集成众多Netflix的开源软件<br>3、Spring Cloud Bus 消息总线，利用分布式消息将服务和服务实例连接在一起，用于在一个集群中传播状态的变化<br>4、Spring Cloud for Cloud Foundry 利用Pivotal Cloudfoundry集成你的应用程序<br>5、Spring Cloud Cloud Foundry Service Broker 为建立管理云托管服务的服务代理提供了一个起点。<br>6、Spring Cloud Cluster 基于Zookeeper, Redis, Hazelcast, Consul实现的领导选举和平民状态模式的抽象和实现。<br>7、Spring Cloud Consul 基于Hashicorp Consul实现的服务发现和配置管理。<br>8、Spring Cloud Security 在Zuul代理中为OAuth2 rest客户端和认证头转发提供负载均衡<br>9、Spring Cloud Sleuth SpringCloud应用的分布式追踪系统，和Zipkin，HTrace，ELK兼容。<br>10、Spring Cloud Data Flow 一个云本地程序和操作模型，组成数据微服务在一个结构化的平台上。<br>11、Spring Cloud Stream 基于Redis,Rabbit,Kafka实现的消息微服务，简单声明模型用以在Spring Cloud应用中收发消息。<br>12、Spring Cloud Stream App Starters 基于Spring Boot为外部系统提供spring的集成<br>13、Spring Cloud Task 短生命周期的微服务，为SpringBooot应用简单声明添加功能和非功能特性。<br>14、Spring Cloud Task App Starters<br>15、Spring Cloud Zookeeper 服务发现和配置管理基于Apache Zookeeper。<br>16、Spring Cloud for Amazon Web Services 快速和亚马逊网络服务集成。<br>17、Spring Cloud Connectors 便于PaaS应用在各种平台上连接到后端像数据库和消息经纪服务。<br>18、Spring Cloud Starters （项目已经终止并且在Angel.SR2后的版本和其他项目合并）<br>19、Spring Cloud CLI 插件用Groovy快速的创建Spring Cloud组件应用。</p>
+<blockquote>
+<p>当然这个数量还在一直增加…</p>
+</blockquote>
+<h3 id="三者之间的关系"><a href="#三者之间的关系" class="headerlink" title="三者之间的关系"></a>三者之间的关系</h3><p>微服务是一种架构的理念，提出了微服务的设计原则，从理论为具体的技术落地提供了指导思想。Spring Boot是一套快速配置脚手架，可以基于Spring Boot快速开发单个微服务；Spring Cloud是一个基于Spring Boot实现的服务治理工具包；Spring Boot专注于快速、方便集成的单个微服务个体，Spring Cloud关注全局的服务治理框架。</p>
+<h3 id="如何进行微服务架构演进"><a href="#如何进行微服务架构演进" class="headerlink" title="如何进行微服务架构演进"></a>如何进行微服务架构演进</h3><p>当我们将所有的新业务都使用Spring Cloud这套架构之后，就会出现这样一个现象，公司的系统被分成了两部分，一部分是传统架构的项目，一部分是微服务架构的项目，如何让这两套配合起来使用就成为了关键，这时候Spring Cloud里面的一个关键组件解决了我们的问题，就是Zuul。在Spring Cloud架构体系内的所有微服务都通过Zuul来对外提供统一的访问入口，所有需要和微服务架构内部服务进行通讯的请求都走统一网关。如下图：</p>
+<p><img src="/../images/SpringCloud%E4%BD%93%E7%B3%BB%E4%BB%8B%E7%BB%8D/20180207215515549.png" alt="img"></p>
+<p>从上图可以看出我们对服务进行了分类，有四种：基础服务、业务服务、组合服务、前置服务。不同服务迁移的优先级不同</p>
+<ul>
+<li>基础服务，是一些基础组件，与具体的业务无关。比如：短信服务、邮件服务。这里的服务最容易摘出来做微服务，也是我们第一优先级分离出来的服务。</li>
+<li>业务服务，是一些垂直的业务系统，只处理单一的业务类型，比如：风控系统、积分系统、合同系统。这类服务职责比较单一，根据业务情况来选择是否迁移，比如：如果突然有需求对积分系统进行大优化，我们就趁机将积分系统进行改造，是我们的第二优先级分离出来的服务。</li>
+<li>前置服务，前置服务一般为服务的接入或者输出服务，比如网站的前端服务、app的服务接口这类，这是我们第三优先级分离出来的服务。</li>
+<li>组合服务，组合服务就是涉及到了具体的业务，比如买标过程，需要调用很多垂直的业务服务，这类的服务我们一般放到最后再进行微服务化架构来改造，因为这类服务最为复杂，除非涉及到大的业务逻辑变更，我们是不会轻易进行迁移。</li>
+</ul>
+<p>在这四类服务之外，新上线的业务全部使用Sprng Boot/Cloud这套技术栈。就这样，我们从开源项目云收藏开始，上线几个Spring Boot项目，到现在公司绝大部分的项目都是在Spring Cloud这个架构体系中。</p>
+<h2 id="经验和教训"><a href="#经验和教训" class="headerlink" title="经验和教训"></a>经验和教训</h2><h3 id="架构演化的步骤"><a href="#架构演化的步骤" class="headerlink" title="架构演化的步骤"></a>架构演化的步骤</h3><ul>
+<li>在确定使用Spring Boot/Cloud这套技术栈进行微服务改造之前，先梳理平台的服务，对不同的服务进行分类，以确认演化的节奏。</li>
+<li>先让团队熟悉Spring Boot技术，并且优先在基础服务上进行技术改造，推动改动后的项目投产上线</li>
+<li>当团队熟悉Spring Boot之后，再推进使用Spring Cloud对原有的项目进行改造。</li>
+<li>在进行微服务改造过程中，优先应用于新业务系统，前期可以只是少量的项目进行了微服务化改造，随着大家对技术的熟悉度增加，可以加快加大微服务改造的范围</li>
+<li>传统项目和微服务项目共存是一个很常见的情况，除非公司业务有大的变化，不建议直接迁移核心项目。</li>
+</ul>
+<h3 id="服务拆分原则"><a href="#服务拆分原则" class="headerlink" title="服务拆分原则"></a>服务拆分原则</h3><p>服务拆分有以下几个原则和大家分享</p>
+<p>横向拆分。按照不同的业务域进行拆分，例如订单、营销、风控、积分资源等。形成独立的业务领域微服务集群。</p>
+<p>纵向拆分。把一个业务功能里的不同模块或者组件进行拆分。例如把公共组件拆分成独立的原子服务，下沉到底层，形成相对独立的原子服务层。这样一纵一横，就可以实现业务的服务化拆分。</p>
+<p>要做好微服务的分层：梳理和抽取核心应用、公共应用，作为独立的服务下沉到核心和公共能力层，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求</p>
+<p>服务拆分是越小越好吗？微服务的大与小是相对的。比如在初期，我们把交易拆分为一个微服务，但是随着业务量的增大，可能一个交易系统已经慢慢变得很大，并且并发流量也不小，为了支撑更多的交易量，我会把交易系统，拆分为订单服务、投标服务、转让服务等。因此微服务的拆分力度需与具体业务相结合，总的原则是服务内部高内聚，服务之间低耦合。</p>
+<h3 id="微服务vs传统开发"><a href="#微服务vs传统开发" class="headerlink" title="微服务vs传统开发"></a>微服务vs传统开发</h3><p>使用微服务有一段时间了，这种开发模式和传统的开发模式对比，有很大的不同。</p>
+<ul>
+<li>分工不同，以前我们可能是一个一个模块，现在可能是一人一个系统。</li>
+<li>架构不同，服务的拆分是一个技术含量很高的问题，拆分是否合理对以后发展影响巨大。</li>
+<li>部署方式不同，如果还像以前一样部署估计累死了，自动化运维不可不上。</li>
+<li>容灾不同，好的微服务可以隔离故障避免服务整体down掉，坏的微服务设计仍然可以因为一个子服务出现问题导致连锁反应。</li>
+</ul>
+<h3 id="给数据库带来的挑战"><a href="#给数据库带来的挑战" class="headerlink" title="给数据库带来的挑战"></a>给数据库带来的挑战</h3><p>每个微服务都有自己独立的数据库，那么后台管理的联合查询怎么处理？这应该是大家会普遍遇到的一个问题，有三种处理方案。</p>
+<p>1）严格按照微服务的划分来做，微服务相互独立，各微服务数据库也独立，后台需要展示数据时，调用各微服务的接口来获取对应的数据，再进行数据处理后展示出来，这是标准的用法，也是最麻烦的用法。</p>
 <ol start="2">
-<li>新建BaseRedisService:</li>
+<li>将业务高度相关的表放到一个库中，将业务关系不是很紧密的表严格按照微服务模式来拆分，这样既可以使用微服务，也避免了数据库分散导致后台系统统计功能难以实现，是一个折中的方案。</li>
 </ol>
-<p><img src="/../images/SpringCloud%E4%BD%BF%E7%94%A8redis%E5%8A%A0token%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95/20190530150713325.png" alt="img"></p>
-<pre><code>package com.id0304.common.redis;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
-
-import java.util.concurrent.TimeUnit;
-//详细的redis操作都可以在这里封装,这里写了几个作为参考
-@Component
-public class BaseRedisService &#123;
-
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-    
-    /**
-     * 添加redis信息
-     * @param key
-     */
-    public void setString(String key, String value) &#123;
-        set(key, value, null);
-    &#125;
-
-    //传入键值对和过期时间
-    public void setString(String key, String value, Long timeOut) &#123;
-        set(key, value, timeOut);
-    &#125;
-
-    //传入object对象
-    private void set(String key, Object value, Long timeOut) &#123;
-        if (value != null) &#123;
-            if (value instanceof String) &#123;
-                String setValue = (String) value;
-                stringRedisTemplate.opsForValue().set(key, setValue);
-            &#125;
-            //设置有效期
-            if (timeOut != null) &#123;
-                stringRedisTemplate.expire(key, timeOut, TimeUnit.SECONDS);
-            &#125;
-        &#125;
-    &#125;
-
-    /**
-     * 使用key查找redis信息
-     * @param key
-     */
-    public String get(String key)&#123;
-        return stringRedisTemplate.opsForValue().get(key);
-    &#125;
-
-    /**
-     * 使用key删除redis信息
-     * @param key
-     */
-    public void delete(String key)&#123;
-        stringRedisTemplate.delete(key);
-    &#125;
-
-&#125;
-</code></pre>
-<ol start="3">
-<li>使用redis:</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Autowired    </span><br><span class="line">	private BaseRedisService baseRedisService;</span><br></pre></td></tr></table></figure>
-
-<p>2.创建TokenUtils:</p>
-<p><img src="/../images/SpringCloud%E4%BD%BF%E7%94%A8redis%E5%8A%A0token%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95/20190530151252449.png" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package com.id0304.utils;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">import java.util.UUID;</span><br><span class="line">&#x2F;&#x2F;简单示例</span><br><span class="line">public class TokenUtils &#123;</span><br><span class="line">    public static String getToken()&#123;</span><br><span class="line">        return UUID.randomUUID().toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3.实现登录与查询</p>
-<ol>
-<li><p>UserService:</p>
-<p> package com.id0304.api.service.impl;</p>
-<p> import com.id0304.api.service.UserService;<br> import com.id0304.common.api.BaseApiService;<br> import com.id0304.common.redis.BaseRedisService;<br> import com.id0304.entity.UserEntity;<br> import com.id0304.manage.UserServiceManage;<br> import lombok.extern.slf4j.Slf4j;<br> import org.apache.commons.lang.StringUtils;<br> import org.springframework.beans.factory.annotation.Autowired;<br> import org.springframework.web.bind.annotation.RequestBody;<br> import org.springframework.web.bind.annotation.RequestParam;<br> import org.springframework.web.bind.annotation.ResponseBody;<br> import org.springframework.web.bind.annotation.RestController;</p>
-<p> import java.util.Map;</p>
-<p> @Slf4j<br> @RestController<br> public class UserServiceImpl extends BaseApiService implements UserService{</p>
-<pre><code> @Autowired
- private UserServiceManage userServiceManage;
-
- @Autowired
- private BaseRedisService baseRedisService;
- 
- //登录并存入redis
- @Override
- public Map&lt;String, Object&gt; login(@RequestBody UserEntity userEntity) &#123;
-     return userServiceManage.login(userEntity);
- &#125;
-
- //使用token查找用户信息
- @Override
- public Map&lt;String, Object&gt; getUserByToken(@RequestParam(&quot;token&quot;) String token) &#123;
-     if(StringUtils.isEmpty(token))&#123;
-         return setParamError(&quot;token不能为空&quot;);
-     &#125;
-     return userServiceManage.getUser(token);
- &#125;
-</code></pre>
-<p> }</p>
-</li>
-<li><p>UserServiceManage:</p>
-<p> package com.id0304.manage.impl;</p>
-<p> import com.alibaba.fastjson.JSONObject;<br> import com.id0304.common.api.BaseApiService;<br> import com.id0304.common.redis.BaseRedisService;<br> import com.id0304.constants.Constants;<br> import com.id0304.constants.DBTableName;<br> import com.id0304.constants.MQInterfaceType;<br> import com.id0304.dao.UserDao;<br> import com.id0304.entity.UserEntity;<br> import com.id0304.manage.UserServiceManage;<br> import com.id0304.mq.producer.RegisterMailboxProducer;<br> import com.id0304.utils.DateUtils;<br> import com.id0304.utils.Md5Util;<br> import com.id0304.utils.TokenUtils;<br> import lombok.extern.slf4j.Slf4j;<br> import org.apache.activemq.command.ActiveMQQueue;<br> import org.apache.commons.lang.StringUtils;<br> import org.springframework.beans.factory.annotation.Autowired;<br> import org.springframework.beans.factory.annotation.Value;<br> import org.springframework.stereotype.Service;</p>
-<p> import javax.jms.Destination;<br> import java.util.Map;</p>
-</li>
-</ol>
-<p>​<br>​    @Service<br>​    @Slf4j<br>​    public class UserServiceManageImpl extends BaseApiService implements UserServiceManage {<br>​<br>        @Autowired<br>        private UserDao userDao;</p>
-<pre><code>    @Autowired
-    private BaseRedisService baseRedisService;
-
-    //实现登录业务处理
-    @Override
-    public Map&lt;String, Object&gt; login(UserEntity userEntity) &#123;
-        String phone = userEntity.getPhone();
-        String password = userEntity.getPassword();
-        //往数据库里查询数据
-        UserEntity user = userDao.getUserByPhoneAndPwd(phone, MD5PasswordSalt(phone, password));
-        if (user == null) &#123;
-            return setResultError(&quot;用户名或密码错误&quot;);
-        &#125;
-        
-        //生成对应的token
-        String token = TokenUtils.getToken();
-        Long id = user.getId();
-        //存放在redis中,key为自定义token令牌,value为用户id
-        baseRedisService.setString(token, id+&quot;&quot;, Constants.USER_TOKEN_TERMVALIDITY);
-        //返回token
-        return setResultSuccessData(token);
-    &#125;
-
-    //根据令牌查找user
-    @Override
-    public Map&lt;String, Object&gt; getUser(String token) &#123;
-        //从redis中根据key查找到用户id
-        String id = baseRedisService.get(token);
-        if(StringUtils.isEmpty(id))&#123;
-            return setResultError(&quot;用户已过期!&quot;);
-        &#125;
-        UserEntity userEntity = userDao.getUserById(Long.parseLong(id));
-        //不要把用户密码返回给客户端
-        userEntity.setPassword(null);
-        return setResultSuccessData(userEntity);
-    &#125;
-&#125;
-</code></pre>
-<ol start="3">
-<li><p>UserDao:</p>
-<p> package com.id0304.dao;</p>
-<p> import com.id0304.common.mybatis.BaseDao;<br> import com.id0304.entity.UserEntity;<br> import org.apache.ibatis.annotations.Mapper;<br> import org.apache.ibatis.annotations.Param;<br> import org.apache.ibatis.annotations.Select;<br> import org.springframework.stereotype.Component;</p>
-<p> @Component<br> @Mapper<br> public interface UserDao extends BaseDao{</p>
-<pre><code> //根据手机号和密码查询用户,首次登录
- @Select(&quot;select id,username,password,phone,email,created,updated from mb_user where phone = #&#123;phone&#125; and password = #&#123;password&#125;&quot;)
- public UserEntity getUserByPhoneAndPwd(@Param(&quot;phone&quot;) String phone,@Param(&quot;password&quot;) String password);
-</code></pre>
-<p> //根据id查询用户,从redis取出id再去查<br> @Select(“select id,username,password,phone,email,created,updated from mb_user where id = #{id}”)<br> public UserEntity getUserById(@Param(“id”) Long id);}</p>
-</li>
-</ol>
+<p>3）数据库严格按照微服务的要求来切分，以满足业务高并发，实时或者准实时将各微服务数据库数据同步到NoSQL数据库中，在同步的过程中进行数据清洗，用来满足后台业务系统的使用，推荐使用MongoDB、HBase等。</p>
+<p>三种方案在不同的公司我都使用过，第一种方案适合业务较为简单的小公司；第二种方案，适合在原有系统之上，慢慢演化为微服务架构的公司；第三种适合大型高并发的互联网公司。</p>
+<h3 id="微服务的经验和建议"><a href="#微服务的经验和建议" class="headerlink" title="微服务的经验和建议"></a>微服务的经验和建议</h3><p>1、建议尽量不要使用Jsp，页面开发推荐使用Thymeleaf。Web项目建议独立部署Tomcat，不要使用内嵌的Tomcat，内嵌Tomcat部署Jsp项目会偶现龟速访问的情况。</p>
+<p>2、服务编排是个好东西，主要的作用是减少项目中的相互依赖。比如现在有项目a调用项目b，项目b调用项目c…一直到h，是一个调用链，那么项目上线的时候需要先更新最底层的h再更新g…更新c更新b最后是更新项目a。这只是这一个调用链，在复杂的业务中有非常多的调用，如果要记住每一个调用链对开发运维人员来说就是灾难。</p>
+<p>有这样一个好办法可以尽量的减少项目的相互依赖，就是服务编排，一个核心的业务处理项目，负责和各个微服务打交道。比如之前是a调用b，b掉用c，c调用d，现在统一在一个核心项目W中来处理，W服务使用a的时候去调用b，使用b的时候W去调用c，举个例子：在第三方支付业务中，有一个核心支付项目是服务编排，负责处理支付的业务逻辑，W项目使用商户信息的时候就去调用“商户系统”，需要校验设备的时候就去调用“终端系统”，需要风控的时候就调用“风控系统”，各个项目需要的依赖参数都由W来做主控。以后项目部署的时候，只需要最后启动服务编排项目即可。</p>
+<p>3、不要为了追求技术而追求技术，确定进行微服务架构改造之前，需要考虑以下几方面的因素：<br>1）团队的技术人员是否已经具备相关技术基础。<br>2）公司业务是否适合进行微服务化改造，并不是所有的平台都适合进行微服务化改造，比如：传统行业有很多复杂垂直的业务系统。<br>3）Spring Cloud生态的技术有很多，并不是每一种技术方案都需要用上，适合自己的才是最好的。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -254,7 +162,7 @@ public class BaseRedisService &#123;
     </div>
     
         <div class='side'>
-				
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%BC%98%E5%8A%BF"><span class="toc-number">1.</span> <span class="toc-text">微服务架构优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFSpring-Boot"><span class="toc-number">2.</span> <span class="toc-text">什么是Spring Boot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Cloud%E9%83%BD%E5%81%9A%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BA%8B"><span class="toc-number">3.</span> <span class="toc-text">Spring Cloud都做了哪些事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Cloud%E4%BD%93%E7%B3%BB%E4%BB%8B%E7%BB%8D"><span class="toc-number">4.</span> <span class="toc-text">Spring Cloud体系介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E8%80%85%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">5.</span> <span class="toc-text">三者之间的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B"><span class="toc-number">6.</span> <span class="toc-text">如何进行微服务架构演进</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%8F%E9%AA%8C%E5%92%8C%E6%95%99%E8%AE%AD"><span class="toc-number"></span> <span class="toc-text">经验和教训</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8C%96%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">架构演化的步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86%E5%8E%9F%E5%88%99"><span class="toc-number">2.</span> <span class="toc-text">服务拆分原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1vs%E4%BC%A0%E7%BB%9F%E5%BC%80%E5%8F%91"><span class="toc-number">3.</span> <span class="toc-text">微服务vs传统开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%99%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-number">4.</span> <span class="toc-text">给数据库带来的挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%BB%8F%E9%AA%8C%E5%92%8C%E5%BB%BA%E8%AE%AE"><span class="toc-number">5.</span> <span class="toc-text">微服务的经验和建议</span></a></li></ol>	
         </div>
     
 </div>
