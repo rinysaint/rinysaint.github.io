@@ -90,7 +90,7 @@
 <p>在Master节点查看服务Container启动情况：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps  </span><br></pre></td></tr></table></figure>
 
-<p><img src="/post/blog\xiaorining\source\images\Docker中部署Kubernetes\84976-20160710075936796-151862777.png" alt="img"></p>
+<p><img src="/../images/Docker%E4%B8%AD%E9%83%A8%E7%BD%B2Kubernetes/84976-20160710075936796-151862777.png" alt="img"></p>
 <p><strong>在143、144、145 minion节点启动kubelet</strong></p>
 <p>取得minion节点IP</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NODE_IP&#x3D;&#96;ifconfig ens33 | grep &#39;inet addr:&#39; | cut -d: -f2 | cut -d&#39; &#39; -f1&#96;</span><br><span class="line"></span><br><span class="line">.&#x2F;kubelet --api-servers&#x3D;192.168.2.143:8080 --node-ip&#x3D;$NODE_IP --hostname_override&#x3D;192.168.2.144 &gt; kubelet.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
@@ -99,7 +99,7 @@
 <p><strong>在master上查看节点信息</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kubectl -s 192.168.2.143:8080 get no</span><br></pre></td></tr></table></figure>
 
-<p><img src="/post/blog\xiaorining\source\images\Docker中部署Kubernetes\84976-20160710075959092-1976731983.png" alt="节点状态"></p>
+<p><img src="/../images/Docker%E4%B8%AD%E9%83%A8%E7%BD%B2Kubernetes/84976-20160710075959092-1976731983.png" alt="节点状态"></p>
 <p><strong>在143、144、145节点启动kube-proxy</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kube-proxy --master&#x3D;192.168.2.143:8080 &gt; proxy.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 

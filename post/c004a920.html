@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>通过广域网(Intelnet)进行远程唤醒[或开机] 图解 - 萧日宁的世界</title>
+    <title>通过广域网Intelnet进行远程唤醒或开机图解 - 萧日宁的世界</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
@@ -30,7 +30,7 @@
     <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
         <!-- page音乐插件 -->
         
-    <h3 class="subtitle">通过广域网(Intelnet)进行远程唤醒[或开机] 图解</h3>
+    <h3 class="subtitle">通过广域网Intelnet进行远程唤醒或开机图解</h3>
     <div class="social">
         <div>
             <div class="share">
@@ -45,7 +45,7 @@
     <div class="section">
         <div class="article">
     <div class='main'>
-        <h1 class="title">通过广域网(Intelnet)进行远程唤醒[或开机] 图解</h1>
+        <h1 class="title">通过广域网Intelnet进行远程唤醒或开机图解</h1>
         <div class="stuff">
             <span>十二月 23, 2018</span>
             
@@ -66,24 +66,24 @@
 <p>首先确保路由器可以正常接入internet，即通过服务商得到一个公网IP（对于家庭来说ADSL、Cable Modem是常见的上网方式），进入路由器WEB配置页面<a target="_blank" rel="noopener" href="http://192.168.1.1/">http://192.168.1.1。</a></p>
 <p><strong>三、端口映射（虚拟服务器）</strong></p>
 <p>依次点击“转发规则”-&gt;“虚拟服务器”，添加一新条目，端口为2301（2301是默认的端口号，也可以是其它端口号，只要不和其它的冲突），IP地址为需要唤醒电脑网卡所使用的IP地址（比如192.168.1.250），协议为UDP，并使之处于“生效”状态。</p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122153904700)</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91Intelnet%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E6%88%96%E5%BC%80%E6%9C%BA%E5%9B%BE%E8%A7%A3/20150122153904700" alt="img"></p>
 <p>这一步使得当路由器收到发到它2301端口的数据都会转发到IP地址为192.168.1.250的这台电脑上。</p>
 <p><strong>四、IP地址与MAC地址之间的绑定</strong></p>
 <p>依次点击“IP与MAC绑定”-&gt;“静态ARP绑定设置”，添加一新条目，MAC地址添为网卡（被唤醒电脑上的）MAC，如50-E5-60-CA-1A-4A，IP为上一步设置的IP地址：192.168.1.250。</p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154246829)</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91Intelnet%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E6%88%96%E5%BC%80%E6%9C%BA%E5%9B%BE%E8%A7%A3/20150122154246829" alt="img"></p>
 <p>注意：记住要启用路由器的“ARP绑定”功能（图片中的红圈部分），不然此步的设置是不生效的。</p>
 <p>当路由器收到从internet发往2301端口的Magic Packet包时，由于设了端口映射，路由器就直接将该Magic Packet包转发到192.168.1.250上。但是由于电脑是处理关机状态，ARP无法通过广播找到192.168.1.250这台电脑，Magic Packet包将被路由器丢弃，因此进行静态的IP-MAC绑定，使数据包可以直接发往MAC地址为50-E5-60-CA-1A-4A的网卡上。</p>
 <p>此时，从理论上来说，通过internet的远程唤醒就可以成功了。但是，如果远程主机没有配置静态IP地址，而是通过DHCP方式获取动态IP地址的，那么还有一些工作需要做，以确保万无一失。</p>
 <p><strong>五、静态IP地址分配</strong></p>
 <p>大家都清楚，DHCP租约协议是有有效期的，TP-Link上的DHCP租约有效期默认是2小时，为了确保远程电脑在启动后可以获得192.168.1.250这个IP地址，需要在DHCP服务器中设置一个静态地址分配，即为MAC地址50-E5-60-CA-1A-4A静态分配192.168.1.250这个IP地址，而且永不过期。</p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154757301)</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91Intelnet%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E6%88%96%E5%BC%80%E6%9C%BA%E5%9B%BE%E8%A7%A3/20150122154757301" alt="img"></p>
 <p><strong>六、使用动态DNS功能</strong></p>
 <p>在路由器上使用动态DNS功能，这样可以用一个域名来访问而不用查看经常改变的公网IP（ADSL拨号上网的IP是经常变的）。同时，允许路由器可以进行无端WEB管理，以方便当我们在任何地方都可以检查路由器的状态。</p>
 <p>说到DDNS，不得不提到大名鼎鼎的花生壳了，TP-LINK路由器默认就内嵌了动态DNS功能，只需要到花生壳的官网注册一个护照，并申请一个免费域名，然后在路由器上登录。登录成功后，会看到域名，这样花生壳就将域名和路由器上的公网IP地址绑定在一起了。</p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122154957702)</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91Intelnet%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E6%88%96%E5%BC%80%E6%9C%BA%E5%9B%BE%E8%A7%A3/20150122154957702" alt="img"></p>
 <p><strong>七、使用第三方工具进行远程唤醒</strong></p>
 <p>访问<a target="_blank" rel="noopener" href="http://www.depicus.com/wake-on-lan/woli.aspx%E8%BF%99%E4%B8%AA%E9%A1%B5%E9%9D%A2%EF%BC%8C%E8%BF%99%E6%98%AFdepicus%E6%8F%90%E4%BE%9B%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9C%A8%E7%BA%BF%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E5%B7%A5%E5%85%B7%E9%A1%B5%E9%9D%A2%EF%BC%8C%E4%BD%BF%E7%94%A8%E8%B5%B7%E6%9D%A5%E5%BE%88%E6%96%B9%E4%BE%BF%E3%80%82%E5%B7%A5%E4%BD%9C%E7%95%8C%E9%9D%A2%E5%A6%82%E4%B8%8B%EF%BC%9A">http://www.depicus.com/wake-on-lan/woli.aspx这个页面，这是depicus提供的一个在线的远程唤醒工具页面，使用起来很方便。工作界面如下：</a></p>
-<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet" alt="img">进行远程唤醒[或开机] 图解/20150122155050140)</p>
+<p><img src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91Intelnet%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%E6%88%96%E5%BC%80%E6%9C%BA%E5%9B%BE%E8%A7%A3/20150122155050140" alt="img"></p>
 <p>下面就进行远程唤醒的四个参数作下说明：</p>
 <ul>
 <li><strong>Your Network Cards Mac Address：</strong>（内部局域网）远程主机的网卡MAC地址，不是路由器的MAC地址。[一开始我这里搞错了，填的是路由器的MAC地址，怎么也不能远程唤醒]</li>

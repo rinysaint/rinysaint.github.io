@@ -59,7 +59,7 @@ kubernetes集群包括master主机和node从机  以下放个简单的关系图 
         <div class="content markdown">
             <p>介绍<br> kubernetes和docker以及服务之间的关系</p>
 <p>kubernetes集群包括master主机和node从机  以下放个简单的关系图 具体文档介绍地址可参考 Kubernetes教程</p>
-<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/image-20211224103654696.png" alt="image-20211224103654696"></p>
+<p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/image-20211224103654696.png" alt="image-20211224103654696"></p>
 <p>1.安装准备<br>    1.1.所有机器更新yum源</p>
 <p>yum update -y<br>   1.2 所有机器 安装 epel-release源  这个软件为“红帽系”的操作系统提供额外的软件包，适用于RHEL、CentOS和Scientific Linux这个软件包会自动配置yum的软件仓库。</p>
 <p>yum -y install epel-release<br>  1.3 所有机器关闭防火墙 关闭 swap分区 关闭 SELinux (seLinux是一个安全增强型的linux内核模块，也是linux的一个安全子系统)</p>
@@ -84,14 +84,14 @@ kubernetes集群包括master主机和node从机  以下放个简单的关系图 
 </code></pre>
 <p>2.在Master机器上安装kubernetes-master和etcd<br>   2.1 分别修改三台服务器的 /etc/hosts 文件 增加以下ip配置</p>
 <p>  192.168.33.229  k8s-master<br>  192.168.33.226  k8s-node1<br>  192.168.33.227  k8s-node2</p>
-<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115116452.png" alt="img"></p>
+<p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115116452.png" alt="img"></p>
 <p>   2.2 使用yum安装etcd、kubernetes-master</p>
 <p>yum -y install etcd kubernetes-master<br>   2.3.编辑  vi /etc/etcd/etcd.conf 修改如下</p>
-<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115530626.png" alt="img"></p>
+<p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115530626.png" alt="img"></p>
 <p>   2.4 编辑 vi /etc/kubernetes/apiserver 修改如下</p>
-<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115846650.png" alt="img"></p>
+<p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115846650.png" alt="img"></p>
 <p>  2.5 编辑  vi /etc/kubernetes/config 修改如下</p>
-<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/2020070912004248.png" alt="img"></p>
+<p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/2020070912004248.png" alt="img"></p>
 <p>2.6 启动 etcd ,kube-apiserver, kube-controller-manager, kube-scheduler 等服务 并设置开机自启动</p>
 <p>for SERVICES in etcd docker kube-apiserver kube-controller-manager kube-scheduler; </p>
 <p>do systemctl restart $SERVICES;</p>
@@ -101,16 +101,16 @@ kubernetes集群包括master主机和node从机  以下放个简单的关系图 
 <p>到此 以上Master主机配置完毕 </p>
 <p>3.接下来配置node从机配置<br>   3.1 在node1机器上安装 kubernetes-node 组件 192.168.33.226</p>
 <p>yum -y install kubernetes-node<br>  3.2 编辑 /etc/sysconfig/flanneld 修改如下 (flannel暂不安装后续单独做配置 该步骤可忽略 不影响其他)</p>
-<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121037854.png" alt="img"></p>
+<p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121037854.png" alt="img"></p>
 <p>  3.3  编辑 vi /etc/kubernetes/config 修改如下</p>
-<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121159502.png" alt="img"></p>
+<p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121159502.png" alt="img"></p>
 <p>  3.4. 编辑 vi /etc/kubernetes/kubelet 修改如下</p>
-<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121412434.png" alt="img"></p>
+<p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121412434.png" alt="img"></p>
 <p>  3.5 启动 kube-proxy，kubelet, docker 等服务 并设置开机自启</p>
 <p>for SERVICES in docker kubelet kube-proxy;do systemctl start $SERVICES;systemctl enable $SERVICES;systemctl status $SERVICES; done<br>node2服务器参考node1配置</p>
 <p>至此 k8s 的主从服务器都配置完毕<br>然后在master服务器上执行如下命令 查看运行的node节点机器</p>
 <p>kubectl get nodes<br>成功如下</p>
-<p><img src="/post/images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/2020070912173758.png" alt="img"></p>
+<p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/2020070912173758.png" alt="img"></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">

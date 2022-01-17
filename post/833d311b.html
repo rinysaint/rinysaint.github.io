@@ -5,13 +5,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>git钩子 hook post-receive - 萧日宁的世界</title>
+    <title>git钩子hookpost-receive - 萧日宁的世界</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,"> 
     <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,以下为服务端的配置在服务器/www/wwwroot/hook.com上新建两个文件夹public 代码部署git 裸仓库
-![img](/../images/git钩子 hook post-rece,"> 
+
+切换到git目录下
+
+然后进入/www/wwwroot/hook.com/,"> 
     <meta name="author" content="萧日宁"> 
     <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -31,7 +34,7 @@
     <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
         <!-- page音乐插件 -->
         
-    <h3 class="subtitle">git钩子 hook post-receive</h3>
+    <h3 class="subtitle">git钩子hookpost-receive</h3>
     <div class="social">
         <div>
             <div class="share">
@@ -46,7 +49,7 @@
     <div class="section">
         <div class="article">
     <div class='main'>
-        <h1 class="title">git钩子 hook post-receive</h1>
+        <h1 class="title">git钩子hookpost-receive</h1>
         <div class="stuff">
             <span>九月 28, 2019</span>
             
@@ -56,11 +59,11 @@
         </div>
         <div class="content markdown">
             <p>以下为服务端的配置<br>在服务器/www/wwwroot/hook.com上新建两个文件夹<br>public 代码部署<br>git 裸仓库</p>
-<p>![img](/../images/git钩子 hook post-receive/20191109102107457.png)</p>
+<p><img src="/../images/git%E9%92%A9%E5%AD%90hookpost-receive/20191109102107457.png" alt="img"></p>
 <p>切换到git目录下</p>
-<p>![img](/../images/git钩子 hook post-receive/201911091024493.png)</p>
+<p><img src="/../images/git%E9%92%A9%E5%AD%90hookpost-receive/201911091024493.png" alt="img"></p>
 <p>然后进入/www/wwwroot/hook.com/git/test.git/hooks</p>
-<p>![img](/../images/git钩子 hook post-receive/20191109103033600.png)</p>
+<p><img src="/../images/git%E9%92%A9%E5%AD%90hookpost-receive/20191109103033600.png" alt="img"></p>
 <p>复制一份post-receive.sample 并改名为post-receive</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1938t1plpi1gikahmmZ hooks]# cp post-receive.sample post-receive</span><br></pre></td></tr></table></figure>
 
@@ -74,15 +77,15 @@
 <p>以下是本地配置<br>在本地上新建一个文件夹 然后添加为远程仓库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 初始化一个git仓库</span><br><span class="line">git init</span><br><span class="line">&#x2F;&#x2F; 添加远程链接 把192.168.1.1 换成你真实服务器的ip</span><br><span class="line">git remote add origin root@192.168.1.1:&#x2F;www&#x2F;wwwroor&#x2F;hook.com&#x2F;git&#x2F;test.git</span><br></pre></td></tr></table></figure>
 
-<p>![img](/../images/git钩子 hook post-receive/20191109105546412.png)</p>
+<p><img src="/../images/git%E9%92%A9%E5%AD%90hookpost-receive/20191109105546412.png" alt="img"></p>
 <p>推送时会提示如下错误</p>
 <p>然后直接执行如下代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --set-upstream origin master</span><br></pre></td></tr></table></figure>
 
 <p>然后输入你的服务器密码即可</p>
-<p>![img](/../images/git钩子 hook post-receive/20191109105649771.png)</p>
+<p><img src="/../images/git%E9%92%A9%E5%AD%90hookpost-receive/20191109105649771.png" alt="img"></p>
 <p>然后去到服务端</p>
-<p>![img](/../images/git钩子 hook post-receive/20191109105930363.png)</p>
+<p><img src="/../images/git%E9%92%A9%E5%AD%90hookpost-receive/20191109105930363.png" alt="img"></p>
 <p>服务端直接更新了</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

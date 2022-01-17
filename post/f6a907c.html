@@ -198,10 +198,10 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <p>[root@localhost ~]# service smb restart<br>关闭 SMB 服务：                      [确定]<br>启动 SMB 服务：                      [确定]<br>[root@localhost ~]# service nmb restart<br>关闭 NMB 服务：                      [确定]<br>启动 NMB 服务：                      [确定]<br>[root@localhost ~]#                     ：重启samba服务；</p>
 <p>验证上面创建的用户是否能够登录samba服务端：</p>
 <p>在windows是上使用unc的方式访问：</p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf1_2ibkokAADDjxfgCXg785.jpg" alt="wKioL1Uf1_2ibkokAADDjxfgCXg785.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf1_2ibkokAADDjxfgCXg785.jpg" alt="wKioL1Uf1_2ibkokAADDjxfgCXg785.jpg"></p>
 <p>输入hadoop的用户名和密码，成功访问到samba中的共享目录：其实访问的是用户自己的家目录；</p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKiom1Uf102BPxYcAAEcVH54JrI618.jpg" alt="wKiom1Uf102BPxYcAAEcVH54JrI618.jpg"></p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf2MLBLVAQAABNnbWtSC0832.jpg" alt="wKioL1Uf2MLBLVAQAABNnbWtSC0832.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKiom1Uf102BPxYcAAEcVH54JrI618.jpg" alt="wKiom1Uf102BPxYcAAEcVH54JrI618.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf2MLBLVAQAABNnbWtSC0832.jpg" alt="wKioL1Uf2MLBLVAQAABNnbWtSC0832.jpg"></p>
 <p>示例2：基于用户控制，访问公共共享目录；</p>
 <p>[root@localhost ~]# mkdir /share/test -pv<br>mkdir: 已创建目录 “/share”<br>mkdir: 已创建目录 “/share/test”<br>[root@localhost ~]# setfacl -m u:centos:rwx /share/test/<br>[root@localhost ~]# vim /etc/samba/smb.conf</p>
 <p>[myshared]<br>comment = my share test<br>path = /share/test<br>writable = yes               ：添加共享记录，将目录共享出去；</p>
@@ -209,17 +209,17 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <p>[root@localhost ~]# service smb restart<br>关闭 SMB 服务：                      [确定]<br>启动 SMB 服务：                      [确定]<br>[root@localhost ~]# service nmb restart<br>关闭 NMB 服务：                      [确定]<br>启动 NMB 服务：                      [确定]<br>[root@localhost ~]#                     ：重启一下samba服务；</p>
 <p>使用客户端去测试：</p>
 <p>使用centos帐号去测试：</p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf2yLA4-1FAAEmi-ZXy8s213.jpg" alt="wKioL1Uf2yLA4-1FAAEmi-ZXy8s213.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf2yLA4-1FAAEmi-ZXy8s213.jpg" alt="wKioL1Uf2yLA4-1FAAEmi-ZXy8s213.jpg"></p>
 <p>可以看到，能够显示新建的共享目录了。因为设置了文件acl，使得centos账户可以访问这个目录：</p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKiom1Uf2jvgprcFAABjTzURfwc095.jpg" alt="wKiom1Uf2jvgprcFAABjTzURfwc095.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKiom1Uf2jvgprcFAABjTzURfwc095.jpg" alt="wKiom1Uf2jvgprcFAABjTzURfwc095.jpg"></p>
 <p>可以新建文件：</p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf3PTQOiKaAACGIGDIzdA403.jpg" alt="wKioL1Uf3PTQOiKaAACGIGDIzdA403.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf3PTQOiKaAACGIGDIzdA403.jpg" alt="wKioL1Uf3PTQOiKaAACGIGDIzdA403.jpg"></p>
 <p>再次使用hadoop登录查看：</p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf3AGhKqgIAAEwut8IChs180.jpg" alt="wKioL1Uf3AGhKqgIAAEwut8IChs180.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf3AGhKqgIAAEwut8IChs180.jpg" alt="wKioL1Uf3AGhKqgIAAEwut8IChs180.jpg"></p>
 <p>ok，都能看到新建的共享目录了：</p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf3A-j-OEUAAB4OSMZiS8949.jpg" alt="wKioL1Uf3A-j-OEUAAB4OSMZiS8949.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf3A-j-OEUAAB4OSMZiS8949.jpg" alt="wKioL1Uf3A-j-OEUAAB4OSMZiS8949.jpg"></p>
 <p>但是hadoop却没权限使用该共享目录；</p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf3J3wb4_FAAD5RYqE8rk162.jpg" alt="wKioL1Uf3J3wb4_FAAD5RYqE8rk162.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf3J3wb4_FAAD5RYqE8rk162.jpg" alt="wKioL1Uf3J3wb4_FAAD5RYqE8rk162.jpg"></p>
 <p>注意：共享文件的最终权限取决于文件系统和共享权限二者的交集；</p>
 <p>提醒：</p>
 <p>基于windows客户端去访问共享时，由于缓存的原因，可能导致有时不能更换账号，可以如下解决：</p>
@@ -264,7 +264,7 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <p>[root@localhost /]# service xinetd start<br>正在启动 xinetd：</p>
 <p>[root@localhost /]# chkconfig | grep swat<br>swat:        启用                    ：启用samba-swat；</p>
 <p>web访问配置：成功访问，可以执行配置了；</p>
-<p><img src="/post/images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf5q7jyAHAAAGL28uh2QI264.jpg" alt="wKioL1Uf5q7jyAHAAAGL28uh2QI264.jpg"></p>
+<p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf5q7jyAHAAAGL28uh2QI264.jpg" alt="wKioL1Uf5q7jyAHAAAGL28uh2QI264.jpg"></p>
 <p>结束！</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
