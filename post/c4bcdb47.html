@@ -89,7 +89,7 @@
 <li><p>1、在客户端生成密钥并拷贝公钥</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa <span class="comment"># 一路回车就可以</span></span><br><span class="line">pbcopy &lt; ~/.ssh/id_rsa.pub <span class="comment"># mac电脑上直接拷贝公钥</span></span><br></pre></td></tr></table></figure></li>
 <li><p>2、服务器端也生产密钥(注意是免密登录<code>git</code>用户需要在<code>git</code>用户下配置)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">chmod 700 .ssh/ <span class="comment"># 修改文件夹权限</span></span><br><span class="line">vim .ssh/authorized_keys <span class="comment"># 把客户端的公钥放到这个文件里面</span></span><br><span class="line">chmod 600 .ssh/authorized_keys <span class="comment"># 修改权限</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">chmod 700 .ssh/ <span class="comment"># 修改文件夹权限</span></span><br><span class="line">vim .ssh/authorized_keys <span class="comment"># 把客户端的公钥放到这个文件里面</span></span><br><span class="line">chmod 644 .ssh/authorized_keys <span class="comment"># 修改权限</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
