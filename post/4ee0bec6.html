@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WireGuard安装配置教程 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,WireGuard,服务器"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,大家都知道，最近管家对梯子管理的太严格，准备去浏览一下国外的技术，经常出现梯子折掉的情况，还好有一个朋友LK给我推荐WireGuard，所以准备重新支起梯子。WireGuard是一个通过UDP协议，,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">WireGuard安装配置教程</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">WireGuard安装配置教程</h1>
+        <div class="stuff">
+            <span>六月 23, 2019</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/WireGuard/" rel="tag">WireGuard</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>大家都知道，最近管家对梯子管理的太严格，准备去浏览一下国外的技术，经常出现梯子折掉的情况，还好有一个朋友LK给我推荐WireGuard，所以准备重新支起梯子。WireGuard是一个通过UDP协议，实现端对端的连接，更加安全的保护梯子，具体的优点大家自己查询吧，我只说一个字“很快”能比正常的速度快上1／3，那我们开始吧。</p>
+<p><strong>一、环境介绍</strong></p>
+<p>服务器：Ubuntu16.04 x64</p>
+<p>客户端：Windows7</p>
+<p>虽然写了服务器、客户端，但需要大家知道的是，WireGuard并没有强调服务器与客户端的，只在于是谁连接了谁，我们这里使用Windows7连接Ubuntu，所以这里标明Ubuntu为服务器，Windows7为客户端。</p>
+<p><strong>二、Windows7下Tunsafe安装及密钥生成</strong></p>
+<p>我们所使用的客户端是Windows7，可以使用Tunsafe客户端，下载地址：“<a href="https://tunsafe.com”。软件安装过程就略过，软件打开后界面如下：">https://tunsafe.com”。软件安装过程就略过，软件打开后界面如下：</a></p>
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-16.png" alt="img"></p>
+<p>可以使用客户端工具来生成公钥与么钥。点击客户端“File”菜单，选择“Generate Key Pair…”项，点击“Randomize”按钮来生成客房端公钥与私钥，如下图所示。</p>
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-17.png" alt="img"></p>
+<p>客户端私钥：aL541p6k4ys1jhhWV+dFIK4MSogdMoGWnoJCW40PeW0=</p>
+<p>客户端公钥：WWwXgCaptYXGsjRSjRRRiP3zYkkRthECHUPadqh7LTM=</p>
+<p><strong>三、Ubuntu下WireGuard安装</strong></p>
+<p>1、安装WireGuard</p>
+<p>WireGuard官网已经给出了安装教程，大家可以作为参考，网址为：“<a target="_blank" rel="noopener" href="https://www.wireguard.com/install/%E2%80%9D%E3%80%82">https://www.wireguard.com/install/”。</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add-apt-repository ppa:wireguard&#x2F;wireguard</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install wireguard-dkms wireguard-tools linux-headers-$(uname -r)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-18.png" alt="img"></p>
+<p>2、生成服务器端密钥</p>
+<p>在安装成功后，在/etc目录下，就会创建wireguard文件夹。接下来进入到目录下，生成服务器端密钥。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;wireguard&#x2F;</span><br><span class="line">umask 077</span><br><span class="line">wg genkey | tee server_private_key | wg pubkey &gt; server_public_key</span><br></pre></td></tr></table></figure>
+
+<p>生成完成后，就可以看到当前路径下有“server_private_key”及“server_public_key”2个文件。</p>
+<p>3、创建服务器配置文件</p>
+<p>在/etc/wireguard/下创建wg0.conf文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;wireguard&#x2F;wg0.conf</span><br></pre></td></tr></table></figure>
+
+<p>文件内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line">Address &#x3D; 10.200.0.1&#x2F;24</span><br><span class="line">SaveConfig &#x3D; true</span><br><span class="line">PrivateKey &#x3D; $(cat server_privatekey) # 填写本机的privatekey 内容</span><br><span class="line">ListenPort &#x3D; 51820</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey &#x3D;  $(cat client_publickey)  # 填写对端的publickey 内容</span><br><span class="line">AllowedIPs &#x3D; 10.200.0.2&#x2F;24</span><br></pre></td></tr></table></figure>
+
+<p>刚刚建立的wg0.conf主要是为了wg0这个虚拟网卡的配置文件，其中，</p>
+<p>[Interface]：服务器端配置开始标志</p>
+<p>Address：为服务器本机IP地址</p>
+<p>SaveConfig：为true时，有客户端连接时，保存状态信息，自动保存到wg0.conf文件</p>
+<p>PrivateKey：为服务器的私钥</p>
+<p>ListenPort：为服务器监听的端口号51820</p>
+<p>[Peer]：客户端开始标志，（多个客户端，会有多个配置连接）</p>
+<p>PublicKey：为客户端的公钥，这个需要客户端生成，客户端生成完成后，需要填写</p>
+<p>AllowedIPs：允许客户端连接的地址</p>
+<p>服务器配置文件完整截图如下：</p>
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-19.png" alt="img"></p>
+<p>4、允许IP转发</p>
+<p>在服务器中，要加入IP转发，要不然会出现客户端不能上网，修改/etc/sysctl.conf文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;sysctl.conf</span><br></pre></td></tr></table></figure>
+
+<p>将配置文件中“net.ipv4.ip_forward=1”前面的“#”号去掉。</p>
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-20.png" alt="img"></p>
+<p>修改完成后，保存后，重新启动服务器，或者直接用使用如下命令操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br><span class="line">echo 1 &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_forward</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-21.png" alt="img"></p>
+<p>5、修改防火墙规则</p>
+<p>设置iptables列表的内容，需要配置接受的协议及端口号，数据转发也需要它的支持。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">iptables -A INPUT -p udp -m udp --dport 51820 -m conntrack --ctstate NEW -j ACCEPT</span><br><span class="line">iptables -A INPUT -s 10.200.0.0&#x2F;24 -p tcp -m tcp --dport 53 -m conntrack --ctstate NEW -j ACCEPT</span><br><span class="line">iptables -A INPUT -s 10.200.0.0&#x2F;24 -p udp -m udp --dport 53 -m conntrack --ctstate NEW -j ACCEPT</span><br><span class="line">iptables -A FORWARD -i wg0 -o wg0 -m conntrack --ctstate NEW -j ACCEPT</span><br><span class="line">iptables -t nat -A POSTROUTING -s 10.200.0.0&#x2F;24 -o ens3 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+
+<p>这里特别需要说明的是，最后一行中的“ens3”为服务器本地网卡的名称，这个需要根据你自己的网卡名称而定。配置完成后，将其保存起来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt-get install iptables-persistent</span><br><span class="line">systemctl enable netfilter-persistent</span><br><span class="line">systemctl start netfilter-persistent</span><br><span class="line">netfilter-persistent save</span><br></pre></td></tr></table></figure>
+
+<p>6、DNS服务器配置</p>
+<p>这一步可以配置，也可以不用配置，主要是因为使用公共DNS，存在泄漏IP地址的情况，所以我们自己建立DNS，让我们隐藏在VPS后面，从而加强我们的安全，下面的语句要逐条执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install unbound unbound-host</span><br><span class="line">curl -o &#x2F;var&#x2F;lib&#x2F;unbound&#x2F;root.hints https:&#x2F;&#x2F;www.internic.net&#x2F;domain&#x2F;named.cache</span><br></pre></td></tr></table></figure>
+
+<p>接下来配置unbound。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;unbound&#x2F;unbound.conf.d&#x2F;root-auto-trust-anchor-file.conf</span><br></pre></td></tr></table></figure>
+
+<p>将原有内容注释后，修改配置文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">num-threads: 4</span><br><span class="line"></span><br><span class="line">#允许日志</span><br><span class="line">verbosity: 1</span><br><span class="line"></span><br><span class="line">#根服务器列表</span><br><span class="line">root-hints: &quot;&#x2F;var&#x2F;lib&#x2F;unbound&#x2F;root.hints&quot;</span><br><span class="line"></span><br><span class="line">#DNSSEC的根密钥文件</span><br><span class="line">auto-trust-anchor-file: &quot;&#x2F;var&#x2F;lib&#x2F;unbound&#x2F;root.key&quot;</span><br><span class="line"></span><br><span class="line">#允许查询任意网站的dns</span><br><span class="line">interface: 0.0.0.0</span><br><span class="line">max-udp-size: 3072</span><br><span class="line"></span><br><span class="line">#仅允许本机和10.200.0.0&#x2F;24段ip访问</span><br><span class="line">access-control: 0.0.0.0&#x2F;0 refuse</span><br><span class="line">access-control: 127.0.0.1 allow</span><br><span class="line">access-control: 10.200.0.0&#x2F;24 allow</span><br><span class="line"></span><br><span class="line">#不进入公共dns服务器列表</span><br><span class="line">private-address: 10.200.0.0&#x2F;24</span><br><span class="line"></span><br><span class="line">#隐藏信息</span><br><span class="line">hide-identity: yes</span><br><span class="line">hide-version: yes</span><br><span class="line"></span><br><span class="line">#强制DNSSEC</span><br><span class="line">harden-glue: yes</span><br><span class="line">harden-dnssec-stripped: yes</span><br><span class="line">harden-referral-path: yes</span><br><span class="line"></span><br><span class="line">#Add an unwanted reply threshold to clean the cache and avoid when possible a DNS Poisoning</span><br><span class="line">unwanted-reply-threshold: 10000000</span><br><span class="line"></span><br><span class="line">#验证地址，记录dns投毒事件（Have the validator print validation failures to the log.）</span><br><span class="line">val-log-level: 1</span><br><span class="line"></span><br><span class="line">#Minimum lifetime of cache entries in seconds</span><br><span class="line">cache-min-ttl: 1800</span><br><span class="line"></span><br><span class="line">#Maximum lifetime of cached entries</span><br><span class="line">cache-max-ttl: 14400</span><br><span class="line">prefetch: yes</span><br><span class="line">prefetch-key: yes</span><br></pre></td></tr></table></figure>
+
+<p>配置完后，开启服务，并设置为开机自启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chown -R unbound:unbound &#x2F;var&#x2F;lib&#x2F;unbound</span><br><span class="line">systemctl enable unbound</span><br><span class="line">systemctl start unbound</span><br></pre></td></tr></table></figure>
+
+<p>7、启动虚拟网卡</p>
+<p>接下设置一下网卡的配置文件，以及开启网卡，并设置为服务，开机自启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chown -v root:root &#x2F;etc&#x2F;wireguard&#x2F;wg0.conf</span><br><span class="line">chmod -v 600 &#x2F;etc&#x2F;wireguard&#x2F;wg0.conf</span><br><span class="line">wg-quick up wg0</span><br><span class="line">systemctl enable wg-quick@wg0.service</span><br></pre></td></tr></table></figure>
+
+<p><strong>四、Windows7下客户端的配置</strong></p>
+<p>软件打开后界面如下：</p>
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-22.png" alt="img"></p>
+<p>接下来点击“File”菜单，选择“Edit Config File”项或界面中的“Edit Config”按钮，在弹出的配置文件，删除所有内容，修改如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line">Address &#x3D; 10.200.0.2&#x2F;24</span><br><span class="line">PrivateKey &#x3D; $(cat client_privatekey)  # 填写本机的privatekey 内容</span><br><span class="line">DNS &#x3D; 10.200.0.1</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey &#x3D; $(cat server_publickey)  # 填写对端的publickey 内容</span><br><span class="line">Endpoint &#x3D; 服务器的物理ip地址:51820</span><br><span class="line">AllowedIPs &#x3D; 0.0.0.0&#x2F;0</span><br><span class="line">PersistentKeepalive &#x3D; 21</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line">PrivateKey &#x3D; qBPVFgVQLQMD&#x2F;RgZplW1IRj8kCdeSzmWEK7MXvMDdGI&#x3D;</span><br><span class="line">Address &#x3D; 10.200.0.2&#x2F;24</span><br><span class="line">DNS &#x3D; 10.200.0.1</span><br><span class="line"></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey &#x3D; gJeSlpwfaph+NNt5mpwRHvfYg1dEs0md7fHNaIxL2lw&#x3D;</span><br><span class="line">AllowedIPs &#x3D; 0.0.0.0&#x2F;0</span><br><span class="line">Endpoint &#x3D; web.kingslanding.cn:5120</span><br><span class="line">PersistentKeepalive &#x3D; 25</span><br></pre></td></tr></table></figure>
+
+<p>接下来，说明一下配置文件各项的内容：</p>
+<p>[Interface]：客户端配置开始部分</p>
+<p>Address：客户端IP地址（也就是本机地址）</p>
+<p>PrivateKey：客户端私钥（服务端生成的client_private_key文件）</p>
+<p>DNS：服务器IP地址作为DNS</p>
+<p>[Peer]：服务器端的配置信息</p>
+<p>PublicKey：服务器的公钥（服务端生成的server_public_key文件）</p>
+<p>Endpoint：服务器的IP地址及端口号</p>
+<p>AllowedIPs：0.0.0.0/0为允许所有IP地址通讯，如果单个IP地址，可以写多个用逗号隔开，默认写客户端的IP地址</p>
+<p>PersistentKeepalive：用来保持连接检查的，每过25s会自动检查连通性，如果IP有变化，也是通过这个自动更新endpoint</p>
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-23.png" alt="img"></p>
+<p>我们点击界面上的“Connect”即可以连接到服务器，如下图所示。</p>
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-24.png" alt="img"></p>
+<p>此时我们再测试一下是否可以正常访问Google，如下图所示。</p>
+<p><img src="/../images/WireGuard%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/word-image-25.png" alt="img"></p>
+<p>特别说明一下，如果我们对服务器配置文件做修改，需要先关闭网卡后，再进行配置文件的修改，修改完成后，开启网卡，以下这两个命令主要是用来关闭或启动网卡的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 关闭虚拟网卡</span><br><span class="line">wg-quick down wg0</span><br><span class="line"></span><br><span class="line"># 启动虚拟网卡</span><br><span class="line">wg-quick up wg0</span><br></pre></td></tr></table></figure>
+
+<p>附加说明，如果你还是连接不上，你可以把服务器重新启动一下。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
