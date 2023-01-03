@@ -116,18 +116,24 @@ slave,">
 <p>EOF</p>
 <p>#执行初始化</p>
 <p>kubeadm init –kubernetes-version=v1.23.3 –pod-network-cidr=10.244.0.0/16 –service-cidr=10.96.0.0/12 –token-ttl=0 –ignore-preflight-errors=Swap</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> vi &#x2F;etc&#x2F;docker&#x2F;daemon.json &#123; &quot;exec-opts&quot;: [&quot;native.cgroupdriver&#x3D;systemd&quot;] &#125; </span><br><span class="line"></span><br><span class="line"> # 重启docker </span><br><span class="line"> systemctl restart docker </span><br><span class="line"> # 重新初始化 </span><br><span class="line"> kubeadm reset </span><br><span class="line"> # 先重置 </span><br><span class="line"></span><br><span class="line">kubeadm init --apiserver-advertise-address&#x3D;192.168.138.111 --image-repository registry.aliyuncs.com&#x2F;google_containers --kubernetes-version v1.23.3 --service-cidr&#x3D;10.96.0.0&#x2F;12 --pod-network-cidr&#x3D;10.244.0.0&#x2F;16 --ignore-preflight-errors&#x3D;all</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> vi &#x2F;etc&#x2F;docker&#x2F;daemon.json &#123; &quot;exec-opts&quot;: [&quot;native.cgroupdriver&#x3D;systemd&quot;] &#125; </span><br><span class="line"></span><br><span class="line"> # 重启docker </span><br><span class="line"> systemctl restart docker </span><br><span class="line"> # 重新初始化 </span><br><span class="line"> kubeadm reset </span><br><span class="line"> # 先重置 </span><br><span class="line"></span><br><span class="line">kubeadm init --control-plane-endpoint&#x3D;192.168.137.110 --apiserver-advertise-address&#x3D;192.168.137.110 --image-repository registry.aliyuncs.com&#x2F;google_containers --kubernetes-version v1.23.3 --service-cidr&#x3D;10.96.0.0&#x2F;12 --pod-network-cidr&#x3D;10.244.0.0&#x2F;16 --ignore-preflight-errors&#x3D;all</span><br></pre></td></tr></table></figure>
 
 <p>查看K8S运行状态：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get po -n kube-system</span><br></pre></td></tr></table></figure>
+
+<p>若期望新增节点，则需要重新生成token，默认是24小时有效期，这里可以通过设置ttl=0为永久有效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm token create --print-join-command --ttl&#x3D;0</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join 192.168.137.110:6443 --token q4ge2n.rnwke6l5wmtaglrj --discovery-token-ca-cert-hash sha256:b64218fa30ae1ca5f8f7e336f935fc7bf84d561a7e29521800b12d5fe34c6819</span><br></pre></td></tr></table></figure>
 
 
 
 <h1 id="flannel-安装"><a href="#flannel-安装" class="headerlink" title="flannel 安装"></a>flannel 安装</h1><p>docker pull quay.io/coreos/flannel:v0.15.1-amd64</p>
 <h1 id="创建集群-注意输出最后信息-子节点加入时需要"><a href="#创建集群-注意输出最后信息-子节点加入时需要" class="headerlink" title="创建集群 注意输出最后信息 子节点加入时需要"></a>创建集群 注意输出最后信息 子节点加入时需要</h1><p>kubectl apply -f <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml">https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</a></p>
 <p>节点配置</p>
-<h1 id="rpm-gpg引入完成后开始安装所需包"><a href="#rpm-gpg引入完成后开始安装所需包" class="headerlink" title="rpm-gpg引入完成后开始安装所需包"></a>rpm-gpg引入完成后开始安装所需包</h1><p>rpm –import yum-key.gpg</p>
-<p>rpm –import rpm-package-key.gpg</p>
+<h1 id="rpm-gpg引入完成后开始安装所需包"><a href="#rpm-gpg引入完成后开始安装所需包" class="headerlink" title="rpm-gpg引入完成后开始安装所需包"></a>rpm-gpg引入完成后开始安装所需包</h1><p>rpm -import yum-key.gpg</p>
+<p>rpm -import rpm-package-key.gpg</p>
 <p>#安装所需包，kubelet不用立即启动，在加入k8s后就会启动</p>
 <p>yum install docker-ce kubeadm-1.23.3 kubectl-1.23.3 kubelet-1.23.3 -y</p>
 <p>systemctl enable docker kubelet</p>
@@ -139,7 +145,7 @@ slave,">
 <p>KUBELET_EXTRA_ARGS=”–fail-swap-on=false”</p>
 <p>EOF</p>
 <p>节点加入集群 注意master创建集群信息</p>
-<p>kubeadm join 192.168.138.111:6443 –token ls7p8w.db58adnrufdxorjl –discovery-token-ca-cert-hash sha256:dac6495e40d745a50fa37e217355c0895c233e9b9e6a1535df243b4926d4c5a9 –ignore-preflight-errors=Swap</p>
+<p>kubeadm join 192.168.137.110:6443 –token ls7p8w.db58adnrufdxorjl –discovery-token-ca-cert-hash sha256:dac6495e40d745a50fa37e217355c0895c233e9b9e6a1535df243b4926d4c5a9 –ignore-preflight-errors=Swap</p>
 <p>节点下载所需镜像</p>
 <p>docker pull registry.aliyuncs.com/google_containers/kube-proxy:v1.23.3</p>
 <p>docker pull registry.aliyuncs.com/google_containers/pause:3.6</p>

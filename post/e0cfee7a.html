@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆 - 萧日宁的世界</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,群晖,GitServer,SSH"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,一、序言公司长期使用SVN作为版本管理仓库,并且没有使用分支管理,在开发与发布时遇到了很多问题.后来配置了Jenkins自动化出版本,在开发与发布中需要进场切换版本. 综合考虑,最终决定在内网NAS,"> 
+    <meta name="author" content="萧日宁"> 
+    <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    
+<link rel="stylesheet" href="/css/diaspora.css">
+<link rel="stylesheet" href="/css/APlayer.min.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">萧日宁的世界</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+        <!-- page音乐插件 -->
+        
+    <h3 class="subtitle">群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆</h1>
+        <div class="stuff">
+            <span>十二月 23, 2021</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/%E7%BE%A4%E6%99%96/" rel="tag">群晖</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <p>一、序言<br>公司长期使用SVN作为版本管理仓库,并且没有使用分支管理,在开发与发布时遇到了很多问题.后来配置了Jenkins自动化出版本,在开发与发布中需要进场切换版本. 综合考虑,最终决定在内网NAS上搭建一个Git远程仓库.<br>NAS是Linux内核的操作系统,所以需要一定Linux命令操作的基础.查阅大量资料并实践,最终整理成这一篇文章.</p>
+<p>二、环境配置</p>
+<ol>
+<li>群晖NAS (我们使用的非Plus版本,不支持docker安装GitLab,只能使用GitServer)</li>
+<li>NAS管理员权限</li>
+<li>SSH客户端,xshell或者putty</li>
+</ol>
+<p>三、开始配置</p>
+<ol>
+<li>安装GitServer<br>在群晖NAS的套件中心安装GitServer,这一步非常简单<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16.png)</li>
+<li>创建一个共享目录用于存放Git仓库,并设置访问权限</li>
+<li>创建仓库目录<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984671.png)</li>
+<li>创建一个用户群组,并设置访问权限<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984672.png)<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984673.png)</li>
+<li>新建用户并加入git_group<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984674.png)<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/403b58a6aacf462189b4d66d1e575f96.png)</li>
+<li>在GitServer中添加用户访问权限<br>在NAS的主程序中打开GitServer,并添加刚刚创建的用户访问权限<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984675.png)</li>
+<li>打开用户账户中的家目录<br>打开家目录有两个作用</li>
+<li>解决用户通过ssh访问的时候会提示目录不存在的问题</li>
+<li>可以为用户配置SSH秘钥,实现免密登陆<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984686.png)</li>
+<li>开启SSH远程访问功能</li>
+</ol>
+<p>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984687.png)</p>
+<p>走到这一步,NAS可以通过页面设置的部分都处理完成,接下来我们需要用过SSH远程连接NAS,通过命令来创建Git仓库</p>
+<p>四、创建Git仓库<br>使用xshell/putty等工具连接NAS,需要用管理员账号登陆</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo -i  							//切换管理员权限</span><br><span class="line"><span class="built_in">cd</span> <span class="built_in">cd</span> /volume1/gittest   			//进入刚刚创建的共享目录中</span><br><span class="line">mkdir res.git						//创建仓库	</span><br><span class="line"><span class="built_in">cd</span> res.git</span><br><span class="line">git init --bare 					//初始化git仓库</span><br></pre></td></tr></table></figure>
+
+<p>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984688.png)</p>
+<ol>
+<li>配置设置文件归属和权限<br>至此，git仓库已经创建好，但是我们并不能正确访问到，因为目录还有访问权限，我们需要将gittest目录下所有文件的访问权限修改为当前用户可以访问</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /volume1 </span><br><span class="line">chown -R root:git_group gittest			//修改gittest文件及其子目录的归属用户和组</span><br><span class="line"><span class="built_in">cd</span> </span><br></pre></td></tr></table></figure>
+
+<p>五、使用Git与配置ssh秘钥</p>
+<ol>
+<li>接下来我们可以使用git来拉取NAS上的仓库了</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://gittest_user@192.168.2.55/volume1/gittest/res.git</span><br></pre></td></tr></table></figure>
+
+<p>如果提示 Could not chdir to home directory /var/services/homes/gittest_user: Permission denied<br>warning: You appear to have cloned an empty repository.<br>我们需要将/var/service的权限修改一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod 775 /var</span><br><span class="line">chmod 775 /var/services</span><br><span class="line">chmod 755 -R /var/services/homes										//homes以及子目录的权限必须为755</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>配置ssh秘钥<br>这里使用git拉取,推送每次都需要使用密码,我们可以创建秘钥来实现免密ssh登陆</li>
+<li>允许ssh使用秘钥验证</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>解开以下几行的注释,并退出保存</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSAAuthentication yes</span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>接着重启 ssh 服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo synoservicectl --restart sshd</span><br></pre></td></tr></table></figure>
+
+<p>或者在NAS网页控制台中重新关闭,打开ssh设置<br>\2. 生成秘钥<br>在客户端主机中执行以下命令(我使用的git bash)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ./gittest_user    //-f 指定秘钥文件路径和名称</span><br></pre></td></tr></table></figure>
+
+<p>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_18,color_FFFFFF,t_70,g_se,x_16.png)</p>
+<p>此时我们就得到了两个文件<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984689.png)</p>
+<ol>
+<li>上传公钥文件到NAS<br>客户端执行以下命令(git bash)</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ./gittest_user.pub username@192.168.2.55:/volume1/homes/gittest_user/.ssh</span><br></pre></td></tr></table></figure>
+
+<p>这个时候我们上传不了文件到NAS中,提示没有权限,这是因为NASgittest_user 目录下的权限是755</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp: /volume1/homes/gittest_user/.ssh//gittest_user.pub: Permission denied</span><br></pre></td></tr></table></figure>
+
+<p>只有临时把NAS的 /volume1/homes/gittest_user 目录权限改为777,上传之后再修改回来</p>
+<p>上传成功之后,使用xshell执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /volume1/homes/gittest_user/.ssh/</span><br><span class="line">cat gittest_user.pub &gt; authorized_keys</span><br><span class="line">chmod 755 authorized_keys	</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>客户端私钥转换<br>因为 TortoiseGit 和SourcesTree 使用的是ppk格式的私钥,我们需要把pem私钥转换成ppk私钥</li>
+</ol>
+<p>打开PuTTY Key Generator,并导入pem私钥<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_17,color_FFFFFF,t_70,g_se,x_16.png)</p>
+<p>点击 Save private key 保存ppk格式的私钥</p>
+<ol>
+<li>使用TortoiseGit重新拉取<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-167274639846810.png)</li>
+</ol>
+<p>现在每次拉取推送都不再需要输入密码了</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+        <div class='side'>
+				
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
