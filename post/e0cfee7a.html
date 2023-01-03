@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆 - 萧日宁的世界</title>
+    <title>群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆 - 萧日宁的世界</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
@@ -27,10 +27,10 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://kingslanding.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
         <!-- page音乐插件 -->
         
-    <h3 class="subtitle">群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆</h3>
+    <h3 class="subtitle">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</h3>
     <div class="social">
         <div>
             <div class="share">
@@ -45,7 +45,7 @@
     <div class="section">
         <div class="article">
     <div class='main'>
-        <h1 class="title">群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆</h1>
+        <h1 class="title">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</h1>
         <div class="stuff">
             <span>十二月 23, 2021</span>
             
@@ -63,23 +63,23 @@
 </ol>
 <p>三、开始配置</p>
 <ol>
-<li>安装GitServer<br>在群晖NAS的套件中心安装GitServer,这一步非常简单<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16.png)</li>
+<li>安装GitServer<br>在群晖NAS的套件中心安装GitServer,这一步非常简单<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"></li>
 <li>创建一个共享目录用于存放Git仓库,并设置访问权限</li>
-<li>创建仓库目录<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984671.png)</li>
-<li>创建一个用户群组,并设置访问权限<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984672.png)<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984673.png)</li>
-<li>新建用户并加入git_group<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984674.png)<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/403b58a6aacf462189b4d66d1e575f96.png)</li>
-<li>在GitServer中添加用户访问权限<br>在NAS的主程序中打开GitServer,并添加刚刚创建的用户访问权限<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984675.png)</li>
+<li>创建仓库目录<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984671.png" alt="在这里插入图片描述"></li>
+<li>创建一个用户群组,并设置访问权限<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984672.png" alt="在这里插入图片描述"><br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984673.png" alt="在这里插入图片描述"></li>
+<li>新建用户并加入git_group<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984674.png" alt="在这里插入图片描述"><br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/403b58a6aacf462189b4d66d1e575f96.png" alt="在这里插入图片描述"></li>
+<li>在GitServer中添加用户访问权限<br>在NAS的主程序中打开GitServer,并添加刚刚创建的用户访问权限<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984675.png" alt="在这里插入图片描述"></li>
 <li>打开用户账户中的家目录<br>打开家目录有两个作用</li>
 <li>解决用户通过ssh访问的时候会提示目录不存在的问题</li>
-<li>可以为用户配置SSH秘钥,实现免密登陆<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984686.png)</li>
+<li>可以为用户配置SSH秘钥,实现免密登陆<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984686.png" alt="在这里插入图片描述"></li>
 <li>开启SSH远程访问功能</li>
 </ol>
-<p>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984687.png)</p>
+<p><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984687.png" alt="在这里插入图片描述"></p>
 <p>走到这一步,NAS可以通过页面设置的部分都处理完成,接下来我们需要用过SSH远程连接NAS,通过命令来创建Git仓库</p>
 <p>四、创建Git仓库<br>使用xshell/putty等工具连接NAS,需要用管理员账号登陆</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo -i  							//切换管理员权限</span><br><span class="line"><span class="built_in">cd</span> <span class="built_in">cd</span> /volume1/gittest   			//进入刚刚创建的共享目录中</span><br><span class="line">mkdir res.git						//创建仓库	</span><br><span class="line"><span class="built_in">cd</span> res.git</span><br><span class="line">git init --bare 					//初始化git仓库</span><br></pre></td></tr></table></figure>
 
-<p>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984688.png)</p>
+<p><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984688.png" alt="在这里插入图片描述"></p>
 <ol>
 <li>配置设置文件归属和权限<br>至此，git仓库已经创建好，但是我们并不能正确访问到，因为目录还有访问权限，我们需要将gittest目录下所有文件的访问权限修改为当前用户可以访问</li>
 </ol>
@@ -109,8 +109,8 @@
 <p>或者在NAS网页控制台中重新关闭,打开ssh设置<br>\2. 生成秘钥<br>在客户端主机中执行以下命令(我使用的git bash)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ./gittest_user    //-f 指定秘钥文件路径和名称</span><br></pre></td></tr></table></figure>
 
-<p>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_18,color_FFFFFF,t_70,g_se,x_16.png)</p>
-<p>此时我们就得到了两个文件<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984689.png)</p>
+<p><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_18,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"></p>
+<p>此时我们就得到了两个文件<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984689.png" alt="在这里插入图片描述"></p>
 <ol>
 <li>上传公钥文件到NAS<br>客户端执行以下命令(git bash)</li>
 </ol>
@@ -126,10 +126,10 @@
 <ol>
 <li>客户端私钥转换<br>因为 TortoiseGit 和SourcesTree 使用的是ppk格式的私钥,我们需要把pem私钥转换成ppk私钥</li>
 </ol>
-<p>打开PuTTY Key Generator,并导入pem私钥<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_17,color_FFFFFF,t_70,g_se,x_16.png)</p>
+<p>打开PuTTY Key Generator,并导入pem私钥<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_17,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"></p>
 <p>点击 Save private key 保存ppk格式的私钥</p>
 <ol>
-<li>使用TortoiseGit重新拉取<br>![在这里插入图片描述](/../images/群晖NAS 搭建GitServer并配置权限与SSH秘钥免密登陆/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-167274639846810.png)</li>
+<li>使用TortoiseGit重新拉取<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-167274639846810.png" alt="在这里插入图片描述"></li>
 </ol>
 <p>现在每次拉取推送都不再需要输入密码了</p>
 
