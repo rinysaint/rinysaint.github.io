@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,frp,内网穿透,systemctl"> 
-    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,1、脚本内容放置在/lib/systemd/system目录下，由于我这里启动的是服务端，我将该脚本文件命名为:frps.service，完整路径为：/lib/systemd/system/frps,"> 
+    <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,1、脚本内容放置在&amp;#x2F;lib&amp;#x2F;systemd&amp;#x2F;system目录下，由于我这里启动的是服务端，我将该脚本文件命名为:frps.service，完整路径为：&amp;#x2F;lib,"> 
     <meta name="author" content="萧日宁"> 
     <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">systemctl frp自动启动脚本</h3>
@@ -54,20 +54,20 @@
 
         </div>
         <div class="content markdown">
-            <h4 id="1、脚本内容"><a href="#1、脚本内容" class="headerlink" title="1、脚本内容"></a>1、脚本内容</h4><p>放置在/lib/systemd/system目录下，由于我这里启动的是服务端，我将该脚本文件命名为:frps.service，完整路径为：/lib/systemd/system/frps.service</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;frps service</span><br><span class="line">After&#x3D;network.target syslog.target</span><br><span class="line">Wants&#x3D;network.target</span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">Restart&#x3D;always #当程序退出时，自动重启。</span><br><span class="line">#最好使用非root用户启动</span><br><span class="line">User&#x3D;frp</span><br><span class="line">Group&#x3D;frp</span><br><span class="line">#启动服务的命令（此处写你的frps的实际安装目录）</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;frp&#x2F;frps -c &#x2F;usr&#x2F;local&#x2F;frp&#x2F;frps.ini</span><br><span class="line">ExecStop&#x3D;&#x2F;bin&#x2F;kill $MAINPID</span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+            <h4 id="1、脚本内容"><a href="#1、脚本内容" class="headerlink" title="1、脚本内容"></a>1、脚本内容</h4><p>放置在&#x2F;lib&#x2F;systemd&#x2F;system目录下，由于我这里启动的是服务端，我将该脚本文件命名为:frps.service，完整路径为：&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;frps.service</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=frps service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">Restart=always #当程序退出时，自动重启。</span><br><span class="line">#最好使用非root用户启动</span><br><span class="line">User=frp</span><br><span class="line">Group=frp</span><br><span class="line">#启动服务的命令（此处写你的frps的实际安装目录）</span><br><span class="line">ExecStart=/usr/local/frp/frps -c /usr/local/frp/frps.ini</span><br><span class="line">ExecStop=/bin/kill $MAINPID</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="2、systemctl命令控制"><a href="#2、systemctl命令控制" class="headerlink" title="2、systemctl命令控制"></a>2、systemctl命令控制</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable frps #设置开机自动启动</span><br><span class="line">systemctl disable frps #取消开机自动启动</span><br><span class="line">systemctl start frps #开启frps服务</span><br><span class="line">systemctl stop frps #关闭frps服务</span><br><span class="line">systemctl restart frps #重启frps服务</span><br></pre></td></tr></table></figure>
+<h4 id="2、systemctl命令控制"><a href="#2、systemctl命令控制" class="headerlink" title="2、systemctl命令控制"></a>2、systemctl命令控制</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable frps #设置开机自动启动</span><br><span class="line">systemctl disable frps #取消开机自动启动</span><br><span class="line">systemctl start frps #开启frps服务</span><br><span class="line">systemctl stop frps #关闭frps服务</span><br><span class="line">systemctl restart frps #重启frps服务</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="3、也可以自己写一个脚本，实现frp开机自动启动，或者断线重连"><a href="#3、也可以自己写一个脚本，实现frp开机自动启动，或者断线重连" class="headerlink" title="3、也可以自己写一个脚本，实现frp开机自动启动，或者断线重连"></a>3、也可以自己写一个脚本，实现frp开机自动启动，或者断线重连</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">while true</span><br><span class="line">do</span><br><span class="line">    result&#x3D;&#96;ps aux|grep frps.ini|grep -v grep|wc -l&#96;</span><br><span class="line">    if [ $result &#x3D; &#39;0&#39; ]; then</span><br><span class="line">        echo &quot;未运行，开始运行&quot;</span><br><span class="line">        nohup &#x2F;usr&#x2F;local&#x2F;frp&#x2F;frps -c &#x2F;usr&#x2F;local&#x2F;frp&#x2F;frps.ini &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1  &amp;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;运行中&quot;</span><br><span class="line">    fi</span><br><span class="line">    sleep 15</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h4 id="3、也可以自己写一个脚本，实现frp开机自动启动，或者断线重连"><a href="#3、也可以自己写一个脚本，实现frp开机自动启动，或者断线重连" class="headerlink" title="3、也可以自己写一个脚本，实现frp开机自动启动，或者断线重连"></a>3、也可以自己写一个脚本，实现frp开机自动启动，或者断线重连</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">while true</span><br><span class="line">do</span><br><span class="line">    result=`ps aux|grep frps.ini|grep -v grep|wc -l`</span><br><span class="line">    if [ $result = &#x27;0&#x27; ]; then</span><br><span class="line">        echo &quot;未运行，开始运行&quot;</span><br><span class="line">        nohup /usr/local/frp/frps -c /usr/local/frp/frps.ini &gt; /dev/null 2&gt;&amp;1  &amp;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;运行中&quot;</span><br><span class="line">    fi</span><br><span class="line">    sleep 15</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 
-<p>将上面脚本保存，我保存的位置为：/usr/bin/frpwatch</p>
-<p>然后在 /etc/rc.local中添加运行命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup &#x2F;usr&#x2F;bin&#x2F;frpwatch &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>将上面脚本保存，我保存的位置为：&#x2F;usr&#x2F;bin&#x2F;frpwatch</p>
+<p>然后在 &#x2F;etc&#x2F;rc.local中添加运行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /usr/bin/frpwatch &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

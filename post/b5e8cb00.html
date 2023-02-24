@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -28,7 +28,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">WNMPA一键环境 1.0.0.0 正式版发布</h3>
@@ -71,25 +71,11 @@
 <p>其实我写的这个程序只有1.9M左右而已，但是安装包却有90多M左右，解压出来大概765M，那么为什么会这么大呢？原因很简单，我肯定不会让各位那么幸苦去自己下载服务端来安装的，我在这里一共准备了三个版本的php(32位的Non Thread Safe的、32位的Thread Safe的、64位的Thread Safe的)，和两个版本的Apache(32位版、64位版)、MySQL(32位版、64位版)、Tomcat(32位版、64位版)，这些玩意占了很大的空间。</p>
 <p>一些小疑问：</p>
 <ul>
-<li>人家都用的5.2老版本php，你为啥非得用5.4，还有什么mysql啊，nginx啊，什么都用最新版的，多不稳定啊！<pre><code> 答：这个怎么说呢， 有个很简单的比喻：Win7和XP，Win7在发布正式版的时候，很多人不习惯，认为Win7“不稳定”，然后坚守XP阵营。而直到现在，依然有很大一批的老一辈革命家认为XP还能再战20年。
- 那么各位再仔细回忆一下，当年Win98盛行的时候，又是怎么看待XP的呢？
- 有些人一定有过这样的想法：这个破Win7，连XX软件都不支持，还有什么用，我还是换回XP吧。
- 可是直到最后，依然摆脱不了换新版操作系统的命运。
- 操作系统是这样的，那么同理php、mysql、apache也是这样， 我们当然可以等到周围所有人都用上新版本了，我们才慢慢悠悠更新。但是我个人却是个急性子，我可忍受不了新特性对我的诱惑。
-</code></pre>
-</li>
-<li>我电脑上有JDK啊，为啥Tomcat无法运行呢？<pre><code> 因为JDK默认是没有注册到环境变量里的，Tomcat是以系统里的%JAVA_HOME%作为JDK是否存在的判断依据的。
-</code></pre>
-</li>
-<li>为啥Nginx已经停止了，按钮却还是显示的“正在停止”或者“停止”呢？<pre><code> 因为Nginx本身不提供注册到系统服务这项功能，所以我使用了 instsrv.exe和srvany.exe来使Nginx注册为Windows服务，有时候Nginx的确停掉了，但是他的宿主进程没有被停掉，所以嘛……打开services.msc手动重启下呗～
-</code></pre>
-</li>
-<li>为啥我自己localhost访问可以，别人访问我就403呢？<pre><code> 亲，因为你访问的这个网站绑定的域名就是localhost，为了防止你服务器被人恶意指向(国内某些云主机，如果你的服务器被未备案的域名指向了，他们会关掉你的服务器)，我特地将Nginx的默认站点设置为直接返回403。如果想绑定域名，请在主界面添加虚拟站点。
-</code></pre>
-</li>
-<li>为什么你的这个WNMPA环境不能拿去作为生产环境呢？<pre><code> 因为我是个开发者，所以我使用的都是最新版的服务端，php也打开了所有函数，连有些可能会导致出问题的函数都被打开了。所以从一定角度上来说，直接解压出来以后，这个东西的确不应该用做生产环境，如果真的需要的话，就建议去百度一下php的php.ini、mysql的my.ini、apache和nginx的conf文件构成，然后自己改写一个安全而又适合自己的生产环境。
-</code></pre>
-</li>
+<li>人家都用的5.2老版本php，你为啥非得用5.4，还有什么mysql啊，nginx啊，什么都用最新版的，多不稳定啊！<br> 答：这个怎么说呢， 有个很简单的比喻：Win7和XP，Win7在发布正式版的时候，很多人不习惯，认为Win7“不稳定”，然后坚守XP阵营。而直到现在，依然有很大一批的老一辈革命家认为XP还能再战20年。<br> 那么各位再仔细回忆一下，当年Win98盛行的时候，又是怎么看待XP的呢？<br> 有些人一定有过这样的想法：这个破Win7，连XX软件都不支持，还有什么用，我还是换回XP吧。<br> 可是直到最后，依然摆脱不了换新版操作系统的命运。<br> 操作系统是这样的，那么同理php、mysql、apache也是这样， 我们当然可以等到周围所有人都用上新版本了，我们才慢慢悠悠更新。但是我个人却是个急性子，我可忍受不了新特性对我的诱惑。</li>
+<li>我电脑上有JDK啊，为啥Tomcat无法运行呢？<br> 因为JDK默认是没有注册到环境变量里的，Tomcat是以系统里的%JAVA_HOME%作为JDK是否存在的判断依据的。</li>
+<li>为啥Nginx已经停止了，按钮却还是显示的“正在停止”或者“停止”呢？<br> 因为Nginx本身不提供注册到系统服务这项功能，所以我使用了 instsrv.exe和srvany.exe来使Nginx注册为Windows服务，有时候Nginx的确停掉了，但是他的宿主进程没有被停掉，所以嘛……打开services.msc手动重启下呗～</li>
+<li>为啥我自己localhost访问可以，别人访问我就403呢？<br> 亲，因为你访问的这个网站绑定的域名就是localhost，为了防止你服务器被人恶意指向(国内某些云主机，如果你的服务器被未备案的域名指向了，他们会关掉你的服务器)，我特地将Nginx的默认站点设置为直接返回403。如果想绑定域名，请在主界面添加虚拟站点。</li>
+<li>为什么你的这个WNMPA环境不能拿去作为生产环境呢？<br> 因为我是个开发者，所以我使用的都是最新版的服务端，php也打开了所有函数，连有些可能会导致出问题的函数都被打开了。所以从一定角度上来说，直接解压出来以后，这个东西的确不应该用做生产环境，如果真的需要的话，就建议去百度一下php的php.ini、mysql的my.ini、apache和nginx的conf文件构成，然后自己改写一个安全而又适合自己的生产环境。</li>
 </ul>
 <p>软件截图：</p>
 <p>安装界面：</p>

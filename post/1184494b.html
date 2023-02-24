@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">漫谈网络通信——从OSI网络模型到TCP/IP协议族</h3>
@@ -73,17 +73,17 @@
 <p><strong>7.应用层</strong></p>
 <p>　　<strong>最顶层的OSI层，为应用程序提供网络服务。</strong>如为电子邮件、文件传输功能提供协议支持。</p>
 <p>　　应用层协议有HTTP协议、FTP协议、SMTP协议等。</p>
-<h2 id="什么是TCP-IP协议？"><a href="#什么是TCP-IP协议？" class="headerlink" title="什么是TCP/IP协议？"></a>什么是TCP/IP协议？</h2><p>　　TCP/IP协议定义了今天的电子设备如何连入internet网络，以及数据如何在他们之间传输的标准。在今天的基于TCP/IP的互联网诞生之前，能够使用接口通信处理实现互联互通的电脑并不多，而且大部分电脑之间信息的交换并不兼容。后来好几个牛逼哄哄的歪果仁开始捣鼓一些协议，能够让电脑之间进行通信。终于在1974年12月，Bob Kahn和Vinton G.Cerf带领的团队首先制定出了通过详细定义的TCP/IP协议标准。当时作了一个试验，将信息包通过点对点的卫星网络，再通过陆地电缆，再通过卫星网络，再由地面传输，贯串欧洲和美国，经过各种电脑系统，全程9.4万公里竟然没有丢失一个数据位，远距离的可靠数据传输证明了TCP/IP协议的成功。1983年1月1日，运行较长时期曾被人们习惯了的NCP被停止使用，TCP/IP协议作为因特网上所有主机间的共同协议，从此以后被作为一种必须遵守的规则被肯定和应用。（让我们为Bob Kahn和Vinton G.Cerf两位老爷爷撒花鼓掌吧👏👏👏）</p>
-<p>　　从“TCP/IP”名字上来看，貌似这只是tcp协议和ip协议，但是实际上，这是很多协议(有人说有几百个协议，感觉待考证)的集合。由于知识广度和时间限制，将不对TCP/IP协议进行全面剖析，主要对其中比较重要的几个点进行阐述。</p>
-<p>　　从概念上来讲，TCP/IP协议族则把7层网络模型合并成4层，其对应关系如下：</p>
+<h2 id="什么是TCP-x2F-IP协议？"><a href="#什么是TCP-x2F-IP协议？" class="headerlink" title="什么是TCP&#x2F;IP协议？"></a>什么是TCP&#x2F;IP协议？</h2><p>　　TCP&#x2F;IP协议定义了今天的电子设备如何连入internet网络，以及数据如何在他们之间传输的标准。在今天的基于TCP&#x2F;IP的互联网诞生之前，能够使用接口通信处理实现互联互通的电脑并不多，而且大部分电脑之间信息的交换并不兼容。后来好几个牛逼哄哄的歪果仁开始捣鼓一些协议，能够让电脑之间进行通信。终于在1974年12月，Bob Kahn和Vinton G.Cerf带领的团队首先制定出了通过详细定义的TCP&#x2F;IP协议标准。当时作了一个试验，将信息包通过点对点的卫星网络，再通过陆地电缆，再通过卫星网络，再由地面传输，贯串欧洲和美国，经过各种电脑系统，全程9.4万公里竟然没有丢失一个数据位，远距离的可靠数据传输证明了TCP&#x2F;IP协议的成功。1983年1月1日，运行较长时期曾被人们习惯了的NCP被停止使用，TCP&#x2F;IP协议作为因特网上所有主机间的共同协议，从此以后被作为一种必须遵守的规则被肯定和应用。（让我们为Bob Kahn和Vinton G.Cerf两位老爷爷撒花鼓掌吧👏👏👏）</p>
+<p>　　从“TCP&#x2F;IP”名字上来看，貌似这只是tcp协议和ip协议，但是实际上，这是很多协议(有人说有几百个协议，感觉待考证)的集合。由于知识广度和时间限制，将不对TCP&#x2F;IP协议进行全面剖析，主要对其中比较重要的几个点进行阐述。</p>
+<p>　　从概念上来讲，TCP&#x2F;IP协议族则把7层网络模型合并成4层，其对应关系如下：</p>
 <p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161127194411487-172064230.png" alt="img"></p>
 <p>　　各层协议举例如下：</p>
 <p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161208161042226-139297074.png" alt="img"></p>
-<h2 id="TCP-IP——网络接口层"><a href="#TCP-IP——网络接口层" class="headerlink" title="TCP/IP——网络接口层"></a>TCP/IP——网络接口层</h2><p>　　<strong>主要作用一：数据封装/解封装成帧(frame)。</strong>为了保证可靠传输，网络层传过来的数据在这里被加工成了可被物理层传输的结构包——帧。帧中除了包括需要传输的数据外，还包括发送方和接收方的<strong>物理地址</strong>以及检错和控制信息。其中的物理地址确定了帧将发送到何处，检错和控制信息则是用来保证数据的无差错到达。数据帧结构如下(Address均为mac地址)：</p>
+<h2 id="TCP-x2F-IP——网络接口层"><a href="#TCP-x2F-IP——网络接口层" class="headerlink" title="TCP&#x2F;IP——网络接口层"></a>TCP&#x2F;IP——网络接口层</h2><p>　　<strong>主要作用一：数据封装&#x2F;解封装成帧(frame)。</strong>为了保证可靠传输，网络层传过来的数据在这里被加工成了可被物理层传输的结构包——帧。帧中除了包括需要传输的数据外，还包括发送方和接收方的<strong>物理地址</strong>以及检错和控制信息。其中的物理地址确定了帧将发送到何处，检错和控制信息则是用来保证数据的无差错到达。数据帧结构如下(Address均为mac地址)：</p>
 <p>　　　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209103142351-268019127.png" alt="img"></p>
 <p>　　<strong>主要作用二：控制帧传输。</strong>控制帧的传输主要体现在反馈重发、计时器、帧序号方面。接收方通过对帧的差错编码(奇偶校验码或 CRC 码)的检查，来判断帧在传输过程中是否出错，并向发送发进行反馈，如果传输发生差错，则需要重发纠正。作为发送发，如果在发送帧后，会同时启动定时器，如果帧发送后在一定时间内没有收到反馈，为了避免传输停滞不前，则在计时器Timeou后认为帧传输出错，自动重发。为了避免多次收到同一帧并将其递交给网络层的情况发生，则需要对每个发送的帧进行编号，接收方以此来判断该帧是否重复接受了。</p>
 <p>　　<strong>主要作用三：流量控制。</strong>由于收发双方各自使用的设备工作速率和缓冲存储空间的差异，可能出现发送方的发送能力大于接收方接收能力的现象，此时若不对发送方的发送速率做适当的限制，前面来不及接收的帧将被后面不断发送来的帧“淹没”，从而造成帧的丢失而出错。由此可见，流量控制实际上是对发送方数据流量的控制，使其发送速率不超过接收方的速率。所以需要一些规则使得发送方知道在什么情况下可以接着发送下一帧，而在什么情况下必须暂停发送，以等待收到某种反馈信息后再继续发送。</p>
-<h2 id="TCP-IP——网络层"><a href="#TCP-IP——网络层" class="headerlink" title="TCP/IP——网络层"></a>TCP/IP——网络层</h2><p>　　说到网络层不得不提的就是IP协议，它是TCP/IP协议族中最为核心的协议。所有的TCP、UDP、ICMP、IGMP协议数据都以IP数据报格式传输。IP协议提供的是不可靠的、无连接的数据报传输服务。不可靠是指IP协议不会保证数据报能否成功到达目的地，仅提供传输服务，传输出错，则会丢弃出错的数据报。无连接是指IP协议对数据报的处理是独立的，这也意味着接收方不一定会按照发送顺序接收数据报。</p>
+<h2 id="TCP-x2F-IP——网络层"><a href="#TCP-x2F-IP——网络层" class="headerlink" title="TCP&#x2F;IP——网络层"></a>TCP&#x2F;IP——网络层</h2><p>　　说到网络层不得不提的就是IP协议，它是TCP&#x2F;IP协议族中最为核心的协议。所有的TCP、UDP、ICMP、IGMP协议数据都以IP数据报格式传输。IP协议提供的是不可靠的、无连接的数据报传输服务。不可靠是指IP协议不会保证数据报能否成功到达目的地，仅提供传输服务，传输出错，则会丢弃出错的数据报。无连接是指IP协议对数据报的处理是独立的，这也意味着接收方不一定会按照发送顺序接收数据报。</p>
 <p><strong>IP数据报格式如下：</strong></p>
 <p>　　　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209104632866-706720294.png" alt="img"></p>
 <p><strong>IP地址分类：</strong></p>
@@ -100,7 +100,7 @@
 <p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209144715413-241953243.png" alt="img"></p>
 <p>　　接收到数据报的路由器按照它自己的理由表进行继续转发，直到到达目的地址。而除了在路由寻址过程中失败会导致丢弃数据报之外，IP数据报的TTL(生命周期)被减为0，则该IP数据报也会被丢弃。</p>
 <p>　　网络层还有几个比较重要的协议，ARP(Address Resolution Protocol地址解析协议)、ICMP(Internet Control Message Protocol报文控制协议)、IGMP(Internet Group Management Protocol组管理协议)，这里不做具体说明啦。</p>
-<h2 id="TCP-IP——传输层"><a href="#TCP-IP——传输层" class="headerlink" title="TCP/IP——传输层"></a>TCP/IP——传输层</h2><p>　　无论参考OSI还是TCP/IP的网络模型，我们从传输层向更底层看，各层的协议都是在直接或间接的服务于主机与主机之间的通信，而传输层则是在进程与进程通信层面上的。传输层有两个重要的协议——TCP协议和UDP协议。不同的应用进程则使用不同的传输层协议。</p>
+<h2 id="TCP-x2F-IP——传输层"><a href="#TCP-x2F-IP——传输层" class="headerlink" title="TCP&#x2F;IP——传输层"></a>TCP&#x2F;IP——传输层</h2><p>　　无论参考OSI还是TCP&#x2F;IP的网络模型，我们从传输层向更底层看，各层的协议都是在直接或间接的服务于主机与主机之间的通信，而传输层则是在进程与进程通信层面上的。传输层有两个重要的协议——TCP协议和UDP协议。不同的应用进程则使用不同的传输层协议。</p>
 <p> 　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209165325585-1031551702.png" alt="img"></p>
 <p>　　端口的作用则正是体现在传输层的。用来区分网络消息由主机上的那一个进程处理。端口号有 0～65535 的编号，其中0～1023为系统端口号。</p>
 <p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209165511679-2059357072.png" alt="img"></p>
@@ -127,15 +127,15 @@
 <p>　　Reserved：占6位，保留为今后使用，目前为0。</p>
 <p>　　TCP flags的C、E、U、A、P、R、S、F字段用来说明该报文的性质。意义如下： </p>
 <p>　　　　C(CWR)和E(ECE)用来支持ECN(显示阻塞通告)。</p>
-<p>　　　　U(URGENT)：当 URG=1时，它告诉系统此报文中有紧急数据，应优先传送(比如紧急关闭)，这要与紧急指针字段配合使用。</p>
-<p>　　　　A(ACK)：仅当 ACK=1时确认号字段才有效。建立 TCP 连接后，所有报文段都必须把 ACK 字段置为 1。</p>
+<p>　　　　U(URGENT)：当 URG&#x3D;1时，它告诉系统此报文中有紧急数据，应优先传送(比如紧急关闭)，这要与紧急指针字段配合使用。</p>
+<p>　　　　A(ACK)：仅当 ACK&#x3D;1时确认号字段才有效。建立 TCP 连接后，所有报文段都必须把 ACK 字段置为 1。</p>
 <p>　　　　P(PUSH)：若TCP连接的一端希望另一端立即响应，PSH字段便可以“催促”对方，不再等到缓存区填满才发送。</p>
 <p>　　　　R(RESET)：若 TCP 连接出现严重差错，RST 置为 1，断开 TCP 连接，再重新建立连接。</p>
-<p>　　　　S(SYN)：用于建立和释放连接，当SYN=1时，表示建立连接。</p>
-<p>　　　　F(FIN)：用于释放连接，当 FIN=1，表明发送方已经发送完毕，要求释放TCP 连接。</p>
+<p>　　　　S(SYN)：用于建立和释放连接，当SYN&#x3D;1时，表示建立连接。</p>
+<p>　　　　F(FIN)：用于释放连接，当 FIN&#x3D;1，表明发送方已经发送完毕，要求释放TCP 连接。</p>
 <p>　　Window：占2个字节。窗口值是指发送者自己的接收窗口大小，因为接收缓存的空间有限。 </p>
 <p>　　CheckSum：占2个字节。和UDP报文一样，有一个检验和，用于检查报文是否在传输过程中出差错。</p>
-<p>　　Urgent Pointer：占2字节。当URG=1时才有效，指出本报文段紧急数据的字节数。</p>
+<p>　　Urgent Pointer：占2字节。当URG&#x3D;1时才有效，指出本报文段紧急数据的字节数。</p>
 <p>　　TCP建立连接的三次握手：</p>
 <p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161211174151304-1668168182.png" alt="img"></p>
 <p>　　(1)Client首先向Server发送连接请求报文段，同步自己的seq(x)，Client进入SYN_SENT状态。</p>
@@ -143,14 +143,14 @@
 <p>　　(3)Client收到Server的返回确认，再次向服务器发送确认报文段ack(y+1)，这个报文段已经可以携带数据了。Client进入ESTABLISHED状态。</p>
 <p>　　(4)Server再次收到Client的确认信息后，进入ESTABLISHED状态。</p>
 <p>　　TCP连接至此建立起来了。为什么要做三次握手呢？握手的过程实际上是在通知对方自己的初始化序号(Initial Sequence Number)，简称ISN，也就是上图中的x和y。x和y会被当作之后传输数据的一个依据，以保证TCP报文在传输过程中不会混乱。</p>
-<p>　　我们回到TCP Header结构来看，Sequence Number和Acknowledgment Number都是占32位，所以seq和ack的取值范围是0 ～ 2^32-1。seq和ack每增加到2^32-1，则重新从0开始。值得一提的是，seq的初始值(ISN)并不是每次都从0开始的。我们设想一下，如果是从0开始，那么当TCP三次握手建立连接完成后，Client发送了30个报文，然后Client断线了。于是Client重连，再次用0作为初始的seq，这样就会出现两个报文具有相同的seq，就出现了混乱。事实上TCP的做法是每隔4微秒就对ISN做一次加1操作，当ISN到达2^32-1后再次从0开始的时候，已经过去了几个小时，之前的seq=0的报文已经不存在于这次连接中了，这样就避免了上面的问题。</p>
+<p>　　我们回到TCP Header结构来看，Sequence Number和Acknowledgment Number都是占32位，所以seq和ack的取值范围是0 ～ 2^32-1。seq和ack每增加到2^32-1，则重新从0开始。值得一提的是，seq的初始值(ISN)并不是每次都从0开始的。我们设想一下，如果是从0开始，那么当TCP三次握手建立连接完成后，Client发送了30个报文，然后Client断线了。于是Client重连，再次用0作为初始的seq，这样就会出现两个报文具有相同的seq，就出现了混乱。事实上TCP的做法是每隔4微秒就对ISN做一次加1操作，当ISN到达2^32-1后再次从0开始的时候，已经过去了几个小时，之前的seq&#x3D;0的报文已经不存在于这次连接中了，这样就避免了上面的问题。</p>
 <p>　　</p>
 <p>　　TCP断开连接的四次挥手：</p>
 <p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161211181122866-333961282.png" alt="img"></p>
-<p>　　(1)Client向Server发送断开连接请求的报文段，seq=m(m为Client最后一次向Server发送报文段的最后一个字节序号加1)，Client进入FIN-WAIT-1状态。</p>
-<p>　　(2)Server收到断开报文段后，向Client发送确认报文段，seq=n(n为Server最后一次向Client发送报文段的最后一个字节序号加1)，ack=m+1，Server进入CLOSE-WAIT状态。此时这个TCP连接处于半开半闭状态，Server发送数据的话，Client仍然可以接收到。</p>
-<p>　　(3)Server向Client发送断开确认报文段，seq=u(u为半开半闭状态下Server最后一次向Client发送报文段的最后一个字节序号加1)，ack=m+1，Server进入LAST-ACK状态。</p>
-<p>　　(4)Client收到Server的断开确认报文段后，向Server发送确认断开报文，seq=m+1，ack=u+1，Client进入TIME-WAIT状态。</p>
+<p>　　(1)Client向Server发送断开连接请求的报文段，seq&#x3D;m(m为Client最后一次向Server发送报文段的最后一个字节序号加1)，Client进入FIN-WAIT-1状态。</p>
+<p>　　(2)Server收到断开报文段后，向Client发送确认报文段，seq&#x3D;n(n为Server最后一次向Client发送报文段的最后一个字节序号加1)，ack&#x3D;m+1，Server进入CLOSE-WAIT状态。此时这个TCP连接处于半开半闭状态，Server发送数据的话，Client仍然可以接收到。</p>
+<p>　　(3)Server向Client发送断开确认报文段，seq&#x3D;u(u为半开半闭状态下Server最后一次向Client发送报文段的最后一个字节序号加1)，ack&#x3D;m+1，Server进入LAST-ACK状态。</p>
+<p>　　(4)Client收到Server的断开确认报文段后，向Server发送确认断开报文，seq&#x3D;m+1，ack&#x3D;u+1，Client进入TIME-WAIT状态。</p>
 <p>　　(5)Server收到Client的确认断开报文，进入CLOSED状态，断开了TCP连接。</p>
 <p>　　(6)Client在TIME-WAIT状态等待一段时间(时间为2*MSL((Maximum Segment Life))，确认Client向Server发送的最后一次断开确认到达(如果没有到达，Server会重发步骤(3)中的断开确认报文段给Client，告诉Client你的最后一次确认断开没有收到)。如果Client在TIME-WAIT过程中没有再次收到Server的报文段，就进入CLOSES状态。TCP连接至此断开。</p>
 <p>　　</p>
@@ -170,12 +170,12 @@
 <p>　　慢启动：初始的窗口值很小，但是按指数规律渐渐增长，直到达到慢开始门限(ssthresh)。</p>
 <p>　　加性增：窗口值达到慢开始门限后，每发送一个报文段，窗口值增加一个单位量。</p>
 <p>　　乘性减：无论什么阶段，只要出现超时，则把窗口值减小一半。</p>
-<h2 id="TCP-IP——应用层"><a href="#TCP-IP——应用层" class="headerlink" title="TCP/IP——应用层"></a>TCP/IP——应用层</h2><p> 　关于应用层协议，不同的应用或者具体来说同一种应用不同的需求，都会使用不同的应用层协议，作为互联网软件开发工程师，我们可能对应用层协议最为熟悉，这篇文章中将不再对应用层协议进行总结。</p>
+<h2 id="TCP-x2F-IP——应用层"><a href="#TCP-x2F-IP——应用层" class="headerlink" title="TCP&#x2F;IP——应用层"></a>TCP&#x2F;IP——应用层</h2><p> 　关于应用层协议，不同的应用或者具体来说同一种应用不同的需求，都会使用不同的应用层协议，作为互联网软件开发工程师，我们可能对应用层协议最为熟悉，这篇文章中将不再对应用层协议进行总结。</p>
 <p>　　</p>
 <p>　　</p>
 <hr>
 <p>　　写在最后：</p>
-<p>　　　　实不相瞒，在写下这篇文章之前，文章中至少有一半的内容(😏甚至不止一半)是作者不完全掌握或者知其然不知其所以然的，本来想把文章题目叫做《深度分析….》，但是觉得技术文章动不动的“深度分析”可能只是相较于自己的知识层面的深度，而非真正客观意义上的深度技术分析，所以本着谦虚和严谨的态度把题目改成了《漫谈…》，想通过这种方式，对网络通信这一块做一个总结性的学习。讲真，这篇文章的部分内容 = 网络技术文章借鉴 + 个人理解，本人非专家，如有错误，欢迎斧正！</p>
+<p>　　　　实不相瞒，在写下这篇文章之前，文章中至少有一半的内容(😏甚至不止一半)是作者不完全掌握或者知其然不知其所以然的，本来想把文章题目叫做《深度分析….》，但是觉得技术文章动不动的“深度分析”可能只是相较于自己的知识层面的深度，而非真正客观意义上的深度技术分析，所以本着谦虚和严谨的态度把题目改成了《漫谈…》，想通过这种方式，对网络通信这一块做一个总结性的学习。讲真，这篇文章的部分内容 &#x3D; 网络技术文章借鉴 + 个人理解，本人非专家，如有错误，欢迎斧正！</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -203,7 +203,7 @@
     </div>
     
         <div class='side'>
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">OSI七层模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFTCP-IP%E5%8D%8F%E8%AE%AE%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">什么是TCP&#x2F;IP协议？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%B1%82"><span class="toc-number">3.</span> <span class="toc-text">TCP&#x2F;IP——网络接口层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="toc-number">4.</span> <span class="toc-text">TCP&#x2F;IP——网络层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E2%80%94%E2%80%94%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="toc-number">5.</span> <span class="toc-text">TCP&#x2F;IP——传输层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82"><span class="toc-number">6.</span> <span class="toc-text">TCP&#x2F;IP——应用层</span></a></li></ol>	
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">OSI七层模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFTCP-x2F-IP%E5%8D%8F%E8%AE%AE%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">什么是TCP&#x2F;IP协议？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-x2F-IP%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%B1%82"><span class="toc-number">3.</span> <span class="toc-text">TCP&#x2F;IP——网络接口层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-x2F-IP%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="toc-number">4.</span> <span class="toc-text">TCP&#x2F;IP——网络层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-x2F-IP%E2%80%94%E2%80%94%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="toc-number">5.</span> <span class="toc-text">TCP&#x2F;IP——传输层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-x2F-IP%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82"><span class="toc-number">6.</span> <span class="toc-text">TCP&#x2F;IP——应用层</span></a></li></ol>	
         </div>
     
 </div>

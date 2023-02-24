@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Spring Cloud 微服务架构学习笔记与示例</h3>
@@ -59,7 +59,7 @@
 <p>　　特点：和语言绑定紧密</p>
 <h2 id="1-2-第二代服务框架"><a href="#1-2-第二代服务框架" class="headerlink" title="1.2 第二代服务框架"></a>1.2 第二代服务框架</h2><p>　　代表：Spring Cloud等</p>
 <p>　　现状：适合混合式开发（例如借助Steeltoe OSS可以让ASP.Net Core与Spring Cloud集成），正值当年</p>
-<h2 id="1-3-第三代服务框架"><a href="#1-3-第三代服务框架" class="headerlink" title="1.3 第三代服务框架"></a>1.3 第三代服务框架</h2><p>　　代表：Service Mesh（服务网格） =&gt; 例如Service Fabric、lstio、Linkerd、Conduit等</p>
+<h2 id="1-3-第三代服务框架"><a href="#1-3-第三代服务框架" class="headerlink" title="1.3 第三代服务框架"></a>1.3 第三代服务框架</h2><p>　　代表：Service Mesh（服务网格） &#x3D;&gt; 例如Service Fabric、lstio、Linkerd、Conduit等</p>
 <p>　　现状：在快速发展中，更新迭代比较快</p>
 <h2 id="1-4-未来（目测不久）主流的服务架构和技术栈"><a href="#1-4-未来（目测不久）主流的服务架构和技术栈" class="headerlink" title="1.4 未来（目测不久）主流的服务架构和技术栈"></a>1.4 未来（目测不久）主流的服务架构和技术栈</h2><p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180823103510130-441053512.jpg" alt="img"></p>
 <p>　　基础的云平台为微服务提供了资源能力（计算、存储和网络等），容器作为最小工作单元被Kubernetes调度和编排，Service Mesh（服务网格）管理微服务的服务通信，最后通过API Gateway向外暴露微服务的业务接口。</p>
@@ -92,7 +92,7 @@
 <li>Archaius：外部化配置组件</li>
 </ul>
 </li>
-<li>Spring Cloud Config：配置管理工具，实现应用配置的外部化存储，支持客户端配置信息刷新、加密/解密配置内容等。</li>
+<li>Spring Cloud Config：配置管理工具，实现应用配置的外部化存储，支持客户端配置信息刷新、加密&#x2F;解密配置内容等。</li>
 <li>Spring Cloud Bus：事件、消息总线，用于传播集群中的状态变化或事件，以及触发后续的处理</li>
 <li>Spring Cloud Security：基于spring security的安全工具包，为我们的应用程序添加安全控制</li>
 <li>Spring Cloud Consul : 封装了Consul操作，Consul是一个服务发现与配置工具（与Eureka作用类似），与Docker容器可以无缝集成</li>
@@ -112,23 +112,23 @@
 <h2 id="4-2-示例地址与结构说明"><a href="#4-2-示例地址与结构说明" class="headerlink" title="4.2 示例地址与结构说明"></a>4.2 示例地址与结构说明</h2><p>　　示例地址：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples">https://github.com/EdisonChou/EDC.SpringCloud.Samples</a></p>
 <h3 id="4-2-1-服务注册与发现-基于Eureka"><a href="#4-2-1-服务注册与发现-基于Eureka" class="headerlink" title="4.2.1 服务注册与发现 - 基于Eureka"></a>4.2.1 服务注册与发现 - 基于Eureka</h3><p>　　此部分示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part1_service-register-discovery">part1_service-register-discovery</a></p>
 <p>　　此部分示例主要演示了如何基于Eureka实现服务的注册与发现，其中包括两个版本：</p>
-<p>　　① 单节点版本 （开发环境调试用） =&gt; 位于eureka-service-sn (sn代表single node)项目内</p>
+<p>　　① 单节点版本 （开发环境调试用） &#x3D;&gt; 位于eureka-service-sn (sn代表single node)项目内</p>
 <p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180827150050804-810811632.png" alt="img"></p>
 <p>　　这里需要注意的地方是：在开发环境需要关闭Eureka的自我保护机制，不然你无法轻易看到服务移除的效果，需要在application.yml中如下设置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  server:</span><br><span class="line">    enableSelfPreservation: false # 本地调试环境下关闭自我保护机制</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  server:</span><br><span class="line">    enableSelfPreservation: false # 本地调试环境下关闭自我保护机制</span><br></pre></td></tr></table></figure>
 
 <p>　　这是因为Eureka考虑到生产环境中可能存在的网络分区故障，会导致微服务与Eureka Server之间无法正常通信。它的架构哲学是宁可同时保留所有微服务（健康的微服务和不健康的微服务都会保留），也不盲目注销任何健康的微服务。</p>
 <p>　　关于自我保护机制，更多内容可以参考：《<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhxdick/article/details/79153106">Spring Cloud Eureka全解之自我保护机制</a>》　</p>
 <p>　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180827151103729-1280844661.png" alt="img"></p>
-<p>　　② HA多节点版本 （部署/生产环境用） =&gt; 位于eureka-service-ha-1 &amp; eureka-service-ha-2这两个项目内</p>
+<p>　　② HA多节点版本 （部署&#x2F;生产环境用） &#x3D;&gt; 位于eureka-service-ha-1 &amp; eureka-service-ha-2这两个项目内</p>
 <p>　　此版本需要注意的是两个节点的application.yml保持一致，但由于其中使用了peer1和peer2的hostname，在本地开发环境需要给Windows（我假设你使用的是Windows系统）设置hosts文件如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1    peer1 peer2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1    peer1 peer2</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><em><strong>扩展：</strong></em>除了Eureka之外，还可以选择通用型较强的Consul，关于Consul的基本概念与服务端的安装配置可以看看我的这一篇《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/edisonchou/p/9124985.html">.Net Core微服务之基于Consul实现服务注册于发现</a>》了解一下。最后，不得不说，Spring Boot 和 Spring Cloud中核心组件封装的注解真的是太强大了，很多操作一个注解直接搞定，无须过多的coding。　　</p>
 </blockquote>
 <h3 id="4-2-2-客户端负载均衡-基于Ribbon"><a href="#4-2-2-客户端负载均衡-基于Ribbon" class="headerlink" title="4.2.2 客户端负载均衡 - 基于Ribbon"></a>4.2.2 客户端负载均衡 - 基于Ribbon</h3><p>　　此部分示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part2_client-load-balance">part2_client-load-balance</a></p>
-<p>　　此部分示例主要演示了如何基于Ribbon实现客户端的负载均衡，建议启动方式：先启动Eureka，再启动UserService和MovieService。通过访问MovieService的API接口 /log-instance 进行日志查看，测试结果如下图所示：</p>
+<p>　　此部分示例主要演示了如何基于Ribbon实现客户端的负载均衡，建议启动方式：先启动Eureka，再启动UserService和MovieService。通过访问MovieService的API接口 &#x2F;log-instance 进行日志查看，测试结果如下图所示：</p>
 <p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180828100514390-46002450.png" alt="img"></p>
 <p>　　从上图可以看出，通过客户端的负载均衡算法，依次访问了不同的服务节点。</p>
 <h3 id="4-2-3-声明式REST调用-基于Feign"><a href="#4-2-3-声明式REST调用-基于Feign" class="headerlink" title="4.2.3 声明式REST调用 - 基于Feign"></a>4.2.3 声明式REST调用 - 基于Feign</h3><p>　　此部分示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part3_feign">part3_feign</a></p>
@@ -137,13 +137,13 @@
 <p>　　（1）基本整合Feign进行单参数与多参数的请求：位于movie-service这个项目内</p>
 <p>　　需要注意的就是别忘了在启动类加上@EnableFeignClients注解</p>
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableFeignClients &#x2F;&#x2F; 要使用Feign，需要加上此注解</span><br><span class="line">public class MovieServiceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(MovieServiceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableFeignClients // 要使用Feign，需要加上此注解</span><br><span class="line">public class MovieServiceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(MovieServiceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
 <p>　　（2）自定义Feign配置的使用：位于movie-service-feign-customizing这个项目内</p>
 <p>　　下面的Feign接口就使用了自定义的配置类FeignConfiguration。</p>
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(name &#x3D; &quot;user-service&quot;, configuration &#x3D; FeignConfiguration.class)</span><br><span class="line">public interface UserFeignClient &#123;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 使用feign自带的注解@RequestLine</span><br><span class="line">     * @see https:&#x2F;&#x2F;github.com&#x2F;OpenFeign&#x2F;feign</span><br><span class="line">     * @param id 用户id</span><br><span class="line">     * @return 用户信息</span><br><span class="line">     *&#x2F;</span><br><span class="line">    @RequestLine(&quot;GET &#x2F;&#123;id&#125;&quot;)</span><br><span class="line">    User findById(@Param(&quot;id&quot;) Long id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(name = &quot;user-service&quot;, configuration = FeignConfiguration.class)</span><br><span class="line">public interface UserFeignClient &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 使用feign自带的注解@RequestLine</span><br><span class="line">     * @see https://github.com/OpenFeign/feign</span><br><span class="line">     * @param id 用户id</span><br><span class="line">     * @return 用户信息</span><br><span class="line">     */</span><br><span class="line">    @RequestLine(&quot;GET /&#123;id&#125;&quot;)</span><br><span class="line">    User findById(@Param(&quot;id&quot;) Long id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
 <p>　　（3）Feign的日志的使用：位于movie-service-feign-logging这个项目内</p>
@@ -152,7 +152,7 @@
 <p>Logger.Level 可选值：<br>* NONE: 不记录任何日志（默认值）<br>* BASIC: 仅记录请求方法、URL、响应状态码以及执行时间<br>* HEADERS: 记录BASIC级别的基础之上，记录请求和响应的header<br>* FULL: 记录请求和响应的header，body和元数据</p>
 </blockquote>
 <p>　　要输出日志打印，application.yml内要设置DEBUG级别：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">logging:</span><br><span class="line">  level:</span><br><span class="line">    # 将Feign接口的日志级别设置为DEBUG，因为Feign的Logger.Level只针对DEBUG做出响应</span><br><span class="line">    com.mbps.cd.movieservice.feign.UserFeignClient: DEBUG</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">logging:</span><br><span class="line">  level:</span><br><span class="line">    # 将Feign接口的日志级别设置为DEBUG，因为Feign的Logger.Level只针对DEBUG做出响应</span><br><span class="line">    com.mbps.cd.movieservice.feign.UserFeignClient: DEBUG</span><br></pre></td></tr></table></figure>
 
 <p>　　最后，针对FULL级别的日志打印效果如下图所示：</p>
 <p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180828145412951-1521816745.png" alt="img"></p>
@@ -161,17 +161,17 @@
 <p>　　（1）通用方式整合Hystrix：此示例位于movie-service项目中</p>
 <p>　　针对普通的方法，只需加上HystrixCommand注解及定义回退方法即可，例如：</p>
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@HystrixCommand(fallbackMethod &#x3D; &quot;findByIdFallback&quot;)</span><br><span class="line">@GetMapping(value &#x3D; &quot;&#x2F;user&#x2F;&#123;id&#125;&quot;)</span><br><span class="line">public User findById(@PathVariable Long id) &#123;</span><br><span class="line">    return restTemplate.getForObject(&quot;http:&#x2F;&#x2F;user-service&#x2F;&quot; + id, User.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public User findByIdFallback(Long id)&#123;</span><br><span class="line">    User user &#x3D; new User();</span><br><span class="line">    user.setId(-1L);</span><br><span class="line">    user.setUsername(&quot;Default User&quot;);</span><br><span class="line"></span><br><span class="line">    return user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@HystrixCommand(fallbackMethod = &quot;findByIdFallback&quot;)</span><br><span class="line">@GetMapping(value = &quot;/user/&#123;id&#125;&quot;)</span><br><span class="line">public User findById(@PathVariable Long id) &#123;</span><br><span class="line">    return restTemplate.getForObject(&quot;http://user-service/&quot; + id, User.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public User findByIdFallback(Long id)&#123;</span><br><span class="line">    User user = new User();</span><br><span class="line">    user.setId(-1L);</span><br><span class="line">    user.setUsername(&quot;Default User&quot;);</span><br><span class="line"></span><br><span class="line">    return user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
 <p>　　（2）Feign使用Hystrix：此示例位于movie-service-feign-hystrix项目中</p>
 <p>　　针对Feign，它是以接口形式工作的，好在Spring Cloud已默认为Feign整合了Hystrix，不过默认是关闭的，需要手动在配置文件中开启：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  hystrix:</span><br><span class="line">    enabled: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  hystrix:</span><br><span class="line">    enabled: true</span><br></pre></td></tr></table></figure>
 
 <p>　　在之前的版本（Dalston之前的版本）中是默认开启的，至于为何要改为默认禁用，可以看看这里：<a target="_blank" rel="noopener" href="https://github.com/spring-cloud/spring-cloud-netflix/issues/1277">https://github.com/spring-cloud/spring-cloud-netflix/issues/1277</a></p>
 <p>　　然后直接在FeignClient注解中加入fallback属性即可，例如下面所示：</p>
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(name &#x3D; &quot;user-service&quot;, fallback &#x3D; FeignClientFallback.class)</span><br><span class="line">public interface UserFeignClient &#123;</span><br><span class="line">    @GetMapping(value &#x3D; &quot;&#x2F;&#123;id&#125;&quot;)</span><br><span class="line">    User findById(@PathVariable(&quot;id&quot;) Long id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class FeignClientFallback implements UserFeignClient&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public User findById(Long id) &#123;</span><br><span class="line">        User user &#x3D; new User();</span><br><span class="line">        user.setId(-1L);</span><br><span class="line">        user.setUsername(&quot;Default User&quot;);</span><br><span class="line"></span><br><span class="line">        return user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(name = &quot;user-service&quot;, fallback = FeignClientFallback.class)</span><br><span class="line">public interface UserFeignClient &#123;</span><br><span class="line">    @GetMapping(value = &quot;/&#123;id&#125;&quot;)</span><br><span class="line">    User findById(@PathVariable(&quot;id&quot;) Long id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class FeignClientFallback implements UserFeignClient&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public User findById(Long id) &#123;</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setId(-1L);</span><br><span class="line">        user.setUsername(&quot;Default User&quot;);</span><br><span class="line"></span><br><span class="line">        return user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
 <p>　　如果想要在Feign发生回退时能够留下日志供查看回退原因，那么可以使用FallbackFactory，示例项目：movie-service-feign-fallback-factory.</p>
@@ -189,7 +189,7 @@
 <li>路由端点：依次启动eureka，user-service，movie-service，zuul-service，然后浏览器访问zuul-service（<a target="_blank" rel="noopener" href="http://localhost:5000/routes%EF%BC%89%E5%8F%AF%E4%BB%A5%E5%BE%97%E5%88%B0%E8%B7%AF%E7%94%B1%E7%AB%AF%E7%82%B9%E4%BF%A1%E6%81%AF">http://localhost:5000/routes）可以得到路由端点信息</a></li>
 </ul>
 <p>　　对于路由端点，需要改一下以下配置，才能正常显示路由端点信息，否则会报401的错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">management:</span><br><span class="line">  security:</span><br><span class="line">    enabled: false # 默认为true，改为false以便可以看到routes</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">management:</span><br><span class="line">  security:</span><br><span class="line">    enabled: false # 默认为true，改为false以便可以看到routes</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>路由配置：示例主要演示了路由前缀、全局敏感设置以及路由规则设置</li>
@@ -202,8 +202,9 @@
 <li>PRE：在请求被路由之前调用，可利用这种过滤器实现身份验证、记录调试信息等操作；</li>
 <li>ROUTING：将请求路由到微服务，可利用这种过滤器用于构建发送给微服务的请求；</li>
 <li>POST：在路由到微服务以后执行，可用来为响应添加标准的HTTP Header、收集统计信息和指标、将响应从微服务发送给客户端等；</li>
-<li>ERROR：在其他阶段发生错误时执行该过滤器；　　</li>
+<li>ERROR：在其他阶段发生错误时执行该过滤器；</li>
 </ul>
+<p>　　</p>
 <p>　　　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180829194447438-1935637453.png" alt="img"></p>
 <p>　　此示例中演示了PRE类型的过滤器，部分场景下，想要禁用部分过滤器，只需要在配置文件中设置即可，例如这里禁用PreRequestLogFilter过滤器：</p>
 <p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/ContractedBlock.gif" alt="img"> View Code</p>
@@ -231,11 +232,11 @@
 <p>　　此示例需要用到一些已放到git的配置文件，这里我已将其放到了github方便大家可以直接拿来测试用，仓库地址为：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples.Config">https://github.com/EdisonChou/EDC.SpringCloud.Samples.Config</a></p>
 <blockquote>
 <p>端点与配置文件的***映射规则***如下：</p>
-<p>/{application}/{profile}[/{label}]</p>
-<p>/{application}-{profile}.yml</p>
-<p>/{label}/{application}-{profile}.yml</p>
-<p>/{application}-{profile}.properties</p>
-<p>/{label}/{application}-{profile}.properties</p>
+<p>&#x2F;{application}&#x2F;{profile}[&#x2F;{label}]</p>
+<p>&#x2F;{application}-{profile}.yml</p>
+<p>&#x2F;{label}&#x2F;{application}-{profile}.yml</p>
+<p>&#x2F;{application}-{profile}.properties</p>
+<p>&#x2F;{label}&#x2F;{application}-{profile}.properties</p>
 <p>其中，application: 表示微服务的虚拟主机名，即配置的spring.application.name</p>
 <p>profile: 表示当前的环境，dev, test or production?</p>
 <p>label: 表示git仓库分支，master or relase or others repository name? 默认是master</p>
@@ -244,27 +245,27 @@
 <p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/ContractedBlock.gif" alt="img"> View Code</p>
 <p>　　启动顺序：先启动config-server，再启动config-client，因为config-client在启动时就回去config-server获取配置，如果这时config-server未启动则会报错。</p>
 <p>　　这里需要注意的就是在config-client中，对于spring cloud config的配置应该放在bootstrap.yml中而不是application.yml中，否则会不起作用。这里涉及到一个spring cloud的“引导上下文”的概念，可以参考这篇《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/niechen/p/8968204.html">深入理解Spring Cloud引导上下文</a>》来了解一下。</p>
-<p>　　（2）使用/refresh端点手动刷新配置：仍然位于config-client项目中</p>
+<p>　　（2）使用&#x2F;refresh端点手动刷新配置：仍然位于config-client项目中</p>
 <p>　　要想在运行期间刷新配置，需要两点改造：加上@RefreshScope注解</p>
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RefreshScope &#x2F;&#x2F; @RefreshScope注解不能少，否则即使调用&#x2F;refresh，配置也不会刷新</span><br><span class="line">public class ConfigClientController &#123;</span><br><span class="line">    @Value(&quot;$&#123;profile&#125;&quot;)</span><br><span class="line">    private String profile;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;&#x2F;profile&quot;)</span><br><span class="line">    public String hello()&#123;</span><br><span class="line">        return this.profile;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RefreshScope // @RefreshScope注解不能少，否则即使调用/refresh，配置也不会刷新</span><br><span class="line">public class ConfigClientController &#123;</span><br><span class="line">    @Value(&quot;$&#123;profile&#125;&quot;)</span><br><span class="line">    private String profile;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;/profile&quot;)</span><br><span class="line">    public String hello()&#123;</span><br><span class="line">        return this.profile;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
 <p>　　此外，针对Spring Boot 1.5.x，还需要给config-client端关闭安全认证，否则无法正常refresh：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">management:</span><br><span class="line">  security:</span><br><span class="line">    enabled: false</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">management:</span><br><span class="line">  security:</span><br><span class="line">    enabled: false</span><br></pre></td></tr></table></figure>
 
 <p>　　之后，就可以通过对config-client发起POST请求刷新配置了：</p>
 <p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180911110239157-395567823.png" alt="img"></p>
 <p>　　不过，如果所有微服务都需要手动刷新配置，工作量会很大。所以，在实际环境中，一般会实现配置的自动刷新。</p>
 <p>　　（3）使用Spring Cloud Bus自动刷新配置：此示例位于config-server-cloud-bus与config-client-cloud-bus项目中</p>
-<p>　　此示例使用到的架构如下图所示，它将Config Server加入消息总线之中，并使用Config Server的/bus/refersh端点来实现配置的刷新。这样，各个微服务只需要关注自身的业务逻辑，而无需再自己手动刷新配置。</p>
+<p>　　此示例使用到的架构如下图所示，它将Config Server加入消息总线之中，并使用Config Server的&#x2F;bus&#x2F;refersh端点来实现配置的刷新。这样，各个微服务只需要关注自身的业务逻辑，而无需再自己手动刷新配置。</p>
 <p>　　　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180911164253270-1574652079.png" alt="img"></p>
 <blockquote>
 <p><em><strong>Tip：</strong></em>Spring Cloud Bus基于轻量级地消息代理（例如RabbitMQ、Kafka等）连接分布式系统的节点，就可以通过广播的方式来传播状态的更改（例如配置的更新）或者其他的管理指令。我们可以将Spring Cloud Bus想象成一个分布式的Spring Boot Actuator。　　</p>
 </blockquote>
-<p>　　运行顺序：先启动config-service-cloud-bus，再启动两个config-client-cloud-bus（第一个默认端口8081，第二个端口改为8082），修改github中sampleservice-foo-dev.properties中的profile值后commit &amp; push，然后POST请求config-service-cloud-bus的/bus/refersh端点，最后再次访问两个client的/profile端点进行验证。</p>
+<p>　　运行顺序：先启动config-service-cloud-bus，再启动两个config-client-cloud-bus（第一个默认端口8081，第二个端口改为8082），修改github中sampleservice-foo-dev.properties中的profile值后commit &amp; push，然后POST请求config-service-cloud-bus的&#x2F;bus&#x2F;refersh端点，最后再次访问两个client的&#x2F;profile端点进行验证。</p>
 <p>　　如果部分场景想要知道Spring Cloud Bus事件传播的细节，可以通过以下设置来跟踪事件总线：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  cloud:</span><br><span class="line">    bus:</span><br><span class="line">      trace:</span><br><span class="line">        enabled: true # 开启cloud bus跟踪</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  cloud:</span><br><span class="line">    bus:</span><br><span class="line">      trace:</span><br><span class="line">        enabled: true # 开启cloud bus跟踪</span><br></pre></td></tr></table></figure>
 
 <p>　　（4）与Eureka的配合使用：此示例位于config-service-eureka与config-client-eureka两个项目中</p>
 <p>　　（5）Config Server的高可用：涉及到Git仓库的高可用、RabbitMQ的高可用以及Config Server自身的高可用。</p>
@@ -287,16 +288,16 @@
 <p>　　点击“依赖分析”，可以得到下图，有助于我们分析依赖关系：</p>
 <p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180912124826365-256580926.png" alt="img"></p>
 <p>　　需要注意的是，在开发调试时，因为默认的采样百分比是10%，Sleuth会忽略大量span，因此我们可以在开发环境将其设置为100%：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  sleuth:</span><br><span class="line">    sampler:</span><br><span class="line">      # 指定需采样的请求的百分比，默认是0.1（即10%），这里方便查看设为100%（实际环境不要这样设置）</span><br><span class="line">      percentage: 1.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  sleuth:</span><br><span class="line">    sampler:</span><br><span class="line">      # 指定需采样的请求的百分比，默认是0.1（即10%），这里方便查看设为100%（实际环境不要这样设置）</span><br><span class="line">      percentage: 1.0</span><br></pre></td></tr></table></figure>
 
 <p>　　（3）使用RabbitMQ收集数据：此示例位于zipkin-service-server-stream与user-service-trace-zipkin-stream两个项目中</p>
 <p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/668104-20170919144417181-47072786.png" alt="img"></p>
 <p>　　此外，Spring Cloud Sleuth还可以与ELK配合使用，不过此示例没有涉及，感兴趣的朋友可以参考这一篇《<a target="_blank" rel="noopener" href="https://blog.csdn.net/yejingtao703/article/details/78318234">Spring Cloud Sleuth与ELK集成</a>》。当然，示例中的跟踪数据都是存放到内存中，但是跟踪数据还是建议存放到ElasticSearch中，生产环境切莫只存储到内存中。</p>
 <h1 id="推荐工具"><a href="#推荐工具" class="headerlink" title="推荐工具"></a>推荐工具</h1><p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180808003740095-518556064.jpg" alt="img"></p>
-<p>　　IDE =&gt; <a target="_blank" rel="noopener" href="https://www.jetbrains.com/idea/">Intellij Idea Community 2018</a></p>
+<p>　　IDE &#x3D;&gt; <a target="_blank" rel="noopener" href="https://www.jetbrains.com/idea/">Intellij Idea Community 2018</a></p>
 <p>　　(<em><strong>PS:</strong></em> 如果是.Net程序猿背景，强烈建议更改快捷键与Visual Studio保持一致，这样能加快开发效率，如不了解如何修改，可以参考邹琼俊《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiekzou/p/9202247.html">从.Net到Java - Idea and Start Spring Boot</a>》)</p>
 <p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180823162644740-346644119.jpg" alt="img"></p>
-<p>　　Plugin =&gt; 阿里巴巴代码规约</p>
+<p>　　Plugin &#x3D;&gt; 阿里巴巴代码规约</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">

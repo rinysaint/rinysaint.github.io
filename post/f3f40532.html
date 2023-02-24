@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Spring Cloud与Docker的完美结合</h3>
@@ -82,7 +82,7 @@
 <p>补充，第三步的时候并没有真正的完全做到一键部署，除了点击立即构建之外，还需要到阿里云容器服务的应用中点击重新部署，如果需要完全实现一键部署，那就需要在应用中创建触发器，并完善到jenkins配置的脚本中即可</p>
 <p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120532622.jpg" alt="img"></p>
 <p>​    <strong>六、部署到生产环境</strong></p>
-<p>​    测试通过之后需要部署到生产环境，传统的部署方式要么是通过对测试通过的代码包进行拷贝，并对配置文件进行更改；要么就是通过svn/git中的版本控制从测试到生产的迁移，再进行jenkins的预生产环境测试，但是无论哪种部署方式都很容易出问题：一、漏改、错改配置文件；二、代码合并/迁移过程中产生新的问题；三、生产、测试服务器环境不同，环境差异造成的问题。但docker镜像是一个单进程的应用，而且只要宿主机运行docker没问题，那么docker重的环境也不会出现任何问题，我们将通过测试的应用从测试环境迁移到生产环境就很简单了，只用提供不同的docker-compose服务编排，生产环境直接通过变更配置更改镜像版本号即可</p>
+<p>​    测试通过之后需要部署到生产环境，传统的部署方式要么是通过对测试通过的代码包进行拷贝，并对配置文件进行更改；要么就是通过svn&#x2F;git中的版本控制从测试到生产的迁移，再进行jenkins的预生产环境测试，但是无论哪种部署方式都很容易出问题：一、漏改、错改配置文件；二、代码合并&#x2F;迁移过程中产生新的问题；三、生产、测试服务器环境不同，环境差异造成的问题。但docker镜像是一个单进程的应用，而且只要宿主机运行docker没问题，那么docker重的环境也不会出现任何问题，我们将通过测试的应用从测试环境迁移到生产环境就很简单了，只用提供不同的docker-compose服务编排，生产环境直接通过变更配置更改镜像版本号即可</p>
 <p>​    <strong>七、日志采集</strong></p>
 <p>​    Docker容器无法进行存储，只要容器重新启动，那么所有在启动过程中产生的数据都不复存在，如何存储日志呢？第四步中我们做的数据卷映射就可以派上用场了，我们采用的是一个网络NAS盘，将这块硬盘同时挂载到另外一台单独的ECS服务器上就可以访问所有的日志文件了，这里我采用的是ELK来进行日志搜集，这里就不再细讲了</p>
 <p><img src="/../images/SpringCloud%E4%B8%8EDocker%E7%9A%84%E5%AE%8C%E7%BE%8E%E7%BB%93%E5%90%88/20180902120602746.jpg" alt="img"></p>

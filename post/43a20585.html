@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Docker中部署Kubernetes</h3>
@@ -56,55 +56,55 @@
         <div class="content markdown">
             <p>Kubernetes为Google开源的容器管理框架，提供了<strong>Docker容器的夸主机、集群管理、容器部署、高可用、弹性伸缩</strong>等一系列功能；Kubernetes的设计目标包括使容器集群任意时刻都处于用户期望的状态，因而建立了一整套集群管理机制：容器自动重启、自动备份、容器自动伸缩等；Kubernetes设计了<strong>pod、replication controller、service</strong>用于管理容器的了组件，并提供了RESTful格式接口用于操作他们；由于本篇文章主要是Kubernetes所以就不对理论相关进行过多介绍了；<br>　　本篇文章把<strong>Kubernetes部署到Docker</strong>中，使用三个节点192.168.2.143同时为Master和minion节点，另外还有192.168.2.144、192.168.2.145两个minion节点；</p>
 <p><strong>1、master节点启动etcd容器</strong><br>启动etcd容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> --绑定4001端口</span><br><span class="line">docker run -d --net&#x3D;host --restart&#x3D;always --name&#x3D;etcd -v &#x2F;project&#x2F;kubernetes&#x2F;etc&#x2F;etcd&#x2F;data:&#x2F;var&#x2F;etcd&#x2F;data k8s.gcr.io&#x2F;etcd:3.5.0-0 &#x2F;usr&#x2F;local&#x2F;bin&#x2F;etcd --addr&#x3D;192.168.99.106:4001 --bind-addr&#x3D;0.0.0.0:4001 --data-dir&#x3D;&#x2F;var&#x2F;etcd&#x2F;data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> --绑定4001端口</span><br><span class="line">docker run -d --net=host --restart=always --name=etcd -v /project/kubernetes/etc/etcd/data:/var/etcd/data k8s.gcr.io/etcd:3.5.0-0 /usr/local/bin/etcd --addr=192.168.99.106:4001 --bind-addr=0.0.0.0:4001 --data-dir=/var/etcd/data</span><br></pre></td></tr></table></figure>
 
-<p>　　在etcd里插入flannel配置信息，指定flannel使用10.0.0.0/8区间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it etcd etcdctl set &#x2F;solinx.co&#x2F;network&#x2F;config &#39;&#123;&quot;Network&quot;:&quot;10.0.0.0&#x2F;8&quot;&#125;&#39;  </span><br></pre></td></tr></table></figure>
+<p>　　在etcd里插入flannel配置信息，指定flannel使用10.0.0.0&#x2F;8区间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it etcd etcdctl set /solinx.co/network/config &#x27;&#123;&quot;Network&quot;:&quot;10.0.0.0/8&quot;&#125;&#x27;  </span><br></pre></td></tr></table></figure>
 
 <p><strong>2、在master、minion1、minion2节点配置flanneld</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">启动flanneld, wget -c https:&#x2F;&#x2F;github.com&#x2F;coreos&#x2F;flannel&#x2F;releases&#x2F;download&#x2F;v0.5.5&#x2F;flannel-0.5.5-linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">.&#x2F;flanneld --etcd-endpoints&#x3D;http:&#x2F;&#x2F;192.168.2.143:4001 --etcd-prefix&#x3D;&#x2F;solinx.co&#x2F;network --iface&#x3D;ens33 &gt; flannel.log  2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">启动flanneld, wget -c https://github.com/coreos/flannel/releases/download/v0.5.5/flannel-0.5.5-linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">./flanneld --etcd-endpoints=http://192.168.2.143:4001 --etcd-prefix=/solinx.co/network --iface=ens33 &gt; flannel.log  2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 
-<p>　　flannel启动后获得可用于分配的IP集合，存放于/run/flannel/subnet.env中，需要配置docker可用与分配的IP</p>
+<p>　　flannel启动后获得可用于分配的IP集合，存放于&#x2F;run&#x2F;flannel&#x2F;subnet.env中，需要配置docker可用与分配的IP</p>
 <p>　　Ubuntu下修改Docker配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> 在&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;docker.service  增加EnvironmentFile&#x3D;-&#x2F;etc&#x2F;default&#x2F;docker</span><br><span class="line">修改ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;docker -d -H fd:&#x2F;&#x2F;  ,改成:  ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;docker -d -H fd:&#x2F;&#x2F; $DOCKER_OPTS</span><br><span class="line"></span><br><span class="line">source &#x2F;run&#x2F;flannel&#x2F;subnet.env</span><br><span class="line">sh -c &quot;echo DOCKER_OPTS&#x3D;\\\&quot;--bip&#x3D;$FLANNEL_SUBNET --mtu&#x3D;$FLANNEL_MTU\\\&quot; &gt;&gt; &#x2F;etc&#x2F;default&#x2F;docker&quot;</span><br><span class="line"></span><br><span class="line">service docker restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> 在/etc/systemd/system/docker.service  增加EnvironmentFile=-/etc/default/docker</span><br><span class="line">修改ExecStart=/usr/bin/docker -d -H fd://  ,改成:  ExecStart=/usr/bin/docker -d -H fd:// $DOCKER_OPTS</span><br><span class="line"></span><br><span class="line">source /run/flannel/subnet.env</span><br><span class="line">sh -c &quot;echo DOCKER_OPTS=\\\&quot;--bip=$FLANNEL_SUBNET --mtu=$FLANNEL_MTU\\\&quot; &gt;&gt; /etc/default/docker&quot;</span><br><span class="line"></span><br><span class="line">service docker restart</span><br></pre></td></tr></table></figure>
 
 <p><strong>3、Kubernetes部署</strong><br>下载kubernetes.tar.gz到master、minion节点中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c https:&#x2F;&#x2F;github.com&#x2F;kubernetes&#x2F;kubernetes&#x2F;releases&#x2F;download&#x2F;v1.2.5&#x2F;kubernetes.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://github.com/kubernetes/kubernetes/releases/download/v1.2.5/kubernetes.tar.gz</span><br></pre></td></tr></table></figure>
 
-<p>　　tar -zxvf 解压kubernetes.tar.gz文件后在kubernetes/server目录中找到kubernetes-server-linux-amd64.tar.gz将其解压，然后在kubernetes/server/bin目录下找到：kube-apiserver.tar、kube-controller-manager.tar、kube-scheduler.tar；<br>　　在master节点中导入kubernetes Docker镜像文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker load -i kube-apiserver.tar</span><br><span class="line">docker load -i kube-controller-manager.tar</span><br><span class="line">docker load -i kube-scheduler.tar</span><br></pre></td></tr></table></figure>
+<p>　　tar -zxvf 解压kubernetes.tar.gz文件后在kubernetes&#x2F;server目录中找到kubernetes-server-linux-amd64.tar.gz将其解压，然后在kubernetes&#x2F;server&#x2F;bin目录下找到：kube-apiserver.tar、kube-controller-manager.tar、kube-scheduler.tar；<br>　　在master节点中导入kubernetes Docker镜像文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker load -i kube-apiserver.tar</span><br><span class="line">docker load -i kube-controller-manager.tar</span><br><span class="line">docker load -i kube-scheduler.tar</span><br></pre></td></tr></table></figure>
 
 <p><strong>这里flannel与kubernetes使用同一个etcd</strong></p>
 <p><strong>master节点启动apiServer</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name&#x3D;apiserver --net&#x3D;host gcr.io&#x2F;google_containers&#x2F;kube-apiserver:7bf05b2d35172296e4fbd2604362456f kube-apiserver --insecure-bind-address&#x3D;192.168.2.143 --service-cluster-ip-range&#x3D;10.0.0.0&#x2F;16 --etcd-servers&#x3D;http:&#x2F;&#x2F;192.168.2.143:4001  </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name=apiserver --net=host gcr.io/google_containers/kube-apiserver:7bf05b2d35172296e4fbd2604362456f kube-apiserver --insecure-bind-address=192.168.2.143 --service-cluster-ip-range=10.0.0.0/16 --etcd-servers=http://192.168.2.143:4001  </span><br></pre></td></tr></table></figure>
 
 <p><strong>master节点启动ControllerManager</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name&#x3D;ControllerM gcr.io&#x2F;google_containers&#x2F;kube-controller-manager:6c95ef0b57ac9deda34ae1a4a40baa0a kube-controller-manager --master&#x3D;192.168.2.143:8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name=ControllerM gcr.io/google_containers/kube-controller-manager:6c95ef0b57ac9deda34ae1a4a40baa0a kube-controller-manager --master=192.168.2.143:8080</span><br></pre></td></tr></table></figure>
 
 <p><strong>master节点启动Scheduler</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name&#x3D;scheduler gcr.io&#x2F;google_containers&#x2F;kube-scheduler:e5342c3d8ced06850af97347daf6ae4b kube-scheduler --master&#x3D;192.168.2.143:8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name=scheduler gcr.io/google_containers/kube-scheduler:e5342c3d8ced06850af97347daf6ae4b kube-scheduler --master=192.168.2.143:8080</span><br></pre></td></tr></table></figure>
 
 <p>服务端启动完成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kubectl -s 192.168.2.143:8080 version 查看kubernetes版本信息</span><br><span class="line"></span><br><span class="line">Client Version: version.Info&#123;Major:&quot;1&quot;, Minor:&quot;2&quot;, GitVersion:&quot;v1.2.5&quot;, GitCommit:&quot;25eb53b54e08877d3789455964b3e97bdd3f3bce&quot;, GitTreeState:&quot;clean&quot;&#125;</span><br><span class="line">Server Version: version.Info&#123;Major:&quot;1&quot;, Minor:&quot;2&quot;, GitVersion:&quot;v1.2.5&quot;, GitCommit:&quot;25eb53b54e08877d3789455964b3e97bdd3f3bce&quot;, GitTreeState:&quot;clean&quot;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./kubectl -s 192.168.2.143:8080 version 查看kubernetes版本信息</span><br><span class="line"></span><br><span class="line">Client Version: version.Info&#123;Major:&quot;1&quot;, Minor:&quot;2&quot;, GitVersion:&quot;v1.2.5&quot;, GitCommit:&quot;25eb53b54e08877d3789455964b3e97bdd3f3bce&quot;, GitTreeState:&quot;clean&quot;&#125;</span><br><span class="line">Server Version: version.Info&#123;Major:&quot;1&quot;, Minor:&quot;2&quot;, GitVersion:&quot;v1.2.5&quot;, GitCommit:&quot;25eb53b54e08877d3789455964b3e97bdd3f3bce&quot;, GitTreeState:&quot;clean&quot;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在Master节点查看服务Container启动情况：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps  </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps  </span><br></pre></td></tr></table></figure>
 
 <p><img src="/../images/Docker%E4%B8%AD%E9%83%A8%E7%BD%B2Kubernetes/84976-20160710075936796-151862777.png" alt="img"></p>
 <p><strong>在143、144、145 minion节点启动kubelet</strong></p>
 <p>取得minion节点IP</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NODE_IP&#x3D;&#96;ifconfig ens33 | grep &#39;inet addr:&#39; | cut -d: -f2 | cut -d&#39; &#39; -f1&#96;</span><br><span class="line"></span><br><span class="line">.&#x2F;kubelet --api-servers&#x3D;192.168.2.143:8080 --node-ip&#x3D;$NODE_IP --hostname_override&#x3D;192.168.2.144 &gt; kubelet.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NODE_IP=`ifconfig ens33 | grep &#x27;inet addr:&#x27; | cut -d: -f2 | cut -d&#x27; &#x27; -f1`</span><br><span class="line"></span><br><span class="line">./kubelet --api-servers=192.168.2.143:8080 --node-ip=$NODE_IP --hostname_override=192.168.2.144 &gt; kubelet.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 
 <p>注意如果当前两个几点的主机名相同则一定要使用hostname_override参数，否则需要把主机名改为不同的；</p>
 <p><strong>在master上查看节点信息</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kubectl -s 192.168.2.143:8080 get no</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./kubectl -s 192.168.2.143:8080 get no</span><br></pre></td></tr></table></figure>
 
 <p><img src="/../images/Docker%E4%B8%AD%E9%83%A8%E7%BD%B2Kubernetes/84976-20160710075959092-1976731983.png" alt="节点状态"></p>
 <p><strong>在143、144、145节点启动kube-proxy</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kube-proxy --master&#x3D;192.168.2.143:8080 &gt; proxy.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./kube-proxy --master=192.168.2.143:8080 &gt; proxy.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 
 <p><strong>下面的命令来查看pod、replication controller、service和endpoint：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kubectl -s 192.168.1.143:8080 get po</span><br><span class="line">.&#x2F;kubectl -s 192.168.1.143:8080 get rc</span><br><span class="line">.&#x2F;kubectl -s 192.168.1.143:8080 get svc</span><br><span class="line">.&#x2F;kubectl -s 192.168.1.143:8080 get ep  </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./kubectl -s 192.168.1.143:8080 get po</span><br><span class="line">./kubectl -s 192.168.1.143:8080 get rc</span><br><span class="line">./kubectl -s 192.168.1.143:8080 get svc</span><br><span class="line">./kubectl -s 192.168.1.143:8080 get ep  </span><br></pre></td></tr></table></figure>
 
 <p><strong>参考资料：</strong><br><a target="_blank" rel="noopener" href="http://kubernetes.io/docs/user-guide/">http://kubernetes.io/docs/user-guide/</a><br>文章首发地址：<a target="_blank" rel="noopener" href="http://www.solinx.co/archives/620">Solinx</a><br><a target="_blank" rel="noopener" href="http://www.solinx.co/archives/620">http://www.solinx.co/archives/620</a></p>
 

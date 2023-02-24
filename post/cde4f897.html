@@ -24,7 +24,7 @@ r,">
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -32,7 +32,7 @@ r,">
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">FreeNas发布共享存储的三种方法</h3>
@@ -74,7 +74,7 @@ r,">
 <p>这个raid5建好了，少了30G的空间，也就是1.5块磁盘空间（理论上是只少一块盘的空间）</p>
 <p>\2. 在新建的raid磁盘上建立2个目录，其中nfs目录等下做NFS共享，cifs目录等下做CIFS共享给windows</p>
 <p>\3. 发布NFS共享</p>
-<p>选择NFS共享的目录路径 /mnt/raid-5/nfs，然后点击确定</p>
+<p>选择NFS共享的目录路径 &#x2F;mnt&#x2F;raid-5&#x2F;nfs，然后点击确定</p>
 <p>发布出去的NFS共享如下图</p>
 <p>由于nfs目录没有给other用户增加写入权限，所以客户端连接过来后是不能写入数据的，需要更改目录权限</p>
 <p>\4. 使用esxi进行挂载</p>
@@ -87,7 +87,7 @@ r,">
 <p>写入测试</p>
 <p>\7. 发布iscsi共享存储</p>
 <p>小知识：</p>
-<p>iSCSI的主要功能是在 TCP/IP 网络上的主机系统（启动器 initiator）和存储设备（目标器 target）之间进行大量数据封装和可靠传输。此外，iSCSI在IP网络封装 SCSI 命令，且运行在TCP上。</p>
+<p>iSCSI的主要功能是在 TCP&#x2F;IP 网络上的主机系统（启动器 initiator）和存储设备（目标器 target）之间进行大量数据封装和可靠传输。此外，iSCSI在IP网络封装 SCSI 命令，且运行在TCP上。</p>
 <ol>
 <li><p>划分LUN</p>
 </li>

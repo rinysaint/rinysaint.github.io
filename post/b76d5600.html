@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Docker Toolbox for Windows之安装二三事</h3>
@@ -70,7 +70,7 @@
 <p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-9b9572c4ac43cc4e.png" alt="img"></p>
 <p>鲸鱼出现说明启动成功了！</p>
 <p>现在可以 Hello World 了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
 
 <p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-c7f737c80adf52ac.png" alt="img"></p>
 <p>Hello World</p>
@@ -84,8 +84,8 @@
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh <span class="literal">default</span> <span class="comment">// 先进入虚拟机，default 是默认的虚拟机名称</span></span><br><span class="line">sudo vi /<span class="keyword">var</span>/lib/boot2docker/profile <span class="comment">// 编辑这个文件，添加镜像源 --registry-mirror https://registry.docker-cn.com</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-02bccbeb80092bc4.png" alt="img"></p>
-<p>sudo vi /var/lib/boot2docker/profile</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/docker restart <span class="comment">// 重启 docker 进程</span></span><br><span class="line"><span class="built_in">exit</span> <span class="comment">// 退出虚拟机</span></span><br><span class="line">docker info <span class="comment">// 看一下镜像源是否设置成功（是否有刚刚设置的 --registry-mirror 这一行）</span></span><br><span class="line">docker pull nginx <span class="comment">// 现在可以愉快地拉取`nginx`镜像了</span></span><br></pre></td></tr></table></figure>
+<p>sudo vi &#x2F;var&#x2F;lib&#x2F;boot2docker&#x2F;profile</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/docker restart <span class="comment">// 重启 docker 进程</span></span><br><span class="line">exit <span class="comment">// 退出虚拟机</span></span><br><span class="line">docker info <span class="comment">// 看一下镜像源是否设置成功（是否有刚刚设置的 --registry-mirror 这一行）</span></span><br><span class="line">docker pull nginx <span class="comment">// 现在可以愉快地拉取`nginx`镜像了</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>这里有个问题，对于虚拟机中的配置的修改，在重启虚拟机之后（比如关机再开机）配置又被重置了，导致每次开机都要重新配置一遍，比如上面的镜像源配置。Github 上也有不少这方面的 issue <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://github.com/docker/machine/issues/1718%23%23issuecomment-176653850">#1718 这个描述得比较清晰</a>，暂时的解决方案也很简单，第一次启动后修改启动脚本 <code>start.sh</code> 注释掉 <code>yes | &quot;$&#123;DOCKER_MACHINE&#125;&quot; regenerate-certs &quot;$&#123;VM&#125;&quot;</code> 这一行即可</p>
@@ -93,7 +93,7 @@
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="subst">$&#123;VM_STATUS&#125;</span>&quot;</span> != <span class="string">&quot;Running&quot;</span> ]; then</span><br><span class="line">  <span class="string">&quot;<span class="subst">$&#123;DOCKER_MACHINE&#125;</span>&quot;</span> start <span class="string">&quot;<span class="subst">$&#123;VM&#125;</span>&quot;</span></span><br><span class="line">  # yes | <span class="string">&quot;<span class="subst">$&#123;DOCKER_MACHINE&#125;</span>&quot;</span> regenerate-certs <span class="string">&quot;<span class="subst">$&#123;VM&#125;</span>&quot;</span></span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 
 <h3 id="文件夹权限"><a href="#文件夹权限" class="headerlink" title="文件夹权限"></a>文件夹权限</h3><p>在 boot2docker 中，默认的用户名和密码是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user: docker pass: tcuser</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user: docker pass: tcuser</span><br></pre></td></tr></table></figure>
 
 <p>Toolbox 默认只能访问 <code>C:\Users</code> 这个文件夹下的内容，映射到虚拟机上就是 <code>/c/Users</code></p>
 <p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-8df6d1b4263d241c.png" alt="img"></p>
@@ -110,7 +110,7 @@
 <li><p>选择虚拟机，点击设置，这里是 default</p>
 </li>
 <li><p>选择共享文件夹，添加目录，映射到虚拟机的对应路径（截图显示是映射到 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;Dockerfile</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Dockerfile</span><br></pre></td></tr></table></figure>
 
 <p> 文件夹）</p>
 <p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-e7cd4526e6d754c9.png" alt="img"></p>
@@ -129,11 +129,11 @@
 
 <h3 id="卸载-Toolbox"><a href="#卸载-Toolbox" class="headerlink" title="卸载 Toolbox"></a>卸载 Toolbox</h3><p>进入控制面板，先卸载 Toolbox，再卸载 VirtualBox，<code>C:\Users\Administor\.docker</code> 需要手动删除。</p>
 <h3 id="Toolbox修改虚拟机IP"><a href="#Toolbox修改虚拟机IP" class="headerlink" title="Toolbox修改虚拟机IP"></a>Toolbox修改虚拟机IP</h3><p>changeip.bat</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">set machine&#x3D;%1</span><br><span class="line">if &quot;%machine%&quot; &#x3D;&#x3D; &quot;&quot; (</span><br><span class="line">    echo dmvbf expects a machine name</span><br><span class="line">    exit &#x2F;b 1</span><br><span class="line">)</span><br><span class="line">set ipx&#x3D;%2</span><br><span class="line">if &quot;%ipx%&quot; &#x3D;&#x3D; &quot;&quot; (</span><br><span class="line">    echo dmvbf x missing ^(for 192.168.x.y^)</span><br><span class="line">    exit &#x2F;b 2</span><br><span class="line">)</span><br><span class="line">set ipy&#x3D;%3</span><br><span class="line">if &quot;%ipy%&quot; &#x3D;&#x3D; &quot;&quot; (</span><br><span class="line">    echo dmvbf y missing ^(for 192.168.x.y^)</span><br><span class="line">    exit &#x2F;b 3</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">echo kill $(more &#x2F;var&#x2F;run&#x2F;udhcpc.eth0.pid) ^| docker-machine ssh %machine% sudo tee &#x2F;var&#x2F;lib&#x2F;boot2docker&#x2F;bootsync.sh ^&gt;NUL</span><br><span class="line">echo ifconfig eth0 192.168.%ipx%.%ipy% netmask 255.255.255.0 broadcast 192.168.%ipx%.255 up ^| docker-machine ssh %machine% sudo tee -a &#x2F;var&#x2F;lib&#x2F;boot2docker&#x2F;bootsync.sh ^&gt;NUL</span><br><span class="line">echo route add default gw ^&lt;gateway ip address here^&gt; ^| docker-machine ssh %machine% sudo tee -a &#x2F;var&#x2F;lib&#x2F;boot2docker&#x2F;bootsync.sh ^&gt;NUL</span><br><span class="line"></span><br><span class="line">docker-machine ssh %machine% &quot;sudo cat &#x2F;var&#x2F;run&#x2F;udhcpc.eth0.pid | xargs sudo kill -9&quot;</span><br><span class="line"></span><br><span class="line">docker-machine ssh %machine% &quot;sudo ifconfig eth0 192.168.%ipx%.%ipy% netmask 255.255.255.0 broadcast 192.168.%ipx%.255 up&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">set machine=%1</span><br><span class="line">if &quot;%machine%&quot; == &quot;&quot; (</span><br><span class="line">    echo dmvbf expects a machine name</span><br><span class="line">    exit /b 1</span><br><span class="line">)</span><br><span class="line">set ipx=%2</span><br><span class="line">if &quot;%ipx%&quot; == &quot;&quot; (</span><br><span class="line">    echo dmvbf x missing ^(for 192.168.x.y^)</span><br><span class="line">    exit /b 2</span><br><span class="line">)</span><br><span class="line">set ipy=%3</span><br><span class="line">if &quot;%ipy%&quot; == &quot;&quot; (</span><br><span class="line">    echo dmvbf y missing ^(for 192.168.x.y^)</span><br><span class="line">    exit /b 3</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">echo kill $(more /var/run/udhcpc.eth0.pid) ^| docker-machine ssh %machine% sudo tee /var/lib/boot2docker/bootsync.sh ^&gt;NUL</span><br><span class="line">echo ifconfig eth0 192.168.%ipx%.%ipy% netmask 255.255.255.0 broadcast 192.168.%ipx%.255 up ^| docker-machine ssh %machine% sudo tee -a /var/lib/boot2docker/bootsync.sh ^&gt;NUL</span><br><span class="line">echo route add default gw ^&lt;gateway ip address here^&gt; ^| docker-machine ssh %machine% sudo tee -a /var/lib/boot2docker/bootsync.sh ^&gt;NUL</span><br><span class="line"></span><br><span class="line">docker-machine ssh %machine% &quot;sudo cat /var/run/udhcpc.eth0.pid | xargs sudo kill -9&quot;</span><br><span class="line"></span><br><span class="line">docker-machine ssh %machine% &quot;sudo ifconfig eth0 192.168.%ipx%.%ipy% netmask 255.255.255.0 broadcast 192.168.%ipx%.255 up&quot;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">changeip.bat &lt;machine-name&gt; 99 100</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">changeip.bat &lt;machine-name&gt; 99 100</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine regenerate-certs &lt;machine-name&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine regenerate-certs &lt;machine-name&gt;</span><br></pre></td></tr></table></figure>
 
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

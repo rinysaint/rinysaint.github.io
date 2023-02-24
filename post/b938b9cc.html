@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">微服务核心研究之--编排</h3>
@@ -71,7 +71,7 @@
 <p>Choreography可以看作一种<strong>消息驱动模式</strong>，或者说是订阅发布模式，每笔业务到来后，各个监听改事件的服务，会主动获取消息，处理，并可以按需发布自己的消息。可以把不同队列看作不同种类的消息，微服务看作消息处理函数。</p>
 <p>Choreography实现方案多是<strong>异步</strong>的。</p>
 <p><strong>优点</strong>：<br> 耦合度低，每个服务都可以各司其职。<br> <strong>缺点</strong>：<br> 1）业务流程是通过订阅的方式来体现的，很难直接监控每笔业务的处理，因此难于调试。<br> 2）由于没有预定义流程，所以很难在事前保证流程正确性，基本靠事后分析数据来判断。<br> 3）当一个业务流程会嵌入到多个服务中时，维护会很困难。<br> <strong>建议</strong>：<br> 1）小粒度的服务需要组合，服务的粒度越小，越需要组合。<br> 2）增加相应的监控系统，来保证业务顺畅进行。</p>
-<h5 id="3、API网关"><a href="#3、API网关" class="headerlink" title="3、API网关"></a>3、API网关</h5><p>API网关可以看作一种简单的<strong>接口聚合/拆分的方式</strong>：每笔业务到来后先到达网关，网关调用各微服务，并最终聚合/拆分需反馈的结果。</p>
+<h5 id="3、API网关"><a href="#3、API网关" class="headerlink" title="3、API网关"></a>3、API网关</h5><p>API网关可以看作一种简单的<strong>接口聚合&#x2F;拆分的方式</strong>：每笔业务到来后先到达网关，网关调用各微服务，并最终聚合&#x2F;拆分需反馈的结果。</p>
 <p>API网关其实就是一个<strong>适配网关</strong>，比如对于Web端，可以一个页面同时发起几十个请求，而对于移动端，最好是一个页面就几个请求。而采用API网关，后面的微服务可以是相同的。</p>
 <p><strong>优点</strong>：<br> 对外接口相对稳定。<br> <strong>缺点</strong>：<br> 只适合业务逻辑较为简单的场景，业务逻辑过于复杂时，网关接口耦合度及复杂度会急剧升高，变得臃肿。</p>
 <h3 id="三、微服务编排的框架（Orchestration方式）"><a href="#三、微服务编排的框架（Orchestration方式）" class="headerlink" title="三、微服务编排的框架（Orchestration方式）"></a>三、微服务编排的框架（Orchestration方式）</h3><p>对编排流程、适配参数、调用链分析等方面思路的考量，构成微服务编排的框架思路。</p>
@@ -123,7 +123,7 @@
 <li>实时监控应用内部的活动线程。</li>
 <li>可视化请求和响应数量来定位潜在问题（请求时间段分布、错误请求、响应时长等）。</li>
 <li>在分布式环境中为每个调用生成可视图，定位瓶颈和失败点。</li>
-<li>查看应用上的其他详细信息，比如CPU使用率，内存/垃圾回收，TPS，和JVM参数。</li>
+<li>查看应用上的其他详细信息，比如CPU使用率，内存&#x2F;垃圾回收，TPS，和JVM参数。</li>
 </ul>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

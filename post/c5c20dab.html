@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Kubernetes(K8S)集群管理Docker容器（部署篇）</h3>
@@ -103,7 +103,7 @@
 
 
 
-<p>注意：Ubuntu系统etcd配置文件在/etc/default/etcd。</p>
+<p>注意：Ubuntu系统etcd配置文件在&#x2F;etc&#x2F;default&#x2F;etcd。</p>
 <h2 id="3-3-运行Master节点组件"><a href="#3-3-运行Master节点组件" class="headerlink" title="3.3 运行Master节点组件"></a>3.3 运行Master节点组件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">k8s-master<span class="comment"># tar zxvf kubernetes-server-linux-amd64.tar.gz</span></span><br><span class="line">k8s-master<span class="comment"># mkdir -p /opt/kubernetes/&#123;bin,cfg&#125;</span></span><br><span class="line">k8s-master<span class="comment"># mv kubernetes/server/bin/&#123;kube-apiserver,kube-scheduler,kube-controller-manager,kubectl&#125; /opt/kubernetes/bin</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="3-3-1-apiserver"><a href="#3-3-1-apiserver" class="headerlink" title="3.3.1 apiserver"></a>3.3.1 apiserver</h3><p>创建配置文件：</p>
@@ -115,7 +115,7 @@
 <p>启动服务，并设置开机启动：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># systemctl daemon-reload</span></span><br><span class="line"><span class="comment"># systemctl enable kube-apiserver</span></span><br><span class="line"><span class="comment"># systemctl restart kube-apiserver</span></span><br></pre></td></tr></table></figure>
 
-<p>注意：apiserver默认支持etcd3，如果是etcd2，需启动时指定版本选项–storage-backend=etcd2</p>
+<p>注意：apiserver默认支持etcd3，如果是etcd2，需启动时指定版本选项–storage-backend&#x3D;etcd2</p>
 <h3 id="3-3-2-scheduler"><a href="#3-3-2-scheduler" class="headerlink" title="3.3.2 scheduler"></a>3.3.2 scheduler</h3><p>创建配置文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /opt/kubernetes/cfg/kube-scheduler</span></span><br><span class="line">KUBE_LOGTOSTDERR=<span class="string">&quot;--logtostderr=true&quot;</span></span><br><span class="line">KUBE_LOG_LEVEL=<span class="string">&quot;--v=4&quot;</span></span><br><span class="line">KUBE_MASTER=<span class="string">&quot;--master=192.168.0.211:8080&quot;</span></span><br><span class="line">KUBE_LEADER_ELECT=<span class="string">&quot;--leader-elect&quot;</span></span><br></pre></td></tr></table></figure>
 

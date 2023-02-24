@@ -28,7 +28,7 @@ mynginx是新的镜像名称
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -36,7 +36,7 @@ mynginx是新的镜像名称
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">docker的备份和迁移</h3>
@@ -68,7 +68,7 @@ mynginx是新的镜像名称
 <li><h2 id="容器保存为镜像"><a href="#容器保存为镜像" class="headerlink" title="容器保存为镜像"></a><strong>容器保存为镜像</strong></h2></li>
 </ul>
 <p>我们可以通过以下命令将容器保存为镜像</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit pyg_nginx mynginx</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit pyg_nginx mynginx</span><br></pre></td></tr></table></figure>
 
 <p>pyg_nginx是容器名称</p>
 <p>mynginx是新的镜像名称</p>
@@ -76,7 +76,7 @@ mynginx是新的镜像名称
 <ul>
 <li><h2 id="镜像备份"><a href="#镜像备份" class="headerlink" title="镜像备份"></a><strong>镜像备份</strong></h2></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save -o mynginx.&#96;&#96;tar&#96; &#96;mynginx</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save -o mynginx.``tar` `mynginx</span><br></pre></td></tr></table></figure>
 
 <p>-o 输出到的文件</p>
 <p>执行后，运行ls命令即可看到打成的tar包</p>
@@ -85,7 +85,7 @@ mynginx是新的镜像名称
 </ul>
 <p>首先我们先删除掉mynginx镜像</p>
 <p>然后执行此命令进行恢复</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -i mynginx.&#96;&#96;tar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -i mynginx.``tar</span><br></pre></td></tr></table></figure>
 
 <p>-i 输入的文件</p>
 <p>执行后再次查看镜像，可以看到镜像已经恢复</p>

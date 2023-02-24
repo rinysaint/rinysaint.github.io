@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -28,7 +28,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">php实现事件监听与触发的方法</h3>
@@ -65,16 +65,16 @@
 <p>复制代码 代码如下:</p>
 <p>class Event</p>
 <p>{</p>
-<p>protected static $listens    = array();</p>
-<p>public static function listen($event, $callback, $once=false){</p>
+<p>protected static $listens    &#x3D; array();</p>
+<p>public static function listen($event, $callback, $once&#x3D;false){</p>
 <p>if(!is_callable($callback)) return false;</p>
-<p>self::$listens[$event][]   = array(‘callback’=&gt;$callback, ‘once’=&gt;$once);</p>
+<p>self::$listens[$event][]   &#x3D; array(‘callback’&#x3D;&gt;$callback, ‘once’&#x3D;&gt;$once);</p>
 <p>return true;</p>
 <p>}</p>
 <p>public static function one($event, $callback){</p>
 <p>return self::listen($event, $callback, true);</p>
 <p>}</p>
-<p>public static function remove($event, $index=null){</p>
+<p>public static function remove($event, $index&#x3D;null){</p>
 <p>if(is_null($index))</p>
 <p>unset(self::$listens[$event]);</p>
 <p>else</p>
@@ -82,40 +82,40 @@
 <p>}</p>
 <p>public static function trigger(){</p>
 <p>if(!func_num_args()) return;</p>
-<p>$args            = func_get_args();</p>
-<p>$event            = array_shift($args);</p>
+<p>$args            &#x3D; func_get_args();</p>
+<p>$event            &#x3D; array_shift($args);</p>
 <p>if(!isset(self::$listens[$event])) return false;</p>
-<p>foreach((array) self::$listens[$event] as $index=&gt;$listen){</p>
-<p>$callback        = $listen[‘callback’];</p>
+<p>foreach((array) self::$listens[$event] as $index&#x3D;&gt;$listen){</p>
+<p>$callback        &#x3D; $listen[‘callback’];</p>
 <p>$listen[‘once’] &amp;&amp; self::remove($event, $index);</p>
 <p>call_user_func_array($callback, $args);</p>
 <p>}</p>
 <p>}</p>
 <p>}</p>
 <p>以下是一些调用的例子：</p>
-<p>复制代码 代码如下:// 增加监听walk事件</p>
+<p>复制代码 代码如下:&#x2F;&#x2F; 增加监听walk事件</p>
 <p>Event::listen(‘walk’, function(){</p>
 <p>echo “I am walking…n”;</p>
 <p>});</p>
-<p>// 增加监听walk一次性事件</p>
+<p>&#x2F;&#x2F; 增加监听walk一次性事件</p>
 <p>Event::listen(‘walk’, function(){</p>
 <p>echo “I am listening…n”;</p>
 <p>}, true);</p>
-<p>// 触发walk事件</p>
+<p>&#x2F;&#x2F; 触发walk事件</p>
 <p>Event::trigger(‘walk’);</p>
-<p>/*</p>
+<p>&#x2F;*</p>
 <p>I am walking…</p>
 <p>I am listening…</p>
-<p>*/</p>
+<p>*&#x2F;</p>
 <p>Event::trigger(‘walk’);</p>
-<p>/*</p>
+<p>&#x2F;*</p>
 <p>I am walking…</p>
-<p>*/</p>
-<p>Event::one(‘say’, function($name=’’){</p>
+<p>*&#x2F;</p>
+<p>Event::one(‘say’, function($name&#x3D;’’){</p>
 <p>echo “I am {$name}n”;</p>
 <p>});</p>
-<p>Event::trigger(‘say’, ‘deeka’); // 输出 I am deeka</p>
-<p>Event::trigger(‘say’, ‘deeka’); // not run</p>
+<p>Event::trigger(‘say’, ‘deeka’); &#x2F;&#x2F; 输出 I am deeka</p>
+<p>Event::trigger(‘say’, ‘deeka’); &#x2F;&#x2F; not run</p>
 <p>class Foo</p>
 <p>{</p>
 <p>public function bar(){</p>
@@ -125,7 +125,7 @@
 <p>echo “Foo::foo() is called, agrs:”.json_encode(func_get_args()).”n”;</p>
 <p>}</p>
 <p>}</p>
-<p>$foo   = new Foo;</p>
+<p>$foo   &#x3D; new Foo;</p>
 <p>Event::listen(‘bar’, array($foo, ‘bar’));</p>
 <p>Event::trigger(‘bar’);</p>
 <p>Event::listen(‘test’, array($foo, ‘test’));</p>

@@ -23,7 +23,7 @@ local：%,">
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -31,7 +31,7 @@ local：%,">
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">同时使用gitee和github</h3>
@@ -68,14 +68,14 @@ local：%,">
 <ol>
 <li>删掉全局配置</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global --list</span><br><span class="line">$ git config --global --unset user.name &quot;你的名字&quot;</span><br><span class="line">$ git config --global --unset user.email &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global --list</span><br><span class="line">$ git config --global --unset user.name &quot;你的名字&quot;</span><br><span class="line">$ git config --global --unset user.email &quot;你的邮箱&quot;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>为不同账户配置ssh秘钥</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;.ssh 														# cd到当前用户的.ssh文件夹</span><br><span class="line">ssh-keygen -t rsa -f ~&#x2F;.ssh&#x2F;id_rsa.gitee -C &quot;注册gitee邮箱&quot;		#为不同秘钥指定名称</span><br><span class="line">ssh-keygen -t rsa -f ~&#x2F;.ssh&#x2F;id_rsa.github -C &quot;注册github邮箱&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh 														# cd到当前用户的.ssh文件夹</span><br><span class="line">ssh-keygen -t rsa -f ~/.ssh/id_rsa.gitee -C &quot;注册gitee邮箱&quot;		#为不同秘钥指定名称</span><br><span class="line">ssh-keygen -t rsa -f ~/.ssh/id_rsa.github -C &quot;注册github邮箱&quot;</span><br></pre></td></tr></table></figure>
 
-<p>完成后会在~/.ssh / 目录下生成以下文件：</p>
+<p>完成后会在~&#x2F;.ssh &#x2F; 目录下生成以下文件：</p>
 <ul>
 <li>id_rsa.github</li>
 <li>id_rsa.github.pub</li>
@@ -83,17 +83,17 @@ local：%,">
 <li>id_rsa.gitee.pub</li>
 </ul>
 <p>复制公钥分别在github和gitee中设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa.github.pub</span><br><span class="line">cat id_rsa.gitee.pub</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa.github.pub</span><br><span class="line">cat id_rsa.gitee.pub</span><br></pre></td></tr></table></figure>
 
 <p>添加新的私钥</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-agent bash</span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa.github</span><br><span class="line">$ ssh-add ~&#x2F;.ssh&#x2F;id_rsa.gitee	</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-agent bash</span><br><span class="line">$ ssh-add ~/.ssh/id_rsa.github</span><br><span class="line">$ ssh-add ~/.ssh/id_rsa.gitee	</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>进行全局配置</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">touch ~&#x2F;.ssh&#x2F;config    </span><br><span class="line"></span><br><span class="line"># gitee</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;id_rsa.gitee</span><br><span class="line"></span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~&#x2F;.ssh&#x2F;id_rsa.github</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">touch ~/.ssh/config    </span><br><span class="line"></span><br><span class="line"># gitee</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa.gitee</span><br><span class="line"></span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa.github</span><br></pre></td></tr></table></figure>
 
-<p>Host 它涵盖了下面一个段的配置，我们可以通过他来替代将要连接的服务器地址。 这里可以使用任意字段或通配符。 当ssh的时候如果服务器地址能匹配上这里Host指定的值，则Host下面指定的HostName将被作为最终的服务器地址使用，并且将使用该Host字段下面配置的所有自定义配置来覆盖默认的/etc/ssh/ssh_config配置信息。</p>
+<p>Host 它涵盖了下面一个段的配置，我们可以通过他来替代将要连接的服务器地址。 这里可以使用任意字段或通配符。 当ssh的时候如果服务器地址能匹配上这里Host指定的值，则Host下面指定的HostName将被作为最终的服务器地址使用，并且将使用该Host字段下面配置的所有自定义配置来覆盖默认的&#x2F;etc&#x2F;ssh&#x2F;ssh_config配置信息。</p>
 <p>Port 自定义的端口。默认为22，可不配置</p>
 <p>User 自定义的用户名，默认为git，可不配置</p>
 <p>HostName 真正连接的服务器地址</p>
@@ -102,18 +102,18 @@ local：%,">
 <ol start="4">
 <li>测试连接</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line">Hi yourname! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line">ssh -T git@gitee.com</span><br><span class="line">Hi yourname! You&#39;ve successfully authenticated, but GITEE.COM does not provide shell access.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line">Hi yourname! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br><span class="line">ssh -T git@gitee.com</span><br><span class="line">Hi yourname! You&#x27;ve successfully authenticated, but GITEE.COM does not provide shell access.</span><br></pre></td></tr></table></figure>
 
 <ol start="5">
 <li>hexo博客仓库</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi .depoly_git&#x2F;.git&#x2F;config 增加</span><br><span class="line"></span><br><span class="line">[user]</span><br><span class="line">	name &#x3D; username</span><br><span class="line">	email &#x3D; email</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi .depoly_git/.git/config 增加</span><br><span class="line"></span><br><span class="line">[user]</span><br><span class="line">	name = username</span><br><span class="line">	email = email</span><br></pre></td></tr></table></figure>
 
 <ol start="6">
 <li>针对不同的项目仓库</li>
 </ol>
 <p>增加本地配置，在每个仓库的<code>.git/config</code>中进行配置不同的用户，以及其他的配置信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local user.name &#39;github&#x2F;gitee账号名&#39;</span><br><span class="line">$ git config --local user.email &#39;github&#x2F;gitee账号邮箱&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local user.name &#x27;github/gitee账号名&#x27;</span><br><span class="line">$ git config --local user.email &#x27;github/gitee账号邮箱&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>–global是在全局配置文件中设置</p>
 <p>–local 是针对当前仓库的项目进行设置</p>

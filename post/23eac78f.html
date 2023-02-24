@@ -22,7 +22,7 @@ slave,">
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -30,7 +30,7 @@ slave,">
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">docker-kubeadm安装</h3>
@@ -70,26 +70,26 @@ slave,">
 <p>关闭swapoff</p>
 <p>swapoff -a</p>
 <p>#配置yum源</p>
-<p>wget <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a> -O /etc/yum.repos.d/docker.repo</p>
-<p>cat &lt;&lt; EOF &gt;/etc/yum.repos.d/kubernetes.repo</p>
+<p>wget <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a> -O &#x2F;etc&#x2F;yum.repos.d&#x2F;docker.repo</p>
+<p>cat &lt;&lt; EOF &gt;&#x2F;etc&#x2F;yum.repos.d&#x2F;kubernetes.repo</p>
 <p>[kubernetes]</p>
-<p>name=Kubernetes</p>
-<p>baseurl=<a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/">https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</a></p>
-<p>gpgcheck=1</p>
-<p>gpgkey=<a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg">https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</a></p>
-<p>enabled=1</p>
+<p>name&#x3D;Kubernetes</p>
+<p>baseurl&#x3D;<a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/">https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</a></p>
+<p>gpgcheck&#x3D;1</p>
+<p>gpgkey&#x3D;<a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg">https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</a></p>
+<p>enabled&#x3D;1</p>
 <p>EOF</p>
 <p>导入gpgcheck包</p>
 <p>wget -q <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg">https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</a></p>
 <p>wget -q <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg">https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</a></p>
 <p>rpm –import yum-key.gpg</p>
 <p>rpm –import rpm-package-key.gpg</p>
-<p>scp rpm-package-key.gpg slave1:/root</p>
-<p>scp rpm-package-key.gpg slave2:/root</p>
-<p>scp yum-key.gpg slave1:/root</p>
-<p>scp yum-key.gpg slave2:/root</p>
-<p>scp /etc/yum.repos.d/kubernetes.repo slave1:/etc/yum.repos.d/</p>
-<p>scp /etc/yum.repos.d/kubernetes.repo slave2:/etc/yum.repos.d/</p>
+<p>scp rpm-package-key.gpg slave1:&#x2F;root</p>
+<p>scp rpm-package-key.gpg slave2:&#x2F;root</p>
+<p>scp yum-key.gpg slave1:&#x2F;root</p>
+<p>scp yum-key.gpg slave2:&#x2F;root</p>
+<p>scp &#x2F;etc&#x2F;yum.repos.d&#x2F;kubernetes.repo slave1:&#x2F;etc&#x2F;yum.repos.d&#x2F;</p>
+<p>scp &#x2F;etc&#x2F;yum.repos.d&#x2F;kubernetes.repo slave2:&#x2F;etc&#x2F;yum.repos.d&#x2F;</p>
 <p>master主机</p>
 <p>查看docker kubeadm  kubelet  kubectl  版本</p>
 <p>yum list kubelet kubeadm kubectl  –showduplicates|sort -r<br>yum list docker-ce –showduplicates | sort -r</p>
@@ -101,35 +101,35 @@ slave,">
 <p>systemctl enable docker</p>
 <p>systemctl start docker</p>
 <p>把以下功能打开，否则可能会报错</p>
-<p>echo “1”&gt;/proc/sys/net/bridge/bridge-nf-call-iptables</p>
-<p>echo “1”&gt;/proc/sys/net/bridge/bridge-nf-call-ip6tables</p>
-<p>echo “1”&gt; /proc/sys/net/ipv4/ip_forward</p>
+<p>echo “1”&gt;&#x2F;proc&#x2F;sys&#x2F;net&#x2F;bridge&#x2F;bridge-nf-call-iptables</p>
+<p>echo “1”&gt;&#x2F;proc&#x2F;sys&#x2F;net&#x2F;bridge&#x2F;bridge-nf-call-ip6tables</p>
+<p>echo “1”&gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_forward</p>
 <p>#执行</p>
 <p>kubeadm config images list </p>
 <p>#输出</p>
-<p>k8s.gcr.io/kube-apiserver:v1.23.3<br>k8s.gcr.io/kube-controller-manager:v1.23.3<br>k8s.gcr.io/kube-scheduler:v1.23.3<br>k8s.gcr.io/kube-proxy:v1.23.3<br>k8s.gcr.io/pause:3.6<br>k8s.gcr.io/etcd:3.5.1-0<br>k8s.gcr.io/coredns/coredns:v1.8.6</p>
-<h1 id="pull镜像"><a href="#pull镜像" class="headerlink" title="pull镜像"></a>pull镜像</h1><p>docker pull registry.aliyuncs.com/google_containers/kube-apiserver:v1.23.3<br>docker pull registry.aliyuncs.com/google_containers/kube-controller-manager:v1.23.3<br>docker pull registry.aliyuncs.com/google_containers/kube-scheduler:v1.23.3<br>docker pull registry.aliyuncs.com/google_containers/kube-proxy:v1.23.3<br>docker pull registry.aliyuncs.com/google_containers/pause:3.6<br>docker pull registry.aliyuncs.com/google_containers/etcd:3.5.1-0<br>docker pull registry.aliyuncs.com/google_containers/coredns:v1.8.6</p>
-<h1 id="打标签"><a href="#打标签" class="headerlink" title="打标签"></a>打标签</h1><p>docker tag registry.aliyuncs.com/google_containers/kube-apiserver:v1.23.3 k8s.gcr.io/kube-apiserver:v1.23.3<br>docker tag registry.aliyuncs.com/google_containers/kube-controller-manager:v1.23.3 k8s.gcr.io/kube-controller-manager:v1.23.3<br>docker tag registry.aliyuncs.com/google_containers/kube-scheduler:v1.23.3 k8s.gcr.io/kube-scheduler:v1.23.3<br>docker tag registry.aliyuncs.com/google_containers/kube-proxy:v1.23.3 k8s.gcr.io/kube-proxy:v1.23.3<br>docker tag registry.aliyuncs.com/google_containers/pause:3.6 k8s.gcr.io/pause:3.6<br>docker tag registry.aliyuncs.com/google_containers/etcd:3.5.1-0 k8s.gcr.io/etcd:3.5.1-0<br>docker tag registry.aliyuncs.com/google_containers/coredns:v1.8.6 k8s.gcr.io/coredns/coredns:v1.8.6</p>
-<h1 id="删除旧镜像"><a href="#删除旧镜像" class="headerlink" title="删除旧镜像"></a>删除旧镜像</h1><p>docker rmi registry.aliyuncs.com/google_containers/kube-apiserver:v1.23.3<br>docker rmi registry.aliyuncs.com/google_containers/kube-controller-manager:v1.23.3<br>docker rmi registry.aliyuncs.com/google_containers/kube-scheduler:v1.23.3<br>docker rmi registry.aliyuncs.com/google_containers/kube-proxy:v1.23.3<br>docker rmi registry.aliyuncs.com/google_containers/pause:3.6<br>docker rmi registry.aliyuncs.com/google_containers/etcd:3.5.1-0<br>docker rmi registry.aliyuncs.com/google_containers/coredns:v1.8.6</p>
-<h1 id="关闭Swap选项"><a href="#关闭Swap选项" class="headerlink" title="关闭Swap选项"></a>关闭Swap选项</h1><p>cat &lt;&lt; EOF &gt;/etc/sysconfig/kubelet</p>
-<p>KUBELET_EXTRA_ARGS=”–fail-swap-on=false”</p>
+<p>k8s.gcr.io&#x2F;kube-apiserver:v1.23.3<br>k8s.gcr.io&#x2F;kube-controller-manager:v1.23.3<br>k8s.gcr.io&#x2F;kube-scheduler:v1.23.3<br>k8s.gcr.io&#x2F;kube-proxy:v1.23.3<br>k8s.gcr.io&#x2F;pause:3.6<br>k8s.gcr.io&#x2F;etcd:3.5.1-0<br>k8s.gcr.io&#x2F;coredns&#x2F;coredns:v1.8.6</p>
+<h1 id="pull镜像"><a href="#pull镜像" class="headerlink" title="pull镜像"></a>pull镜像</h1><p>docker pull registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-apiserver:v1.23.3<br>docker pull registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-controller-manager:v1.23.3<br>docker pull registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-scheduler:v1.23.3<br>docker pull registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-proxy:v1.23.3<br>docker pull registry.aliyuncs.com&#x2F;google_containers&#x2F;pause:3.6<br>docker pull registry.aliyuncs.com&#x2F;google_containers&#x2F;etcd:3.5.1-0<br>docker pull registry.aliyuncs.com&#x2F;google_containers&#x2F;coredns:v1.8.6</p>
+<h1 id="打标签"><a href="#打标签" class="headerlink" title="打标签"></a>打标签</h1><p>docker tag registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-apiserver:v1.23.3 k8s.gcr.io&#x2F;kube-apiserver:v1.23.3<br>docker tag registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-controller-manager:v1.23.3 k8s.gcr.io&#x2F;kube-controller-manager:v1.23.3<br>docker tag registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-scheduler:v1.23.3 k8s.gcr.io&#x2F;kube-scheduler:v1.23.3<br>docker tag registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-proxy:v1.23.3 k8s.gcr.io&#x2F;kube-proxy:v1.23.3<br>docker tag registry.aliyuncs.com&#x2F;google_containers&#x2F;pause:3.6 k8s.gcr.io&#x2F;pause:3.6<br>docker tag registry.aliyuncs.com&#x2F;google_containers&#x2F;etcd:3.5.1-0 k8s.gcr.io&#x2F;etcd:3.5.1-0<br>docker tag registry.aliyuncs.com&#x2F;google_containers&#x2F;coredns:v1.8.6 k8s.gcr.io&#x2F;coredns&#x2F;coredns:v1.8.6</p>
+<h1 id="删除旧镜像"><a href="#删除旧镜像" class="headerlink" title="删除旧镜像"></a>删除旧镜像</h1><p>docker rmi registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-apiserver:v1.23.3<br>docker rmi registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-controller-manager:v1.23.3<br>docker rmi registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-scheduler:v1.23.3<br>docker rmi registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-proxy:v1.23.3<br>docker rmi registry.aliyuncs.com&#x2F;google_containers&#x2F;pause:3.6<br>docker rmi registry.aliyuncs.com&#x2F;google_containers&#x2F;etcd:3.5.1-0<br>docker rmi registry.aliyuncs.com&#x2F;google_containers&#x2F;coredns:v1.8.6</p>
+<h1 id="关闭Swap选项"><a href="#关闭Swap选项" class="headerlink" title="关闭Swap选项"></a>关闭Swap选项</h1><p>cat &lt;&lt; EOF &gt;&#x2F;etc&#x2F;sysconfig&#x2F;kubelet</p>
+<p>KUBELET_EXTRA_ARGS&#x3D;”–fail-swap-on&#x3D;false”</p>
 <p>EOF</p>
 <p>#执行初始化</p>
-<p>kubeadm init –kubernetes-version=v1.23.3 –pod-network-cidr=10.244.0.0/16 –service-cidr=10.96.0.0/12 –token-ttl=0 –ignore-preflight-errors=Swap</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> vi &#x2F;etc&#x2F;docker&#x2F;daemon.json &#123; &quot;exec-opts&quot;: [&quot;native.cgroupdriver&#x3D;systemd&quot;] &#125; </span><br><span class="line"></span><br><span class="line"> # 重启docker </span><br><span class="line"> systemctl restart docker </span><br><span class="line"> # 重新初始化 </span><br><span class="line"> kubeadm reset </span><br><span class="line"> # 先重置 </span><br><span class="line"></span><br><span class="line">kubeadm init --control-plane-endpoint&#x3D;192.168.137.110 --apiserver-advertise-address&#x3D;192.168.137.110 --image-repository registry.aliyuncs.com&#x2F;google_containers --kubernetes-version v1.23.3 --service-cidr&#x3D;10.96.0.0&#x2F;12 --pod-network-cidr&#x3D;10.244.0.0&#x2F;16 --ignore-preflight-errors&#x3D;all</span><br></pre></td></tr></table></figure>
+<p>kubeadm init –kubernetes-version&#x3D;v1.23.3 –pod-network-cidr&#x3D;10.244.0.0&#x2F;16 –service-cidr&#x3D;10.96.0.0&#x2F;12 –token-ttl&#x3D;0 –ignore-preflight-errors&#x3D;Swap</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> vi /etc/docker/daemon.json &#123; &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;] &#125; </span><br><span class="line"></span><br><span class="line"> # 重启docker </span><br><span class="line"> systemctl restart docker </span><br><span class="line"> # 重新初始化 </span><br><span class="line"> kubeadm reset </span><br><span class="line"> # 先重置 </span><br><span class="line"></span><br><span class="line">kubeadm init --control-plane-endpoint=192.168.137.110 --apiserver-advertise-address=192.168.137.110 --image-repository registry.aliyuncs.com/google_containers --kubernetes-version v1.23.3 --service-cidr=10.96.0.0/12 --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=all</span><br></pre></td></tr></table></figure>
 
 <p>查看K8S运行状态：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get po -n kube-system</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get po -n kube-system</span><br></pre></td></tr></table></figure>
 
-<p>若期望新增节点，则需要重新生成token，默认是24小时有效期，这里可以通过设置ttl=0为永久有效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm token create --print-join-command --ttl&#x3D;0</span><br></pre></td></tr></table></figure>
+<p>若期望新增节点，则需要重新生成token，默认是24小时有效期，这里可以通过设置ttl&#x3D;0为永久有效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm token create --print-join-command --ttl=0</span><br></pre></td></tr></table></figure>
 
 <p>输出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join 192.168.137.110:6443 --token q4ge2n.rnwke6l5wmtaglrj --discovery-token-ca-cert-hash sha256:b64218fa30ae1ca5f8f7e336f935fc7bf84d561a7e29521800b12d5fe34c6819</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join 192.168.137.110:6443 --token q4ge2n.rnwke6l5wmtaglrj --discovery-token-ca-cert-hash sha256:b64218fa30ae1ca5f8f7e336f935fc7bf84d561a7e29521800b12d5fe34c6819</span><br></pre></td></tr></table></figure>
 
 
 
-<h1 id="flannel-安装"><a href="#flannel-安装" class="headerlink" title="flannel 安装"></a>flannel 安装</h1><p>docker pull quay.io/coreos/flannel:v0.15.1-amd64</p>
+<h1 id="flannel-安装"><a href="#flannel-安装" class="headerlink" title="flannel 安装"></a>flannel 安装</h1><p>docker pull quay.io&#x2F;coreos&#x2F;flannel:v0.15.1-amd64</p>
 <h1 id="创建集群-注意输出最后信息-子节点加入时需要"><a href="#创建集群-注意输出最后信息-子节点加入时需要" class="headerlink" title="创建集群 注意输出最后信息 子节点加入时需要"></a>创建集群 注意输出最后信息 子节点加入时需要</h1><p>kubectl apply -f <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml">https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</a></p>
 <p>节点配置</p>
 <h1 id="rpm-gpg引入完成后开始安装所需包"><a href="#rpm-gpg引入完成后开始安装所需包" class="headerlink" title="rpm-gpg引入完成后开始安装所需包"></a>rpm-gpg引入完成后开始安装所需包</h1><p>rpm -import yum-key.gpg</p>
@@ -139,25 +139,25 @@ slave,">
 <p>systemctl enable docker kubelet</p>
 <p>systemctl start docker</p>
 <p>#设置</p>
-<p>echo 1 &gt; /proc/sys/net/ipv4/ip_forward</p>
-<p>echo 1 &gt;/proc/sys/net/bridge/bridge-nf-call-iptables</p>
-<h1 id="关闭Swap选项-1"><a href="#关闭Swap选项-1" class="headerlink" title="关闭Swap选项"></a>关闭Swap选项</h1><p>cat &lt;&lt; EOF &gt;/etc/sysconfig/kubelet</p>
-<p>KUBELET_EXTRA_ARGS=”–fail-swap-on=false”</p>
+<p>echo 1 &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_forward</p>
+<p>echo 1 &gt;&#x2F;proc&#x2F;sys&#x2F;net&#x2F;bridge&#x2F;bridge-nf-call-iptables</p>
+<h1 id="关闭Swap选项-1"><a href="#关闭Swap选项-1" class="headerlink" title="关闭Swap选项"></a>关闭Swap选项</h1><p>cat &lt;&lt; EOF &gt;&#x2F;etc&#x2F;sysconfig&#x2F;kubelet</p>
+<p>KUBELET_EXTRA_ARGS&#x3D;”–fail-swap-on&#x3D;false”</p>
 <p>EOF</p>
 <p>节点加入集群 注意master创建集群信息</p>
-<p>kubeadm join 192.168.137.110:6443 –token ls7p8w.db58adnrufdxorjl –discovery-token-ca-cert-hash sha256:dac6495e40d745a50fa37e217355c0895c233e9b9e6a1535df243b4926d4c5a9 –ignore-preflight-errors=Swap</p>
+<p>kubeadm join 192.168.137.110:6443 –token ls7p8w.db58adnrufdxorjl –discovery-token-ca-cert-hash sha256:dac6495e40d745a50fa37e217355c0895c233e9b9e6a1535df243b4926d4c5a9 –ignore-preflight-errors&#x3D;Swap</p>
 <p>节点下载所需镜像</p>
-<p>docker pull registry.aliyuncs.com/google_containers/kube-proxy:v1.23.3</p>
-<p>docker pull registry.aliyuncs.com/google_containers/pause:3.6</p>
-<p>docker pull quay.io/coreos/flannel:v0.15.1-amd64</p>
-<p>docker tag registry.aliyuncs.com/google_containers/kube-proxy:v1.23.3 k8s.gcr.io/kube-proxy:v1.23.3</p>
-<p>docker tag registry.aliyuncs.com/google_containers/pause:3.6 k8s.gcr.io/pause:3.6</p>
-<p>docker rmi registry.aliyuncs.com/google_containers/kube-proxy:v1.23.3</p>
-<p>docker rmi registry.aliyuncs.com/google_containers/pause:3.6</p>
+<p>docker pull registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-proxy:v1.23.3</p>
+<p>docker pull registry.aliyuncs.com&#x2F;google_containers&#x2F;pause:3.6</p>
+<p>docker pull quay.io&#x2F;coreos&#x2F;flannel:v0.15.1-amd64</p>
+<p>docker tag registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-proxy:v1.23.3 k8s.gcr.io&#x2F;kube-proxy:v1.23.3</p>
+<p>docker tag registry.aliyuncs.com&#x2F;google_containers&#x2F;pause:3.6 k8s.gcr.io&#x2F;pause:3.6</p>
+<p>docker rmi registry.aliyuncs.com&#x2F;google_containers&#x2F;kube-proxy:v1.23.3</p>
+<p>docker rmi registry.aliyuncs.com&#x2F;google_containers&#x2F;pause:3.6</p>
 <p>出现的问题:</p>
 <p>1.The connection to the server localhost:8080 was refused - did you specify the right host or port?</p>
-<p>echo “export KUBECONFIG=/etc/kubernetes/admin.conf” &gt;&gt; /etc/profile</p>
-<p>source /etc/profile</p>
+<p>echo “export KUBECONFIG&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;admin.conf” &gt;&gt; &#x2F;etc&#x2F;profile</p>
+<p>source &#x2F;etc&#x2F;profile</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">

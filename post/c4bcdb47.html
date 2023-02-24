@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -31,7 +31,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">在服务器上搭建自己的git私人仓库</h3>
@@ -67,17 +67,20 @@
 </ul>
 <h3 id="二、服务器端的操作"><a href="#二、服务器端的操作" class="headerlink" title="二、服务器端的操作"></a>二、服务器端的操作</h3><ul>
 <li><p>1、安装<code>git</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y git</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y git</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>2、创建一个<code>git</code>用户</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd git</span><br><span class="line">passwd git <span class="comment"># 输入密码,待会客户端提交的密码就是这个</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useradd git</span><br><span class="line">passwd git <span class="comment"># 输入密码,待会客户端提交的密码就是这个</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>3、创建仓库</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su - git <span class="comment"># 切换到git用户</span></span><br><span class="line"><span class="built_in">cd</span> ~ <span class="comment"># 进入根目录下</span></span><br><span class="line">mkdir dev-test.git <span class="comment"># 创建一个仓库</span></span><br><span class="line"><span class="built_in">cd</span> dev-test.git</span><br><span class="line">git --bare init <span class="comment"># 初始化仓库</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su - git <span class="comment"># 切换到git用户</span></span><br><span class="line"><span class="built_in">cd</span> ~ <span class="comment"># 进入根目录下</span></span><br><span class="line"><span class="built_in">mkdir</span> dev-test.git <span class="comment"># 创建一个仓库</span></span><br><span class="line"><span class="built_in">cd</span> dev-test.git</span><br><span class="line">git --bare init <span class="comment"># 初始化仓库</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="三、客户端的操作"><a href="#三、客户端的操作" class="headerlink" title="三、客户端的操作"></a>三、客户端的操作</h3><ul>
 <li><p>1、安装<code>git</code></p>
 </li>
 <li><p>2、克隆代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@服务器地址:服务器工程目录(/home/git/dev-test.git)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@服务器地址:服务器工程目录(/home/git/dev-test.git)</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>3、进入克隆后的文件夹</p>
 </li>
 <li><p>4、新增一个文件并提交到服务器</p>
@@ -87,9 +90,10 @@
 </ul>
 <h3 id="四、配置免密码登录"><a href="#四、配置免密码登录" class="headerlink" title="四、配置免密码登录"></a>四、配置免密码登录</h3><ul>
 <li><p>1、在客户端生成密钥并拷贝公钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa <span class="comment"># 一路回车就可以</span></span><br><span class="line">pbcopy &lt; ~/.ssh/id_rsa.pub <span class="comment"># mac电脑上直接拷贝公钥</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa <span class="comment"># 一路回车就可以</span></span><br><span class="line">pbcopy &lt; ~/.ssh/id_rsa.pub <span class="comment"># mac电脑上直接拷贝公钥</span></span><br></pre></td></tr></table></figure>
+</li>
 <li><p>2、服务器端也生产密钥(注意是免密登录<code>git</code>用户需要在<code>git</code>用户下配置)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">chmod 700 .ssh/ <span class="comment"># 修改文件夹权限</span></span><br><span class="line">vim .ssh/authorized_keys <span class="comment"># 把客户端的公钥放到这个文件里面</span></span><br><span class="line">chmod 644 .ssh/authorized_keys <span class="comment"># 修改权限</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="built_in">chmod</span> 700 .ssh/ <span class="comment"># 修改文件夹权限</span></span><br><span class="line">vim .ssh/authorized_keys <span class="comment"># 把客户端的公钥放到这个文件里面</span></span><br><span class="line"><span class="built_in">chmod</span> 644 .ssh/authorized_keys <span class="comment"># 修改权限</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

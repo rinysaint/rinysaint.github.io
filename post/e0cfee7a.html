@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</h3>
@@ -76,14 +76,14 @@
 </ol>
 <p><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984687.png" alt="在这里插入图片描述"></p>
 <p>走到这一步,NAS可以通过页面设置的部分都处理完成,接下来我们需要用过SSH远程连接NAS,通过命令来创建Git仓库</p>
-<p>四、创建Git仓库<br>使用xshell/putty等工具连接NAS,需要用管理员账号登陆</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo -i  							//切换管理员权限</span><br><span class="line"><span class="built_in">cd</span> <span class="built_in">cd</span> /volume1/gittest   			//进入刚刚创建的共享目录中</span><br><span class="line">mkdir res.git						//创建仓库	</span><br><span class="line"><span class="built_in">cd</span> res.git</span><br><span class="line">git init --bare 					//初始化git仓库</span><br></pre></td></tr></table></figure>
+<p>四、创建Git仓库<br>使用xshell&#x2F;putty等工具连接NAS,需要用管理员账号登陆</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo -i  							//切换管理员权限</span><br><span class="line"><span class="built_in">cd</span> <span class="built_in">cd</span> /volume1/gittest   			//进入刚刚创建的共享目录中</span><br><span class="line"><span class="built_in">mkdir</span> res.git						//创建仓库	</span><br><span class="line"><span class="built_in">cd</span> res.git</span><br><span class="line">git init --bare 					//初始化git仓库</span><br></pre></td></tr></table></figure>
 
 <p><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984688.png" alt="在这里插入图片描述"></p>
 <ol>
 <li>配置设置文件归属和权限<br>至此，git仓库已经创建好，但是我们并不能正确访问到，因为目录还有访问权限，我们需要将gittest目录下所有文件的访问权限修改为当前用户可以访问</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /volume1 </span><br><span class="line">chown -R root:git_group gittest			//修改gittest文件及其子目录的归属用户和组</span><br><span class="line"><span class="built_in">cd</span> </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /volume1 </span><br><span class="line"><span class="built_in">chown</span> -R root:git_group gittest			//修改gittest文件及其子目录的归属用户和组</span><br><span class="line"><span class="built_in">cd</span> </span><br></pre></td></tr></table></figure>
 
 <p>五、使用Git与配置ssh秘钥</p>
 <ol>
@@ -91,8 +91,8 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://gittest_user@192.168.2.55/volume1/gittest/res.git</span><br></pre></td></tr></table></figure>
 
-<p>如果提示 Could not chdir to home directory /var/services/homes/gittest_user: Permission denied<br>warning: You appear to have cloned an empty repository.<br>我们需要将/var/service的权限修改一下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod 775 /var</span><br><span class="line">chmod 775 /var/services</span><br><span class="line">chmod 755 -R /var/services/homes										//homes以及子目录的权限必须为755</span><br></pre></td></tr></table></figure>
+<p>如果提示 Could not chdir to home directory &#x2F;var&#x2F;services&#x2F;homes&#x2F;gittest_user: Permission denied<br>warning: You appear to have cloned an empty repository.<br>我们需要将&#x2F;var&#x2F;service的权限修改一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 775 /var</span><br><span class="line"><span class="built_in">chmod</span> 775 /var/services</span><br><span class="line"><span class="built_in">chmod</span> 755 -R /var/services/homes										//homes以及子目录的权限必须为755</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>配置ssh秘钥<br>这里使用git拉取,推送每次都需要使用密码,我们可以创建秘钥来实现免密ssh登陆</li>
@@ -101,7 +101,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
 
 <p>解开以下几行的注释,并退出保存</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSAAuthentication yes</span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSAAuthentication <span class="built_in">yes</span></span><br><span class="line">PubkeyAuthentication <span class="built_in">yes</span></span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
 
 <p>接着重启 ssh 服务</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo synoservicectl --restart sshd</span><br></pre></td></tr></table></figure>
@@ -119,9 +119,9 @@
 <p>这个时候我们上传不了文件到NAS中,提示没有权限,这是因为NASgittest_user 目录下的权限是755</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp: /volume1/homes/gittest_user/.ssh//gittest_user.pub: Permission denied</span><br></pre></td></tr></table></figure>
 
-<p>只有临时把NAS的 /volume1/homes/gittest_user 目录权限改为777,上传之后再修改回来</p>
+<p>只有临时把NAS的 &#x2F;volume1&#x2F;homes&#x2F;gittest_user 目录权限改为777,上传之后再修改回来</p>
 <p>上传成功之后,使用xshell执行:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /volume1/homes/gittest_user/.ssh/</span><br><span class="line">cat gittest_user.pub &gt; authorized_keys</span><br><span class="line">chmod 755 authorized_keys	</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /volume1/homes/gittest_user/.ssh/</span><br><span class="line"><span class="built_in">cat</span> gittest_user.pub &gt; authorized_keys</span><br><span class="line"><span class="built_in">chmod</span> 755 authorized_keys	</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>客户端私钥转换<br>因为 TortoiseGit 和SourcesTree 使用的是ppk格式的私钥,我们需要把pem私钥转换成ppk私钥</li>

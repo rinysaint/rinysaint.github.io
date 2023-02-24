@@ -12,7 +12,7 @@
     <meta name="keywords" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding,linux,文件共享,nfs,smaba"> 
     <meta name="description" content="萧日宁,肖日宁,君子兰,人工智能,AI,机器学习,博客,大数据,微服务,xiaorining,kingslanding, nfs和samba
 1、NFS简介
-NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系统中的一种，它允许网络中的计算机之间通过TCP/IP网络共享资源。在,"> 
+NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系统中的一种，它允许网络中的计算机之间通过TCP&amp;#x2F;IP网络共,"> 
     <meta name="author" content="萧日宁"> 
     <link rel="alternative" href="atom.xml" title="萧日宁的世界" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -21,7 +21,7 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -29,7 +29,7 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">linux文件共享之nfs和smaba</h3>
@@ -58,11 +58,11 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
         <div class="content markdown">
             <p> nfs和samba</p>
 <p>1、NFS简介</p>
-<p>NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系统中的一种，它允许网络中的计算机之间通过TCP/IP网络共享资源。在NFS的应用中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件，就像访问本地文件一样。</p>
+<p>NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系统中的一种，它允许网络中的计算机之间通过TCP&#x2F;IP网络共享资源。在NFS的应用中，本地NFS的客户端应用可以透明地读写位于远端NFS服务器上的文件，就像访问本地文件一样。</p>
 <p>类unix系统之间实现文件共享功能，不能实现跟windows系统之间实现共享；</p>
 <p>2、NFS工作过程：</p>
 <p>nfs依赖于rpc服务才能工作；</p>
-<p>nfs工作过程：nfs客户端/nfs服务端</p>
+<p>nfs工作过程：nfs客户端&#x2F;nfs服务端</p>
 <p>1、nfs服务端，在本地分区上创建一个extX的文件系统，并将该分区挂载至一个空目录上，注意，此时在服务端，文件系统是extX；</p>
 <p>2、nfs服务端，上有个nfs协议，他的目的是，监听服务端套接字，接入用户关于nfs协议的请求，去帮忙访问本地基于extX文件系统的目录数据；</p>
 <p>3、nfs客户端也是利用nfs协议。当有用户访问关于远程nfs服务端数据时，其实是启用nfs协议利用rpc的远程过程调用，去调用nfs服务端的extX文件系统的分区目录数据；</p>
@@ -86,7 +86,7 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <p>客户端：</p>
 <p>主机地址。1.1.1.1；</p>
 <p>网络名，test.aaa.com；</p>
-<p>网段地址,1.1.1.0/24；</p>
+<p>网段地址,1.1.1.0&#x2F;24；</p>
 <p>文件系统属性：也叫共享权限，多个属性用逗号分开；</p>
 <p>rw：读写；</p>
 <p>asvnc：异步（默认）；</p>
@@ -99,33 +99,33 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <p>anonuid或anongid：指定匿名用户映射为系统上的UID和GID。默认是映射到nfsnobody这个guest账号上来。提高服务端安全；</p>
 <p>id nfsnobody ：查看guest账号的uid和gid</p>
 <p>nohide：隐藏交叉导出时的目录文件，允许交叉挂载；</p>
-<p>例如：/var/nfstest/ 导出来，被客户端挂载了。/var/nfstest/a/导出来，也被客户端挂在了。现在不想让双方客户端看到对方的挂载目录下的文件，怎么办？就是设置nohide属性，挂载到/var/nfstest/下的客户端无法看到/var/nfstest/a/下的所有文件了。安全；</p>
+<p>例如：&#x2F;var&#x2F;nfstest&#x2F; 导出来，被客户端挂载了。&#x2F;var&#x2F;nfstest&#x2F;a&#x2F;导出来，也被客户端挂在了。现在不想让双方客户端看到对方的挂载目录下的文件，怎么办？就是设置nohide属性，挂载到&#x2F;var&#x2F;nfstest&#x2F;下的客户端无法看到&#x2F;var&#x2F;nfstest&#x2F;a&#x2F;下的所有文件了。安全；</p>
 <p>crossmnt：允许交叉挂载。意义同上反过来；</p>
-<p>示例1：将NFS服务器上的目录/var/nfstest共享出去；</p>
-<p>[root@localhost ~]# vim /etc/exports</p>
-<p>/var/nfstest  172.16.0.0/16(rw,no_root_squash)     ：读写挂载，且不压缩root账户</p>
-<p>[root@localhost ~]# mkdir /var/nfstest</p>
+<p>示例1：将NFS服务器上的目录&#x2F;var&#x2F;nfstest共享出去；</p>
+<p>[root@localhost ~]# vim &#x2F;etc&#x2F;exports</p>
+<p>&#x2F;var&#x2F;nfstest  172.16.0.0&#x2F;16(rw,no_root_squash)     ：读写挂载，且不压缩root账户</p>
+<p>[root@localhost ~]# mkdir &#x2F;var&#x2F;nfstest</p>
 <p>[root@localhost ~]# service nfs restart</p>
 <p>客户端操作：</p>
-<p>[root@localhost ~]# mkdir /mnt/nfs</p>
-<p>[root@localhost ~]# mount -t nfs 172.16.1.107:/var/nfstest /mnt/nfs<br>[root@localhost ~]# cd /mnt/nfs/</p>
+<p>[root@localhost ~]# mkdir &#x2F;mnt&#x2F;nfs</p>
+<p>[root@localhost ~]# mount -t nfs 172.16.1.107:&#x2F;var&#x2F;nfstest &#x2F;mnt&#x2F;nfs<br>[root@localhost ~]# cd &#x2F;mnt&#x2F;nfs&#x2F;</p>
 <p>[root@localhost nfs]# touch aa.txt<br>[root@localhost nfs]# touch bb.txt<br>[root@localhost nfs]# ll<br>总用量 0<br>-rw-r–r–. 1 root root 0 4月  4 21:19 aa.txt<br>-rw-r–r–. 1 root root 0 4月  4 21:19 bb.txt<br>[root@localhost nfs]#</p>
 <p>：客户端使用挂载的方式，来访问nfs服务端上的文件内容，二者内容是同步的；</p>
 <p>示例2：文件共享权限：</p>
 <p>场景：在nfs服务端上各自创建一个账号，且uid一样。观察相互在共享目录下创建文件后，各自看到的文件属主和属组；</p>
 <p>nfs服务端：</p>
-<p>[root@localhost ~]# useradd -u 502 hadoop<br>[root@localhost ~]# vim /etc/exports</p>
-<p>/var/nfstest  172.16.0.0/16(rw,no_root_squash)</p>
-<p>[root@localhost ~]# setfacl -m u:502:rwx /var/nfstest/    ：为hadoop账号设置访问共享目录的权限；</p>
+<p>[root@localhost ~]# useradd -u 502 hadoop<br>[root@localhost ~]# vim &#x2F;etc&#x2F;exports</p>
+<p>&#x2F;var&#x2F;nfstest  172.16.0.0&#x2F;16(rw,no_root_squash)</p>
+<p>[root@localhost ~]# setfacl -m u:502:rwx &#x2F;var&#x2F;nfstest&#x2F;    ：为hadoop账号设置访问共享目录的权限；</p>
 <p>[root@localhost ~]# service nfs restart</p>
 <p>nfs客户端：</p>
-<p>[root@localhost /]# useradd -u 502 nfsuser<br>[root@localhost /]# mount -t nfs 172.16.1.107:/var/nfstest /mnt/nfs/<br>[root@localhost /]#                     ：客户端上创建同uid的账号：</p>
-<p>[root@localhost /]# su - nfsuser<br>[nfsuser@localhost ~]$<br>[nfsuser@localhost ~]$<br>[nfsuser@localhost ~]$ cd /mnt/nfs/<br>[nfsuser@localhost nfs]$ touch test1.txt<br>[nfsuser@localhost nfs]$ touch test2.txt<br>[nfsuser@localhost nfs]$ ll<br>总用量 0<br>-rw-r–r–. 1 root  root  0 4月  4 21:19 aa.txt<br>-rw-r–r–. 1 root  root  0 4月  4 21:19 bb.txt<br>-rw-rw-r–. 1 nobody nobody 0 4月  4 21:28 test1.txt<br>-rw-rw-r–. 1 nobody nobody 0 4月  4 21:28 test2.txt<br>[nfsuser@localhost nfs]$     ：使用新建的账号去共享目录中创建两个文件；</p>
+<p>[root@localhost &#x2F;]# useradd -u 502 nfsuser<br>[root@localhost &#x2F;]# mount -t nfs 172.16.1.107:&#x2F;var&#x2F;nfstest &#x2F;mnt&#x2F;nfs&#x2F;<br>[root@localhost &#x2F;]#                     ：客户端上创建同uid的账号：</p>
+<p>[root@localhost &#x2F;]# su - nfsuser<br>[nfsuser@localhost ~]$<br>[nfsuser@localhost ~]$<br>[nfsuser@localhost ~]$ cd &#x2F;mnt&#x2F;nfs&#x2F;<br>[nfsuser@localhost nfs]$ touch test1.txt<br>[nfsuser@localhost nfs]$ touch test2.txt<br>[nfsuser@localhost nfs]$ ll<br>总用量 0<br>-rw-r–r–. 1 root  root  0 4月  4 21:19 aa.txt<br>-rw-r–r–. 1 root  root  0 4月  4 21:19 bb.txt<br>-rw-rw-r–. 1 nobody nobody 0 4月  4 21:28 test1.txt<br>-rw-rw-r–. 1 nobody nobody 0 4月  4 21:28 test2.txt<br>[nfsuser@localhost nfs]$     ：使用新建的账号去共享目录中创建两个文件；</p>
 <p>发现：使用这个uid编号跟服务端uid编号一样的用户去创建文件是的属主和属组都是nobody，并不是自己；</p>
-<p>[root@localhost ~]# useradd -u 509 aaa<br>[root@localhost ~]# su - aaa<br>[aaa@localhost ~]$ cd /mnt/nfs/<br>[aaa@localhost nfs]$ touch ttt.txt<br>touch: 无法创建”ttt.txt”: 权限不够<br>[aaa@localhost nfs]$</p>
+<p>[root@localhost ~]# useradd -u 509 aaa<br>[root@localhost ~]# su - aaa<br>[aaa@localhost ~]$ cd &#x2F;mnt&#x2F;nfs&#x2F;<br>[aaa@localhost nfs]$ touch ttt.txt<br>touch: 无法创建”ttt.txt”: 权限不够<br>[aaa@localhost nfs]$</p>
 <p>发现：当我在客户端上重新再创建一个用户时，切换到该用户，去共享目录下新建文件，提示权限不够；</p>
 <p>来到nfs服务端：</p>
-<p>[root@localhost ~]# cd /var/nfstest/<br>[root@localhost nfstest]# ll<br>总用量 0<br>-rw-r–r–. 1 root  root  0 4月  4 21:19 aa.txt<br>-rw-r–r–. 1 root  root  0 4月  4 21:19 bb.txt<br>-rw-rw-r–. 1 hadoop hadoop 0 4月  4 21:28 test1.txt<br>-rw-rw-r–. 1 hadoop hadoop 0 4月  4 21:28 test2.txt<br>[root@localhost nfstest]#</p>
+<p>[root@localhost ~]# cd &#x2F;var&#x2F;nfstest&#x2F;<br>[root@localhost nfstest]# ll<br>总用量 0<br>-rw-r–r–. 1 root  root  0 4月  4 21:19 aa.txt<br>-rw-r–r–. 1 root  root  0 4月  4 21:19 bb.txt<br>-rw-rw-r–. 1 hadoop hadoop 0 4月  4 21:28 test1.txt<br>-rw-rw-r–. 1 hadoop hadoop 0 4月  4 21:28 test2.txt<br>[root@localhost nfstest]#</p>
 <p>发现：原本在客户端上创建的文件的属主和属组变成了hadoop了；</p>
 <p>权限总结：</p>
 <p>1、nfs客户端用户在访问时，其实是映射到服务端上同uid的用户权限上了；</p>
@@ -137,15 +137,15 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <p>2、服务端同uid账号的对共享目录拥有权限；</p>
 <p>5、nfs服务端端口优化：</p>
 <p>问题：nfs服务端启动后，基于rpc的进程会从rpc中随机得到一个端口号，次端口号有可能会被其他已知服务占用。因此要固定下来；</p>
-<p>[root@localhost nfstest]# vim /etc/sysconfig/nfs</p>
-<p>MOUNTD_PORT=892</p>
-<p>STATD_PORT=662</p>
-<p>STATD_OUTGOING_PORT=2020     ：去掉这些原有的注释，启用固定端口；</p>
+<p>[root@localhost nfstest]# vim &#x2F;etc&#x2F;sysconfig&#x2F;nfs</p>
+<p>MOUNTD_PORT&#x3D;892</p>
+<p>STATD_PORT&#x3D;662</p>
+<p>STATD_OUTGOING_PORT&#x3D;2020     ：去掉这些原有的注释，启用固定端口；</p>
 <p>[root@localhost nfstest]# service nfs restart</p>
 <p>[root@localhost nfstest]# rpcinfo -p localhost   ：查看被gudingde端口号；</p>
 <p>结束！</p>
 <p>2、Samba简介：</p>
-<p>Samba是在Linux和UNIX系统上实现SMB协议的一个免费软件，由服务器及客户端程序构成。SMB（Server Messages Block，信息服务块）是一种在局域网上共享文件和打印机的一种通信协议，它为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。SMB协议是客户机/服务器型协议，客户机通过该协议可以访问服务器上的共享文件系统、打印机及其他资源。通过设置“NetBIOS over TCP/IP”使得Samba不但能与局域网络主机分享资源，还能与全世界的电脑分享资源。</p>
+<p>Samba是在Linux和UNIX系统上实现SMB协议的一个免费软件，由服务器及客户端程序构成。SMB（Server Messages Block，信息服务块）是一种在局域网上共享文件和打印机的一种通信协议，它为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。SMB协议是客户机&#x2F;服务器型协议，客户机通过该协议可以访问服务器上的共享文件系统、打印机及其他资源。通过设置“NetBIOS over TCP&#x2F;IP”使得Samba不但能与局域网络主机分享资源，还能与全世界的电脑分享资源。</p>
 <p>可以实现linux与windows，linux与linux系统之间的文件共享。不基于nfs；</p>
 <p>1、samba安装：</p>
 <p>客户端程序：samba-client；</p>
@@ -155,44 +155,44 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <p>2、samba用户：</p>
 <p>在系统用户的基础之上，为该用户创建访问samba服务de密码即可；</p>
 <p>3、samba服务的配置文件：</p>
-<p>vim /etc/samba/smb.conf</p>
+<p>vim &#x2F;etc&#x2F;samba&#x2F;smb.conf</p>
 <p>#开头的都是纯文字注释信息；</p>
 <p>;开头的都是可启用的注释选项；</p>
-<p>workgroup = ：工作组名称；</p>
-<p>server string = ：显示的samba服务器版本；</p>
-<p>netbios name = ：netbios的名称；</p>
-<p>interfaces = ：表示samba启用的监听接口；</p>
-<p>hosts allow = ：表示访问控制白名单。允许哪些段的主机访问；</p>
+<p>workgroup &#x3D; ：工作组名称；</p>
+<p>server string &#x3D; ：显示的samba服务器版本；</p>
+<p>netbios name &#x3D; ：netbios的名称；</p>
+<p>interfaces &#x3D; ：表示samba启用的监听接口；</p>
+<p>hosts allow &#x3D; ：表示访问控制白名单。允许哪些段的主机访问；</p>
 <p>注意：如果启用了，没写到这里的都会拒绝掉。因为它是白名单。没写入白名单的都拒绝；</p>
-<p>log file = ：日志文件位置。%m：宏，表示客户端名称。所以，每个客户端都会生成一个日志文件；</p>
-<p>max log size = ：日志文件最大大小；</p>
-<p>security = ：安全级别（默认）；</p>
+<p>log file &#x3D; ：日志文件位置。%m：宏，表示客户端名称。所以，每个客户端都会生成一个日志文件；</p>
+<p>max log size &#x3D; ：日志文件最大大小；</p>
+<p>security &#x3D; ：安全级别（默认）；</p>
 <p>user：根据账号密码认证；</p>
 <p>share：无需账号密码，直接访问；</p>
 <p>server：集中式账号密码；</p>
-<p>passdb backend = ：账号密码的存放格式。默认是tdbsam；</p>
+<p>passdb backend &#x3D; ：账号密码的存放格式。默认是tdbsam；</p>
 <p>域：</p>
-<p>sercurity = domain ：这是域下的安全级别，domain；</p>
-<p>passdb backend = ：账号密码存放格式；</p>
-<p>password server = ：域认证服务器名；</p>
+<p>sercurity &#x3D; domain ：这是域下的安全级别，domain；</p>
+<p>passdb backend &#x3D; ：账号密码存放格式；</p>
+<p>password server &#x3D; ：域认证服务器名；</p>
 <p>名称解析选项：wins是windows的本地名称解析服务；</p>
-<p>wins support = ：是否启用wins；</p>
-<p>wins server =  ：wins服务器；</p>
-<p>wins proxy =  ：wins的代理；</p>
-<p>dns proxy =</p>
+<p>wins support &#x3D; ：是否启用wins；</p>
+<p>wins server &#x3D;  ：wins服务器；</p>
+<p>wins proxy &#x3D;  ：wins的代理；</p>
+<p>dns proxy &#x3D;</p>
 <p>打印机选项：共享打印机</p>
-<p>load printers = ：加载打印服务；</p>
+<p>load printers &#x3D; ：加载打印服务；</p>
 <p>文件系统选项；</p>
 <p>……..<br>[共享名]                ：共享名；</p>
-<p>comment =    ：共享备注信息；</p>
-<p>path =     ：实际共享目录路径；</p>
-<p>guest ok =   ：是否允许来宾账号查看某些目录；</p>
-<p>public =    ：登录samba的用户不是某些共享目录的属主和属组时，是否允许浏览和显示；</p>
-<p>browseable =  ：登录samba的用户不是当前共享目录的属主和属组时，是否允许浏览和显示</p>
+<p>comment &#x3D;    ：共享备注信息；</p>
+<p>path &#x3D;     ：实际共享目录路径；</p>
+<p>guest ok &#x3D;   ：是否允许来宾账号查看某些目录；</p>
+<p>public &#x3D;    ：登录samba的用户不是某些共享目录的属主和属组时，是否允许浏览和显示；</p>
+<p>browseable &#x3D;  ：登录samba的用户不是当前共享目录的属主和属组时，是否允许浏览和显示</p>
 <p>也就是说，一个目录在共享目录下，当用户不属于我的属主和属组时，当该用户访问时，我是否显示出来。最好别显示，为了安全；</p>
-<p>writable =   ：是否启用共享可写权限。针对全部访问者；</p>
-<p>write list =  ：共享可写用户列表。只针对该列表中的用户；</p>
-<p>read only =   ：是否允许只读。定义了只读，则write list和writable=yes就没有意义了；</p>
+<p>writable &#x3D;   ：是否启用共享可写权限。针对全部访问者；</p>
+<p>write list &#x3D;  ：共享可写用户列表。只针对该列表中的用户；</p>
+<p>read only &#x3D;   ：是否允许只读。定义了只读，则write list和writable&#x3D;yes就没有意义了；</p>
 <p>示例1：我为samba服务器端创建用户，提供文件共享：<br>[root@localhost ~]# smbpasswd -a centos<br>New SMB password:<br>Retype new SMB password:<br>Added user centos.<br>[root@localhost ~]#</p>
 <p>[root@localhost ~]# smbpasswd -a hadoop<br>New SMB password:<br>Retype new SMB password:<br>Added user hadoop.</p>
 <p>[root@localhost ~]# service smb restart<br>关闭 SMB 服务：                      [确定]<br>启动 SMB 服务：                      [确定]<br>[root@localhost ~]# service nmb restart<br>关闭 NMB 服务：                      [确定]<br>启动 NMB 服务：                      [确定]<br>[root@localhost ~]#                     ：重启samba服务；</p>
@@ -203,8 +203,8 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKiom1Uf102BPxYcAAEcVH54JrI618.jpg" alt="wKiom1Uf102BPxYcAAEcVH54JrI618.jpg"></p>
 <p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf2MLBLVAQAABNnbWtSC0832.jpg" alt="wKioL1Uf2MLBLVAQAABNnbWtSC0832.jpg"></p>
 <p>示例2：基于用户控制，访问公共共享目录；</p>
-<p>[root@localhost ~]# mkdir /share/test -pv<br>mkdir: 已创建目录 “/share”<br>mkdir: 已创建目录 “/share/test”<br>[root@localhost ~]# setfacl -m u:centos:rwx /share/test/<br>[root@localhost ~]# vim /etc/samba/smb.conf</p>
-<p>[myshared]<br>comment = my share test<br>path = /share/test<br>writable = yes               ：添加共享记录，将目录共享出去；</p>
+<p>[root@localhost ~]# mkdir &#x2F;share&#x2F;test -pv<br>mkdir: 已创建目录 “&#x2F;share”<br>mkdir: 已创建目录 “&#x2F;share&#x2F;test”<br>[root@localhost ~]# setfacl -m u:centos:rwx &#x2F;share&#x2F;test&#x2F;<br>[root@localhost ~]# vim &#x2F;etc&#x2F;samba&#x2F;smb.conf</p>
+<p>[myshared]<br>comment &#x3D; my share test<br>path &#x3D; &#x2F;share&#x2F;test<br>writable &#x3D; yes               ：添加共享记录，将目录共享出去；</p>
 <p>[root@localhost ~]# testparm                ：检测一下配置文件中的内容；</p>
 <p>[root@localhost ~]# service smb restart<br>关闭 SMB 服务：                      [确定]<br>启动 SMB 服务：                      [确定]<br>[root@localhost ~]# service nmb restart<br>关闭 NMB 服务：                      [确定]<br>启动 NMB 服务：                      [确定]<br>[root@localhost ~]#                     ：重启一下samba服务；</p>
 <p>使用客户端去测试：</p>
@@ -225,15 +225,15 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <p>基于windows客户端去访问共享时，由于缓存的原因，可能导致有时不能更换账号，可以如下解决：</p>
 <p>cmd</p>
 <p>net use</p>
-<p>net use \共享服务器ip /del                  ：清楚共享账号缓存；</p>
+<p>net use \共享服务器ip &#x2F;del                  ：清楚共享账号缓存；</p>
 <p>4、smbclient命令：一种使用在samba客户端上的命令：</p>
 <p>1、查看samba服务器上的所有共享目录：</p>
 <p>格式：smbclient -L SERVER -U USERNAME</p>
 <p>例如：</p>
-<p>[root@localhost ~]# smbclient -L 172.16.1.105 -U hadoop<br>Enter hadoop’s password:<br>Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.6.23-14.el6_6]</p>
+<p>[root@localhost ~]# smbclient -L 172.16.1.105 -U hadoop<br>Enter hadoop’s password:<br>Domain&#x3D;[MYGROUP] OS&#x3D;[Unix] Server&#x3D;[Samba 3.6.23-14.el6_6]</p>
 <p>Sharename    Type   Comment</p>
 <hr>
-<p>myshared    Disk   my share test<br>IPC$      IPC    IPC Service (Samba Server Version 3.6.23-14.el6_6)<br>hadoop     Disk   Home Directories<br>Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.6.23-14.el6_6]</p>
+<p>myshared    Disk   my share test<br>IPC$      IPC    IPC Service (Samba Server Version 3.6.23-14.el6_6)<br>hadoop     Disk   Home Directories<br>Domain&#x3D;[MYGROUP] OS&#x3D;[Unix] Server&#x3D;[Samba 3.6.23-14.el6_6]</p>
 <p>Server        Comment</p>
 <hr>
 <p>LOCALHOST      Samba Server Version 3.6.23-14.el6_6</p>
@@ -241,28 +241,28 @@ NFS（Network File System）即网络文件系统，是FreeBSD支持的文件系
 <hr>
 <p>MYGROUP       LOCALHOST<br>WORKGROUP      CHEN<br>[root@localhost ~]#          ：可以看到刚刚新建的共享目录了；</p>
 <p>2、以交互式的方式连入samba服务器共享目录：</p>
-<p>格式：smbclient //SERVER/SHARED -U USERNAME</p>
+<p>格式：smbclient &#x2F;&#x2F;SERVER&#x2F;SHARED -U USERNAME</p>
 <p>如：</p>
-<p>[root@localhost ~]# smbclient //172.16.1.105/myshared -U centos<br>Enter centos’s password:<br>Domain=[MYGROUP] OS=[Unix] Server=[Samba 3.6.23-14.el6_6]<br>smb: &gt; ls                  ：输入命令，去操作共享目录中的内容；</p>
+<p>[root@localhost ~]# smbclient &#x2F;&#x2F;172.16.1.105&#x2F;myshared -U centos<br>Enter centos’s password:<br>Domain&#x3D;[MYGROUP] OS&#x3D;[Unix] Server&#x3D;[Samba 3.6.23-14.el6_6]<br>smb: &gt; ls                  ：输入命令，去操作共享目录中的内容；</p>
 <p>5、挂载共享目录至客户端本地：</p>
 <p>1、临时挂载：</p>
-<p>格式：mount -t cifs //server/shared /path/to/mount_point -o username=smbuser</p>
-<p>[root@localhost ~]# mkdir /mnt/samba<br>[root@localhost ~]# mount -t cifs //172.16.1.105/myshared /mnt/samba -o username=centos<br>Password:</p>
+<p>格式：mount -t cifs &#x2F;&#x2F;server&#x2F;shared &#x2F;path&#x2F;to&#x2F;mount_point -o username&#x3D;smbuser</p>
+<p>[root@localhost ~]# mkdir &#x2F;mnt&#x2F;samba<br>[root@localhost ~]# mount -t cifs &#x2F;&#x2F;172.16.1.105&#x2F;myshared &#x2F;mnt&#x2F;samba -o username&#x3D;centos<br>Password:</p>
 <p>[root@localhost samba]# ll<br>总用量 0<br>-rwxr–r–. 1 centos centos 0 4月  5 04:39 新建文本文档.txt<br>[root@localhost samba]#                    ：临时执行一次手动挂载；</p>
 <p>2、开机自动挂载：</p>
-<p>vim /etc/fstab</p>
-<p>//172.16.1.105/myshared /mnt/samba cifs  defaults,<strong>_netdev</strong>,username=centos,password=password2020   [root@localhost /]# mount -a          ：重载/etc/fstab文件；<br>[root@localhost /]#</p>
-<p>[root@localhost /]# mount<br>/dev/mapper/VolGroup-lv_root on / type ext4 (rw)<br>proc on /proc type proc (rw)<br>sysfs on /sys type sysfs (rw)<br>devpts on /dev/pts type devpts (rw,gid=5,mode=620)<br>tmpfs on /dev/shm type tmpfs (rw,rootcontext=”system_u:object_r:tmpfs_t:s0”)<br>/dev/sda1 on /boot type ext4 (rw)<br>none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)<br>//172.16.1.105/myshared on /mnt/samba type cifs (rw)  ：可以看到，成功被挂载了；</p>
-<p>注意：/etc/fstab中有个参数：“_netdev”：表示当无法挂载时放弃挂载。因为共享是基于网络的，当无法挂载时，服务器是无法开机的。所以，要主动放弃；</p>
-<p>[root@localhost /]# cd /mnt/sa——mba/<br>[root@localhost samba]#<br>[root@localhost samba]# ll<br>总用量 0<br>-rwxr–r–. 1 centos centos 0 4月  5 04:39 新建文本文档.txt<br>[root@localhost samba]#                   ：挂载成功；</p>
+<p>vim &#x2F;etc&#x2F;fstab</p>
+<p>&#x2F;&#x2F;172.16.1.105&#x2F;myshared &#x2F;mnt&#x2F;samba cifs  defaults,<strong>_netdev</strong>,username&#x3D;centos,password&#x3D;password2020   [root@localhost &#x2F;]# mount -a          ：重载&#x2F;etc&#x2F;fstab文件；<br>[root@localhost &#x2F;]#</p>
+<p>[root@localhost &#x2F;]# mount<br>&#x2F;dev&#x2F;mapper&#x2F;VolGroup-lv_root on &#x2F; type ext4 (rw)<br>proc on &#x2F;proc type proc (rw)<br>sysfs on &#x2F;sys type sysfs (rw)<br>devpts on &#x2F;dev&#x2F;pts type devpts (rw,gid&#x3D;5,mode&#x3D;620)<br>tmpfs on &#x2F;dev&#x2F;shm type tmpfs (rw,rootcontext&#x3D;”system_u:object_r:tmpfs_t:s0”)<br>&#x2F;dev&#x2F;sda1 on &#x2F;boot type ext4 (rw)<br>none on &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;binfmt_misc type binfmt_misc (rw)<br>&#x2F;&#x2F;172.16.1.105&#x2F;myshared on &#x2F;mnt&#x2F;samba type cifs (rw)  ：可以看到，成功被挂载了；</p>
+<p>注意：&#x2F;etc&#x2F;fstab中有个参数：“_netdev”：表示当无法挂载时放弃挂载。因为共享是基于网络的，当无法挂载时，服务器是无法开机的。所以，要主动放弃；</p>
+<p>[root@localhost &#x2F;]# cd &#x2F;mnt&#x2F;sa——mba&#x2F;<br>[root@localhost samba]#<br>[root@localhost samba]# ll<br>总用量 0<br>-rwxr–r–. 1 centos centos 0 4月  5 04:39 新建文本文档.txt<br>[root@localhost samba]#                   ：挂载成功；</p>
 <p>6、web方式管理配置samba：</p>
-<p>[root@localhost /]# yum -y install samba-swat xinetd    ：安装samba-swat和xinetd服务；</p>
-<p>[root@localhost /]# vim /etc/xinetd.d/swat</p>
-<p>port      = 901                ：端口号默认901；</p>
-<p>only_from    = 172.16.0.0/16           :修改客户端限制；</p>
-<p>disable     = no                ：修改此处为“no”；</p>
-<p>[root@localhost /]# service xinetd start<br>正在启动 xinetd：</p>
-<p>[root@localhost /]# chkconfig | grep swat<br>swat:        启用                    ：启用samba-swat；</p>
+<p>[root@localhost &#x2F;]# yum -y install samba-swat xinetd    ：安装samba-swat和xinetd服务；</p>
+<p>[root@localhost &#x2F;]# vim &#x2F;etc&#x2F;xinetd.d&#x2F;swat</p>
+<p>port      &#x3D; 901                ：端口号默认901；</p>
+<p>only_from    &#x3D; 172.16.0.0&#x2F;16           :修改客户端限制；</p>
+<p>disable     &#x3D; no                ：修改此处为“no”；</p>
+<p>[root@localhost &#x2F;]# service xinetd start<br>正在启动 xinetd：</p>
+<p>[root@localhost &#x2F;]# chkconfig | grep swat<br>swat:        启用                    ：启用samba-swat；</p>
 <p>web访问配置：成功访问，可以执行配置了；</p>
 <p><img src="/../images/linux%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E4%B9%8Bnfs%E5%92%8Csmaba/wKioL1Uf5q7jyAHAAAGL28uh2QI264.jpg" alt="wKioL1Uf5q7jyAHAAAGL28uh2QI264.jpg"></p>
 <p>结束！</p>

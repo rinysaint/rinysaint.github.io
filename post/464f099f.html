@@ -22,7 +22,7 @@ Dubbo：国内最早开源的 RPC 框架，由阿里,">
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -30,7 +30,7 @@ Dubbo：国内最早开源的 RPC 框架，由阿里,">
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">6种微服务RPC框架，你知道几个？</h3>
@@ -89,7 +89,7 @@ Dubbo：国内最早开源的 RPC 框架，由阿里,">
 <p>管理命令流程：web 系统上的可以提交管理 server 服务命令请求，由 registry 服务传达到 node 服务，然后由 node 向 server 发送管理命令。</p>
 <p>心跳上报流程：server 服务运行后，会定期上报心跳到 node，node 然后把服务心跳信息上报到 registry 服务，由 registry 进行统一管理。</p>
 <p>信息上报流程：server 服务运行后，会定期上报统计信息到 stat，打印远程日志到 log，定期上报属性信息到 prop、上报异常信息到 notify、从 config 拉取服务配置信息。</p>
-<p>client 访问 server 流程：client 可以通过 server 的对象名 Obj 间接访问 server，client 会从 registry 上拉取 server 的路由信息（如 IP、Port 信息），然后根据具体的业务特性（同步或者异步，TCP 或者 UDP 方式）访问 server（当然 client 也可以通过 IP/Port 直接访问 server）。</p>
+<p>client 访问 server 流程：client 可以通过 server 的对象名 Obj 间接访问 server，client 会从 registry 上拉取 server 的路由信息（如 IP、Port 信息），然后根据具体的业务特性（同步或者异步，TCP 或者 UDP 方式）访问 server（当然 client 也可以通过 IP&#x2F;Port 直接访问 server）。</p>
 <h3 id="4-Spring-Cloud"><a href="#4-Spring-Cloud" class="headerlink" title="4. Spring Cloud"></a>4. Spring Cloud</h3><p>Spring Cloud 利用 Spring Boot 特性整合了开源行业中优秀的组件，整体对外提供了一套在微服务架构中服务治理的解决方案。</p>
 <p>只支持 Java 语言平台，它的架构图可以用下面这张图来描述。</p>
 <p><img src="/../images/6%E7%A7%8D%E5%BE%AE%E6%9C%8D%E5%8A%A1RPC%E6%A1%86%E6%9E%B6/2dbb0e450be55353ebc4d47f94244d63.JPEG" alt="img"></p>
@@ -101,7 +101,7 @@ Dubbo：国内最早开源的 RPC 框架，由阿里,">
 <h3 id="5-gRPC"><a href="#5-gRPC" class="headerlink" title="5. gRPC"></a>5. gRPC</h3><p>先来看下 gRPC，它的原理是通过 IDL（Interface Definition Language）文件定义服务接口的参数和返回值类型，然后通过代码生成程序生成服务端和客户端的具体实现代码，这样在 gRPC 里，客户端应用可以像调用本地对象一样调用另一台服务器上对应的方法。</p>
 <p><img src="/../images/6%E7%A7%8D%E5%BE%AE%E6%9C%8D%E5%8A%A1RPC%E6%A1%86%E6%9E%B6/4b216676e3df28cf715fd30a978fa3ea.JPEG" alt="img"></p>
 <p>它的主要特性包括三个方面。</p>
-<p>通信协议采用了 HTTP/2，因为 HTTP/2 提供了连接复用、双向流、服务器推送、请求优先级、首部压缩等机制</p>
+<p>通信协议采用了 HTTP&#x2F;2，因为 HTTP&#x2F;2 提供了连接复用、双向流、服务器推送、请求优先级、首部压缩等机制</p>
 <p>IDL 使用了 ProtoBuf，ProtoBuf 是由 Google 开发的一种数据序列化协议，它的压缩和传输效率极高，语法也简单</p>
 <p>多语言支持，能够基于多种语言自动生成对应语言的客户端和服务端的代码。</p>
 <h3 id="6-Thrift"><a href="#6-Thrift" class="headerlink" title="6. Thrift"></a>6. Thrift</h3><p>再来看下 Thrift，Thrift 是一种轻量级的跨语言 RPC 通信方案，支持多达 25 种编程语言。为了支持多种语言，跟 gRPC 一样，Thrift 也有一套自己的接口定义语言 IDL，可以通过代码生成器，生成各种编程语言的 Client 端和 Server 端的 SDK 代码，这样就保证了不同语言之间可以相互通信。它的架构图可以用下图来描述。</p>

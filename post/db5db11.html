@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Round-Robin负载均衡算法</h3>
@@ -57,8 +57,8 @@
             <p>毫无疑问，随着互联网、移动网络接入成本的降低，互联网正在日益深入地走入我们的生活，越来越成为人们获取信息的高效平台，ICP行业也顺势呈现出强劲的成长趋势，成为互联网迅猛发展形势下最大的受益者，也直接促成了从web1.0到web2.0以及社区、博客、视频等一系列互联网时代的更迭和运营模式的变动。<br>　　但是随着各站点访问量和信息交流量的迅猛增长，如何使用最小的资源成本，提高网络的效率，最优化用户体验，已经成为网络管理人员不得不面对的挑战。<br>　　从技术上讲，就是ICP行业面临的网络资源有效利用问题，也就是如何进行对网络的访问分流，以便能够快速响应用户反应，即：负载均衡。<br>　　从这篇文章起，我们将讲述在负载均衡技术实现中的核心技术：负载均衡算法(算法)的原理及其实现，使大家对负载均衡底层技术有一个深刻的了解。这些算法是负载均衡设备中的核心实现基础。<br>　　本篇文章先讲述**轮询调度算法 (Round-Robin)**及其在此基础上改进型的**权重轮询算法 (Weighted Round-Robin)**。</p>
 <h2 id="轮询调度算法-Round-Robin"><a href="#轮询调度算法-Round-Robin" class="headerlink" title="轮询调度算法 (Round-Robin)"></a>轮询调度算法 (Round-Robin)</h2><p>轮询调度算法的原理是每一次把来自用户的请求轮流分配给内部中的服务器，从1开始，直到N(内部服务器个数)，然后重新开始循环。算法的优点是其简洁性，它无需记录当前所有连接的状态，所以它是一种无状态调度。</p>
 <p>　　轮询调度算法流程</p>
-<p>　　假设有一组服务器N台，S = {S1, S2, …, Sn}，一个指示变量i表示上一次选择的服务器ID。变量i被初始化为N-1。其算法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">j &#x3D; i;</span><br><span class="line"></span><br><span class="line">do</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">j &#x3D; (j + 1) mod n;</span><br><span class="line"></span><br><span class="line">i &#x3D; j;</span><br><span class="line"></span><br><span class="line">return Si;</span><br><span class="line"></span><br><span class="line">&#125; while (j !&#x3D; i);</span><br><span class="line"></span><br><span class="line">return NULL;</span><br></pre></td></tr></table></figure>
+<p>　　假设有一组服务器N台，S &#x3D; {S1, S2, …, Sn}，一个指示变量i表示上一次选择的服务器ID。变量i被初始化为N-1。其算法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">j = i;</span><br><span class="line"></span><br><span class="line">do</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">j = (j + 1) mod n;</span><br><span class="line"></span><br><span class="line">i = j;</span><br><span class="line"></span><br><span class="line">return Si;</span><br><span class="line"></span><br><span class="line">&#125; while (j != i);</span><br><span class="line"></span><br><span class="line">return NULL;</span><br></pre></td></tr></table></figure>
 
 <h2 id="权重轮询算法-Weighted-Round-Robin"><a href="#权重轮询算法-Weighted-Round-Robin" class="headerlink" title="权重轮询算法 (Weighted Round-Robin)"></a>权重轮询算法 (Weighted Round-Robin)</h2><p><img src="/../images/Round-Robin%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95/20190115165035798.png" alt="在这里插入图片描述"><br><strong>总结：</strong><br>　　轮询调度算法假设所有服务器的处理性能都相同，不关心每台服务器的当前连接数和响应速度。当请求服务间隔时间变化比较大时，轮询调度算法容易导致服务器间的负载不平衡。<br>　　所以此种均衡算法适合于服务器组中的所有服务器都有相同的软硬件配置并且平均服务请求相对均衡的情况。</p>
 

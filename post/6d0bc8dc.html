@@ -25,7 +25,7 @@ CentOS 7.x 最小安装
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -33,7 +33,7 @@ CentOS 7.x 最小安装
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Hexo部署到个人服务器</h3>
@@ -66,51 +66,47 @@ CentOS 7.x 最小安装
 <li>配置网络连接</li>
 </ul>
 <ol>
-<li>安装Git及创建用户<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 安装Git </span><br><span class="line">$ yum install git </span><br><span class="line"></span><br><span class="line"># 创建一个git用户组和用户，用来运行git服务 </span><br><span class="line">$ groupadd git </span><br><span class="line">$ adduser git -g git</span><br></pre></td></tr></table></figure></li>
+<li>安装Git及创建用户<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 安装Git </span><br><span class="line">$ yum install git </span><br><span class="line"></span><br><span class="line"># 创建一个git用户组和用户，用来运行git服务 </span><br><span class="line">$ groupadd git </span><br><span class="line">$ adduser git -g git</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>禁止git用户登录:</p>
-<p>修改/etc/passwd文件，修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 找到这句： </span><br><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line"># 改为： </span><br><span class="line">git:x:503:503::&#x2F;home&#x2F;git:&#x2F;bin&#x2F;git-shell</span><br></pre></td></tr></table></figure>
+<p>修改&#x2F;etc&#x2F;passwd文件，修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 找到这句： </span><br><span class="line">git:x:503:503::/home/git:/bin/bash</span><br><span class="line"></span><br><span class="line"># 改为： </span><br><span class="line">git:x:503:503::/home/git:/bin/git-shell</span><br></pre></td></tr></table></figure>
 
 
 
 <ol start="2">
 <li>创建证书登录</li>
 </ol>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir &#x2F;home&#x2F;git&#x2F;.ssh </span><br><span class="line">$ chmod 700 &#x2F;home&#x2F;git&#x2F;.ssh </span><br><span class="line">$ touch 700 &#x2F;home&#x2F;git&#x2F;.ssh&#x2F;authorized_keys </span><br><span class="line">$ chmod 644 &#x2F;home&#x2F;git&#x2F;.ssh&#x2F;authorized_keys</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir /home/git/.ssh </span><br><span class="line">$ chmod 700 /home/git/.ssh </span><br><span class="line">$ touch 700 /home/git/.ssh/authorized_keys </span><br><span class="line">$ chmod 644 /home/git/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
 
-<p>  注意，如果是采用的sudo方式来创建git和相应的文件的，需要设置/home/git/.ssh/的owner为git，否则还是每次要输入密码的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># owner改为git </span><br><span class="line">$ sudo chown -R git:git &#x2F;home&#x2F;git&#x2F;.ssh&#x2F;</span><br></pre></td></tr></table></figure>
+<p>  注意，如果是采用的sudo方式来创建git和相应的文件的，需要设置&#x2F;home&#x2F;git&#x2F;.ssh&#x2F;的owner为git，否则还是每次要输入密码的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># owner改为git </span><br><span class="line">$ sudo chown -R git:git /home/git/.ssh/</span><br></pre></td></tr></table></figure>
 
-<p>编辑/home/git/.ssh/authorized_keys，把客户端的公钥放进去，1个公钥1行。</p>
+<p>编辑&#x2F;home&#x2F;git&#x2F;.ssh&#x2F;authorized_keys，把客户端的公钥放进去，1个公钥1行。</p>
 <p>附：如何创建私钥：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 创建私钥，文件位于用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件 </span><br><span class="line">$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 创建私钥，文件位于用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件 </span><br><span class="line">$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</span><br></pre></td></tr></table></figure>
 
 <p>3.初始化Git仓库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ cd &#x2F;srv </span><br><span class="line">$ mkdir gitrepo </span><br><span class="line">$ chown git:git gitrepo&#x2F; </span><br><span class="line">$ cd gitrepo </span><br><span class="line"></span><br><span class="line"># 创建一个空的Git仓库，服务器上的Git仓库通常都以.git结尾 </span><br><span class="line">$ git init --bare project.git </span><br><span class="line"></span><br><span class="line"># 将仓库所属用户改为git </span><br><span class="line">$ chown -R git:git project.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ cd /srv </span><br><span class="line">$ mkdir gitrepo </span><br><span class="line">$ chown git:git gitrepo/ </span><br><span class="line">$ cd gitrepo </span><br><span class="line"></span><br><span class="line"># 创建一个空的Git仓库，服务器上的Git仓库通常都以.git结尾 </span><br><span class="line">$ git init --bare project.git </span><br><span class="line"></span><br><span class="line"># 将仓库所属用户改为git </span><br><span class="line">$ chown -R git:git project.git</span><br></pre></td></tr></table></figure>
 
 
 
 <ol start="4">
 <li>克隆仓库<br>在另一台电脑上（下面称为：Client），安装git，并且运行下面的命令：</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@10.123.123.123:&#x2F;srv&#x2F;gitrepo&#x2F;project.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@10.123.123.123:/srv/gitrepo/project.git</span><br></pre></td></tr></table></figure>
 
 <ol start="5">
-<li>验证安装</li>
-<li><ol>
-<li>推送到远程服务器<br>在本地Client的project目录下，创建一个文件：text.txt，内容随意，然后上传到远端：</li>
+<li>验证安装<br>5.1. 推送到远程服务器<br>在本地Client的project目录下，创建一个文件：text.txt，内容随意，然后上传到远端：</li>
 </ol>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
 
 <p>5.2. 检验<br>在本地Client的另外一个目录下，克隆一下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@10.123.123.123:&#x2F;srv&#x2F;gitrepo&#x2F;project.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@10.123.123.123:/srv/gitrepo/project.git</span><br></pre></td></tr></table></figure>
 
 <p>看看text.txt文件是否存在，内容是否对。</p>
 <p>5.3. 常用的Git命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git add . 添加所有文件  注意有个 . </span><br><span class="line">$ git commit -m &#39;注释&#39; 提交本地</span><br><span class="line">$ git push origin master提交给默认分支</span><br><span class="line">$ git -rm 删除</span><br><span class="line">$ git pull origin master 从默认分支下载</span><br><span class="line">$ git branch -v 查看所有分支</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git add . 添加所有文件  注意有个 . </span><br><span class="line">$ git commit -m &#x27;注释&#x27; 提交本地</span><br><span class="line">$ git push origin master提交给默认分支</span><br><span class="line">$ git -rm 删除</span><br><span class="line">$ git pull origin master 从默认分支下载</span><br><span class="line">$ git branch -v 查看所有分支</span><br></pre></td></tr></table></figure>
 
 
 
@@ -133,19 +129,19 @@ CentOS 7.x 最小安装
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    <span class="built_in">type</span>: git</span><br><span class="line">    message: update</span><br><span class="line">    repo: git@服务器IP:/srv/blog.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure>
 
 <h4 id="Git脚本"><a href="#Git脚本" class="headerlink" title="Git脚本"></a>Git脚本</h4><p>成功推送到自己的仓库后；需要利用脚本将仓库的public资源拉取到一个文件夹下，作为Nginx后面在配置的映射地址；进入配置的仓库下的Hooks文件夹;例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /srv/blog.git/hooks</span><br><span class="line"></span><br><span class="line">touch post-receive</span><br><span class="line"></span><br><span class="line">vim post-receive</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /srv/blog.git/hooks</span><br><span class="line"></span><br><span class="line"><span class="built_in">touch</span> post-receive</span><br><span class="line"></span><br><span class="line">vim post-receive</span><br></pre></td></tr></table></figure>
 
 <p>写入以下脚本：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">GIT_REPO=/srv/blog.git</span><br><span class="line">TMP_GIT_CLONE=/srv/tmp/blog</span><br><span class="line">PUBLIC_WWW=/srv/project/blog</span><br><span class="line"></span><br><span class="line">rm -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span></span><br><span class="line">git <span class="built_in">clone</span> <span class="variable">$GIT_REPO</span> <span class="variable">$TMP_GIT_CLONE</span></span><br><span class="line">rm -rf <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br><span class="line">cp -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span> <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">GIT_REPO=/srv/blog.git</span><br><span class="line">TMP_GIT_CLONE=/srv/tmp/blog</span><br><span class="line">PUBLIC_WWW=/srv/project/blog</span><br><span class="line"></span><br><span class="line"><span class="built_in">rm</span> -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span></span><br><span class="line">git <span class="built_in">clone</span> <span class="variable">$GIT_REPO</span> <span class="variable">$TMP_GIT_CLONE</span></span><br><span class="line"><span class="built_in">rm</span> -rf <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br><span class="line"><span class="built_in">cp</span> -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span> <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>脚本内容是为了让Git仓库每次检测到push行为后，将最新的资源文件Git clone在你要访问的文件夹下。</p>
 <p>并且需要修改文件夹的读写权限，不然是无法自动执行该脚本：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R root:git /srv/tmp/</span><br><span class="line">chmod -R g+w /srv/tmp/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R root:git /srv/tmp/</span><br><span class="line"><span class="built_in">chmod</span> -R g+w /srv/tmp/</span><br></pre></td></tr></table></figure>
 
 <h4 id="配置Nginx"><a href="#配置Nginx" class="headerlink" title="配置Nginx"></a>配置Nginx</h4><p>Nginx怎么搭建，网上有很多。<br> 配置修改，例：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">server &#123;                                                                               </span><br><span class="line">    listen 80 default_server;</span><br><span class="line">    listen [::]:80 default_server ipv6only=on;</span><br><span class="line"></span><br><span class="line">    root /srv/project/blog;    </span><br><span class="line">                                                    </span><br><span class="line">    server_name 域名或IP;    </span><br><span class="line">                                             </span><br><span class="line">    access_log  /srv/nginxlog/blog_access.log;                                    </span><br><span class="line">    error_log   /srv/nginxlog/blog_error.log;                                            </span><br><span class="line">    location ~* ^.+\.(ico|gif|jpg|jpeg|png)$ &#123;                            </span><br><span class="line">            root /srv/project/blog;                                    </span><br><span class="line">            access_log   off;                 </span><br><span class="line">            expires      1d;                            </span><br><span class="line">    &#125;                                                                              </span><br><span class="line">    location ~* ^.+\.(css|js|txt|xml|swf|wav)$ &#123;                                   </span><br><span class="line">        root /srv/project/blog;                                                        </span><br><span class="line">        access_log   off;                                                          </span><br><span class="line">        expires      10m;                                                          </span><br><span class="line">    &#125;                                                                              </span><br><span class="line">    location / &#123;                                                                   </span><br><span class="line">        root /srv/project/blog;                                                </span><br><span class="line">        <span class="keyword">if</span> (-f <span class="variable">$request_filename</span>) &#123;                                            </span><br><span class="line">            rewrite ^/(.*)$  /<span class="variable">$1</span> <span class="built_in">break</span>;                                    </span><br><span class="line">        &#125;                                                                      </span><br><span class="line">    &#125;                      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这样本地执行hexo g;hexo d后浏览器就可以通过访问服务器进行hexo博客访问~~~<br> 个人网站地址：<a href="https://www.aichn.cn/">https://www.aichn.cn</a></p>
+<p>这样本地执行hexo g;hexo d后浏览器就可以通过访问服务器进行hexo博客访问~~~<br> 个人网站地址：<a href="https://blog.aichn.cn/">https://blog.aichn.cn</a></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">

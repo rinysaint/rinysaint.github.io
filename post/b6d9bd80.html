@@ -24,7 +24,7 @@ git version 1.7.1
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -32,7 +32,7 @@ git version 1.7.1
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Git系列自动化部署</h3>
@@ -109,7 +109,7 @@ git version 1.7.1
 <li>第五步，克隆远程仓库：</li>
 </ul>
 <p>现在，可以通过<code>git clone</code>命令克隆远程仓库了，在各自的电脑上运行：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git clone git<span class="variable">@server</span><span class="symbol">:/git/sample</span>.git</span><br><span class="line">Cloning into <span class="string">&#x27;sample&#x27;</span>...</span><br><span class="line"><span class="symbol">warning:</span> You appear to have cloned an empty repository.</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git clone git<span class="variable">@server</span><span class="symbol">:/git/sample</span>.git</span><br><span class="line"><span class="title class_">Cloning</span> into <span class="string">&#x27;sample&#x27;</span>...</span><br><span class="line"><span class="symbol">warning:</span> <span class="title class_">You</span> appear to have cloned an empty repository.</span><br></pre></td></tr></table></figure>
 
 <p>剩下的就是git操作了，具体查看git命令。</p>
 <p>对于已经搭建好了的git服务器，现在需要实现在用户push时，将项目自动部署到服务器上，例如将上个教程中的<code>/git/sample.git</code>部署到<code>/public/sample/</code>下，这就要利用git的hooks中的<code>post-receive</code>来实现代码提交完成之后的动作。将仓库指定一个<code>--work-tree</code>然后进行检出操作<code>checkout --force</code>。</p>
@@ -117,7 +117,7 @@ git version 1.7.1
 <p>具体步骤：</p>
 </blockquote>
 <p>新建sample文件夹，并给777权限。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cd /public</span><br><span class="line"><span class="variable">$ </span>mkdir sample</span><br><span class="line"><span class="variable">$ </span>chmod -R <span class="number">777</span> sample/</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>cd /<span class="keyword">public</span></span><br><span class="line"><span class="variable">$ </span>mkdir sample</span><br><span class="line"><span class="variable">$ </span>chmod -R <span class="number">777</span> sample/</span><br></pre></td></tr></table></figure>
 
 <p>进入<code>/git/sample.git/hooks</code>，并将<code>post-receive.sample</code>复制一份<code>post-receive</code>，并且编写代码如下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定我的代码检出目录</span></span><br><span class="line">DIR=/public/sample/</span><br><span class="line">git --work-tree=<span class="variable">$&#123;DIR&#125;</span> clean -fd</span><br><span class="line"><span class="comment"># 直接强制检出</span></span><br><span class="line">git --work-tree=<span class="variable">$&#123;DIR&#125;</span> checkout --force</span><br></pre></td></tr></table></figure>

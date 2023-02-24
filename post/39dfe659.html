@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -28,7 +28,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">不用Docker，实现群晖+阿里云DDNS解决动态IP访问</h3>
@@ -63,12 +63,12 @@
 <p><img src="/../images/%E4%B8%8D%E7%94%A8Docker%EF%BC%8C%E5%AE%9E%E7%8E%B0%E7%BE%A4%E6%99%96+%E9%98%BF%E9%87%8C%E4%BA%91DDNS%E8%A7%A3%E5%86%B3%E5%8A%A8%E6%80%81IP%E8%AE%BF%E9%97%AE/201901141547476289578493.jpg" alt="不用Docker，实现群晖+阿里云DDNS解决动态IP访问第1张-来时的路"></p>
 <p><strong>环境：</strong></p>
 <p>有公网非固定IP；</p>
-<p>防火墙/<a target="_blank" rel="noopener" href="https://b.gx86.cn/zb_users/theme/zbpNana/goto/?url=https://www.smzdm.com/fenlei/luyouqi/">路由器</a>能做端口映射；</p>
+<p>防火墙&#x2F;<a target="_blank" rel="noopener" href="https://b.gx86.cn/zb_users/theme/zbpNana/goto/?url=https://www.smzdm.com/fenlei/luyouqi/">路由器</a>能做端口映射；</p>
 <p>有阿里云顶级域名，或者在阿里云做域名解释（我就是腾讯云的域名，搞不定腾讯云的动态解析，就接在阿里云做解析）！</p>
 <p><strong>一、有域名</strong>。关于申请域名申请和accesskey申请，请参考rucent 的《<a target="_blank" rel="noopener" href="https://b.gx86.cn/zb_users/theme/zbpNana/goto/?url=https://post.smzdm.com/p/571595/">群晖+aliDDNS解决动态IP访问</a>》 的步骤1-3。</p>
 <p><strong>二、部署群晖</strong>。</p>
 <p>1、下载源文件：<a target="_blank" rel="noopener" href="https://b.gx86.cn/zb_users/theme/zbpNana/goto/?url=https://github.com/cuteribs/ribsnetwork/tree/master/ddns">点我</a>（点击进去后，记得是对文件右键另存为，切勿是打开文本复制新建脚本文件，否则会乱码错误），里面有6个文件，其实单单下载 aliyun.sh 即可。</p>
-<p>2、上传文件到群晖的某个目录。我的是放在web文件夹下，图中路径为setting/aliddns/aliyun.sh，但实际路径应该是： /volume1/setting/aliddns/aliyun.sh，建议建立独立的文件夹。</p>
+<p>2、上传文件到群晖的某个目录。我的是放在web文件夹下，图中路径为setting&#x2F;aliddns&#x2F;aliyun.sh，但实际路径应该是： &#x2F;volume1&#x2F;setting&#x2F;aliddns&#x2F;aliyun.sh，建议建立独立的文件夹。</p>
 <p><img src="/../images/%E4%B8%8D%E7%94%A8Docker%EF%BC%8C%E5%AE%9E%E7%8E%B0%E7%BE%A4%E6%99%96+%E9%98%BF%E9%87%8C%E4%BA%91DDNS%E8%A7%A3%E5%86%B3%E5%8A%A8%E6%80%81IP%E8%AE%BF%E9%97%AE/201901141547476289735081.png" alt="#原创新人#不用Docker，实现群晖+阿里云DDNS解决动态IP访问"></p>
 <p><img src="/../images/%E4%B8%8D%E7%94%A8Docker%EF%BC%8C%E5%AE%9E%E7%8E%B0%E7%BE%A4%E6%99%96+%E9%98%BF%E9%87%8C%E4%BA%91DDNS%E8%A7%A3%E5%86%B3%E5%8A%A8%E6%80%81IP%E8%AE%BF%E9%97%AE/201901141547476289321600.png" alt="#原创新人#不用Docker，实现群晖+阿里云DDNS解决动态IP访问"></p>
 <p>3、写执行代码的任务计划。</p>

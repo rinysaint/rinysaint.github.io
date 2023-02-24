@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -32,7 +32,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">《分布式单点登录框架XXL-SSO》</h3>
@@ -147,7 +147,7 @@
 <p>于2018-12-05，XXL-SSO参与”<a target="_blank" rel="noopener" href="https://www.oschina.net/project/top_cn_2018?sort=1">2018年度最受欢迎中国开源软件</a>“评比，在当时已录入的一万多个国产开源项目中角逐，最终排名第55名。</p>
 <p>于2019-01-23，XXL-SSO被评选上榜”<a target="_blank" rel="noopener" href="https://www.oschina.net/news/103857/2018-osc-new-opensource-software-cn-top50">2018年度新增开源软件排行榜之国产 TOP 50</a>“评比，排名第8名。</p>
 <p>至今，XXL-SSO已接入多家公司的线上产品线，接入场景如电商业务，O2O业务和核心中间件配置动态化等，截止2018-03-15为止，XXL-SSO已接入的公司包括不限于：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. 湖南创发科技2. 深圳龙华科技有限公司3. 摩根国际4. 印记云</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. 湖南创发科技2. 深圳龙华科技有限公司3. 摩根国际4. 印记云</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>更多接入的公司，欢迎在 <a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-sso/issues/1">登记地址</a> 登记，登记仅仅为了产品推广。</p>
@@ -179,35 +179,36 @@
 <h2 id="二、快速入门（基于Cookie）"><a href="#二、快速入门（基于Cookie）" class="headerlink" title="二、快速入门（基于Cookie）"></a>二、快速入门（基于Cookie）</h2><blockquote>
 <p>基于Cookie，相关概念可参考 “章节 4.6”</p>
 </blockquote>
-<h3 id="2-1：源码编译"><a href="#2-1：源码编译" class="headerlink" title="2.1：源码编译"></a>2.1：源码编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- xxl-sso-server：中央认证服务，支持集群- xxl-sso-core：Client端依赖- xxl-sso-samples：单点登陆Client端接入示例项目    - xxl-sso-web-sample-springboot：基于Cookie接入方式，供用户浏览器访问，springboot版本    - xxl-sso-token-sample-springboot：基于Token接入方式，常用于无法使用Cookie的场景使用，如APP、Cookie被禁用等，springboot版本</span><br></pre></td></tr></table></figure>
+<h3 id="2-1：源码编译"><a href="#2-1：源码编译" class="headerlink" title="2.1：源码编译"></a>2.1：源码编译</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- xxl-sso-server：中央认证服务，支持集群- xxl-sso-core：Client端依赖- xxl-sso-samples：单点登陆Client端接入示例项目    - xxl-sso-web-sample-springboot：基于Cookie接入方式，供用户浏览器访问，springboot版本    - xxl-sso-token-sample-springboot：基于Token接入方式，常用于无法使用Cookie的场景使用，如APP、Cookie被禁用等，springboot版本</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-2-部署-“认证中心（SSO-Server）”"><a href="#2-2-部署-“认证中心（SSO-Server）”" class="headerlink" title="2.2 部署 “认证中心（SSO Server）”"></a>2.2 部署 “认证中心（SSO Server）”</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目名：xxl-sso-server</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-部署-“认证中心（SSO-Server）”"><a href="#2-2-部署-“认证中心（SSO-Server）”" class="headerlink" title="2.2 部署 “认证中心（SSO Server）”"></a>2.2 部署 “认证中心（SSO Server）”</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目名：xxl-sso-server</span><br></pre></td></tr></table></figure>
 
 <h4 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h4><p>配置文件位置：application.properties</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">……&#x2F;&#x2F; redis 地址： 如 &quot;&#123;ip&#125;&quot;、&quot;&#123;ip&#125;:&#123;port&#125;&quot;、&quot;&#123;redis&#x2F;rediss&#125;:&#x2F;&#x2F;xxl-sso:&#123;password&#125;@&#123;ip&#125;:&#123;port:6379&#125;&#x2F;&#123;db&#125;&quot;；多地址逗号分隔xxl.sso.redis.address&#x3D;redis:&#x2F;&#x2F;127.0.0.1:6379&#x2F;&#x2F; 登录态有效期窗口，默认24H，当登录态有效期窗口过半时，自动顺延一个周期xxl.sso.redis.expire.minute&#x3D;1440</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">……// redis 地址： 如 &quot;&#123;ip&#125;&quot;、&quot;&#123;ip&#125;:&#123;port&#125;&quot;、&quot;&#123;redis/rediss&#125;://xxl-sso:&#123;password&#125;@&#123;ip&#125;:&#123;port:6379&#125;/&#123;db&#125;&quot;；多地址逗号分隔xxl.sso.redis.address=redis://127.0.0.1:6379// 登录态有效期窗口，默认24H，当登录态有效期窗口过半时，自动顺延一个周期xxl.sso.redis.expire.minute=1440</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-3-部署-“单点登陆Client端接入示例项目”"><a href="#2-3-部署-“单点登陆Client端接入示例项目”" class="headerlink" title="2.3 部署 “单点登陆Client端接入示例项目”"></a>2.3 部署 “单点登陆Client端接入示例项目”</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目名：xxl-sso-web-sample-springboot</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-部署-“单点登陆Client端接入示例项目”"><a href="#2-3-部署-“单点登陆Client端接入示例项目”" class="headerlink" title="2.3 部署 “单点登陆Client端接入示例项目”"></a>2.3 部署 “单点登陆Client端接入示例项目”</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目名：xxl-sso-web-sample-springboot</span><br></pre></td></tr></table></figure>
 
-<h4 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;    &lt;groupId&gt;com.xuxueli&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;xxl-sso-core&lt;&#x2F;artifactId&gt;    &lt;version&gt;$&#123;最新稳定版&#125;&lt;&#x2F;version&gt;&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;    &lt;groupId&gt;com.xuxueli&lt;/groupId&gt;    &lt;artifactId&gt;xxl-sso-core&lt;/artifactId&gt;    &lt;version&gt;$&#123;最新稳定版&#125;&lt;/version&gt;&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <h4 id="配置-XxlSsoFilter"><a href="#配置-XxlSsoFilter" class="headerlink" title="配置 XxlSsoFilter"></a>配置 XxlSsoFilter</h4><p>参考代码：com.xxl.sso.sample.config.XxlSsoConfig</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Beanpublic FilterRegistrationBean xxlSsoFilterRegistration() &#123;    &#x2F;&#x2F; xxl-sso, redis init    JedisUtil.init(xxlSsoRedisAddress);    &#x2F;&#x2F; xxl-sso, filter init    FilterRegistrationBean registration &#x3D; new FilterRegistrationBean();    registration.setName(&quot;XxlSsoWebFilter&quot;);    registration.setOrder(1);    registration.addUrlPatterns(&quot;&#x2F;*&quot;);    registration.setFilter(new XxlSsoWebFilter());    registration.addInitParameter(Conf.SSO_SERVER, xxlSsoServer);    registration.addInitParameter(Conf.SSO_LOGOUT_PATH, xxlSsoLogoutPath);    return registration;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Beanpublic FilterRegistrationBean xxlSsoFilterRegistration() &#123;    // xxl-sso, redis init    JedisUtil.init(xxlSsoRedisAddress);    // xxl-sso, filter init    FilterRegistrationBean registration = new FilterRegistrationBean();    registration.setName(&quot;XxlSsoWebFilter&quot;);    registration.setOrder(1);    registration.addUrlPatterns(&quot;/*&quot;);    registration.setFilter(new XxlSsoWebFilter());    registration.addInitParameter(Conf.SSO_SERVER, xxlSsoServer);    registration.addInitParameter(Conf.SSO_LOGOUT_PATH, xxlSsoLogoutPath);    return registration;&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="配置说明-1"><a href="#配置说明-1" class="headerlink" title="配置说明"></a>配置说明</h4><p>配置文件位置：application.properties</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">……### xxl-sso     (CLient端SSO配置)##### SSO Server认证中心地址（推荐以域名方式配置认证中心，本机可参考章节&quot;2.5&quot;修改host文件配置域名指向）xxl.sso.server&#x3D;http:&#x2F;&#x2F;xxlssoserver.com:8080&#x2F;xxl-sso-server##### 注销登陆path，值为Client端应用的相对路径xxl.sso.logout.path&#x3D;&#x2F;logout##### 路径排除Path，允许设置多个，且支持Ant表达式。用于排除SSO客户端不需要过滤的路径xxl-sso.excluded.paths&#x3D;### redis   &#x2F;&#x2F; redis address, like &quot;&#123;ip&#125;&quot;、&quot;&#123;ip&#125;:&#123;port&#125;&quot;、&quot;&#123;redis&#x2F;rediss&#125;:&#x2F;&#x2F;xxl-sso:&#123;password&#125;@&#123;ip&#125;:&#123;port:6379&#125;&#x2F;&#123;db&#125;&quot;；Multiple &quot;,&quot; separatedxxl.sso.redis.address&#x3D;redis:&#x2F;&#x2F;xxl-sso:password@127.0.0.1:6379&#x2F;0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">……### xxl-sso     (CLient端SSO配置)##### SSO Server认证中心地址（推荐以域名方式配置认证中心，本机可参考章节&quot;2.5&quot;修改host文件配置域名指向）xxl.sso.server=http://xxlssoserver.com:8080/xxl-sso-server##### 注销登陆path，值为Client端应用的相对路径xxl.sso.logout.path=/logout##### 路径排除Path，允许设置多个，且支持Ant表达式。用于排除SSO客户端不需要过滤的路径xxl-sso.excluded.paths=### redis   // redis address, like &quot;&#123;ip&#125;&quot;、&quot;&#123;ip&#125;:&#123;port&#125;&quot;、&quot;&#123;redis/rediss&#125;://xxl-sso:&#123;password&#125;@&#123;ip&#125;:&#123;port:6379&#125;/&#123;db&#125;&quot;；Multiple &quot;,&quot; separatedxxl.sso.redis.address=redis://xxl-sso:password@127.0.0.1:6379/0</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-4-验证"><a href="#2-4-验证" class="headerlink" title="2.4 验证"></a>2.4 验证</h3><ul>
 <li><p>修改Host文件：域名方式访问认证中心，模拟跨域与线上真实环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 在host文件中添加以下内容0127.0.0.1 xxlssoserver.com127.0.0.1 xxlssoclient1.com127.0.0.1 xxlssoclient2.com</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 在host文件中添加以下内容0127.0.0.1 xxlssoserver.com127.0.0.1 xxlssoclient1.com127.0.0.1 xxlssoclient2.com</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>分别运行 “xxl-sso-server” 与 “xxl-sso-web-sample-springboot”</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1、SSO认证中心地址：http:&#x2F;&#x2F;xxlssoserver.com:8080&#x2F;xxl-sso-server2、Client01应用地址：http:&#x2F;&#x2F;xxlssoclient1.com:8081&#x2F;xxl-sso-web-sample-springboot&#x2F;3、Client02应用地址：http:&#x2F;&#x2F;xxlssoclient2.com:8081&#x2F;xxl-sso-web-sample-springboot&#x2F;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1、SSO认证中心地址：http://xxlssoserver.com:8080/xxl-sso-server2、Client01应用地址：http://xxlssoclient1.com:8081/xxl-sso-web-sample-springboot/3、Client02应用地址：http://xxlssoclient2.com:8081/xxl-sso-web-sample-springboot/</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>SSO登录/注销流程验证</li>
+<li>SSO登录&#x2F;注销流程验证</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">正常情况下，登录流程如下：1、访问 &quot;Client01应用地址&quot; ，将会自动 redirect 到 &quot;SSO认证中心地址&quot; 登录界面2、成功登录后，将会自动 redirect 返回到 &quot;Client01应用地址&quot;，并切换为已登录状态3、此时，访问 &quot;Client02应用地址&quot;，不需登陆将会自动切换为已登录状态正常情况下，注销流程如下：1、访问 &quot;Client01应用地址&quot; 配置的 &quot;注销登陆path&quot;，将会自动 redirect 到 &quot;SSO认证中心地址&quot; 并自动注销登陆状态2、此时，访问 &quot;Client02应用地址&quot;，也将会自动注销登陆状态</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">正常情况下，登录流程如下：1、访问 &quot;Client01应用地址&quot; ，将会自动 redirect 到 &quot;SSO认证中心地址&quot; 登录界面2、成功登录后，将会自动 redirect 返回到 &quot;Client01应用地址&quot;，并切换为已登录状态3、此时，访问 &quot;Client02应用地址&quot;，不需登陆将会自动切换为已登录状态正常情况下，注销流程如下：1、访问 &quot;Client01应用地址&quot; 配置的 &quot;注销登陆path&quot;，将会自动 redirect 到 &quot;SSO认证中心地址&quot; 并自动注销登陆状态2、此时，访问 &quot;Client02应用地址&quot;，也将会自动注销登陆状态</span><br></pre></td></tr></table></figure>
 
 <h2 id="三、快速入门（基于Token）"><a href="#三、快速入门（基于Token）" class="headerlink" title="三、快速入门（基于Token）"></a>三、快速入门（基于Token）</h2><blockquote>
 <p>基于Token，相关概念可参考 “章节 4.7”；（在一些无法使用Cookie的场景下，可使用该方式，否则可以忽略本章节）</p>
@@ -217,7 +218,7 @@
 </blockquote>
 <p>“认证中心” 搭建成功后，默认为Token方式登陆提供API接口如下：</p>
 <ul>
-<li>1、登陆接口：/app/login<ul>
+<li>1、登陆接口：&#x2F;app&#x2F;login<ul>
 <li>参数：POST参数<ul>
 <li>username：账号</li>
 <li>password：账号</li>
@@ -231,7 +232,7 @@
 </li>
 </ul>
 </li>
-<li>2、注销接口：/app/logout<ul>
+<li>2、注销接口：&#x2F;app&#x2F;logout<ul>
 <li>参数：POST参数<ul>
 <li>sessionId：登陆用户的 sso sessionid</li>
 </ul>
@@ -243,7 +244,7 @@
 </li>
 </ul>
 </li>
-<li>3、登陆状态校验接口：/app/logincheck<ul>
+<li>3、登陆状态校验接口：&#x2F;app&#x2F;logincheck<ul>
 <li>参数：POST参数<ul>
 <li>sessionId：登陆用户的 sso sessionid</li>
 </ul>
@@ -261,27 +262,28 @@
 </ul>
 </li>
 </ul>
-<h3 id="3-2-部署-“单点登陆Client端接入示例项目”-Token方式"><a href="#3-2-部署-“单点登陆Client端接入示例项目”-Token方式" class="headerlink" title="3.2 部署 “单点登陆Client端接入示例项目” (Token方式)"></a>3.2 部署 “单点登陆Client端接入示例项目” (Token方式)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目名：xxl-sso-token-sample-springboot</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-部署-“单点登陆Client端接入示例项目”-Token方式"><a href="#3-2-部署-“单点登陆Client端接入示例项目”-Token方式" class="headerlink" title="3.2 部署 “单点登陆Client端接入示例项目” (Token方式)"></a>3.2 部署 “单点登陆Client端接入示例项目” (Token方式)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">项目名：xxl-sso-token-sample-springboot</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>可参考 “章节 2.4” 部署 “单点登陆Client端接入示例项目”，唯一不同点是：将web应用的 “XxlSsoFilter” 更换为app应用 “XxlSsoTokenFilter”</p>
 </blockquote>
 <h3 id="3-3-验证-模拟请求-Token-方式接入SSO的接口"><a href="#3-3-验证-模拟请求-Token-方式接入SSO的接口" class="headerlink" title="3.3 验证 (模拟请求 Token 方式接入SSO的接口)"></a>3.3 验证 (模拟请求 Token 方式接入SSO的接口)</h3><ul>
 <li><p>修改Host文件：域名方式访问认证中心，模拟跨域与线上真实环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 在host文件中添加以下内容0127.0.0.1 xxlssoserver.com127.0.0.1 xxlssoclient1.com127.0.0.1 xxlssoclient2.com</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### 在host文件中添加以下内容0127.0.0.1 xxlssoserver.com127.0.0.1 xxlssoclient1.com127.0.0.1 xxlssoclient2.com</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>分别运行 “xxl-sso-server” 与 “xxl-sso-token-sample-springboot”</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1、SSO认证中心地址：http:&#x2F;&#x2F;xxlssoserver.com:8080&#x2F;xxl-sso-server2、Client01应用地址：http:&#x2F;&#x2F;xxlssoclient1.com:8082&#x2F;xxl-sso-token-sample-springboot&#x2F;3、Client02应用地址：http:&#x2F;&#x2F;xxlssoclient2.com:8082&#x2F;xxl-sso-token-sample-springboot&#x2F;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1、SSO认证中心地址：http://xxlssoserver.com:8080/xxl-sso-server2、Client01应用地址：http://xxlssoclient1.com:8082/xxl-sso-token-sample-springboot/3、Client02应用地址：http://xxlssoclient2.com:8082/xxl-sso-token-sample-springboot/</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>SSO登录/注销流程验证</p>
+<li><p>SSO登录&#x2F;注销流程验证</p>
 <blockquote>
 <p>可参考测试用例 ：com.xxl.app.sample.test.TokenClientTest</p>
 </blockquote>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">正常情况下，登录流程如下：1、获取用户输入的账号密码后，请求SSO Server的登录接口，获取用户 sso sessionid ；（参考代码：TokenClientTest.loginTest）2、登陆成功后，获取到 sso sessionid ，需要主动存储，后续请求时需要设置在 Header参数 中3、此时，使用 sso sessionid 访问受保护的 &quot;Client01应用&quot; 和 &quot;Client02应用&quot; 提供的接口，接口均正常返回（参考代码：TokenClientTest.clientApiRequestTest）正常情况下，注销流程如下：1、请求SSO Server的注销接口，注销登陆凭证 sso sessionid ；（参考代码：TokenClientTest.logoutTest）2、注销成功后，sso sessionid 将会全局失效3、此时，使用 sso sessionid 访问受保护的 &quot;Client01应用&quot; 和 &quot;Client02应用&quot; 提供的接口，接口请求将会被拦截，提示未登录并返回状态码 501（参考代码：TokenClientTest.clientApiRequestTest）</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">正常情况下，登录流程如下：1、获取用户输入的账号密码后，请求SSO Server的登录接口，获取用户 sso sessionid ；（参考代码：TokenClientTest.loginTest）2、登陆成功后，获取到 sso sessionid ，需要主动存储，后续请求时需要设置在 Header参数 中3、此时，使用 sso sessionid 访问受保护的 &quot;Client01应用&quot; 和 &quot;Client02应用&quot; 提供的接口，接口均正常返回（参考代码：TokenClientTest.clientApiRequestTest）正常情况下，注销流程如下：1、请求SSO Server的注销接口，注销登陆凭证 sso sessionid ；（参考代码：TokenClientTest.logoutTest）2、注销成功后，sso sessionid 将会全局失效3、此时，使用 sso sessionid 访问受保护的 &quot;Client01应用&quot; 和 &quot;Client02应用&quot; 提供的接口，接口请求将会被拦截，提示未登录并返回状态码 501（参考代码：TokenClientTest.clientApiRequestTest）</span><br></pre></td></tr></table></figure>
 
 <h2 id="四、总体设计"><a href="#四、总体设计" class="headerlink" title="四、总体设计"></a>四、总体设计</h2><h3 id="4-1-架构图"><a href="#4-1-架构图" class="headerlink" title="4.1 架构图"></a>4.1 架构图</h3><p><img src="/../images/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E6%A1%86%E6%9E%B6XXL-SSO/img_01.png" alt="输入图片说明"></p>
 <h3 id="4-2-功能定位"><a href="#4-2-功能定位" class="headerlink" title="4.2 功能定位"></a>4.2 功能定位</h3><p>XXL-SSO 是一个分布式单点登录框架。只需要登录一次就可以访问所有相互信任的应用系统。</p>
@@ -331,8 +333,8 @@
 </li>
 </ul>
 <h3 id="4-7-基于Token，相关概念"><a href="#4-7-基于Token，相关概念" class="headerlink" title="4.7 基于Token，相关概念"></a>4.7 基于Token，相关概念</h3><ul>
-<li>登陆凭证存储：登陆成功后，获取到登录凭证（xxl_sso_sessionid=xxx），需要主动存储，如存储在 localStorage、Sqlite 中</li>
-<li>Client端校验登陆状态：通过校验请求 Header参数 中的是否包含用户登录凭证（xxl_sso_sessionid=xxx）判断；因此，发送请求时需要在 Header参数 中设置登陆凭证</li>
+<li>登陆凭证存储：登陆成功后，获取到登录凭证（xxl_sso_sessionid&#x3D;xxx），需要主动存储，如存储在 localStorage、Sqlite 中</li>
+<li>Client端校验登陆状态：通过校验请求 Header参数 中的是否包含用户登录凭证（xxl_sso_sessionid&#x3D;xxx）判断；因此，发送请求时需要在 Header参数 中设置登陆凭证</li>
 <li>系统角色模型：<ul>
 <li>SSO Server：认证中心，提供用户登陆、注销以及登陆状态校验等功能</li>
 <li>Client应用：受SSO保护的Client端Web应用，为用户请求提供接口服务</li>
@@ -401,7 +403,7 @@
 <li>3、支持认证分组，分组内共享登陆状态，分组之间登录态隔离，【待考虑】</li>
 <li>4、客户端新增属性 “xxl.sso.server”，用于构建跳转连接，防止跳转第三方导致登陆漏洞</li>
 <li>5、token验证方式增加jwt方式支持</li>
-<li>6、Client端移除Redis依赖，改为 LocalCache/30s + RPC + Server-Redis/Broadcast 校验方式；</li>
+<li>6、Client端移除Redis依赖，改为 LocalCache&#x2F;30s + RPC + Server-Redis&#x2F;Broadcast 校验方式；</li>
 <li>7、安全性增强，登陆用户数据中，新增客户端信息如ip、ua等，方式session被窃取；</li>
 </ul>
 <h2 id="六、其他"><a href="#六、其他" class="headerlink" title="六、其他"></a>六、其他</h2><h3 id="6-1-项目贡献"><a href="#6-1-项目贡献" class="headerlink" title="6.1 项目贡献"></a>6.1 项目贡献</h3><p>欢迎参与项目贡献！比如提交PR修复一个bug，或者新建 <a target="_blank" rel="noopener" href="https://github.com/xuxueli/xxl-sso/issues/">Issue</a> 讨论新特性或者变更。</p>

@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">K1/K2刷华硕固件开OpenVPN安装HTTP透明代理搭建手机云免流服务器(苹果未越狱免流量)</h3>
@@ -91,8 +91,8 @@
 </blockquote>
 <p><em>因为对Linux不熟悉，通过一定的学习和研究，已经请教了原帖作者bigandy（在此表示感谢），基本搞定TinyProxy代理安装（高手略过）</em><br>第一步：下载TinyProxy，地址</p>
 <p><a target="_blank" rel="noopener" href="https://coding.net/u/bigandy/p/rt-n56u-ext-bin/git/tree/master/bin">https://coding.net/u/bigandy/p/rt-n56u-ext-bin/git/tree/master/bin</a></p>
-<p> 作者已修改的支持 sock4/5 的编译版本。<br>第二步：修改配置文件，将Port改为自己需要的，这里我保留作者的9999不动（当然这一步可以省略）<br>第三步：路由器开启SSH的情况下用WinSCP将下好的文件传到路由的 /etc/storage/bin 文件夹里面，没有的创建，不要改路径。<br>第四步：赋予bin文件夹7777权限，并在命令行中运行./tinyproxy -c /etc/storage/bin/tinyproxy.conf （确认当前运行路径是/etc/storage/bin）<br>第五步：如果运行后没有任何提示，则自己改IE代理验证是否成功。</p>
-<p>如果运行后有如下错误<br>/etc/storage/bin$ tinyproxy<br>-sh: tinyproxy: not found</p>
+<p> 作者已修改的支持 sock4&#x2F;5 的编译版本。<br>第二步：修改配置文件，将Port改为自己需要的，这里我保留作者的9999不动（当然这一步可以省略）<br>第三步：路由器开启SSH的情况下用WinSCP将下好的文件传到路由的 &#x2F;etc&#x2F;storage&#x2F;bin 文件夹里面，没有的创建，不要改路径。<br>第四步：赋予bin文件夹7777权限，并在命令行中运行.&#x2F;tinyproxy -c &#x2F;etc&#x2F;storage&#x2F;bin&#x2F;tinyproxy.conf （确认当前运行路径是&#x2F;etc&#x2F;storage&#x2F;bin）<br>第五步：如果运行后没有任何提示，则自己改IE代理验证是否成功。</p>
+<p>如果运行后有如下错误<br>&#x2F;etc&#x2F;storage&#x2F;bin$ tinyproxy<br>-sh: tinyproxy: not found</p>
 <h1 id="请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。"><a href="#请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。" class="headerlink" title="请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。"></a>请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。</h1><p>三、部分核心免流代码简介<br>那么如何能手机免流呢？免流代码是关键！至于原理自己李彦宏，至于是否能成功，必须亲自测试，请看好是必须！<br>以下代码是用于替换或添加openvpn配置文件里的免流代码的，具体看第一部分最后的截图。<br>#########免流代码############<br>这是免流代码之前必须添加的部分<br>dev tun<br>connect-retry-max 5<br>connect-retry 5<br>resolv-retry 60<br>下面是核心免流代码，能否免流就看这儿的了！<br>移动免流代码举例：<br>一、4 G<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://mmsc.monternet.com/">http://mmsc.monternet.com</a>“<br>二、<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.sc.10086.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.sc.10086.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “Host: wap.sc.10086.cn”<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “Host: wap.sc.10086.cn”<br>http-proxy 10.0.0.172 80<br>（记得把wap.sc.10086.cn换成所在地区的wap掌厅）<br>三、<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.cmvideo.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.cmvideo.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “Host: wap.cmvideo.cn”<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “Host: wap.cmvideo.cn”<br>http-proxy 106.2.108.242 80</p>
 <p>常用移动免流host有：wap.xx.10086.cn (xx是代表地区，比如广西就是wap.gx.10086.cn) wap.cmvideo.cn rd.go.10086.cn<br>联通免流host有：wap.10010.com<br>电信免流host有：ltetp.tv189.com<br>以上代码任选，以能够实现免流为准！是否免流可以下载个大文件过10分钟到一小时后查询流量，如果只跑了几个k则是免流成功！<br>如果跑了你那个大文件的流量就是不免，不要来找我，自己悠着点！<br>亲测sd地区必须加http-proxy 10.0.0.172 80这句代码才可以免，4G峰值也很快哦！ </p>
 <p>联通免流代码举例：<br>一、虾米模式<br>http-proxy-option EXT1 “Proxy-Authorization: Basic MzAwMDAwNDU5MDpGRDYzQTdBNTM0NUMxMzFF”<br>http-proxy xiami.gzproxy.10155.com 8143<br>二、<br>http-proxy-option EXT1 “Proxy-Authorization: Basic MzAwMDAwNDU5MDpGRDYzQTdBNTM0NUMxMzFF”<br>http-proxy kugou.gzproxy.10155.com 8143<br>三、<br>http-proxy-option EXT1 Proxy-Authorization:Basic YWs0NDc5OjZjOGJlMmRkYzU3MjM4MmYxNzMyMmJiMjlhNDNkZjJi<br>http-proxy 123.138.56.20 81439 </p>
@@ -102,10 +102,10 @@
 <p>四、内网IP用户突破限制架设云免服务器有关内网用户，可能以为云免与其无缘，其实华硕固件自带了穿透模式，即ngrokc服务！<br>请先去<a target="_blank" rel="noopener" href="http://www.ngrok.cc/">www.ngrok.cc</a>网站注册一下，然后设定一个域名和tcp转发端口</p>
 <p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/forum.php" alt="img"></p>
 <p>路由器里设置的命令 按要求修改  记得系统域名和端口要和ngrok.cc服务器设置的一样 有很多在这一步设置错误</p>
-<p>代码1<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0<em><strong>这个是你自己的token</strong>*</em>e]*</p>
+<p>代码1<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0<em><strong>这个是你自己的token</strong></em><em>e]</em></p>
 <p>-*AddTun[Type:tcp,Lhost:192.168.X.1,Lport:1194,Rport:<em>你自己的端口</em>] </p>
 <p>*-AddTun[Type:http,Lhost:192.168.0.1,Lport:80,Sdname:<em>你自己的系统域名</em>]</p>
-<p>代码2<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0<em><strong>这个是你自己的token</strong>*</em>e] -AddTun[Type:http,Lhost:192.168.X.1,Lport:80,Sdname:<em>你自己的系统域名</em>]<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0<em><strong>这个是你自己的token</strong></em>*e] </p>
+<p>代码2<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0<em><strong>这个是你自己的token</strong></em><em>e] -AddTun[Type:http,Lhost:192.168.X.1,Lport:80,Sdname:<em>你自己的系统域名</em>]<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0</em>*<em>这个是你自己的token</em>***e] </p>
 <p>*-AddTun[Type:tcp,Lhost:192.168.X.1,Lport:1194,Rport:<em>你自己的端口</em>] &amp;</p>
 <p>这2种代码自选一个测试 楼主只能用代码1 群内很多群友用的代码2 应该都能使用 使用方法看下图 点击图片放大</p>
 <p><img src="https://www.anywlan.com/forum.php?mod=attachment&aid=NjM1Mzk3fDE0Mzg4ZjNjfDE2MDkyMTEzMTZ8MHwzOTU4MzQ=&noupdate=yes" alt="img"> </p>
@@ -114,7 +114,7 @@
 <p><img src="https://www.anywlan.com/forum.php?mod=attachment&aid=NjM1Mzk4fGY5YjBmMjdkfDE2MDkyMTEzMTZ8MHwzOTU4MzQ=&noupdate=yes" alt="img"></p>
 <p>关于ngrokc更新问题 我用的是华硕5.26版本 没有更新ngrok插件写入代码直接可以用<br>内网也可以使用花生壳但是花生壳不出SN码 没办法  出SN码的自己实验提供一行代码<br>原贴地址:<a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-161324-1-1.html">http://www.right.com.cn/forum/thread-161324-1-1.html</a>      6楼</p>
 <p>我改了一份花生壳内网版的脚本，和adbyby一样独立运行在tmp下的脚本，麻烦楼主帮忙看看能不能合入到固件里，这样和ss分开，一些低内存没有usb口的机器也可以用了。此代码不用开启花生壳拓展  也不需要opt环境   只需一行代码就可以开启了</p>
-<p>wget -t 10 -O /tmp/install_oray.sh <a target="_blank" rel="noopener" href="http://code.taobao.org/svn/test43/phddns2/tmp/install_oray.sh">http://code.taobao.org/svn/test43/phddns2/tmp/install_oray.sh</a> &amp;&amp; sh /tmp/install<br>sleep 30<br>sh /home/root/startss.sh” </p>
+<p>wget -t 10 -O &#x2F;tmp&#x2F;install_oray.sh <a target="_blank" rel="noopener" href="http://code.taobao.org/svn/test43/phddns2/tmp/install_oray.sh">http://code.taobao.org/svn/test43/phddns2/tmp/install_oray.sh</a> &amp;&amp; sh &#x2F;tmp&#x2F;install<br>sleep 30<br>sh &#x2F;home&#x2F;root&#x2F;startss.sh” </p>
 <p>直接加在自定义脚本 运行路由启动后的脚本最下面<br>ngrok服务器映射没有想象中的稳定，要重复多次，大家可以多换几个服务器试试</p>
 <p>如果有想法，也可以用小主机、树莓派搭建，效果要比路由器好，而且能够一次集成透明代理服务。<br>有关路由器的搭建方法到此结束，云主机、小主机搭建方法很多，网上有很多一键脚本，具体可以看如下链接，在此不再赘述。<br><a target="_blank" rel="noopener" href="http://www.aeink.com/42.html0">http://www.aeink.com/42.html0</a> </p>
 <p>贴中引用了部分作者的原创，在此表示感谢<a target="_blank" rel="noopener" href="http://www.92zuanke.com/">www.92zuanke.com</a>（就爱赚客）、4G免流社区（<a target="_blank" rel="noopener" href="http://www.4gml.com/">www.4gml.com</a>）、百度相关贴吧（云免、免流、移动免流、免流破解等等）</p>

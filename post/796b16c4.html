@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -28,7 +28,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">【解决方案】WordPress无法建立到WordPress。org的安全连接</h3>
@@ -66,7 +66,7 @@
 <p>结果搜到了很多同样的问题，但是都没有得到解决，只有个别说到是因为空间商屏蔽了wordpress服务器IP，还有个别说要修改DNS为谷歌的DNS。</p>
 <p>但在尝试过后发现都不可用，于是我的脑细胞又开始了疯狂的自杀…</p>
 <p>想到曾经谷歌翻译不能用的时候会在host文件里添加记录就可以使用谷歌翻译了，于是开始尝试向host文件添加记录，首先ping一下api.wordpress.org的服务器IP得到66.155.40.249 打开host文件添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">66.155.40.249 api.wordpress.org</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">66.155.40.249 api.wordpress.org</span><br></pre></td></tr></table></figure>
 
 <p>保存，刷新后台，完美！！</p>
 <p>win系统下host文件路径：c:\windows\system32\drivers\etc</p>

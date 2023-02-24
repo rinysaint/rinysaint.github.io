@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -28,7 +28,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Armbian搭建Git服务器</h3>
@@ -63,13 +63,13 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>passwd</span><br></pre></td></tr></table></figure>
 
 <p>将git用户的shell路径替换为：<code>/usr/bin/git-shell</code></p>
-<h5 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install git</span><br></pre></td></tr></table></figure>
+<h5 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install git</span><br></pre></td></tr></table></figure>
 
 <h5 id="创建git仓库"><a href="#创建git仓库" class="headerlink" title="创建git仓库"></a>创建git仓库</h5><p>在根目录创建一个gitServer文件夹做git仓库，进入文件夹内做git初始化，注意要加<code>--bare</code>。最后将该仓库owner设为git。</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> /</span><br><span class="line"><span class="built_in">mkdir</span> gitServer</span><br><span class="line"><span class="keyword">cd</span> gitServer</span><br><span class="line">sudo git init --bare yourName.git</span><br><span class="line">sudo chown -R gi<span class="variable">t:git</span> yourName.git</span><br></pre></td></tr></table></figure>
 
 <h5 id="克隆git仓库"><a href="#克隆git仓库" class="headerlink" title="克隆git仓库"></a>克隆git仓库</h5><p>克隆到本地。</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clone <span class="symbol">ssh:</span>/<span class="regexp">/git@server:/git</span>Server/yourName.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clone <span class="symbol">ssh:</span>//git<span class="variable">@server</span><span class="symbol">:/gitServer/yourName</span>.git</span><br></pre></td></tr></table></figure>
 
 <h5 id="添加密钥"><a href="#添加密钥" class="headerlink" title="添加密钥"></a>添加密钥</h5><p>如果不想每次都输密码的话，可以将自己的公钥保存到git server上。先在本机上执行<code>ssh-keygen</code>，会发现生成了<code>id_rsa.pub</code>,这就是公钥。执行以下cmd将公钥复制到server。</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/home/git</span></span><br><span class="line">mkdir <span class="string">.ssh</span></span><br><span class="line"><span class="keyword">cd</span> <span class="string">.ssh</span></span><br><span class="line">touch authorized_keys</span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br></pre></td></tr></table></figure>

@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -27,7 +27,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">OpenWRT 配置 WireGuard 服务端及客户端配置教程</h3>
@@ -66,36 +66,36 @@
 <hr>
 <h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>注意博主的 OpenWRT 是以<strong>旁路由</strong>的形式存在于家庭网络中,<strong>所以后续防火墙设置可能和把 OpenWRT 当主路由的形式不同.</strong></p>
 <h3 id="创建公钥私钥"><a href="#创建公钥私钥" class="headerlink" title="创建公钥私钥"></a>创建公钥私钥</h3><h4 id="预共享密钥"><a href="#预共享密钥" class="headerlink" title="预共享密钥"></a>预共享密钥</h4><p>通过<code>SSH</code>登陆到 OpenWRT 后台.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir wg</span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建目录存放公钥私钥</span></span><br><span class="line">cd wg</span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入文件夹</span></span><br><span class="line">umask 077</span><br><span class="line"><span class="meta">#</span><span class="bash"> 配置创建密钥的权限</span></span><br><span class="line">wg genpsk &gt; sharekey</span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建预共享密钥</span></span><br><span class="line">cat sharekey</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取密钥复制保存</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir wg</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建目录存放公钥私钥</span></span><br><span class="line">cd wg</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入文件夹</span></span><br><span class="line">umask 077</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置创建密钥的权限</span></span><br><span class="line">wg genpsk &gt; sharekey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建预共享密钥</span></span><br><span class="line">cat sharekey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取密钥复制保存</span></span><br></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1022163021.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1022163021.jpeg)</a></p>
-<h4 id="服务端公钥私钥"><a href="#服务端公钥私钥" class="headerlink" title="服务端公钥私钥"></a>服务端公钥私钥</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wg genkey | tee server_privatekey | wg pubkey &gt; server_publickey</span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建服务端公钥和私钥</span></span><br><span class="line">cat server_privatekey</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取服务端私钥复制保存</span></span><br><span class="line">cat server_publickey</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取服务端公钥复制保存</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1022163021.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;1022163021.jpeg)</a></p>
+<h4 id="服务端公钥私钥"><a href="#服务端公钥私钥" class="headerlink" title="服务端公钥私钥"></a>服务端公钥私钥</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wg genkey | tee server_privatekey | wg pubkey &gt; server_publickey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建服务端公钥和私钥</span></span><br><span class="line">cat server_privatekey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取服务端私钥复制保存</span></span><br><span class="line">cat server_publickey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取服务端公钥复制保存</span></span><br></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3790279855.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3790279855.jpeg)</a></p>
-<h4 id="客户端公钥私钥-macOS"><a href="#客户端公钥私钥-macOS" class="headerlink" title="客户端公钥私钥 ( macOS )"></a>客户端公钥私钥 ( macOS )</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">重复此操作创建每个客户端的公钥和私钥,请注意修改以下命令中的文件名,本文以 macOS 为例:</span><br><span class="line">wg genkey | tee macos_privatekey | wg pubkey &gt; macos_publickey</span><br><span class="line"># 创建 macOS 客户端公钥和私钥</span><br><span class="line">cat macos_privatekey</span><br><span class="line"># 获取 macOS 客户端私钥复制保存</span><br><span class="line">cat macos_publickey</span><br><span class="line"># 获取 macOS 客户端公钥复制保存</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3790279855.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;3790279855.jpeg)</a></p>
+<h4 id="客户端公钥私钥-macOS"><a href="#客户端公钥私钥-macOS" class="headerlink" title="客户端公钥私钥 ( macOS )"></a>客户端公钥私钥 ( macOS )</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">重复此操作创建每个客户端的公钥和私钥,请注意修改以下命令中的文件名,本文以 macOS 为例:</span><br><span class="line">wg genkey | tee macos_privatekey | wg pubkey &gt; macos_publickey</span><br><span class="line"># 创建 macOS 客户端公钥和私钥</span><br><span class="line">cat macos_privatekey</span><br><span class="line"># 获取 macOS 客户端私钥复制保存</span><br><span class="line">cat macos_publickey</span><br><span class="line"># 获取 macOS 客户端公钥复制保存</span><br></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/731528211.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/731528211.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/731528211.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;731528211.jpeg)</a></p>
 <h3 id="配置-OpenWRT"><a href="#配置-OpenWRT" class="headerlink" title="配置 OpenWRT"></a>配置 OpenWRT</h3><h4 id="服务端相关配置"><a href="#服务端相关配置" class="headerlink" title="服务端相关配置"></a>服务端相关配置</h4><p>登陆 OpenWRT - 网络 - 接口 - 添加新接口</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/2484939947.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/2484939947.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/2484939947.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;2484939947.jpeg)</a></p>
 <p>填写接口名 - 选择接口协议 - 提交</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/286965958.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/286965958.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/286965958.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;286965958.jpeg)</a></p>
 <p>基本设置 - 填写上文获取的<code>服务端私钥</code><br>自行填写一个端口号 - <code>并且在路由器映射该端口的 UDP 协议</code><br>IP 地址填写一个 VPN 专用的网段 IP - 本文以<code>192.168.100.X</code>为 WireGuard 的专用网段为例,则本 WG 服务器 IP 为<code>192.168.100.1/24</code></p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1414831899.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1414831899.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1414831899.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;1414831899.jpeg)</a></p>
 <p>防火墙设置 - 选择 vpn</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3137243165.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3137243165.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3137243165.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;3137243165.jpeg)</a></p>
 <h4 id="客户端-Peers-区域为每个客户端添加配置"><a href="#客户端-Peers-区域为每个客户端添加配置" class="headerlink" title="客户端 Peers 区域为每个客户端添加配置"></a>客户端 Peers 区域为每个客户端添加配置</h4><p>选择<code>预共享密钥</code> - 添加</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3670085722.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3670085722.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3670085722.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;3670085722.jpeg)</a></p>
 <p>公钥 - 填写上文获取的<code>macOS 客户端公钥</code><br>预共享密钥 - 填写上文获取的<code>预共享密钥</code><br>允许的 IP - 即表示为此 macOS 客户端分配固定 IP , 本文示例为 <code>192.168.100.2/32</code> , <strong>注意各客户端 IP 不能冲突</strong>.<br>持续 Keep-Alive - 填写 25</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/275719202.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/275719202.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/275719202.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;275719202.jpeg)</a></p>
 <h4 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h4><p>网络 - 防火墙 - 自定义防火墙 - 添加以下防火墙 - 重启防火墙</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -s 192.168.100.0/24 -o br-lan -j MASQUERADE</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意此条防火墙网段 192.168.100.0/24 需和上文服务端 IP 网段保持一致.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -s 192.168.100.0/24 -o br-lan -j MASQUERADE</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">注意此条防火墙网段 192.168.100.0/24 需和上文服务端 IP 网段保持一致.</span></span><br></pre></td></tr></table></figure>
 
 
 
 <p><strong>再次声明博主的 OpenWRT 是作为旁路由接入</strong>,此条防火墙不确定适用于主路由部署 WireGuard 使用.主路由用户可以尝试无需设置防火墙(经朋友测试)</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/524460402.jpg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/524460402.jpg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/524460402.jpg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;524460402.jpg)</a></p>
 <h4 id="重启-WireGuard"><a href="#重启-WireGuard" class="headerlink" title="重启 WireGuard"></a>重启 WireGuard</h4><p>返回网络 - 接口 - 关闭 - 连接<br>或者直接重启整个 OpenWRT 最为稳妥.</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/894597398.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/894597398.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/894597398.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;894597398.jpeg)</a></p>
 <h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><h3 id="创建客户端配置文件"><a href="#创建客户端配置文件" class="headerlink" title="创建客户端配置文件"></a>创建客户端配置文件</h3><p>创建后缀为<code>.conf</code>的配置文件,例如<code>macos_wireguard.conf</code>,复制以下信息,并且修改对应的公私钥信息:</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line"><span class="attribute">Address</span> = <span class="number">192.168.100.2</span>/<span class="number">32</span></span><br><span class="line"><span class="comment"># 对应 macOS 客户段分配的 IP</span></span><br><span class="line">PrivateKey = qJHywBpl27Ao/TRse85DQ/f+kwfNGRmPDYCq0OC6uUY=</span><br><span class="line">DNS = <span class="number">192.168.1.3</span></span><br><span class="line"><span class="comment"># 本地的 DNS 服务器或者公有 DNS 服务器,例如: 114.114.114.114</span></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey = u7vjXN90uJt7pRjG8tR7hb25ssYOi7PRzJ5h9Diy02I=</span><br><span class="line">AllowedIPs = <span class="number">192.168.1.0</span>/<span class="number">24</span>, <span class="number">192.168.100.0</span>/<span class="number">24</span></span><br><span class="line"><span class="comment"># macOS 如上设置可与 ClashX Pro 共存仅代理局域网,互联网走本地网络.</span></span><br><span class="line"><span class="comment"># iPhone iPad 设置为 0.0.0.0/0 全局则模式.</span></span><br><span class="line">PresharedKey = Pu5xBEBmz9ghhUMNp5o72s+w7nuLwxJJUgNk3EljFVo=</span><br><span class="line"><span class="comment"># 预共享密钥</span></span><br><span class="line">Endpoint = ddns.xxxxx.com:<span class="number">12345</span></span><br><span class="line">PersistentKeepalive = <span class="number">25</span></span><br></pre></td></tr></table></figure>
 
@@ -103,23 +103,23 @@
 <h4 id="AllowedIPs"><a href="#AllowedIPs" class="headerlink" title="AllowedIPs"></a>AllowedIPs</h4><p>值得注意的是<code>AllowedIPs</code>参数.针对不同场景和需求,此处可以配置不用的路由.<br>当此处为<code>0.0.0.0/0</code>时表示任意网络请求都经过 VPN 俗称全局 VPN , 由于 iPhone 同时只能有 1 个 VPN 软件在线,所以当 <code>WireGuard</code> 启动时,其他类似<code>Quanx</code>,<code>小火箭</code>等软件则无法使用,此时 iPhone 可以全局 VPN 使用家中的网络来访问一些外网.</p>
 <p>如果是 macOS 或 Windows 客户端,<code>WireGuard</code>和<code>Clash</code>等软件可以共存,此处可以设置为<code>AllowedIPs = 192.168.1.0/24, 192.168.100.0/24</code>,表示访问内网网段才会走 VPN .而其他互联网,外网等访问还是走当前网络来利用<code>Clash</code>分流.</p>
 <h3 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h3><p>在 macOS App Store 下载 <code>WireGuard</code>,从文件导入隧道.</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/2003979131.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/2003979131.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/2003979131.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;2003979131.jpeg)</a></p>
 <p>选择允许添加 VPN 配置</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/302243957.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/302243957.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/302243957.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;302243957.jpeg)</a></p>
 <p>连接成功</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1707328844.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1707328844.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1707328844.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;1707328844.jpeg)</a></p>
 <p>在 OpenWRT 状态页面能够看到连接成功的状态信息</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1165251389.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1165251389.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1165251389.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;1165251389.jpeg)</a></p>
 <h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h3><p>重复上述操作创建 iPhone 的配置文件,并上传至 iCloud 云盘.<br>在 iOS 设备 App Store 下载 <code>WireGuard</code></p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1151510484.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1151510484.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1151510484.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;1151510484.jpeg)</a></p>
 <p>添加隧道 - 导入配置或压缩包</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3454281593.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3454281593.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3454281593.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;3454281593.jpeg)</a></p>
 <p>从 iCloud 云盘中选择 iphone_wireguard.conf 配置文件</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/2279540996.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/2279540996.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/2279540996.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;2279540996.jpeg)</a></p>
 <p>选择允许添加 VPN 配置</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/4147645188.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/4147645188.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/4147645188.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;4147645188.jpeg)</a></p>
 <p>连接成功</p>
-<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3906918524.jpeg">![img](/../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3906918524.jpeg)</a></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3906918524.jpeg">![img](&#x2F;..&#x2F;images&#x2F;OpenWRT 配置 WireGuard 服务端及客户端配置教程&#x2F;3906918524.jpeg)</a></p>
 <hr>
 <h2 id><a href="#" class="headerlink" title></a></h2>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->

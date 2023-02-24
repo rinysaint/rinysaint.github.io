@@ -21,7 +21,7 @@ https://blog.csdn.net/BADAO_LIUMANG_QIZHI/article/details/103555470
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -29,7 +29,7 @@ https://blog.csdn.net/BADAO_LIUMANG_QIZHI/article/details/103555470
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Dubbo环境搭建-管理控制台dubbo-admin实现服务监控</h3>
@@ -64,7 +64,7 @@ https://blog.csdn.net/BADAO_LIUMANG_QIZHI/article/details/103555470
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>进入Dubbo官网，点击GIthub</p>
 <p><a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/">http://dubbo.apache.org/zh-cn/</a></p>
 <p><img src="/../images/Dubbo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0dubboadmin%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7/1328191-20191219225907506-169614100.jpg" alt="img"></p>
-<p>进入到Github页面后，一直往下找到dubbo-admin/dubbo-monitor</p>
+<p>进入到Github页面后，一直往下找到dubbo-admin&#x2F;dubbo-monitor</p>
 <p><img src="/../images/Dubbo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0dubboadmin%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7/1328191-20191219225911795-1160310383.jpg" alt="img"></p>
 <p>在此页面会看到dubbo-admin-server,但是没有dubbo-admin,这是因为此时的分支是develop,将分支切换为master</p>
 <p><img src="/../images/Dubbo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0dubboadmin%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7/1328191-20191219225921067-845154369.jpg" alt="img"></p>
@@ -72,11 +72,11 @@ https://blog.csdn.net/BADAO_LIUMANG_QIZHI/article/details/103555470
 <p><a target="_blank" rel="noopener" href="https://github.com/apache/dubbo-admin/tree/master">https://github.com/apache/dubbo-admin/tree/master</a></p>
 <p>在此页面可以看见其官方说明</p>
 <p><img src="/../images/Dubbo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0dubboadmin%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7/1328191-20191219225925396-151057438.jpg" alt="img"></p>
-<p>下载后找到dubbo-admin-server/src/main/resources/application.properties</p>
+<p>下载后找到dubbo-admin-server&#x2F;src&#x2F;main&#x2F;resources&#x2F;application.properties</p>
 <p>将要监控的Zookpeeper注册中心的地址修改，这里是本机。</p>
 <p><img src="/../images/Dubbo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0dubboadmin%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7/1328191-20191219225933124-1429542383.jpg" alt="img"></p>
 <p>然后回到dubbo-admin目录下，在此处打开命令行窗口，使用maven进行打包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package</span><br></pre></td></tr></table></figure>
 
 <p><img src="/../images/Dubbo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0dubboadmin%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7/1328191-20191219225943163-143123458.jpg" alt="img"></p>
 <p>出现Build Success 则就打包成功</p>
@@ -84,7 +84,7 @@ https://blog.csdn.net/BADAO_LIUMANG_QIZHI/article/details/103555470
 <p>此时在目录下会生成target目录，在target目录下会有一个jar包</p>
 <p>在运行jar包程序前将上面博客所讲的ZooKeeper的服务端与客户端运行</p>
 <p>然后在target目录下打开命令行运行jar包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar dubbo-admin-0.0.1-SNAPSHOT.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar dubbo-admin-0.0.1-SNAPSHOT.jar</span><br></pre></td></tr></table></figure>
 
 <p><img src="/../images/Dubbo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0dubboadmin%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7/1328191-20191219225957350-490437057.jpg" alt="img"></p>
 <p>此时打开浏览器输入：</p>

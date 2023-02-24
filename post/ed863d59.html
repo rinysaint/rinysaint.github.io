@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -33,7 +33,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">Spring Cloud体系介绍</h3>
@@ -64,9 +64,9 @@
 <ol>
 <li>添加redis依赖并在要调用这个方法的工程配置redis:</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring: </span><br><span class="line">  redis:</span><br><span class="line">    host: localhost</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring: </span><br><span class="line">  redis:</span><br><span class="line">    host: localhost</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.data&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-data-redis&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.data&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>新建BaseRedisService:</li>
@@ -134,11 +134,11 @@ public class BaseRedisService &#123;
 <ol start="3">
 <li>使用redis:</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Autowired    </span><br><span class="line">	private BaseRedisService baseRedisService;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Autowired    </span><br><span class="line">	private BaseRedisService baseRedisService;</span><br></pre></td></tr></table></figure>
 
 <p>2.创建TokenUtils:</p>
 <p><img src="/../images/SpringCloud%E4%BD%BF%E7%94%A8redis%E5%8A%A0token%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95/20190530151252449.png" alt="img"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package com.id0304.utils;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">import java.util.UUID;</span><br><span class="line">&#x2F;&#x2F;简单示例</span><br><span class="line">public class TokenUtils &#123;</span><br><span class="line">    public static String getToken()&#123;</span><br><span class="line">        return UUID.randomUUID().toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package com.id0304.utils;</span><br><span class="line"></span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">import java.util.UUID;</span><br><span class="line">//简单示例</span><br><span class="line">public class TokenUtils &#123;</span><br><span class="line">    public static String getToken()&#123;</span><br><span class="line">        return UUID.randomUUID().toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>3.实现登录与查询</p>
 <ol>
@@ -146,29 +146,7 @@ public class BaseRedisService &#123;
 <p> package com.id0304.api.service.impl;</p>
 <p> import com.id0304.api.service.UserService;<br> import com.id0304.common.api.BaseApiService;<br> import com.id0304.common.redis.BaseRedisService;<br> import com.id0304.entity.UserEntity;<br> import com.id0304.manage.UserServiceManage;<br> import lombok.extern.slf4j.Slf4j;<br> import org.apache.commons.lang.StringUtils;<br> import org.springframework.beans.factory.annotation.Autowired;<br> import org.springframework.web.bind.annotation.RequestBody;<br> import org.springframework.web.bind.annotation.RequestParam;<br> import org.springframework.web.bind.annotation.ResponseBody;<br> import org.springframework.web.bind.annotation.RestController;</p>
 <p> import java.util.Map;</p>
-<p> @Slf4j<br> @RestController<br> public class UserServiceImpl extends BaseApiService implements UserService{</p>
-<pre><code> @Autowired
- private UserServiceManage userServiceManage;
-
- @Autowired
- private BaseRedisService baseRedisService;
- 
- //登录并存入redis
- @Override
- public Map&lt;String, Object&gt; login(@RequestBody UserEntity userEntity) &#123;
-     return userServiceManage.login(userEntity);
- &#125;
-
- //使用token查找用户信息
- @Override
- public Map&lt;String, Object&gt; getUserByToken(@RequestParam(&quot;token&quot;) String token) &#123;
-     if(StringUtils.isEmpty(token))&#123;
-         return setParamError(&quot;token不能为空&quot;);
-     &#125;
-     return userServiceManage.getUser(token);
- &#125;
-</code></pre>
-<p> }</p>
+<p> @Slf4j<br> @RestController<br> public class UserServiceImpl extends BaseApiService implements UserService{<br> @Autowired<br> private UserServiceManage userServiceManage;<br><br> @Autowired<br> private BaseRedisService baseRedisService;<br><br> &#x2F;&#x2F;登录并存入redis<br> @Override<br> public Map&lt;String, Object&gt; login(@RequestBody UserEntity userEntity) {<br>     return userServiceManage.login(userEntity);<br> }<br><br> &#x2F;&#x2F;使用token查找用户信息<br> @Override<br> public Map&lt;String, Object&gt; getUserByToken(@RequestParam(“token”) String token) {<br>     if(StringUtils.isEmpty(token)){<br>         return setParamError(“token不能为空”);<br>     }<br>     return userServiceManage.getUser(token);<br> }<br> }</p>
 </li>
 <li><p>UserServiceManage:</p>
 <p> package com.id0304.manage.impl;</p>
@@ -219,12 +197,7 @@ public class BaseRedisService &#123;
 <li><p>UserDao:</p>
 <p> package com.id0304.dao;</p>
 <p> import com.id0304.common.mybatis.BaseDao;<br> import com.id0304.entity.UserEntity;<br> import org.apache.ibatis.annotations.Mapper;<br> import org.apache.ibatis.annotations.Param;<br> import org.apache.ibatis.annotations.Select;<br> import org.springframework.stereotype.Component;</p>
-<p> @Component<br> @Mapper<br> public interface UserDao extends BaseDao{</p>
-<pre><code> //根据手机号和密码查询用户,首次登录
- @Select(&quot;select id,username,password,phone,email,created,updated from mb_user where phone = #&#123;phone&#125; and password = #&#123;password&#125;&quot;)
- public UserEntity getUserByPhoneAndPwd(@Param(&quot;phone&quot;) String phone,@Param(&quot;password&quot;) String password);
-</code></pre>
-<p> //根据id查询用户,从redis取出id再去查<br> @Select(“select id,username,password,phone,email,created,updated from mb_user where id = #{id}”)<br> public UserEntity getUserById(@Param(“id”) Long id);}</p>
+<p> @Component<br> @Mapper<br> public interface UserDao extends BaseDao{<br> &#x2F;&#x2F;根据手机号和密码查询用户,首次登录<br> @Select(“select id,username,password,phone,email,created,updated from mb_user where phone &#x3D; #{phone} and password &#x3D; #{password}”)<br> public UserEntity getUserByPhoneAndPwd(@Param(“phone”) String phone,@Param(“password”) String password);<br> &#x2F;&#x2F;根据id查询用户,从redis取出id再去查<br> @Select(“select id,username,password,phone,email,created,updated from mb_user where id &#x3D; #{id}”)<br> public UserEntity getUserById(@Param(“id”) Long id);}</p>
 </li>
 </ol>
 

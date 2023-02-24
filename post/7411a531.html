@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -31,7 +31,7 @@
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">微服务架构实践</h3>
@@ -141,7 +141,7 @@
 <p>·      连接大多基于长连接以获得性能的提升及附带的服务端推、调用链路监控埋点等，增强了系统的附加能力。</p>
 <p>·      缺点是对调用端提出了新的要求。</p>
 <p>综合来看，RPC从性能、契约优先来说具有优势，如何做到扬长避短呢？<br> 引入GateWay层，让REST与RPC的优点进行融合，在GateWay层提供REST的接入能力。</p>
-<p><strong>5.3</strong> <strong>服务注册**</strong>/**<strong>发现</strong></p>
+<p><strong>5.3</strong> <strong>服务注册</strong>**&#x2F;**<strong>发现</strong></p>
 <p>以前的单体应用之间互相调用时配置个IP或域名就行了，但在微服务架构下，服务提供者会有很多，手工配置IP地址或域名又变成了一个耦合和繁琐的事情。那么服务自动注册发现的方案就解决了这个问题。<br> 我们的服务注册发现能力是依赖SpringCloud Eureka组件实现的。服务在启动的时候，会将自己要发布的服务注册到服务注册中心；运行时，如果需要调用其他微服务的接口，那么就要先到注册中心获取服务提供者的地址，拿到地址后，通过微服务容器内部的简单负载均衡期进行路由用。</p>
 <p>Eureka Server特点：</p>
 <p>·      Eureka Client会缓存服务注册信息</p>
@@ -174,17 +174,17 @@
 <p>·      合理的熔断机制</p>
 <p>推荐SEDA架构来解决这个问题。<br> SEDA : staged event-driven architecture本质上就是采用分布式事件驱动的模式，用异步模拟来同步，无阻塞等待，再加上资源分配隔离结起来的一个解决方案。</p>
 <p><strong>5.7</strong> <strong>分布式事务</strong></p>
-<p><strong>分布式事务**</strong>-CAP**</p>
+<p><strong>分布式事务</strong><strong>-CAP</strong></p>
 <p>·      C 分布式环境下多个节点的数据是否强一致</p>
 <p>·      A 分布式服务能一直保证可用状态</p>
 <p>·      P 网络分区的容错性</p>
 <p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image025.jpg" alt="img"></p>
-<p><strong>分布式事务**</strong>-**<strong>策略</strong></p>
+<p><strong>分布式事务</strong>**-**<strong>策略</strong></p>
 <p>·      避免跨库事务，尽可能相关表在同一个DB</p>
 <p>·      2PC 3PC TCC 补偿模式等， 耗时且复杂</p>
 <p>·      基于MQ的最终一致性 简单、高效、易于理解</p>
 <p>·      将远程分布式事务拆解成一系列本地的事务</p>
-<p><strong>分布式事务**</strong>-<strong><strong>基于</strong></strong>MQ**</p>
+<p><strong>分布式事务</strong>**-<strong><strong>基于</strong></strong>MQ**</p>
 <p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image027.jpg" alt="img"></p>
 <p><strong>5.8</strong> <strong>服务拆分</strong></p>
 <p><strong>服务拆分方式</strong></p>
@@ -223,7 +223,7 @@
 <p>我们要做稳定、高效、易扩展的微服务应用，实际上我们需要做的事情还是非常多的。如果没有一个统一的微服务容器，这些能力在每个微服务组件中都需要建设一遍，也很难集成到一起。有了统一的微服务运行容器和一些公共的基础服务，前面所提到的微服务架构下部分组件重复建设的问题也迎刃而解。</p>
 <p><strong>5.14</strong> <strong>持续集成与持续部署</strong></p>
 <p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image042.jpg" alt="img"></p>
-<p>在运维方面，首先我们要解决的就是持续集成和持续交付，能够方便的用持续集成环境把程序编译成介质包和部署包并持续稳定的部署到每个环境。<br> 概念抽象：<br> 介质：是源码编译后的产物与环境无关，多环境下应该是可以共用的。如：jar<br> 配置：则是环境相关的信息。<br> 部署包=配置+介质。</p>
+<p>在运维方面，首先我们要解决的就是持续集成和持续交付，能够方便的用持续集成环境把程序编译成介质包和部署包并持续稳定的部署到每个环境。<br> 概念抽象：<br> 介质：是源码编译后的产物与环境无关，多环境下应该是可以共用的。如：jar<br> 配置：则是环境相关的信息。<br> 部署包&#x3D;配置+介质。</p>
 <p><strong>5.15</strong> <strong>微服务平台与容器云、<strong><strong>DevOps</strong></strong>的关系</strong></p>
 <p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image044.jpg" alt="img"></p>
 <p>就微服务应用平台本身来说，并不依赖DevOps和容器云，开发好的部署包可以运行在物理机、虚拟机或者是容器中。然而当微服务应用平台结合了DevOps和容器云之后，我们就会发现，持续集成和交付变成了一个非常简单便捷并且又可靠的过程。简单几步操作，整套开发、测试、预发或者生产环境就能够搭建完成。<br> 整个过程的复杂度都由平台给屏蔽掉了，通过三大基础环境的整合，我们能够使分散的微服务组件更简单方便的进行统一管理和运维交付。</p>
@@ -233,7 +233,7 @@
 <p>根据“康威定律”，软件架构是由组织的架构决定的，因此按照贝索斯“two-pizza”团队的理论和敏捷方法，构建小的团队，可以有效减少沟通成本，有利于团队的自治。<br> 我们通过让一个小的团队有比较全面的建制，Leader（熟悉业务和技术）+ 前端工程师 + 后端工程师，往往可以能够比较独立地承接一个或者几个业务的工作。这样团队成员整体负责一个或者几个业务模块，可以极大地提高团队成员的参与感、使命感和责任感，团队成员相互帮助，高度自治，大家要么一起成功，要么一起失败。</p>
 <p><strong>技术团队组织</strong> <strong>–</strong> <strong>团队划分</strong></p>
 <p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image048.jpg" alt="img"></p>
-<p>团队的划分，是按照业务线划分的。随着业务的复杂度的增加，可以按照业务/子业务线的方式来划分团队，但并不是绝对的扁平化，而是严格遵循two-pizza原则。<br> 业务线的划分常常按业务细分，技术团队要负责支持全部业务线，因此技术团队的划分通常按系统或者是业务，Two pizza团队的原则在组织层级的任何部分都适用，当人数过多时，必须继续拆分。</p>
+<p>团队的划分，是按照业务线划分的。随着业务的复杂度的增加，可以按照业务&#x2F;子业务线的方式来划分团队，但并不是绝对的扁平化，而是严格遵循two-pizza原则。<br> 业务线的划分常常按业务细分，技术团队要负责支持全部业务线，因此技术团队的划分通常按系统或者是业务，Two pizza团队的原则在组织层级的任何部分都适用，当人数过多时，必须继续拆分。</p>
 <p><strong>技术团队组织</strong> <strong>–</strong> <strong>团队合作</strong></p>
 <p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image050.jpg" alt="img"></p>
 <p><strong>技术团队组织</strong> <strong>–</strong> <strong>结果导向</strong></p>

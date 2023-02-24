@@ -22,7 +22,7 @@ kubernetes集群包括master主机和node从机  以下放个简单的关系图 
 <link rel="stylesheet" href="/css/diaspora.css">
 <link rel="stylesheet" href="/css/APlayer.min.css">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="loading">
     <span id="config-title" style="display:none">萧日宁的世界</span>
@@ -30,7 +30,7 @@ kubernetes集群包括master主机和node从机  以下放个简单的关系图 
     <div id="single">
     <div id="top" style="display: block;">
     <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://www.aichn.cn"></a>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://blog.aichn.cn"></a>
         <!-- page音乐插件 -->
         
     <h3 class="subtitle">CentOS7安装k8s （kubernetes）教程 yum方式</h3>
@@ -66,10 +66,10 @@ kubernetes集群包括master主机和node从机  以下放个简单的关系图 
 <p>#关闭防火墙<br>systemctl stop firewalld</p>
 <p>#禁用开机自启动<br>systemctl disable firewalld</p>
 <p>#关闭SELinux<br>setenforce 0  #临时关闭</p>
-<p>#永久关闭selinux：<br>vim /etc/sysconfig/selinux<br>SELINUX=enforcing 替换为SELINUX=disabled 需重启机器</p>
+<p>#永久关闭selinux：<br>vim &#x2F;etc&#x2F;sysconfig&#x2F;selinux<br>SELINUX&#x3D;enforcing 替换为SELINUX&#x3D;disabled 需重启机器</p>
 <p>#关闭swap<br>swapoff -a  #临时关闭</p>
-<p>#永久关闭swap<br>vi /etc/fstab  #注释掉最后一行关于swap的配置  可参考我的Linux分类中的其他博客<br>  1.4 机器准备</p>
-<p>服务器    操作系统    IP    需要组件<br>master    centOs7    192.168.33.229    etcd,kube-apiserver,kube-scheduler,kube-controller-manager,docker(看个人需要)<br>node1    centOs7    192.168.33.226    kube-proxy,kubelet,docker<br>node2    centOs7    192.168.33.227    kube-proxy,kubelet,docker<br>  1.5 组件介绍：</p>
+<p>#永久关闭swap<br>vi &#x2F;etc&#x2F;fstab  #注释掉最后一行关于swap的配置  可参考我的Linux分类中的其他博客<br>  1.4 机器准备</p>
+<p>服务器	操作系统	IP	需要组件<br>master	centOs7	192.168.33.229	etcd,kube-apiserver,kube-scheduler,kube-controller-manager,docker(看个人需要)<br>node1	centOs7	192.168.33.226	kube-proxy,kubelet,docker<br>node2	centOs7	192.168.33.227	kube-proxy,kubelet,docker<br>  1.5 组件介绍：</p>
 <pre><code>master主机组件：
 </code></pre>
 <p>　　　etcd：提供分布式数据存储的数据库吧，用于持久化存储k8s集群的配置和状态</p>
@@ -82,15 +82,15 @@ kubernetes集群包括master主机和node从机  以下放个简单的关系图 
 <p>　　　docker：运行项目镜像容器的组件</p>
 <pre><code>  组件具体介绍这里可以参考 官方kubernetes组件介绍
 </code></pre>
-<p>2.在Master机器上安装kubernetes-master和etcd<br>   2.1 分别修改三台服务器的 /etc/hosts 文件 增加以下ip配置</p>
+<p>2.在Master机器上安装kubernetes-master和etcd<br>   2.1 分别修改三台服务器的 &#x2F;etc&#x2F;hosts 文件 增加以下ip配置</p>
 <p>  192.168.33.229  k8s-master<br>  192.168.33.226  k8s-node1<br>  192.168.33.227  k8s-node2</p>
 <p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115116452.png" alt="img"></p>
 <p>   2.2 使用yum安装etcd、kubernetes-master</p>
-<p>yum -y install etcd kubernetes-master<br>   2.3.编辑  vi /etc/etcd/etcd.conf 修改如下</p>
+<p>yum -y install etcd kubernetes-master<br>   2.3.编辑  vi &#x2F;etc&#x2F;etcd&#x2F;etcd.conf 修改如下</p>
 <p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115530626.png" alt="img"></p>
-<p>   2.4 编辑 vi /etc/kubernetes/apiserver 修改如下</p>
+<p>   2.4 编辑 vi &#x2F;etc&#x2F;kubernetes&#x2F;apiserver 修改如下</p>
 <p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709115846650.png" alt="img"></p>
-<p>  2.5 编辑  vi /etc/kubernetes/config 修改如下</p>
+<p>  2.5 编辑  vi &#x2F;etc&#x2F;kubernetes&#x2F;config 修改如下</p>
 <p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/2020070912004248.png" alt="img"></p>
 <p>2.6 启动 etcd ,kube-apiserver, kube-controller-manager, kube-scheduler 等服务 并设置开机自启动</p>
 <p>for SERVICES in etcd docker kube-apiserver kube-controller-manager kube-scheduler; </p>
@@ -100,11 +100,11 @@ kubernetes集群包括master主机和node从机  以下放个简单的关系图 
 <p>done</p>
 <p>到此 以上Master主机配置完毕 </p>
 <p>3.接下来配置node从机配置<br>   3.1 在node1机器上安装 kubernetes-node 组件 192.168.33.226</p>
-<p>yum -y install kubernetes-node<br>  3.2 编辑 /etc/sysconfig/flanneld 修改如下 (flannel暂不安装后续单独做配置 该步骤可忽略 不影响其他)</p>
+<p>yum -y install kubernetes-node<br>  3.2 编辑 &#x2F;etc&#x2F;sysconfig&#x2F;flanneld 修改如下 (flannel暂不安装后续单独做配置 该步骤可忽略 不影响其他)</p>
 <p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121037854.png" alt="img"></p>
-<p>  3.3  编辑 vi /etc/kubernetes/config 修改如下</p>
+<p>  3.3  编辑 vi &#x2F;etc&#x2F;kubernetes&#x2F;config 修改如下</p>
 <p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121159502.png" alt="img"></p>
-<p>  3.4. 编辑 vi /etc/kubernetes/kubelet 修改如下</p>
+<p>  3.4. 编辑 vi &#x2F;etc&#x2F;kubernetes&#x2F;kubelet 修改如下</p>
 <p><img src="/../images/CentOS7%E5%AE%89%E8%A3%85k8s%E6%95%99%E7%A8%8Byum%E6%96%B9%E5%BC%8F/20200709121412434.png" alt="img"></p>
 <p>  3.5 启动 kube-proxy，kubelet, docker 等服务 并设置开机自启</p>
 <p>for SERVICES in docker kubelet kube-proxy;do systemctl start $SERVICES;systemctl enable $SERVICES;systemctl status $SERVICES; done<br>node2服务器参考node1配置</p>
