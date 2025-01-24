@@ -1,0 +1,319 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>君子兰萧宇的博客 - 人工智能,大数据工程师</title><meta name="keywords" content="君子兰,萧宇,肖宇,博客,人工智能,大数据,aichn,智慧中夏"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="学而不思则罔，思而不学则殆"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/page/3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-01-24 10:09:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="site-info"><h1 id="site-title">君子兰萧宇的博客</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/c34d48be.html" title="K8S命令">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="K8S命令"></a></div><div class="recent-post-info"><a class="article-title" href="/post/c34d48be.html" title="K8S命令">K8S命令</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/K8S/">K8S</a></span></div><div class="content">服务器1123# 在本地服务器打包镜像docker save -o my_image.tar /my_image:v3 （打包）docker save my_image:v3 | gzip &gt; my_image.tar.gz（打包压缩）
+服务器2 - 打开窗口1123456789101112131415# 将打包好的容器，load到新的服务器# docker load -i my_image.tar.gz # 运行镜像成容器docker run -i -d my_image:v3# 查询容器Iddocker ps | grep my_image# 进入容器内部docker exec -it  容器Id bash# 修改需要修改的内容# 方法一内部修改  &gt;直接取代  &gt;&gt;追加echo &quot;text&quot; &gt; filename# 方法二 外部送入， ！！！得另开一个窗口, 在正常服务器路径下不在docker容器内部docker  cp /newfile.xx 容器Id:/needDir/newfile.xx# 返回窗口1查看效果 cat new ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/7a74bfdf.html" title="OpenWRT 配置 WireGuard 服务端及客户端配置教程">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OpenWRT 配置 WireGuard 服务端及客户端配置教程"></a></div><div class="recent-post-info"><a class="article-title" href="/post/7a74bfdf.html" title="OpenWRT 配置 WireGuard 服务端及客户端配置教程">OpenWRT 配置 WireGuard 服务端及客户端配置教程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/WireGuard/">WireGuard</a></span></div><div class="content">前言去年出过一期在 OpenWRT 上部署 OpenConnect VPN 的详细教程,主要用于在外办公方便VPN 回家的使用场景.博主几乎每天使用持续了一年多,在 macOS 和 iOS 上体验都非常的稳定.
+而今天的主角是已经火了几年的了WireGuard, 同样是 VPN 回家服务,在博主试用了一段时间后决定以后主用 WG 了.
+由于 WireGuard 在 Linux 上安装配置较为麻烦,而很多 OpenWRT 固件也都预装了 WG ,并且有图形化界面方便设置.所以博主目前推荐还是在 OpenWRT 来直接使用.
+WireGuard 与 OpenConnect VPN 的区别抛开深沉的原理,简单通俗的说明下两者的区别和使用感受:OpenConnect VPN主要是使用 TCP 协议,而WireGuard则是 UDP 协议.最明显使用感知就是前者需要类似拨号一样过程,在网络断开,重连等情况下并非无感.而WireGuard则类似于常驻后台,随用随取的感觉,体验不错.
+在配置方面, OpenConnect VPN 需要使用证书来提高使用安全和连接体验,而 WireGuard 则是使用 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/39837a8d.html" title="Spring-Cloud-Gateway 从升级到放弃">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring-Cloud-Gateway 从升级到放弃"></a></div><div class="recent-post-info"><a class="article-title" href="/post/39837a8d.html" title="Spring-Cloud-Gateway 从升级到放弃">Spring-Cloud-Gateway 从升级到放弃</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a></span></div><div class="content">1 为什么要升级为spring-cloud-gateway？Spring Cloud Gateway features:
+
+Built on Spring Framework 5, Project Reactor and Spring Boot 2.0
+Able to match routes on any request attribute.
+Predicates and filters are specific to routes.
+Hystrix Circuit Breaker integration.
+Spring Cloud DiscoveryClient integration
+Easy to write Predicates and Filters
+Request Rate Limiting
+Path Rewriting
+
+这是官方说的，spring gateway相对spring zuul要新很多，应用也更加自由，开发体验更好。但是我在测试中发现，spring-cloud-gateway相对于zuul来说，更加出众的还是其性能，当然最后让我放弃的也是因为这一点。
+网上的 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/833d311b.html" title="git钩子hookpost-receive">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git钩子hookpost-receive"></a></div><div class="recent-post-info"><a class="article-title" href="/post/833d311b.html" title="git钩子hookpost-receive">git钩子hookpost-receive</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/git/">git</a></span></div><div class="content">以下为服务端的配置在服务器/www/wwwroot/hook.com上新建两个文件夹public 代码部署git 裸仓库
+
+切换到git目录下
+
+然后进入/www/wwwroot/hook.com/git/test.git/hooks
+
+复制一份post-receive.sample 并改名为post-receive
+1[root@iZbp1938t1plpi1gikahmmZ hooks]# cp post-receive.sample post-receive
+然后编辑 post-receive 添加如下代码 保存退出
+12345DIR=/www/wwwroot/hook.com/publicgit --work-tree=$&#123;DIR&#125; clean -fdgit --work-tree=$&#123;DIR&#125; checkout --force
+
+修改post-receive 文件的权限
+1chmod -R 777 post-receive
+以下是本地配置在本地上新建一个文件夹 然后添加为远程仓库
+1234// 初始化一个git仓库git init//  ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/24f7247.html" title="hexo d部署到个人服务器git仓库上">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="hexo d部署到个人服务器git仓库上"></a></div><div class="recent-post-info"><a class="article-title" href="/post/24f7247.html" title="hexo d部署到个人服务器git仓库上">hexo d部署到个人服务器git仓库上</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Hexo/">Hexo</a></span></div><div class="content">本篇前置条件：1 个人服务器已安装git，则可创建git仓库，参考/post/c4bcdb47.html2 本地PC机已安装node，hexo，参考对应官方网站手册即可
+以下为具体步骤：第一步：服务端创建对应git仓库：hexo-blog.git
+12345cd /home/git su - git （因我的git账户名为git，需切换权限）mkdir hexo-blog.gitcd hexo-blog.gitgit --bare init
+则此时git地址为：&#x67;&#x69;&#116;&#x40;&#49;&#x32;&#x37;&#46;&#x31;&#46;&#x31;&#x2e;&#x31;:/home/git/hexo-blog.gitgit 为您的账号127.1.1.1 为您的服务器ip/home/git/hexo-blog.git 为仓库目录
+可以在本地PC验证服务端git仓库有效性：git clone &#103;&#x69;&#x74;&#64;&#x31;&#x32;&#x37;&#x2e;&#x31;&#x2e;&#x31;&#46;&#x31;:/ho ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/3eb9c17e.html" title="springcloud项目网关升级：gateway替代zuul以及解决gateway跨域访问问题">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="springcloud项目网关升级：gateway替代zuul以及解决gateway跨域访问问题"></a></div><div class="recent-post-info"><a class="article-title" href="/post/3eb9c17e.html" title="springcloud项目网关升级：gateway替代zuul以及解决gateway跨域访问问题">springcloud项目网关升级：gateway替代zuul以及解决gateway跨域访问问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a></span></div><div class="content">注：Spring Cloud Gateway建立在Spring Framework 5，Project Reactor和Spring Boot 2之上，使用非阻塞API。 Websockets得到支持，并且由于它与Spring紧密集成，所以将会是一个更好的 开发 体验。本文只讲述搭建过程，具体源码解析可以参考：http://www.iocoder.cn/categories/Spring-Cloud-Gateway/1.添加maven依赖：
+123456789101112&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-starter-webflux&lt;/artifactId&gt;&lt;/dependency&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;    &lt;artifactId&g ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/146ab2c6.html" title="主元分析（PCA）在计算机图形学中的应用">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="主元分析（PCA）在计算机图形学中的应用"></a></div><div class="recent-post-info"><a class="article-title" href="/post/146ab2c6.html" title="主元分析（PCA）在计算机图形学中的应用">主元分析（PCA）在计算机图形学中的应用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a></span></div><div class="content">本文首先简要介绍主元分析，然后侧重于举例说明主元分析在计算机图形学中的应用，最后给出主元分析的计算步骤与其作用于三维数据的相应代码。
+一. 简介  主元分析，即Principal Component Analysis，简称PCA，是一种对数据进行分析的技术。如其名字所述，它的作用是分析数据分布的主要元素/结构。主元分析会由主到次找到数据的分布方向，通过舍去那些次要的分布方向，它可以用于去除噪声、数据降维等。其计算简单，在多个领域有着广泛的应用。
+  以二维平面数据可以形象地说明主元分析。如图 1所示，给定XA、YA坐标系下的一些2维数据点（图中圆圈），我们希望找到方向轴Xp、Yp，其中Xp代表了数据的主要分布方向（主元轴），当Yp方向的变化很小时，我们可以认为Yp方向的变化为噪声所产生，因此可以去掉Yp这一维。
+
+图 1 主元分析示意图
+  设图1中原来的有一个数据P为（3.05, 2.95），即
+
+  主元分析获得主元轴Xp、Yp后，P可以表示为
+   此时P仍为2维数据，但是因为Xp轴的存在，只用一个坐标4.184表示就可以了。
+  教程“A tutorial on Princip ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/c4bcdb47.html" title="在服务器上搭建自己的git私人仓库">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在服务器上搭建自己的git私人仓库"></a></div><div class="recent-post-info"><a class="article-title" href="/post/c4bcdb47.html" title="在服务器上搭建自己的git私人仓库">在服务器上搭建自己的git私人仓库</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/git/">git</a></span></div><div class="content">
+在日常工作中我们往往使用gitee、github、gitlab等,第三方的git仓库。有时候我们想在自己的服务器上搭建一个git服务器,方便自己的代码提交。
+
+一、使用环境
+1、服务器端使用centos7(虚拟机)
+2、客户端直接是本机电脑
+
+二、服务器端的操作
+1、安装git
+1yum install -y git
+2、创建一个git用户
+12useradd gitpasswd git # 输入密码,待会客户端提交的密码就是这个
+3、创建仓库
+12345su - git # 切换到git用户cd ~ # 进入根目录下mkdir dev-test.git # 创建一个仓库cd dev-test.gitgit --bare init # 初始化仓库
+三、客户端的操作
+1、安装git
+
+2、克隆代码
+1git clone git@服务器地址:服务器工程目录(/home/git/dev-test.git)
+3、进入克隆后的文件夹
+
+4、新增一个文件并提交到服务器
+
+5、在别的文件夹下继续克隆下刚刚的地方,看看提交的文件是否存在
+
+
+四、配置免密码登录
+1、在客户端生成密钥并拷贝公钥
+12s ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/7f834cb4.html" title="大数据Flink详细教程(中篇)">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大数据Flink详细教程(中篇)"></a></div><div class="recent-post-info"><a class="article-title" href="/post/7f834cb4.html" title="大数据Flink详细教程(中篇)">大数据Flink详细教程(中篇)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a></span></div><div class="content">大数据计算框架 Flink 实战教程共分为3篇。涵盖 Flink 安装配置、基本原理、核心概念、 流处理 API 和批处理 API、存储及状态一致性、容错机制、实战案例以及面试题讲解等。
+本篇为第2篇，主要讲解 Flink 的 API、Window 和 Watermark 机制、状态管理和存储、容错机制、状态一致性等等。第1篇看这里。第3篇看这里。
+文章目录
+
+
+FlinkAPI
+Environment
+Source
+Transformation
+Flink数据类型
+Sink
+window
+window原理与分类
+window api
+
+
+时间语义
+watermark
+乱序问题
+watermark原理
+watermark的传递
+watermark api
+旧API
+新API
+window触发条件
+乱序处理
+# watermark
+# allowedLateness
+# sideOutputLateData
+
+
+
+
+
+
+Flink状态管理
+State分类
+State存在形式
+Keyed State详解
+
+
+Flink状态后端
+Flink容错机制
+检查点
+基本概念
+实现原理
+代码配置
+
+
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/d713bc0c.html" title="大数据Flink详细教程(前篇)">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="大数据Flink详细教程(前篇)"></a></div><div class="recent-post-info"><a class="article-title" href="/post/d713bc0c.html" title="大数据Flink详细教程(前篇)">大数据Flink详细教程(前篇)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="发表于 2019-09-28 20:10:33">2019-09-28</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a></span></div><div class="content">Flink实战教程共分三篇。本篇为第一篇，主要讲解Flink的入门、安装配置、基本术语&amp;概念、核心原理。第二篇看这里，第三篇看这里。
+【仅需一次订阅，作者所有专栏都能看】
+推荐【Kafka】https://bigbird.blog.csdn.net/article/details/108770504推荐【Flink】https://blog.csdn.net/hellozpc/article/details/109413465推荐【SpringBoot】https://blog.csdn.net/hellozpc/article/details/107095951推荐【SpringCloud】https://blog.csdn.net/hellozpc/article/details/83692496推荐【Mybatis】https://blog.csdn.net/hellozpc/article/details/80878563推荐【SnowFlake】https://blog.csdn.net/hellozpc/article/details/108248227推荐【并发限 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/4/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div><ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DDNS/"><span class="card-category-list-name">DDNS</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Git/"><span class="card-category-list-name">Git</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Hexo/"><span class="card-category-list-name">Hexo</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/K8S/"><span class="card-category-list-name">K8S</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/WireGuard/"><span class="card-category-list-name">WireGuard</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ddns/"><span class="card-category-list-name">ddns</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/docker/"><span class="card-category-list-name">docker</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/git/"><span class="card-category-list-name">git</span><span class="card-category-list-count">2</span></a></li>
+            <li class="card-category-list-item more is-center"><a class="card-category-list-link-more" href="/categories/">
+                <span>查看更多</span><i class="fas fa-angle-right"></i></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Python/" style="font-size: 1.3em; color: #99a1ac">-Python</a> <a href="/tags/WNMPA/" style="font-size: 1.1em; color: #999">-WNMPA</a> <a href="/tags/linux/" style="font-size: 1.25em; color: #999fa7">-linux</a> <a href="/tags/php/" style="font-size: 1.15em; color: #999b9e">-php</a> <a href="/tags/python/" style="font-size: 1.15em; color: #999b9e">-python</a> <a href="/tags/win10/" style="font-size: 1.1em; color: #999">-win10</a> <a href="/tags/win7/" style="font-size: 1.2em; color: #999da3">-win7</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.45em; color: #99a7ba">-人工智能</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 1.1em; color: #999">-人工智能 -大数据</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">-人工智能 -机器学习</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">-人工智能 -神经网络</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">-人工智能 -神经网络 -算法</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 1.35em; color: #99a3b1">-其他</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 1.2em; color: #999da3">-大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.1em; color: #999">-大数据 -人工智能</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">-大数据 -机器学习</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 1.5em; color: #99a9bf">-技术</a> <a href="/tags/%E6%96%90%E8%AE%AF-%E6%8A%80%E6%9C%AF/" style="font-size: 1.1em; color: #999">-斐讯 -技术</a> <a href="/tags/%E6%9D%82%E8%AE%B0/" style="font-size: 1.15em; color: #999b9e">-杂记</a> <a href="/tags/%E6%B8%B8%E6%88%8F/" style="font-size: 1.15em; color: #999b9e">-游戏</a> <a href="/tags/%E7%94%B5%E5%BD%B1/" style="font-size: 1.1em; color: #999">-电影</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 1.15em; color: #999b9e">-神经网络</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.2em; color: #999da3">-神经网络 -人工智能</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.15em; color: #999b9e">-算法</a> <a href="/tags/%E9%9F%B3%E4%B9%90/" style="font-size: 1.1em; color: #999">-音乐</a> <a href="/tags/Aplayer/" style="font-size: 1.1em; color: #999">Aplayer</a> <a href="/tags/Axhub/" style="font-size: 1.1em; color: #999">Axhub</a> <a href="/tags/CentOS7/" style="font-size: 1.1em; color: #999">CentOS7</a> <a href="/tags/DDNS-%E9%98%BF%E9%87%8C%E4%BA%91-Shell%E8%84%9A%E6%9C%AC/" style="font-size: 1.1em; color: #999">DDNS,阿里云,Shell脚本</a> <a href="/tags/Git-git%E6%9C%8D%E5%8A%A1%E5%99%A8-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" style="font-size: 1.1em; color: #999">Git,git服务器,自动化部署</a> <a href="/tags/Git%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">Git服务器</a> <a href="/tags/Hexo-git%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.15em; color: #999b9e">Hexo,git服务器</a> <a href="/tags/Hexo-%E4%B8%AA%E4%BA%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">Hexo,个人服务器</a> <a href="/tags/K8S-%E5%91%BD%E4%BB%A4/" style="font-size: 1.1em; color: #999">K8S,命令</a> <a href="/tags/Nginx-%E9%AB%98%E5%B9%B6%E5%8F%91-%E4%BC%98%E5%8C%96/" style="font-size: 1.1em; color: #999">Nginx,高并发,优化</a> <a href="/tags/OpenWRT-WireGuard-%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">OpenWRT,WireGuard,服务器</a> <a href="/tags/Openvpn-%E5%85%8D%E6%B5%81-%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">Openvpn,免流,服务器</a> <a href="/tags/WireGuard/" style="font-size: 1.1em; color: #999">WireGuard</a> <a href="/tags/ddns/" style="font-size: 1.15em; color: #999b9e">ddns</a> <a href="/tags/docker/" style="font-size: 1.4em; color: #99a5b6">docker</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/12/"><span class="card-archive-list-date">十二月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/12/"><span class="card-archive-list-date">十二月 2019</span><span class="card-archive-list-count">9</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">十月 2019</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/09/"><span class="card-archive-list-date">九月 2019</span><span class="card-archive-list-count">15</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/06/"><span class="card-archive-list-date">六月 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item more is-center"><a class="card-archive-list-link-more" href="/archives/">
+              <span>查看更多</span><i class="fas fa-angle-right"  ></i></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">163</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-24T02:09:02.047Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function subtitleType () {
+  getScript('https://sdk.jinrishici.com/v2/browser/jinrishici.js').then(() => {
+    jinrishici.load(function (result) {
+      if (true) {
+        var sub = "学而不思则罔，思而不学则殆,Learning without thinking is useless, Thinking without learning is dangerous,读万卷书，行万里路,Read ten thousands of books,Travel ten thousands of miles".length == 0 ? new Array() : "学而不思则罔，思而不学则殆,Learning without thinking is useless, Thinking without learning is dangerous,读万卷书，行万里路,Read ten thousands of books,Travel ten thousands of miles".split(',')
+        var content = result.data.content
+        var both = sub.unshift(content)
+        var typed = new Typed('#subtitle', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('subtitle').innerHTML = result.data.content
+      }
+    })
+  })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

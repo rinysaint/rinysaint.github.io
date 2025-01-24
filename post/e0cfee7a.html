@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆 | 君子兰萧宇的博客</title><meta name="keywords" content="群晖,GitServer,SSH"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="一、序言公司长期使用SVN作为版本管理仓库,并且没有使用分支管理,在开发与发布时遇到了很多问题.后来配置了Jenkins自动化出版本,在开发与发布中需要进场切换版本. 综合考虑,最终决定在内网NAS上搭建一个Git远程仓库.NAS是Linux内核的操作系统,所以需要一定Linux命令操作的基础.查阅大量资料并实践,最终整理成这一篇文章. 二、环境配置  群晖NAS (我们使用的非Plus版本,不支"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/e0cfee7a"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2021-12-23T13:06:36.000Z" title="undefined 2021-12-23 21:06:36">2021-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BE%A4%E6%99%96/">群晖</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>一、序言<br>公司长期使用SVN作为版本管理仓库,并且没有使用分支管理,在开发与发布时遇到了很多问题.后来配置了Jenkins自动化出版本,在开发与发布中需要进场切换版本. 综合考虑,最终决定在内网NAS上搭建一个Git远程仓库.<br>NAS是Linux内核的操作系统,所以需要一定Linux命令操作的基础.查阅大量资料并实践,最终整理成这一篇文章.</p>
+<p>二、环境配置</p>
+<ol>
+<li>群晖NAS (我们使用的非Plus版本,不支持docker安装GitLab,只能使用GitServer)</li>
+<li>NAS管理员权限</li>
+<li>SSH客户端,xshell或者putty</li>
+</ol>
+<p>三、开始配置</p>
+<ol>
+<li>安装GitServer<br>在群晖NAS的套件中心安装GitServer,这一步非常简单<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"></li>
+<li>创建一个共享目录用于存放Git仓库,并设置访问权限</li>
+<li>创建仓库目录<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984671.png" alt="在这里插入图片描述"></li>
+<li>创建一个用户群组,并设置访问权限<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984672.png" alt="在这里插入图片描述"><br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984673.png" alt="在这里插入图片描述"></li>
+<li>新建用户并加入git_group<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984674.png" alt="在这里插入图片描述"><br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/403b58a6aacf462189b4d66d1e575f96.png" alt="在这里插入图片描述"></li>
+<li>在GitServer中添加用户访问权限<br>在NAS的主程序中打开GitServer,并添加刚刚创建的用户访问权限<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984675.png" alt="在这里插入图片描述"></li>
+<li>打开用户账户中的家目录<br>打开家目录有两个作用</li>
+<li>解决用户通过ssh访问的时候会提示目录不存在的问题</li>
+<li>可以为用户配置SSH秘钥,实现免密登陆<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984686.png" alt="在这里插入图片描述"></li>
+<li>开启SSH远程访问功能</li>
+</ol>
+<p><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984687.png" alt="在这里插入图片描述"></p>
+<p>走到这一步,NAS可以通过页面设置的部分都处理完成,接下来我们需要用过SSH远程连接NAS,通过命令来创建Git仓库</p>
+<p>四、创建Git仓库<br>使用xshell/putty等工具连接NAS,需要用管理员账号登陆</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo -i  							//切换管理员权限</span><br><span class="line"><span class="built_in">cd</span> <span class="built_in">cd</span> /volume1/gittest   			//进入刚刚创建的共享目录中</span><br><span class="line"><span class="built_in">mkdir</span> res.git						//创建仓库	</span><br><span class="line"><span class="built_in">cd</span> res.git</span><br><span class="line">git init --bare 					//初始化git仓库</span><br></pre></td></tr></table></figure>
+<p><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984688.png" alt="在这里插入图片描述"></p>
+<ol>
+<li>配置设置文件归属和权限<br>至此，git仓库已经创建好，但是我们并不能正确访问到，因为目录还有访问权限，我们需要将gittest目录下所有文件的访问权限修改为当前用户可以访问</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /volume1 </span><br><span class="line"><span class="built_in">chown</span> -R root:git_group gittest			//修改gittest文件及其子目录的归属用户和组</span><br><span class="line"><span class="built_in">cd</span> </span><br></pre></td></tr></table></figure>
+<p>五、使用Git与配置ssh秘钥</p>
+<ol>
+<li>接下来我们可以使用git来拉取NAS上的仓库了</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://gittest_user@192.168.2.55/volume1/gittest/res.git</span><br></pre></td></tr></table></figure>
+<p>如果提示 Could not chdir to home directory /var/services/homes/gittest_user: Permission denied<br>warning: You appear to have cloned an empty repository.<br>我们需要将/var/service的权限修改一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 775 /var</span><br><span class="line"><span class="built_in">chmod</span> 775 /var/services</span><br><span class="line"><span class="built_in">chmod</span> 755 -R /var/services/homes										//homes以及子目录的权限必须为755</span><br></pre></td></tr></table></figure>
+<ol>
+<li>配置ssh秘钥<br>这里使用git拉取,推送每次都需要使用密码,我们可以创建秘钥来实现免密ssh登陆</li>
+<li>允许ssh使用秘钥验证</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+<p>解开以下几行的注释,并退出保存</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSAAuthentication <span class="built_in">yes</span></span><br><span class="line">PubkeyAuthentication <span class="built_in">yes</span></span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<p>接着重启 ssh 服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo synoservicectl --restart sshd</span><br></pre></td></tr></table></figure>
+<p>或者在NAS网页控制台中重新关闭,打开ssh设置<br>\2. 生成秘钥<br>在客户端主机中执行以下命令(我使用的git bash)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ./gittest_user    //-f 指定秘钥文件路径和名称</span><br></pre></td></tr></table></figure>
+<p><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_18,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"></p>
+<p>此时我们就得到了两个文件<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-16727463984689.png" alt="在这里插入图片描述"></p>
+<ol>
+<li>上传公钥文件到NAS<br>客户端执行以下命令(git bash)</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ./gittest_user.pub username@192.168.2.55:/volume1/homes/gittest_user/.ssh</span><br></pre></td></tr></table></figure>
+<p>这个时候我们上传不了文件到NAS中,提示没有权限,这是因为NASgittest_user 目录下的权限是755</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp: /volume1/homes/gittest_user/.ssh//gittest_user.pub: Permission denied</span><br></pre></td></tr></table></figure>
+<p>只有临时把NAS的 /volume1/homes/gittest_user 目录权限改为777,上传之后再修改回来</p>
+<p>上传成功之后,使用xshell执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /volume1/homes/gittest_user/.ssh/</span><br><span class="line"><span class="built_in">cat</span> gittest_user.pub &gt; authorized_keys</span><br><span class="line"><span class="built_in">chmod</span> 755 authorized_keys	</span><br></pre></td></tr></table></figure>
+<ol>
+<li>客户端私钥转换<br>因为 TortoiseGit 和SourcesTree 使用的是ppk格式的私钥,我们需要把pem私钥转换成ppk私钥</li>
+</ol>
+<p>打开PuTTY Key Generator,并导入pem私钥<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_17,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"></p>
+<p>点击 Save private key 保存ppk格式的私钥</p>
+<ol>
+<li>使用TortoiseGit重新拉取<br><img src="/../images/%E7%BE%A4%E6%99%96NAS%E6%90%AD%E5%BB%BAGitServer%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90%E4%B8%8ESSH%E7%A7%98%E9%92%A5%E5%85%8D%E5%AF%86%E7%99%BB%E9%99%86/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ29vbFlzbA==,size_20,color_FFFFFF,t_70,g_se,x_16-167274639846810.png" alt="在这里插入图片描述"></li>
+</ol>
+<p>现在每次拉取推送都不再需要输入密码了</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/e0cfee7a.html">http://aichn.cn/post/e0cfee7a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BE%A4%E6%99%96/">群晖</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/49be3a04.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">dockerkubeadm安装</div></div></a></div><div class="next-post pull-right"><a href="/post/7d9f7df6.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Axhub Charts Pro 帮助文档</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>卷积与转置卷积 | 君子兰萧宇的博客</title><meta name="keywords" content="人工智能,神经网络,卷积,转置卷积"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="卷积与转置卷积 得益于神经网络崛起，卷积成为近些年大热的数学词汇，不再只是待在信号处理这门要命的课程之中。 关于卷积在图像处理中的应用，操作部分看上图就明白了：假设输入图像的大小为 5 x 5，局部感受野（或称卷积核）的大小为 3 x 3，那么输出层一个神经元所对应的计算过程如上图所示。动态一点的话也可以看下面的动图。而为什么要这么算，如果学过一点图像处理就很好说明，图像处理的经典边缘提取算法如c"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/525002ea"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190111094531172.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">卷积与转置卷积</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="undefined 2018-12-23 21:06:36">2018-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>卷积与转置卷积</p>
+<p><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171022961.jpg" alt="在这里插入图片描述"><br>得益于神经网络崛起，卷积成为近些年大热的数学词汇，不再只是待在信号处理这门要命的课程之中。</p>
+<p>关于卷积在图像处理中的应用，操作部分看上图就明白了：假设输入图像的大小为 5 x 5，局部感受野（或称<strong>卷积核</strong>）的大小为 3 x 3，那么输出层一个神经元所对应的计算过程如上图所示。动态一点的话也可以看下面的动图。<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171546140.gif" alt="在这里插入图片描述"><br>而为什么要这么算，如果学过一点图像处理就很好说明，图像处理的经典边缘提取算法如canny，sobel等，或者其他一些经典算法，其实归根结底就是一个卷积过程，只不过里面的卷积核是人为设定的而已。相比于神经网络的全连接层，用卷积层更加能够快速提取到图像的局部信息，也因此更有旋转不变性等的优势，此外需要训练的参数量相比全连接也要少的多。</p>
+<p>在实做方面，为了效率，往往会把卷积计算用矩阵来做。</p>
+<p>假设一个卷积操作，它的输入是 4x4，卷积核大小是 3x3，步长为 1x1，输出则为 2x2，如下所示：</p>
+<p>我们将其从左往右，从上往下以的方式展开，</p>
+<ul>
+<li>输入矩阵可以展开成维数为 [16, 1] 的矩阵，记作 x</li>
+<li>输出矩阵可以展开成维数为 [4, 1] 的矩阵，记作 y</li>
+<li>卷积核可以表示为 [4, 16] 的矩阵，记作 C，其中非 0 的值表示卷积对应的第 i 行 j 列的权重。<img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171627110.png" alt="在这里插入图片描述"></li>
+<li>所以卷积可以用 y = C * x = [4, 16] * [16, 1]=[4, 1]y=C∗x=[4,16]∗[16,1]=[4,1]来表示</li>
+</ul>
+<p>那卷积就说完了（padding那些并没提及，后面再补吧，比较简单）。</p>
+<p>下面看看转置卷积。它火起来应该是从FCN（Fully Convolutional Networks for Semantic Segmentation）这篇论文开始的。该论文提出了一种全卷积神经网络，然后通过转置卷积对最后一层（或者倒数几层）进行上采样，将图像的大小恢复到与输入图像一样，该文章为语义分割指出了一条明路，也使得转置卷积看起来非常高大上。但其实，这个东西并没有什么神奇的。。。</p>
+<p>首先再看一下<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171717569.png" alt="在这里插入图片描述"><br>卷积的示意图，下面的1只参与生成上面的1，而下面的2参与生成上面的1、2。那么我们能不能反过来，把这一过程逆向呢？答案是可以的，就是下面这张图：<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190110171753705.png" alt="在这里插入图片描述"><br>我们把小图像按照需要扩展一下（下面虚线部分），然后其他部分按照卷积那么算就可以了。它得到的大小会跟卷积前的一样。巧妙的是上面的1只受下面的1影响，而上面的2受到下面的1、2影响，刚刚好就是一对逆向关系。如果把现在的小图像写在右边，卷积核矩阵写在左边，那么该卷积核矩阵写出来刚刚好就是正常卷积的卷积核矩阵的转置。所以这种卷积叫做转置卷积。</p>
+<p>这里面有个问题可以稍微看下，那就是对原图做卷积然后再做转置卷积的过程是一个从大到小再到大的过程，那么开始和结束是一样的吗？</p>
+<p>答案是不一样的，这个过程会丢失图像信息。至于丢多少主要取决于中间的”小”能保存多少。但这对于语义分割是OK的，因为我们最终要得到的信息会比原图少的多。</p>
+<p>另外在本人看来，因为神经网络的权重都是要训练之后得出来的，因此其实转置卷积和正常卷积看起来真的没有多大的不同，不过就是在正常卷积不填充的情况下会把图像变小，而转置卷积一定会填充而把图像变大罢了。</p>
+<p>在pytorch中使用转置卷积的代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># coding:utf-8</span><br><span class="line">from PIL import Image</span><br><span class="line">import numpy as np</span><br><span class="line">import torchvision.transforms as transforms</span><br><span class="line">import torch</span><br><span class="line">from torch import nn</span><br><span class="line"></span><br><span class="line">x=Image.open(&quot;demo.jpg&quot;)</span><br><span class="line">x.show()</span><br><span class="line">x=transforms.ToTensor()(x)</span><br><span class="line">x=torch.unsqueeze(x,0)#添加一个维度</span><br><span class="line">conv_trans = nn.ConvTranspose2d(3, 3,(12,12), 2)# 定义转置卷积</span><br><span class="line">y=conv_trans(x)#转置卷积计算</span><br><span class="line">y=torch.squeeze(y)#扔掉一个维度</span><br><span class="line">#结果显示</span><br><span class="line">imgout=transforms.ToPILImage()(y)</span><br><span class="line">print(x.shape)</span><br><span class="line">print(y.shape)</span><br><span class="line">imgout.show()</span><br></pre></td></tr></table></figure>
+<p>原图<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190111094531172.png" alt="在这里插入图片描述"><br>结果：<br><img src="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/2019011109465584.png" alt="在这里插入图片描述"></p>
+<p>从图上可以看到，pytorch在初始化的时候应该已经将转置卷积核参数设置成特征提取的形式了。</p>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/09ea4df7a788?utm_source=oschina-app">https://www.jianshu.com/p/09ea4df7a788?utm_source=oschina-app</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1363619">https://cloud.tencent.com/developer/article/1363619</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/525002ea.html">http://aichn.cn/post/525002ea.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">-人工智能 -神经网络</a></div><div class="post_share"><div class="social-share" data-image="/../images/%E5%8D%B7%E7%A7%AF%E4%B8%8E%E8%BD%AC%E7%BD%AE%E5%8D%B7%E7%A7%AF/20190111094531172.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/e66f8853.html"><img class="prev-cover" src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108163103218.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">共轭函数</div></div></a></div><div class="next-post pull-right"><a href="/post/d1234036.html"><img class="next-cover" src="/../images/%E6%8B%B7%E8%B4%9D%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%85%AC%E5%BC%8F%E5%88%B0%E6%9C%AC%E5%9C%B0/20190227174410743.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">拷贝网页上的公式到本地</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

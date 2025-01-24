@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>《上古卷轴5：天际》人物美化过程 | 君子兰萧宇的博客</title><meta name="keywords" content="游戏,上古卷轴5,人物美化"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="一步一步美化老滚5的人物 首先，论坛上已经有很多版本的一键美化包了，不过里面的东西太多太全，一般使用者不知道里面都有什么，每一个组件是什么版本，作者（或者整合者）是以什么先后顺序整合这些美化补丁组件的。有些人只需要单项的优化，比如眉毛或嘴唇之类的。所以我写了这个帖子，介绍一下自己安装美化人物的各种mod的先后顺序，大家完全可以举一反三，把其中的组件换成自己想要的，打造自己“独一无二”的美化补丁。"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/6f1c150b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">《上古卷轴5：天际》人物美化过程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="undefined 2016-12-23 21:06:36">2016-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%B8%E6%88%8F/">游戏</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>一步一步美化老滚5的人物</p>
+<p>首先，论坛上已经有很多版本的一键美化包了，不过里面的东西太多太全，一般使用者不知道里面都有什么，每一个组件是什么版本，作者（或者整合者）是以什么先后顺序整合这些美化补丁组件的。有些人只需要单项的优化，比如眉毛或嘴唇之类的。所以我写了这个帖子，介绍一下自己安装美化人物的各种mod的先后顺序，大家完全可以举一反三，把其中的组件换成自己想要的，打造自己“独一无二”的美化补丁。</p>
+<p>其次，本帖不提供下载，仅提供s网链接。一是因为本人网络龟速，二是因为这些mod更新的很快，所以希望大家直接去s网下载，顺便给作者好评。</p>
+<p>第三，这里的美化仅指身体模型、身体和脸部贴图、面部细节（眉毛、嘴唇、疤痕等）和头发的美化，包括丰胸、提臀、美白、去皱，不包括npc面部模型改变（即“换脸”）。</p>
+<p>最后，纯新手向，老鸟勿喷~~~</p>
+<hr>
+<p>美化原则，或者说美化思路：</p>
+<p>人物美化无非就两件事：模型（这里单指体型）美化和贴图（材质，或者说皮肤）美化。从这个角度讲没有什么必须装的美化补丁，s网美化mod浩如烟海，根据每个人审美观不同各取所需吧。女性的话对我而言，体型常用的是cbbe和unp，我眼拙实在分不出好坏来，考虑到cbbe资源多一些，干脆选它好了；脸部材质更多，我倾向真实系，所以修眉过重的coverwoman和过于幼齿的nidia face是不会用的。这里必须说一下，建议新手选择身体、脸部贴图时尽量选择同一作者的，防止脸和身体出现色差。</p>
+<hr>
+<p>准备知识：</p>
+<p>1.老滚5的人物模型（即身体、头部、手脚模型）、动作文件、人物骨骼文件都放在Meshes\actors文件夹下；人物皮肤、头发贴图之类的都放在Textures\actors文件夹下;</p>
+<p>2.更换身体模型、皮肤和头发的材质等，主角和NPC都会同时改变。</p>
+<p>3.下面的安装，除了注明可用NMM的外，均不推荐用NMM安装。</p>
+<hr>
+<p>下面开始正文：</p>
+<hr>
+<p>首先是女性：</p>
+<p>一、安装CHSBHC - BBP - Nude and Jiggly Mod（即俗称的乳摇系统，必装）</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://skyrim.nexusmods.com/downloads/file.php?id=4888">点击进入</a></p>
+<p>下载CHSBHC-Body-Physics-ModV2-4-1，把meshes和textures解压到data文件夹下。</p>
+<p>简单说一下这个mod的作用。这个mod提供了一个叫CHSBHC的女性体型和对应的皮肤贴图，还提供了一个叫BBP的动作系统，就是大家耳熟能详的乳摇系统了。有了这个BBP系统，再配合对应的身形或衣服，就能实现乳摇。这个CHSBHC身形相对而言不是很受欢迎，所以我们接下来会用其他的体型（和对应的皮肤贴图）替换掉这个身形，但是保留其中的BBP系统。所以这个mod必须最先装。</p>
+<p>二、安装Calientes Female Body Mod Big Bottom Edition（即俗称的CBBE身形，目前版本3.1，必装）</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://skyrim.nexusmods.com/downloads/file.php?id=2666">点击进入</a></p>
+<p>下载Caliente Female Body Mod BBE v3-1，把meshes和textures解压到data文件夹下，覆盖掉原先的文件。</p>
+<p>这个mod提供了一个简称CBBE的女性体型和对应的皮肤贴图，也是现在最通用，资源也是最多的女性身体模型。s网上看到“xxx for cbbe”，基本就能确定这是可以穿的，不会出现断手断脚的问题。</p>
+<p>做完这一步，你已经得到了一个可以乳摇的cbbe的体型了，完全可以穿各种支持BBP的衣服，正常乳摇而不会跳出。缺点是貌似不支持果体乳摇，这一点我也不确定，不过无所谓，我们接下来用支持果体乳摇的身形文件把CBBE默认的身形替换掉。但是CBBE安装包里带了手、脚的模型文件还有对应的身体、手贴图，这些是不用替换的，所以这个CBBE必须第二位、在接下来的身形之前安装。</p>
+<p>三、安装支持乳摇的CBBE V3M身形（选装，强烈推荐）</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://bbs.3dmgame.com/thread-3078908-1-1.html">点击进入</a></p>
+<p>把meshes解压到data文件夹下，覆盖掉原先的文件。</p>
+<p>这个mod提供了smgygfa修改的CBBE V3M身形，兼容CBBE v3身形，所以手脚之类的不会出现裂痕。CBBE V3M是s网MAK修改的CBBE v3身形，臀部和大腿更丰满。smgygfa修改后支持果体乳摇。但是安装文件里没有对应的手脚模型和身体贴图，所以必须先安装CBBE v3.1。</p>
+<p>四、安装The skeleton of female models（即俗称的女性九头身骨骼，选装，推荐）</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://skyrim.nexusmods.com/downloads/file.php?id=11064">点击进入</a></p>
+<p>把meshes解压到data文件夹下，覆盖掉原先的文件。</p>
+<p>没啥好说的，女性骨骼文件（和体型不冲突），装了以后女性不管用什么身形，下半身更修长，整体比例更好。</p>
+<p>五、安装CBBE skin texture V2 V3 plus Thepal and UNP compatible （cbbe可选身体/面部贴图，选装，强烈推荐）</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://skyrim.nexusmods.com/downloads/file.php?id=6554">点击进入</a></p>
+<p>这个mod可选项较多，包括CBBE可用的皮肤、脸部贴图，均有多种贴图可选。</p>
+<p>1.CBBE skin texture v1_8 shaved MAIN FILE (lite)是身体贴图，带LITE的是低分辨率版，机器差可以用</p>
+<p>2.Female Face skin v1_8 Fuller Lips v2 （LITE） 是脸部贴图，带LITE的是低分辨率版，机器差可以用</p>
+<p>3.Vanilla skin texture那几个是原版游戏风格的皮肤，不推荐</p>
+<p>4.CBBE skin texture v1_8 feminine arm toned abs PATCH这个是让女性手臂线条更柔和的补丁，推荐</p>
+<p>5.CBBE skin texture v1_8 hairy landingstrip (strip/wild/trimmed)body PATCH 这几个是修改女性死厨毛发的补丁，我用的是landingstrip，推荐用photoshop打开贴图挨个看看，自己选择</p>
+<p>6.CBBE skin texture v1_8 muscular body PATCH 女性身体更多肌肉的贴图，喜欢的可以试试</p>
+<p>7.Darker liptint mask for more opaque lip color</p>
+<p>Female Face skin v1_8 rev1 Fuller Lips and more character PATCH</p>
+<p>Female Face skin v1_8 rev1 Fuller Lips with makeup PATCH这几个好像改了女性面部和嘴唇的贴图，我装了第三个，可选装</p>
+<p>8.后面几个带 Vanilla字眼的都是原版风格贴图，不推荐</p>
+<p>最后说一下我装的吧，注意安装顺序：</p>
+<p>CBBE_skin_texture_v1_8_shaved_MAIN_FILE-6554-1-8.7z</p>
+<p>Female_Face_skin_v1_8_Fuller_Lips_v2_-6554.7z</p>
+<p>CBBE_skin_texture_v1_8_feminine_arm_toned_abs_PATCH-6554-1-8.7z</p>
+<p>CBBE_skin_texture_v1_8_hairy_landingstrip_body_PATCH-6554-1-8.7z</p>
+<p>Female_Face_skin_v1_8_rev1_Fuller_Lips_with_makeup_PATCH-6554-1-8.7z</p>
+<p>这样保证了身体材质和脸部材质都是同一个作者，不会出现色差。</p>
+<p>六、安装HD Normals v1 - Female Faces （选装，推荐）</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://skyrim.nexusmods.com/downloads/file.php?id=1039">点击进入</a></p>
+<p>注意这个mod只需要其中一个文件！即Data\Textures\Actors\Character\femaleold\femalehead_msn.dds，复制到游戏目录对应的目录下覆盖掉原文件，其他的文件不要安装。</p>
+<p>为什么要覆盖掉这个文件？因为步骤五里安装了脸部贴图，其中老年女性的面部贴图跟原版相差甚远，几乎没啥皱纹，所以用这个文件替换一下。其实不替换也没啥问题。</p>
+<p>至此女性美化文件基本安装完了（其实没完，看下边），我们来看看男性美化。</p>
+<p>更多相关内容请关注：<a target="_blank" rel="noopener" href="http://www.gamersky.com/z/tes5/">上古卷轴5专区</a></p>
+<p>更多相关内容请关注：<a target="_blank" rel="noopener" href="http://www.gamersky.com/z/tes5/">上古卷轴5：天际专区</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/6f1c150b.html">http://aichn.cn/post/6f1c150b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B8%B8%E6%88%8F/">-游戏</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/afa9daf5.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">win10 网络连接0x80070035</div></div></a></div><div class="next-post pull-right"><a href="/post/a50b72fa.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【刷机教程】【四核RK3128芯迪优美特X5】4个最新安卓固件〖附详细教程〗</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/aecb2428.html" title="2013年7月flash游戏推荐"><img class="cover" src="/../images/2013%E5%B9%B47%E6%9C%88flash%E6%B8%B8%E6%88%8F%E6%8E%A8%E8%8D%90/clip_image001.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">2013年7月flash游戏推荐</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

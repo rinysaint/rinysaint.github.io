@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>微服务架构实践 | 君子兰萧宇的博客</title><meta name="keywords" content="微服务,spring cloud"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="目录 业务背景 微服务概念 微服务技术选型 微服务架构设计 微服务架构设计落地 微服务架构设计过程中积累的心得 总结 一、业务背景 1.1 产品现状 1、各产品系统独立开发，代码复用率低，系统之间互相调用，耦合严重，系统解耦独立部署困难。 2、传统的单体架构，规模越来越大也越来越笨重；当新功能的开发、功能的重构变得不再敏捷可控；测试者的回归测试边界难以琢磨；系统的上线部署也变的艰难 3、高并发访问"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/7411a531"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">微服务架构实践</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-09-28T12:10:33.000Z" title="undefined 2018-09-28 20:10:33">2018-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>目录</strong></p>
+<p>业务背景<br> 微服务概念<br> 微服务技术选型<br> 微服务架构设计<br> 微服务架构设计落地<br> 微服务架构设计过程中积累的心得<br> 总结</p>
+<p><strong>一、业务背景</strong></p>
+<p><strong>1.1</strong> <strong>产品现状</strong></p>
+<p>1、各产品系统独立开发，代码复用率低，系统之间互相调用，耦合严重，系统解耦独立部署困难。<br> 2、传统的单体架构，规模越来越大也越来越笨重；当新功能的开发、功能的重构变得不再敏捷可控；测试者的回归测试边界难以琢磨；系统的上线部署也变的艰难<br> 3、高并发访问下无法提供可靠性服务<br> 4、持续集成、持续部署、持续交付等工程效率化工具严重缺失<br> 5、监控系统、日志分析等系统稳定性工具严重缺失<br> 以上种种情况，都让我们应对需求的变化而变得迟钝。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image001.jpg" alt="img"></p>
+<p><strong>1.2</strong> <strong>业务需求</strong></p>
+<p>架构肯定是为业务需求而生的，先来看看我们面对的业务需求及其特点。平台最主要满足两大类业务需求：面向餐饮企业在餐饮新零售下的经营和运营需求和面向产品及运营团队。<br> 具体来看：<br> 1、餐饮新零售下的餐饮企业经营和运营的痛点</p>
+<p>·      如何提升营销能力和管理会员，以更低的成本为餐饮企业带来更多利润</p>
+<p>·      如何对数据进行深度挖掘和分析，助力决策者进行运营决策</p>
+<p>·      如何掌握实时数据，让决策者及时了解餐厅运营情况</p>
+<p>2、面向产品及运营团队</p>
+<p>·      主要是提升产品控制能力，促进整体系统的良好运转</p>
+<p>因此开发SAAS服务的产品迫在眉睫，需要满足快速开发、灵活升级、高性能、高可用、高稳定、简化运维等更高的需求。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image002.jpg" alt="img"></p>
+<p>这一步的转型，不是”快”与”慢”，而是”生”与”死”。</p>
+<p><strong>二、微服务概念</strong></p>
+<p>专注于单一责任与功能独立运行的服务，模组化方式组合出大型应用。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image004.jpg" alt="img"></p>
+<p><strong>2.1</strong> <strong>特点</strong></p>
+<p>·      集中式架构：单体无分散</p>
+<p>·      分布式架构：分散压力</p>
+<p>·      微服务架构：分散能力</p>
+<p><img src="/images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image006.jpg" alt="img"></p>
+<p><strong>2.2</strong> <strong>微服务架构优势</strong></p>
+<p>·      每个微服务组件都是简单灵活的，能够独立部署。不再像单体应用时代，应用需要一个庞大的应用服务器来支撑。</p>
+<p>·      可以由一个小团队负责更专注专业，相应的也就更高效可靠。</p>
+<p>·      微服务之间是松耦合的，微服务内部是高内聚的，每个微服务很容易按需扩展。</p>
+<p><strong>三、微服务技术选型和微服务的问题</strong></p>
+<p><strong>3.1</strong> <strong>技术选型</strong></p>
+<p><img src="/images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image008.jpg" alt="img"></p>
+<p><strong>3.1.1</strong> <strong>技术矩阵结论</strong></p>
+<p>·      Netflix提供了比较全面的解决方案</p>
+<p>·      Spring Cloud对于Netflix的封装比较全面</p>
+<p>·      Spring Cloud基于Spring Boot，团队有基础</p>
+<p>·      Spring Cloud提供了Control Bus能够帮助实现监控埋点</p>
+<p>·      业务应用部署在阿里云，Spring Cloud对12 Factors以及Cloud-Native的支持，有利于在云环境下使用</p>
+<p><strong>3.1.2</strong> <strong>团队期望</strong></p>
+<p>·      首先支持Rest</p>
+<p>·      团队技术栈和实例比较单薄，希望对新的技术平滑的学习曲线和能够Hold住</p>
+<p>·      小团队，希望能够有一个比较全面的解决方案</p>
+<p>·      目前团队主要采用Spring Cloud + Spring Boot的方式实现服务化</p>
+<p>有关技术选型详细分析，请查看我的上一篇文章<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzI4NjY0NTYwMg==&mid=2247483821&idx=1&sn=e54f3a6d0ff89f892c05bc8ec9fc5da3&chksm=ebd88da0dcaf04b64033dda78a64475d478b80a587a6a5270d0d0b6c67c2d1fcb4d4dba78473&scene=21#wechat_redirect">《我的技术选型》</a>。</p>
+<p><strong>3.2</strong> <strong>微服务带来的问题</strong></p>
+<p>·      依赖服务变更很难跟踪，其他团队的服务接口文档过期怎么办？依赖的服务没有准备好，如何验证我开发的功能。</p>
+<p>·      部分模块重复构建，跨团队、跨系统、跨语言会有很多的重复建设。</p>
+<p>·      微服务放大了分布式架构的系列问题，如分布式事务怎么处理？依赖服务不稳定怎么办？</p>
+<p>·      运维复杂度陡增，如：部署物数量多、监控进程多导致整体运维复杂度提升。</p>
+<p><img src="/images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image010.jpg" alt="img"></p>
+<p>上面这些问题我们应该都遇到过，并且总结形成了自己的一些解决方案，比如提供文档管理、服务治理、服务模拟的工具和框架； 实现统一认证、统一配置、统一日志框架、分布式汇总分析； 采用全局事务方案、采用异步模拟同步；搭建持续集成平台、统一监控平台等等。</p>
+<p>微服务架构是一把双刃剑，虽然解决了集中式架构和分布式架构的问题，却带来了如上种种问题。因此我们是需要一个微服务应用平台才能整体性的解决这些问题。</p>
+<p><strong>四、微服务架构设计</strong></p>
+<p><strong>4.1</strong> <strong>微服务应用架构设计原则</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image012.jpg" alt="img"></p>
+<p><strong>4.2</strong> <strong>微服务应用架构设计目标</strong></p>
+<p>微服务架构设计的目标，满足快速开发、灵活升级、高性能、高可用、高稳定、简化运维等更高的需求。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image014.jpg" alt="img"></p>
+<p><strong>4.3</strong> <strong>微服务应用总体架构</strong></p>
+<p>微服务应用平台的总体架构，主要是从开发集成、微服务运行容器与平台、运行时监控治理和外部渠道接入等维度来划分和考虑的。</p>
+<p>·      开发集成：主要是搭建一个微服务平台需要具备的一些工具和仓库</p>
+<p>·      运行时：要有微服务平台来提供一些基础能力和分布式的支撑能力，我们的微服务运行容器则会运行在这个平台之上。</p>
+<p>·      监控治理：则是致力于在运行时能够对受管的微服务进行统一的监控、配置等能力。</p>
+<p>·      服务网关： 则是负责与前端的WEB应用 移动APP 等渠道集成，对前端请求进行认证鉴权，然后路由转发。</p>
+<p><strong>4.4</strong> <strong>微服务框架概览</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image016.jpg" alt="img"></p>
+<p>这里不详细讲解服务框架中每一个组件，另开一篇文章来讲解。</p>
+<p><strong>五、微服务架构设计落地</strong></p>
+<p><strong>5.1</strong> <strong>基础环境</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image018.jpg" alt="img"></p>
+<p>一个企业的IT建设非常重要的三大基础环境：团队协作环境、服务基础环境、IT基础设施。</p>
+<p>·      团队协作环境：主要是DevOps领域的范畴，负责从需求到计划任务，团队协作，再到质量管理、持续集成和发布。</p>
+<p>·      服务基础环境：指的是微服务应用平台，其目标主要就是要支撑微服务应用的设计开发测试，运行期的业务数据处理和应用的管理监控。</p>
+<p>·      IT基础设施：主要是各种运行环境支撑如IaaS (VM虚拟化)和CaaS (容器虚拟化)等实现方式。</p>
+<p><strong>5.2</strong> <strong>服务通信</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image020.jpg" alt="img"></p>
+<p>服务间的通信，往往采用HTTP+REST 和 RPC通信协议。</p>
+<p>HTTP+REST，对服务约束完全靠提供者的自觉。</p>
+<p>·      特点是简单，对开发使用友好。</p>
+<p>·      缺点治理起来困难，连接的无状态，缺失多路复用、服务端推送等。</p>
+<p>RPC对通信双方定义了数据约束。</p>
+<p>·      连接大多基于长连接以获得性能的提升及附带的服务端推、调用链路监控埋点等，增强了系统的附加能力。</p>
+<p>·      缺点是对调用端提出了新的要求。</p>
+<p>综合来看，RPC从性能、契约优先来说具有优势，如何做到扬长避短呢？<br> 引入GateWay层，让REST与RPC的优点进行融合，在GateWay层提供REST的接入能力。</p>
+<p><strong>5.3</strong> <strong>服务注册**</strong>/<strong>**发现</strong></p>
+<p>以前的单体应用之间互相调用时配置个IP或域名就行了，但在微服务架构下，服务提供者会有很多，手工配置IP地址或域名又变成了一个耦合和繁琐的事情。那么服务自动注册发现的方案就解决了这个问题。<br> 我们的服务注册发现能力是依赖SpringCloud Eureka组件实现的。服务在启动的时候，会将自己要发布的服务注册到服务注册中心；运行时，如果需要调用其他微服务的接口，那么就要先到注册中心获取服务提供者的地址，拿到地址后，通过微服务容器内部的简单负载均衡期进行路由用。</p>
+<p>Eureka Server特点：</p>
+<p>·      Eureka Client会缓存服务注册信息</p>
+<p>·      Eureka Server的注册信息只存储在内存中</p>
+<p>·      Eureka的注册只针对application级别，不支持更细粒度的服务注册，如单个服务Rest</p>
+<p>·      服务每隔30秒向Eureka Server发送心跳，不建议修改心跳时间。Eureka用这个时间来判断集群内是否存在大范围的服务通信异常</p>
+<p>·      如果在15分钟内有85%的服务没有被续约，则Eureka Server停止移除已注册的服务，以保障已注册的服务信息不丢失</p>
+<p>·      Eureka Server之间的数据同步，采用全量拉取，增量同步的方式</p>
+<p>·      Eureka 满足分布式事务中的CAP理论中的AP</p>
+<p><strong>5.4</strong> <strong>集中式配置管理</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image022.jpg" alt="img"></p>
+<p>微服务分布式环境下，一个系统拆分为很多个微服务，一定要告别运维手工修改配置配置的方式。需要采用集中配置管理的方式来提升运维的效率。<br> 配置文件主要有运行前的静态配置和运行期的动态配置两种。</p>
+<p>·      静态配置通常是在编译部署包之前设置好。</p>
+<p>·      动态配置则是系统运行过程中需要调整的系统变量或者业务参数。</p>
+<p>要想做到集中的配置管理，那么需要注意以下几点。</p>
+<p>·      配置与介质分离，这个就需要通过制定规范的方式来控制。</p>
+<p>·      配置的方式要统一，格式、读写方式、变更热更新的模式尽量统一，要采用统一的配置框架。</p>
+<p>·      需要运行时需要有个配置中心来统一管理业务系统中的配置信息。</p>
+<p>概念抽象：<br> 介质，是源码编译后的产物与环境无关，多环境下应该是可以共用的如：jar</p>
+<p><strong>5.5</strong> <strong>统一认证鉴权</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image024.jpg" alt="img"></p>
+<p>安全认证方面，我们基于Spring Security OAuth2 + JWT做安全令牌，实现统一的安全认证与鉴权，使得微服务之间能够按需隔离和安全互通。<br> 认证鉴权一定是个公共的服务，而不是多个系统各自建设。</p>
+<p><strong>5.6</strong> <strong>分布式调用</strong></p>
+<p>微服务架构下，相对于传统部署方式，存在更多的分布式调用，那么“如何在不确定的环境中交付确定的服务”，这句话可以简单理解为，我所依赖的服务的可靠性是无法保证的情况下，我如何保证自己能够正常的提供服务，不被我依赖的其他服务拖垮？<br> 我们采用的方案：</p>
+<p>·      合理的超时时间</p>
+<p>·      合理的重试机制</p>
+<p>·      合理的异步机制</p>
+<p>·      合理的限流机制（调用次数和频率）</p>
+<p>·      合理的降级机制</p>
+<p>·      合理的熔断机制</p>
+<p>推荐SEDA架构来解决这个问题。<br> SEDA : staged event-driven architecture本质上就是采用分布式事件驱动的模式，用异步模拟来同步，无阻塞等待，再加上资源分配隔离结起来的一个解决方案。</p>
+<p><strong>5.7</strong> <strong>分布式事务</strong></p>
+<p><strong>分布式事务**</strong>-CAP**</p>
+<p>·      C 分布式环境下多个节点的数据是否强一致</p>
+<p>·      A 分布式服务能一直保证可用状态</p>
+<p>·      P 网络分区的容错性</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image025.jpg" alt="img"></p>
+<p><strong>分布式事务**</strong>-<strong>**策略</strong></p>
+<p>·      避免跨库事务，尽可能相关表在同一个DB</p>
+<p>·      2PC 3PC TCC 补偿模式等， 耗时且复杂</p>
+<p>·      基于MQ的最终一致性 简单、高效、易于理解</p>
+<p>·      将远程分布式事务拆解成一系列本地的事务</p>
+<p><strong>分布式事务**</strong>-<strong><strong>基于</strong></strong>MQ**</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image027.jpg" alt="img"></p>
+<p><strong>5.8</strong> <strong>服务拆分</strong></p>
+<p><strong>服务拆分方式</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image029.jpg" alt="img"></p>
+<p>AKF扩展立方体，是抽象总结的应用扩展的三个维度。</p>
+<p>·      X轴 扩展部署实例，就是讲单体系统多运行几个实例，做个集群加负载均衡的模式。</p>
+<p>·      Y轴 业务领域分离，就是基于不同的业务拆分。</p>
+<p>·      Z轴 数据隔离分区，比如共享单车在用户量激增时，集群模式撑不住了，那就按照用户请求的地区进行数据分区，北京、上海、深圳等多建几个集群。</p>
+<p><strong>服务拆分要点</strong></p>
+<p>·      低耦合、高内聚：一个服务完成一个独立的功能</p>
+<p>·      按照团队结构：小规模团队维护，快速迭代</p>
+<p><strong>5.9</strong> <strong>数据库拆分</strong></p>
+<p>单库单表难以支撑日益增长的业务量和数据量，服务拆分了数据库也跟着拆分。</p>
+<p> <strong>5.9.1</strong> <strong>模式</strong></p>
+<p>·      垂直拆分</p>
+<p>·      水平拆分</p>
+<p><strong>5.9.2</strong> <strong>原则</strong></p>
+<p>·      尽可能不拆分</p>
+<p>·      避免跨库事务</p>
+<p>·      单表量级1000w</p>
+<p>·      避免垮裤join（冗余、全局表）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image030.jpg" alt="img"></p>
+<p><strong>5.10</strong> <strong>日志管理</strong></p>
+<p>日志主要有三种，系统日志，业务日志，跟踪日志。有了这些日志，在出问题的时候能够帮助我们获取一些关键信息进行问题定位。<br> 要想做到，出了问题能够追根溯源，那么我们需要一个可以将整个完整的请求调用链串联起来的标识，这个标识能够让我们快速定位问题发生的具体时间地点以及相关信息，能够快速还原业务交易全链路。对这些日志与流水的细节处理，对于系统运维问题定位有非常大的帮助。通常开源框架只是提供基础的框架，而设计一个平台则一定要考虑直接提供统一规范的基础能力。</p>
+<p>分布式跟踪</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image032.jpg" alt="img"></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image034.jpg" alt="img"></p>
+<p><strong>5.11</strong> <strong>服务契约与**</strong>API**<strong>管理</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image036.jpg" alt="img"></p>
+<p>对于前面提到的微服务带来的依赖管理问题，我们需要提供API管理能力。说到API管理，那首先就用提到服务契约。<br> 服务契约，主要描述服务接口的输入输出规格标准和其他一些服务调用集成相关的规格内容。</p>
+<p><strong>5.12</strong> <strong>服务契约与服务模拟</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image038.jpg" alt="img"></p>
+<p>有了服务契约，研发人员就可以方便的获取到依赖服务变更的情况，能够及时的根据依赖服务的变化调整自己的程序，并且能够方便的进行模拟测试验证。<br> 根据契约生成模拟服务也就是我们常说的服务挡板，这样即使依赖的其他服务还无法提供功能，我们也可以通过挡板来进行联调测试。</p>
+<p><strong>5.13</strong> <strong>微服务容器</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image040.jpg" alt="img"></p>
+<p>我们要做稳定、高效、易扩展的微服务应用，实际上我们需要做的事情还是非常多的。如果没有一个统一的微服务容器，这些能力在每个微服务组件中都需要建设一遍，也很难集成到一起。有了统一的微服务运行容器和一些公共的基础服务，前面所提到的微服务架构下部分组件重复建设的问题也迎刃而解。</p>
+<p><strong>5.14</strong> <strong>持续集成与持续部署</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image042.jpg" alt="img"></p>
+<p>在运维方面，首先我们要解决的就是持续集成和持续交付，能够方便的用持续集成环境把程序编译成介质包和部署包并持续稳定的部署到每个环境。<br> 概念抽象：<br> 介质：是源码编译后的产物与环境无关，多环境下应该是可以共用的。如：jar<br> 配置：则是环境相关的信息。<br> 部署包=配置+介质。</p>
+<p><strong>5.15</strong> <strong>微服务平台与容器云、**</strong>DevOps**<strong>的关系</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image044.jpg" alt="img"></p>
+<p>就微服务应用平台本身来说，并不依赖DevOps和容器云，开发好的部署包可以运行在物理机、虚拟机或者是容器中。然而当微服务应用平台结合了DevOps和容器云之后，我们就会发现，持续集成和交付变成了一个非常简单便捷并且又可靠的过程。简单几步操作，整套开发、测试、预发或者生产环境就能够搭建完成。<br> 整个过程的复杂度都由平台给屏蔽掉了，通过三大基础环境的整合，我们能够使分散的微服务组件更简单方便的进行统一管理和运维交付。</p>
+<p><strong>5.16</strong> <strong>技术团队的组织</strong></p>
+<p><strong>技术团队组织</strong> <strong>–</strong> <strong>小团队</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image046.jpg" alt="img"></p>
+<p>根据“康威定律”，软件架构是由组织的架构决定的，因此按照贝索斯“two-pizza”团队的理论和敏捷方法，构建小的团队，可以有效减少沟通成本，有利于团队的自治。<br> 我们通过让一个小的团队有比较全面的建制，Leader（熟悉业务和技术）+ 前端工程师 + 后端工程师，往往可以能够比较独立地承接一个或者几个业务的工作。这样团队成员整体负责一个或者几个业务模块，可以极大地提高团队成员的参与感、使命感和责任感，团队成员相互帮助，高度自治，大家要么一起成功，要么一起失败。</p>
+<p><strong>技术团队组织</strong> <strong>–</strong> <strong>团队划分</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image048.jpg" alt="img"></p>
+<p>团队的划分，是按照业务线划分的。随着业务的复杂度的增加，可以按照业务/子业务线的方式来划分团队，但并不是绝对的扁平化，而是严格遵循two-pizza原则。<br> 业务线的划分常常按业务细分，技术团队要负责支持全部业务线，因此技术团队的划分通常按系统或者是业务，Two pizza团队的原则在组织层级的任何部分都适用，当人数过多时，必须继续拆分。</p>
+<p><strong>技术团队组织</strong> <strong>–</strong> <strong>团队合作</strong></p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E5%AE%9E%E8%B7%B5/clip_image050.jpg" alt="img"></p>
+<p><strong>技术团队组织</strong> <strong>–</strong> <strong>结果导向</strong></p>
+<p>\1.    主人翁意识（Ownership）</p>
+<p>\2.    行动力（Bias for Action）</p>
+<p>\3.    吃自己的狗粮（Eat your dog food）<br> • 工程师负责从需求调研、设计、开发、测试、部署、维护、监控、功能升级等一系列的工作，也就是说软件工程师负责应用或者服务的全生命周期的所有工作<br> • 运维是团队成员的第一要务，在强大的自动化运维工具的支撑下，软件工程师必须负责服务或者应用的SLA</p>
+<p>\4.    开发人员参与架构设计，而不是架构师参与开发<br> • 研发人员是Owner，对业务和团队负责<br> • 强调抽象和简化，将复杂的问题分解成简单的问题，并有效解决，避免过度设计<br> • 鼓励用新技术解决问题，但强调掌控力</p>
+<p><strong>六、微服务架构设计过程中积累的心得</strong></p>
+<p>·      深入理解业务</p>
+<p>·      设计阶段要追求完美，实践阶段要考虑实际情况作出平衡</p>
+<p>·      容错能力</p>
+<p>·      监控先行</p>
+<p>·      任何上线可回滚</p>
+<p><strong>七、总结</strong></p>
+<p>微服务架构是技术升级，但更多的是管理模式的升级、思维方式的转变。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/7411a531.html">http://aichn.cn/post/7411a531.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-spring-cloud/">微服务,spring cloud</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/741872fb.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">微服务Eureka使用详解</div></div></a></div><div class="next-post pull-right"><a href="/post/216aad53.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">最全面的改造Zuul网关为Spring Cloud Gateway（包含Zuul核心实现和Spring Cloud Gateway核心实现）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/47500ee5.html" title="主要是为了方便自己复习，所以记录一下。"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">主要是为了方便自己复习，所以记录一下。</div></div></a></div><div><a href="/post/cb33e573.html" title="一个项目的SpringCloud微服务改造过程"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">一个项目的SpringCloud微服务改造过程</div></div></a></div><div><a href="/post/336f45ae.html" title="基于 Spring Cloud 的完整微服务项目"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">基于 Spring Cloud 的完整微服务项目</div></div></a></div><div><a href="/post/4cb6bc33.html" title="搭建SpringCloud项目，并实现自动化部署"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">搭建SpringCloud项目，并实现自动化部署</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

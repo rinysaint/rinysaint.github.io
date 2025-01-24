@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>一个项目的SpringCloud微服务改造过程 | 君子兰萧宇的博客</title><meta name="keywords" content="微服务,spring cloud"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="SSO是公司一个已经存在了若干年的项目，后端采用SpringMVC、MyBatis，数据库使用MySQL，前端展示使用Freemark。今年，我们对该项目进行了一次革命性的改进，将其改造成Spring Cloud架构，并且把前后端分离，前端采用Vue框架。 一、使用SpringCloud架构进行改造 1.1 为什么使用Spring Cloud Spring Cloud的核心是Spring Boot"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/cb33e573"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">一个项目的SpringCloud微服务改造过程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-09-28T12:10:33.000Z" title="undefined 2018-09-28 20:10:33">2018-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>SSO是公司一个已经存在了若干年的项目，后端采用SpringMVC、MyBatis，数据库使用MySQL，前端展示使用Freemark。今年，我们对该项目进行了一次革命性的改进，将其改造成Spring Cloud架构，并且把前后端分离，前端采用Vue框架。</p>
+<p>一、使用SpringCloud架构进行改造</p>
+<p><strong>1.1 为什么使用Spring Cloud</strong></p>
+<p>Spring Cloud的核心是Spring Boot，相比较于传统的Spring，Spring Cloud具有以下优点：</p>
+<ul>
+<li>部署简单，Spring Boot内置了Tomcat容器，可以将程序直接编译成一个jar，通过java-jar来运行。</li>
+<li>编码简单，Spring Boot只需要在pom文件中添加一个starter-web依赖，即可帮助开发者快速启动一个Web容器，非常方便。</li>
+<li>配置简单，Spring Boot可以通过简单的注解方式来代替原先Spring非常复杂的xml方式。如果我想把一个普通的类交给Spring管理，只需要添加@Configuration和@Bean两个注解即可。</li>
+<li>监控简单，我们可以引入spring-boot-start-actuator依赖，直接使用REST方式来获取进程的运行期性能参数，从而达到监控的目的。</li>
+</ul>
+<p><strong>1.2 一个常规项目都需要改造哪些部分</strong></p>
+<p><strong>1.2.1 配置文件</strong></p>
+<p>SSO项目改造前充斥着大量的配置文件，主要包含以下这些部分：</p>
+<ul>
+<li>静态资源相关</li>
+<li>数据源</li>
+<li>MyBatis配置</li>
+<li>Redis配置</li>
+<li>事务</li>
+<li>拦截器拦截内容</li>
+<li>监听器、过滤器</li>
+<li>组件扫描路径配置</li>
+</ul>
+<p>本文着重介绍以下几个部分：</p>
+<p>1）静态资源处理：</p>
+<p>SpringMVC中，如果mvc:interceptors配置的URL规则如下，则不会拦截静态资源。</p>
+<ol>
+<li><pre><code>&lt;mvc:mapping path=&quot;/*.do&quot; /&gt;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">但是如果配置的是：</span><br><span class="line"></span><br><span class="line">1. ```</span><br><span class="line">   &lt;mvc:mapping path=&quot;/**&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+</ol>
+<p>方案1：在web.xml中配置default，用defaultServlet先处理请求如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-name&gt;default&lt;/servlet-name&gt;</span><br><span class="line">&lt;url-pattern&gt;*.jpg&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-name&gt;default&lt;/servlet-name&gt;</span><br><span class="line">&lt;url-pattern&gt;*.png&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-name&gt;default&lt;/servlet-name&gt;</span><br><span class="line">&lt;url-pattern&gt;*.gif&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-name&gt;default&lt;/servlet-name&gt;</span><br><span class="line">&lt;url-pattern&gt;*.ico&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-name&gt;default&lt;/servlet-name&gt;</span><br><span class="line">&lt;url-pattern&gt;*.gif&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-name&gt;default&lt;/servlet-name&gt;</span><br><span class="line">&lt;url-pattern&gt;*.js&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-name&gt;default&lt;/servlet-name&gt;</span><br><span class="line">&lt;url-pattern&gt;*.css&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure>
+<p>方案2：使用标签声明静态资源路径：</p>
+<ol>
+<li>```<br>&lt;mvc:resources mapping=”/resources/js/**” location=”/js/“ /&gt;<br>&lt;mvc:resources mapping=”/resources/images/**” location=”/images/“ /&gt;<br>&lt;mvc:resources mapping=”/resources/css/**” location=”/css/“ /&gt;<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">方案3：使用mvc:default-servlet-handler/标签：</span><br><span class="line"></span><br><span class="line">1. SpringBoot解决方案：继承WebMvcConfigurerAdapter实现addResourceHandlers方法。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+public void addResourceHandlers(ResourceHandlerRegistry registry) {<br>registry.addResourceHandler(“/**”)<br>.addResourceLocations(“classpath:/resource/“)//sso静态资源<br>.addResourceLocations(“classpath:/META-INF/resources/“)//swagger静态资源<br>.setCachePeriod(0);//0表示不缓存<br>}<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">SSO静态资源文件路径如图：</span><br><span class="line"></span><br><span class="line">![img](../images/一个项目的SpringCloud微服务改造过程/6897f6fac9b944bdad78658031e3ec33.png)</span><br><span class="line"></span><br><span class="line">2）拦截器：</span><br><span class="line"></span><br><span class="line">SpringMVC配置文件内容：</span><br><span class="line"></span><br><span class="line">拦截任何请求并且初始化参数，有些请求是不需要拦截的，有的请求登录后不需要经过权限校验直接放行。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<a href="mvc:interceptors">mvc:interceptors</a><br><a href="mvc:interceptor">mvc:interceptor</a><br>&lt;mvc:mapping path=”/**” /&gt;<bean class="自定义拦截器PermissionInterceptor">
+<!-- 未登录即可访问的地址 -->
+<property name="excludeUrls">
+<list><value>请求地址<value></value></value></list>
+</property>
+<!-- 只要登录了就不需要拦截的资源 -->
+<property name="LogInExcludeUrls">
+<list><value>请求地址<value></value></value></list>
+</property>
+</bean>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">SpringBoot中添加拦截器只需继承WebMvcConfigurerAdapter，并重写addInterceptors方法即可。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+/*** 拦截器
+\* @param registry</li>
+</ol>
+<p>*/<br>@Override<br>public void addInterceptors(InterceptorRegistry registry) {<br>registry.addInterceptor(permissionInterceptor).<br>addPathPatterns(“/**”);<br>super.addInterceptors(registry);<br>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">自定义的拦截器需要初始化一些参数，因此需要在注册拦截器之前注册，这里我们设置为懒加载。免登录拦截的路径，以及登录后不需要判断权限的路径都写在yml文件了，通过系统环境变量Environment获取值。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>@Autowired<br>@Lazy<br>private PermissionInterceptor permissionInterceptor;<br>@Autowired<br>private Environment environment;</p>
+<p>/**<br>*<br>*/<br>@Bean<br>public PermissionInterceptor permissionInterceptor {<br>PermissionInterceptor permissionInterceptor = new PermissionInterceptor;<br>List<String> excludeUrls = Arrays.asList(environment.getProperty(“intercept.exclude.path”).split(“,”));<br>List<String> commonUrls = Arrays.asList(environment.getProperty(“intercept.login.exclude.path”).split(“,”));<br>permissionInterceptor.setCommonUrls(commonUrls);<br>permissionInterceptor.setExcludeUrls(excludeUrls);<br>return permissionInterceptor;<br>}</String></String></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3）数据库和MyBatis配置：</span><br><span class="line"></span><br><span class="line">A、数据源配置</span><br><span class="line"></span><br><span class="line">数据源注入的三种情况：</span><br><span class="line"></span><br><span class="line">【情况一】</span><br><span class="line"></span><br><span class="line">- 条件：不引⼊druid-spring-boot-starter只依赖druid.jar，不指定spring.datasource.type。</span><br><span class="line">- 结果：注入的数据源是tomcat的数据源。</span><br><span class="line">- 解析：依赖的mybatis-spring-boot-starter工程依赖了tomcat的数据源，spring-boot-autoconfigure-starter的DataSourceAutoConfiguration自动注入类会在不指定数据源的情况下，判断路径中是否存在默认的4种数据源（Hikari，Tomcat，Dbcp，Dbcp2）的其一，如果有就注入。</span><br><span class="line"></span><br><span class="line">【情况二】</span><br><span class="line"></span><br><span class="line">- 条件：不引入druid-spring-boot-starter只依赖druid.jar，指定spring.datasource.type为DruidDataSource。</span><br><span class="line">- 结果：注入了DruidDataSource数据源，但配置文件中的druid配置不会生效。</span><br><span class="line">- 解析：指定了依赖的数据源后，spring自动注入的starter会将指定的数据源注入，yml指定了druid数据源。@ConfigurationProperties注解的DataSourceProperties没处理druid部分的性能参数属性，只处理了数据源部分的属性。</span><br><span class="line"></span><br><span class="line">【情况三】</span><br><span class="line"></span><br><span class="line">- 条件：引⼊ druid-spring-boot-starter 不依赖druid.jar，指定spring.datasource.type为DruidDataSource。</span><br><span class="line">- 结果：注入了DruidDataSource数据源，配置文件中的druid配置也会生效。</span><br><span class="line">- 解析：druid-spring-boot-starter自动配置类会在DataSourceAutoConfiguration之前先创建数据源，并且@ConfigurationProperties注入的DataSourceProperties包含了配置文件中druid的属性。</span><br><span class="line"></span><br><span class="line">pom.xml依赖：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<!-- 情况一、二 测试引入的依赖 -->
+<!--<dependency>-->
+<!--<groupId>com.alibaba</groupId>-->
+<!--<artifactId>druid</artifactId>-->
+<!--<version>${druid.version}</version>-->
+<!--</dependency>-->
+<dependency>
+<groupId>com.alibaba</groupId>
+<artifactId>druid-spring-boot-starter</artifactId>
+<version>1.1.10</version>
+</dependency>
+<dependency>
+<groupId>org.mybatis.spring.boot</groupId>
+<artifactId>mybatis-spring-boot-starter</artifactId>
+<version>RELEASE</version>
+</dependency>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yml配置：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+spring:
+    datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
+    driver-class-name: com.mysql.jdbc.Driver # mysql驱动包
+    url: jdbc:mysql://yourURL # 数据库名称
+    username: yourusername
+    password: yourpassword
+druid:
+    initial-size: 5 # 初始化大小
+    min-idle: 5 # 最小
+    max-active: 20 # 最大
+    max-wait: 60000 # 连接超时时间
+    time-between-eviction-runs-millis: 60000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    min-evictable-idle-time-millis: 300000 # 指定一个空闲连接最少空闲多久后可被清除，单位是毫秒
+    validationQuery: select 'x'
+    test-while-idle: true # 当连接空闲时，是否执行连接测试
+    test-on-borrow: false # 当从连接池借用连接时，是否测试该连接
+    test-on-return: false # 在连接归还到连接池时是否测试该连接
+filters: config，wall，stat
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">B、MyBatis配置</span><br><span class="line"></span><br><span class="line">通过引入mybatis-spring-boot-starter依赖，可以简单配置MyBatis上手使用。</span><br><span class="line"></span><br><span class="line">下面简单分析mybatis-starter的源码以及如何配置MyBatis。</span><br><span class="line"></span><br><span class="line">先看mybatis-spring-boot-starter中mybatis-spring-boot-autoconfigure的spring.factories文件。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">可以看到自动注入类是MybatisAutoConfiguration，我们从这个类入手分析可以知道，必须先创建好了数据源后，才会加载MyBatis的sqlSessionFactory。</span><br><span class="line"></span><br><span class="line">@EnableConfigurationProperties(&#123;MybatisProperties.class&#125;)注解指定了配置文件中 prefix = &quot;mybatis&quot; 那部分属性有效，这部分属性值将注入到已创建的SqlSessionFactoryBean中，最后生成SqlSessionFactory对象。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+@Configuration
+//当SqlSessionFactory，SqlSessionFactoryBean存在的情况下加载当前Bean
+@ConditionalOnClass({SqlSessionFactory.class, SqlSessionFactoryBean.class})
+//当指定数据源在容器中只有一个或者有多个但是只指定首选数据源
+@ConditionalOnSingleCandidate(DataSource.class)
+@EnableConfigurationProperties({MybatisProperties.class})
+//当数据源注入到Spring容器后才开始加载当前Bean
+@AutoConfigureAfter({DataSourceAutoConfiguration.class})
+public class MybatisAutoConfiguration implements InitializingBean {
+private final MybatisProperties properties;
+@Bean
+@ConditionalOnMissingBean
+public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+SqlSessionFactoryBean factory = new SqlSessionFactoryBean;
+factory.setDataSource(dataSource);
+factory.setVfs(SpringBootVFS.class);
+//设置mybatis配置文件所在路径
+if (StringUtils.hasText(this.properties.getConfigLocation)) {
+factory.setConfigLocation(this.resourceLoader.getResource
+(this.properties.getConfigLocation)); }
+}
+//设置其他MyBatisProperties对象中有的属性略....
+return factory.getObject;
+}
+}
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">MybatisProperties含有的属性：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+@ConfigurationProperties(prefix = "mybatis" )
+public class MybatisProperties {
+public static final String MYBATIS_PREFIX = "mybatis";
+private static final ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver;
+private String configLocation;
+private String[] mapperLocations;
+private String typeAliasesPackage;
+private Class<?> typeAliasesSuperType;
+private String typeHandlersPackage;
+private boolean checkConfigLocation = false;
+private ExecutorType executorType;
+private Properties configurationProperties;
+@NestedConfigurationProperty
+private Configuration configuration;
+}
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">C、使用MyBatis</span><br><span class="line"></span><br><span class="line">配置文件：</span><br><span class="line"></span><br><span class="line">application.yml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+mybatis:
+config-location: classpath:mybatis.xml # mybatis配置文件所在路径
+type-aliases-package: com.creditease.permission.model # 所有Entity别名类所在包
+mapper-locations: classpath:mybatis/*/.xml
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">从上面的MybatisProperties可以看出，MyBatis可以指定一些configuration，比如自定义拦截器pageHelper。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+mybatis.xml
+<?xml version="1.0" encoding="UTF-8" ?>
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<plugins>
+<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+<plugin interceptor="com.creditease.permission.manager.MybatisInterceptor"></plugin>
+</plugins>
+</configuration>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">在启动类上加入@MapperScan注解：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+@MapperScan("com.creditease.permission.dao")//mapper类所在目录
+public class SsoApplication {
+public static void main(String[] args) {
+SpringApplication.run(SsoApplication.class, args);
+}
+}
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4）事务</span><br><span class="line"></span><br><span class="line">Spring事务有两种处理方式：</span><br><span class="line"></span><br><span class="line">- 编程式 用TransactionTemplate或者直接使用底层的PlatformTransactionManager将事务代码写在业务代码中。 优点：可以在代码块中处理事务，比较灵活。 缺点：对代码具有侵入性。</span><br><span class="line">- 声明式 采用@Transactional注解或者基于配置文件方式，在方法前后进行拦截。 优点：非侵入性不会污染代码。 缺点：事务只能在方法和类上控制，粒度较小。</span><br><span class="line"></span><br><span class="line">A、使用@Transactional注解。</span><br><span class="line"></span><br><span class="line">非SpringBoot工程，需要在配置文件中加入配置：</span><br><span class="line"></span><br><span class="line">1. &lt;tx:annotation-driven/&gt;</span><br><span class="line"></span><br><span class="line">Spring Boot工程可以用@EnableTransactionManagement注解代替上面的配置内容。</span><br><span class="line"></span><br><span class="line">B、采用配置文件方式 。</span><br><span class="line"></span><br><span class="line">之前的SSO是基于配置的方式，配置代码如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+aop:config
+<aop:pointcut expression="execution(public * com.creditease.permission.service.impl.Impl.(..))" id="pointcut">
+<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut">
+/aop:config
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+tx:attributes
+<tx:method name="query*" propagation="REQUIRED" read-only="true">
+<tx:method name="find*" propagation="REQUIRED" read-only="true">
+<tx:method name="save*" propagation="REQUIRED">
+<tx:method name="delete*" propagation="REQUIRED">
+<tx:method name="add*" propagation="REQUIRED">
+<tx:method name="modify*" propagation="REQUIRED">
+
+</tx:method></tx:method></tx:method></tx:method></tx:method></tx:method></tx:advice>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">改造后的Spring Boot基于Java代码：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+@Aspect
+@Configuration
+public class TransactionAdviceConfig {
+
+<p>/**</p>
+<ul>
+<li>指定切入点</li>
+<li>/<br>private static final String AOP_POINTCUT_EXPRESSION = “execution(public * com.creditease.permission.service.impl.Impl.(..))”;</li>
+</ul>
+<p>@Resource<br>DruidDataSource dataSource;</p>
+<p>/**</p>
+<ul>
+<li>指定处理事务的PlatformTransactionManager</li>
+<li>@return</li>
+<li>/<br>@Bean<br>public DataSourceTransactionManager transactionManager {</li>
+</ul>
+<p>return new DataSourceTransactionManager(dataSource);</p>
+<p>}</p>
+<p>/**</p>
+<ul>
+<li>指定切入点处理逻辑，执行事务</li>
+<li>@return</li>
+<li>/<br>@Bean<br>public TransactionInterceptor txAdvice {</li>
+</ul>
+<p>DefaultTransactionAttribute txAttrRequired = new DefaultTransactionAttribute;<br>txAttrRequired.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);</p>
+<p>DefaultTransactionAttribute txAttrRequiredReadonly = new DefaultTransactionAttribute;<br>txAttrRequiredReadonly.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);<br>txAttrRequiredReadonly.setReadOnly(true);</p>
+<p>NameMatchTransactionAttributeSource source = new NameMatchTransactionAttributeSource;<br>source.addTransactionalMethod(“query*”, txAttrRequiredReadonly);<br>source.addTransactionalMethod(“find*”, txAttrRequiredReadonly);<br>source.addTransactionalMethod(“save*”, txAttrRequired);<br>source.addTransactionalMethod(“delete*”, txAttrRequired);<br>source.addTransactionalMethod(“add*”, txAttrRequired);<br>source.addTransactionalMethod(“modify*”, txAttrRequired);<br>return new TransactionInterceptor(transactionManager, source);<br>}</p>
+<p>/**</p>
+<ul>
+<li>Advisor组装配置，将Advice的代码逻辑注入到Pointcut位置</li>
+<li>@return</li>
+<li>/<br>@Bean<br>public Advisor txAdviceAdvisor {<br>AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut;<br>pointcut.setExpression(AOP_POINTCUT_EXPRESSION);<br>return new DefaultPointcutAdvisor(pointcut, txAdvice);<br>}<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5）全局异常处理</span><br><span class="line"></span><br><span class="line">一般编码时有异常我们都会try-catch捕获异常，有时为了区分不同的异常还会一次catch多个异常，大量的try-catch语句，这样使得代码也不够优雅；一个相同的异常处理写多次代码也比较冗余，所以引入全局的异常处理非常必要。</span><br><span class="line"></span><br><span class="line">改造前的异常处理配置文件：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<!--定义异常处理页面-->
+<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+<property name="exceptionMappings">
+<props>
+<prop key="com.creditease.permissionapi.exception.NopermissionException">/permission/noSecurity</prop>
+</props>
+</property>
+</bean>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">使用SimpleMappingExceptionResolver类处理异常，设置自定义异常类型NopermissionException，以及异常发生后的请求路径/permission/noSecurity。</span><br><span class="line"></span><br><span class="line">SpringBoot中采用@RestControllerAdvice或者@ControllerAdvice设置全局异常类。这两者区别类似于@Controller和@RestController注解。</span><br><span class="line"></span><br><span class="line">SSO中定义了三种全局的异常处理：普通的Exception处理；自定的NopermissionException异常和参数校验异常。</span><br><span class="line"></span><br><span class="line">全局异常处理代码如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+@Configuration
+@Slf4j
+@RestControllerAdvice
+public class GlobalExceptionConfig {
+
+</li>
+</ul>
+<p>//无权限处理<br>@ExceptionHandler(value = {NopermissionException.class})<br>public void noPermissionExceptionHandler(HttpServletRequest request, Exception ex, HttpServletResponse response, @Value(“${sso.server.prefix}”) String domain) throws IOException {<br>printLog(request,ex);<br>response.sendRedirect(“跳转到无权限页面地址”);<br>}</p>
+<p>//参数校验处理<br>@ExceptionHandler(value = {BindException.class})<br>public ResultBody BindExceptionHandler(BindException bindException){<br>List<ObjectError> errors = bindException.getBindingResult.getAllErrors;<br>//这个ResultBody是一个返回结果对象，这里需要返回json，里面包含了状态码和提示信息<br>return ResultBody.buildFailureResult(errors.get(0).getDefaultMessage);<br>}</ObjectError></p>
+<p>//所有未捕获的异常处理逻辑<br>@ExceptionHandler(value = {Exception.class})<br>public ResultBody exceptionHandler(HttpServletRequest request,Exception ex){<br>printLog(request,ex);<br>return ResultBody.buildExceptionResult;<br>}</p>
+<p>//将请求参数和异常打印出来，结合@slf4j注解<br>public void printLog(HttpServletRequest request,Exception ex){<br>String parameters = JsonHelper.toString(request.getParameterMap);<br>log.error(“url&gt;&gt;&gt;:{},params&gt;&gt;&gt;:{} ,printLog&gt;&gt;&gt;:{}”,request.getRequestURL,parameters,ex);<br>}<br>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@RestControllerAdvice结合@Validation，可以对Bean进行校验，校验不通过会抛出BindException异常。通过注解可以少写if-else代码，判断请求的接口参数是否为空，提高代码的美观性。例如：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>//常规做法<br>if(StringUtils.isEmpty(ssoSystem.getSysCode)</p>
+<p>//SSO做法<br>//在Controller请求方法上添加@Valid注解<br>@RequestMapping(value = “/add”, method = RequestMethod.POST)<br>public ResultBody add(@Valid @RequestBody SsoSystem ssoSystem) {</p>
+<p>}</p>
+<p>//在需要处理的SsoSystem Bean的属性上加@NotNull注解<br>@NotNull(message = “系统编号不能为空”)<br>private String sysCode;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当sysCode传入参数为空时，就会抛出BindException被全局的异常处理类，捕获处理返回json格式的参数：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>{<br>“resultCode”:2,<br>“resultMsg”:”系统编号不能为空”,<br>“resultData”:null<br>}</p>
+<p>```</p>
+<p><strong>1.3 注意事项</strong></p>
+<p><strong>1.3.1 内置Tomcat版本太高引发的问题</strong></p>
+<p>Spring Boot1.5默认使用内嵌Tomcat 8.5版本，而原来SpringMVC的SSO部署在Tomcat 7上。Tomcat的升级对这次改造影响最明显的就是cookie。Tomcat 8后采用的cookie校验协议是Rfc6265CookieProcessor。该协议要求domain的命名必须遵循以下规则：</p>
+<ul>
+<li>必须是1-9、a-z、A-Z、. 、- 这几个字符组成。</li>
+<li>必须是数字或字母开头（之前是以.creditease.corp 会报错tomcat cookie domain validation异常，最后改成了 creditease.corp）。</li>
+<li>必须是数字或字母结尾。</li>
+</ul>
+<p>二、前后端分离</p>
+<p><strong>2.1 解决跨域问题</strong></p>
+<p>由于是两个不同的应用，必然会有两个不同的端口。不同的端口就会有跨域问题，SSO采用的方式是通过nginx区分来自前后端的请求，反向代理请求对应到不同的服务去。</p>
+<ul>
+<li>sso.creditease.com对应的是后端的应用服务。</li>
+<li>sso.creditease.com/web对应的是前端的静态资源应用服务。</li>
+</ul>
+<p><strong>2.2 方便联调效率，引入swagger</strong></p>
+<p>swagger是后端接口展示的插件，通过修改拦截器代码，mock登录对象免登录，直接访问接口进行前后端的调试。在swagger插件上可以看到具体接口请求路径和参数、参数是否必须、返回值、接口统计信息等。</p>
+<p>接口统计信息：</p>
+<p><img src="/../images/%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E7%9A%84SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%94%B9%E9%80%A0%E8%BF%87%E7%A8%8B/1577ba78f52e4efd89c52e243667dee4.jpeg" alt="img"></p>
+<p>请求参数和路径：</p>
+<p><img src="/../images/%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E7%9A%84SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%94%B9%E9%80%A0%E8%BF%87%E7%A8%8B/9115c3e4e9dc44d99ffe0ed3cf5e6a96.jpeg" alt="img"></p>
+<p>返回值：</p>
+<p><img src="/../images/%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E7%9A%84SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%94%B9%E9%80%A0%E8%BF%87%E7%A8%8B/a9990ae606fe4063807cf491fbdd5f74.jpeg" alt="img"></p>
+<p><strong>2.3 跳转接口修改</strong></p>
+<p>之前是通过SpringMvc的modeAndview方式跳转的，现在做了两种处理：</p>
+<ul>
+<li>改成restful接口的形式，前端控制跳转然后直接获取数据。</li>
+<li>直接通过response.sendRedirect跳转页面。</li>
+</ul>
+<p>注意：老代码跳转采用的是通过SpringMvc在return的页面路径前加redirect的形式，如：return “redirect:index”，这样默认会在return的URL后加jessionID。</p>
+<p><strong>2.4 静态资源地址变更可能引发的问题</strong></p>
+<p>特别需要注意代码中的相关校验路径的地方。比如在这次改造过程中路径修改会影响以下几个方面。</p>
+<ul>
+<li>菜单权限校验的时候，之前人、角色和路径已经绑定了，修改菜单访问路径会导致没权限。</li>
+<li>扫码登录的接口判断了refer来源，修改路径会导致请求失败。</li>
+<li>之前的sso-dome工程引用了静态资源，修改路径会报404。</li>
+</ul>
+</aop:advisor></aop:pointcut></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/cb33e573.html">http://aichn.cn/post/cb33e573.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-spring-cloud/">微服务,spring cloud</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/799d0e10.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【dubbo】使用IDEA搭建简单的dubbo项目</div></div></a></div><div class="next-post pull-right"><a href="/post/6a79e366.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">三种负载均衡 Nginx、Dubbo、Ribbon 区别</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/47500ee5.html" title="主要是为了方便自己复习，所以记录一下。"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">主要是为了方便自己复习，所以记录一下。</div></div></a></div><div><a href="/post/336f45ae.html" title="基于 Spring Cloud 的完整微服务项目"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">基于 Spring Cloud 的完整微服务项目</div></div></a></div><div><a href="/post/7411a531.html" title="微服务架构实践"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">微服务架构实践</div></div></a></div><div><a href="/post/4cb6bc33.html" title="搭建SpringCloud项目，并实现自动化部署"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">搭建SpringCloud项目，并实现自动化部署</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>微服务核心研究之--编排 | 君子兰萧宇的博客</title><meta name="keywords" content="微服务,编排"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="目录： 一、微服务编排的必要性 二：3种常见的微服务编排方式 1、Orchestration（编制） 2、Choreography（编排） 3、API网关 三、微服务编排的框架（Orchestration方式） 1、流程编排的思路 2、流程编排的模型 3、适配参数 4、流水号 5、调用链分析 四、微服务编排的事务一致性 五、微服务编排的监控工具支撑 一、微服务编排的必要性微服务是目前流行的一种新兴"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/b938b9cc"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">微服务核心研究之--编排</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="undefined 2019-09-28 20:10:33">2019-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>目录：</strong><br> 一、微服务编排的必要性<br> 二：3种常见的微服务编排方式<br> 1、Orchestration（编制）<br> 2、Choreography（编排）<br> 3、API网关<br> 三、微服务编排的框架（Orchestration方式）<br> 1、流程编排的思路<br> 2、流程编排的模型<br> 3、适配参数<br> 4、流水号<br> 5、调用链分析<br> 四、微服务编排的事务一致性<br> 五、微服务编排的监控工具支撑</p>
+<h3 id="一、微服务编排的必要性"><a href="#一、微服务编排的必要性" class="headerlink" title="一、微服务编排的必要性"></a>一、微服务编排的必要性</h3><p>微服务是目前流行的一种新兴的软件架构风格，在微服务体系结构中，可以将应用分解为多个更小颗粒度的服务, 各个服务可以由不同的团队并行独立开发、部署。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-19404e9a6e7d358f.jpeg" alt="img"></p>
+<p>（图片来源：<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=https://www.nginx.com/blog/introduction-to-microservices/">https://www.nginx.com/blog/introduction-to-microservices/</a>）</p>
+<p>以一个出租车调度软件为例，最开始是一个单体应用，应用核心是业务逻辑，由定义服务、域对象和事件的模块完成。尽管也是模块化逻辑，但是最终它还是会打包并部署为单体式应用。随着时间增加，功能逐渐增多，代码越来越多，这个软件就会越来越难维护。这时使用微服务架构就是不错的选择。一个微服务一般完成某个特定的功能，比如定单管理、客户管理等等。每一个微服务都有自己的业务逻辑和适配器。一些微服务还会发布API给其它微服务和应用客户端使用。其它微服务完成一个Web UI，运行时，每一个微服务实例可能是一个Docker容器。</p>
+<p>《The Art of Scalability》(中文书名：架构即未来) 一书介绍了一个应用横向扩展所需要遵守的AKF扩展模型。根据AKF扩展模型，横向扩展实际上包含了三个维度，而横向扩展解决方案则是这三个维度上所做工作的结合。X轴表示水平复制，Y轴表示应用功能拆解，Z轴表示按数据拆分。微服务架构模式对应于代表可扩展模型的Y轴。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-106c00a0e57d0a19.jpeg" alt="img"></p>
+<p>当一个系统采用了微服务架构后，原有的业务可能并没有发生变化，但系统已被拆分成了很多新的微服务，与传统架构相比，微服务架构下会更依赖通过各微服务之间的协作来实现一个完整的业务流程，这种协作就是服务编排。编排涉及到RPC、分布式事务等，需要有完善的编排框架来支撑。</p>
+<h3 id="二：3种常见的微服务编排方式"><a href="#二：3种常见的微服务编排方式" class="headerlink" title="二：3种常见的微服务编排方式"></a>二：3种常见的微服务编排方式</h3><p>目前有3种常见的微服务编排方式，实现微服务的组合与协调，可根据开发项目的实际情况进行选择。</p>
+<h5 id="1、Orchestration（编制）"><a href="#1、Orchestration（编制）" class="headerlink" title="1、Orchestration（编制）"></a>1、Orchestration（编制）</h5><p>Orchestration<strong>面向可执行的流程</strong>：通过一个可执行的流程来协同内部及外部的服务交互，通过流程来控制总体的目标、涉及的操作、服务调用顺序。</p>
+<p>Orchestration和BPM、ESB的思想很相似，首先要有一个<strong>流程控制服务</strong>，该服务接收请求，依照业务逻辑规则，依次调用各个微服务，并最终完成处理逻辑。可以把控制服务视作BPM、ESB引擎，微服务视作BPM、ESB的各种组件。</p>
+<p>Orchestration实现方案多是<strong>同步</strong>的。</p>
+<p><strong>优点</strong>：<br> 流程控制服务时时刻刻都知道每一笔业务究竟进行到了什么地步，监控业务成了相对简单的事情。<br> <strong>缺点</strong>：<br> 1）流程控制服务很容易控制了太多的业务逻辑，耦合度过高，变得臃肿。<br> 2）各个微服务退化为单纯的增删改查，失去自身价值。</p>
+<h5 id="2、Choreography（编排）"><a href="#2、Choreography（编排）" class="headerlink" title="2、Choreography（编排）"></a>2、Choreography（编排）</h5><p>Choreography<strong>面向协作</strong>：通过消息的交互序列来控制各个部分资源的交互，参与交互的资源都是对等的，没有集中的控制。</p>
+<p>Choreography可以看作一种<strong>消息驱动模式</strong>，或者说是订阅发布模式，每笔业务到来后，各个监听改事件的服务，会主动获取消息，处理，并可以按需发布自己的消息。可以把不同队列看作不同种类的消息，微服务看作消息处理函数。</p>
+<p>Choreography实现方案多是<strong>异步</strong>的。</p>
+<p><strong>优点</strong>：<br> 耦合度低，每个服务都可以各司其职。<br> <strong>缺点</strong>：<br> 1）业务流程是通过订阅的方式来体现的，很难直接监控每笔业务的处理，因此难于调试。<br> 2）由于没有预定义流程，所以很难在事前保证流程正确性，基本靠事后分析数据来判断。<br> 3）当一个业务流程会嵌入到多个服务中时，维护会很困难。<br> <strong>建议</strong>：<br> 1）小粒度的服务需要组合，服务的粒度越小，越需要组合。<br> 2）增加相应的监控系统，来保证业务顺畅进行。</p>
+<h5 id="3、API网关"><a href="#3、API网关" class="headerlink" title="3、API网关"></a>3、API网关</h5><p>API网关可以看作一种简单的<strong>接口聚合/拆分的方式</strong>：每笔业务到来后先到达网关，网关调用各微服务，并最终聚合/拆分需反馈的结果。</p>
+<p>API网关其实就是一个<strong>适配网关</strong>，比如对于Web端，可以一个页面同时发起几十个请求，而对于移动端，最好是一个页面就几个请求。而采用API网关，后面的微服务可以是相同的。</p>
+<p><strong>优点</strong>：<br> 对外接口相对稳定。<br> <strong>缺点</strong>：<br> 只适合业务逻辑较为简单的场景，业务逻辑过于复杂时，网关接口耦合度及复杂度会急剧升高，变得臃肿。</p>
+<h3 id="三、微服务编排的框架（Orchestration方式）"><a href="#三、微服务编排的框架（Orchestration方式）" class="headerlink" title="三、微服务编排的框架（Orchestration方式）"></a>三、微服务编排的框架（Orchestration方式）</h3><p>对编排流程、适配参数、调用链分析等方面思路的考量，构成微服务编排的框架思路。</p>
+<h5 id="1、编排流程的思路"><a href="#1、编排流程的思路" class="headerlink" title="1、编排流程的思路"></a>1、编排流程的思路</h5><p>原子服务提供REST接口或者监听事件，通过流程编排这些原子服务来实现一个新的复杂服务。</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-59869d9042a34b9a.jpeg" alt="img"></p>
+<h5 id="2、编排流程的模型"><a href="#2、编排流程的模型" class="headerlink" title="2、编排流程的模型"></a>2、编排流程的模型</h5><ul>
+<li>活动模型。例如（赋值、invoke（调用）、空）</li>
+<li>控制模型。例如（顺序、分支、循环、异常抛出、异常捕获、并行）</li>
+</ul>
+<p>当然，有很多编排框架提供了更多方便的活动，比如普元的编排框架提供了本地调用、rest调用、webservice调用等活动，从而在使用上更加的方便，有了这些基本的模型，我们就能方便的编排出复杂的业务流程。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-d35bc8d7f8395ed9.jpg" alt="img"></p>
+<p>在invoke（调用）的时候我们知道有同步和异步的区别。同步实现起来简单，但是在多级级联编排的时候要避免因为某个服务的长响应时间导致雪崩效应，一般可以通过设置合理的超时时间限流和服务熔断策略来避免；同样，在异步调用的时候，应该能自动缓存上下文和避免缓存爆掉，能自动建立异步响应和请求之间的关联。同样，提到并行也必须考虑不同的聚合方式，比如是部分聚合还是全部聚合。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-8377cd3456f80d6e.jpeg" alt="img"></p>
+<h5 id="3、适配参数"><a href="#3、适配参数" class="headerlink" title="3、适配参数"></a>3、适配参数</h5><p>流程编排完成之后，我们还需要给每个被编的服务提供正确的参数，是一个适配的过程。<br> 一个编排服务（abcd）由a、b、c、d服务编排而成，每个服务都会有自己的出参入参。适配的过程就是从上下文中给入参赋值以及将出参的结果写入到上下文中。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-2a22d8fd090186dd.jpg" alt="img"></p>
+<p>编排服务执行到不同阶段，组成上下文的模型也是不一样的。从最初服务的开始执行的时候，上下文中只有系统级的参数和入参（请求报文），到执行完一个被编服务后上下文就会增加这个被编服务的出参（响应报文），执行上下文是一个不断增大的过程。所以适配不仅仅存在于编排服务的入参和被编服务的入参之间，还存在于被编服务和在其之前的服务出参之间。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-2535760ad5358385.jpg" alt="img"></p>
+<p>实现适配最直接的方式是用手工编码完成点到点的映射赋值，但有更高效的方式，通过使用元数据对所有的出参和入参标记着色，然后就可以自动完成同样颜色之间的自动映射。这种标志着色可以靠数据字典实现。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-c21b666bd375517f.jpeg" alt="img"></p>
+<p>这里的数据字典是指抽象出业务含义的基本数据项，如账户，交易额等。通过这些数据字典可以定义出服务所需的的数据结构（服务参数和服务返回值），这样不同的数据结构之间可以按照数据字典进行自动适配。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-0278e379e523dc6c.jpeg" alt="img"></p>
+<h5 id="4、流水号"><a href="#4、流水号" class="headerlink" title="4、流水号"></a>4、流水号</h5><p>编排服务在执行上下文的组成模型过程中，框架也会产生一部分数据，这一部分数据主要是流水号(id)和安全方面的考量。按照《基于微服务的企业应用架构设计范式》流水号的生成应该遵循GAIR模式。<br> <strong>GlobalID:</strong> 全局流水号，如果请求中的globalId为空，则编排服务生成，否则保持不变。<br> <strong>AnswerID:**响应流水号，服务提供者生成，可以作为提供者受理的凭证<br> **InRequestID:</strong> 前台流水号，由前台生成<br> **RequestID:**请求流水号，编排服务的协调器生成，生成规则由服务提供者定义。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-e6f9908ac613a8eb.jpg" alt="img"></p>
+<h5 id="5、调用链分析"><a href="#5、调用链分析" class="headerlink" title="5、调用链分析"></a>5、调用链分析</h5><p>随着服务的增多，对调用链的分析也会越来越复杂。在一个由很多微服务组成的系统中，他们之间的调用关系会形成复杂的网络。</p>
+<p>Google针对服务化应用全链路追踪的问题发表了Dapper论文，介绍了他们如何进行服务追踪分析，其基本思路是在服务调用的请求和响应中加入ID，标明上下游请求的关系，利用这些信息，可以可视化地分析服务调用链路和服务间的依赖关系。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-08e741cd19bab756.jpeg" alt="img"></p>
+<p>通过服务调用追踪生成的服务调用栈，可以查看在哪一步出现了错误，以及发现哪里的调用较慢，进行系统优化。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-c83de3f5f84c3723.jpeg" alt="img"></p>
+<p>能编排流程，能适配参数，这个编排框架已经具备运行的能力，接下来要考虑的就是事务的一致性问题。</p>
+<h3 id="四、微服务编排的事务一致性"><a href="#四、微服务编排的事务一致性" class="headerlink" title="四、微服务编排的事务一致性"></a>四、微服务编排的事务一致性</h3><p>依据CAP理论，分布式系统需要在可用性和一致性之间做出选择。如果选择提供一致性，就需要付出在满足一致性之前阻塞其他并发访问的代价，阻塞持续的时间往往不能确定，尤其是在系统已经表现出高延迟时或者网络故障导致失去连接时，因此，可用性一般是更多人的选择，但是在服务和数据库之间维护数据一致性是非常根本的需求，<strong>编排框架应该选择满足最终一致性。</strong></p>
+<p>补偿模式是一种很好的实现最终一致性的途径。 <strong>补偿模式核心思想是：针对每个操作，都要注册一个与其对应的补偿（撤销）操作，一般来说操作本身和其补偿操作会在一个事务里完成，当其后续操作失败后，需要按相反顺序完成前面注册的所有撤销操作。</strong></p>
+<p>通过一个实例来说明：一家旅行公司提供预订行程的业务，可以通过公司的网站提前预订飞机票、火车票、酒店等。假设一位客户规划的行程是，(1)上海-北京6月19日9点的某某航班，(2)某某酒店住宿3晚，(3)北京-上海6月22日17点火车。在客户提交行程后，旅行公司的预订行程业务按顺序串行的调用航班预订服务、酒店预订服务、火车预订服务。最后的火车预订服务成功后整个预订业务才算完成。如果火车票预订服务没有调用成功，那么之前预订的航班、酒店都得取消。取消之前预订的酒店、航班即为补偿过程。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-db6d56577f63ea82.jpeg" alt="img"></p>
+<p>在补偿模式中，我们要求参与补偿的微服务必须提供补偿操作，并且补偿操作必须是幂等的，补偿框架可以在异常时自动调用补偿操作完成补偿。</p>
+<p>跟RPC比，补偿模式的核心价值是少了锁资源的代价，流程也相对简单，但实际操作中，补偿操作不太好定义，其中间状态处理也会比较棘手。</p>
+<p>现在RESTful作为一个轻量级的rpc协议已经被广泛采用，能不能很好的支持RESTful服务的事务一致性也是衡量编排框架的是否成熟的一个标准。</p>
+<p>一个通过RESTful扩展规范来支持补偿模式事务一致性的思路：通过PATCH的HTTP Method来表示compensation操作，并且支持通过服务来查询编排服务执行的状态。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-bef4b8e5e9f64ce4.jpeg" alt="img"></p>
+<blockquote>
+<p>补偿模式一个常见的坑：由于是通过rpc的调用，因为网络和调度的关系，可能出现补偿请求比原交易先到达的情况，这会导致补偿操作直接会失败，因为此时原交易尚未发生，最终原交易到达时会被成功的执行，最终就导致了事务不一致。</p>
+</blockquote>
+<p>填这个坑的办法就是在编排框架发现补偿操作补偿的原交易不存在时，补记录一条原交易的流水，从而保证原交易晚到时会因为记录流水失败而不会成功。（如下图）</p>
+<p><img src="/../images/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A0%B8%E5%BF%83%E7%A0%94%E7%A9%B6%E4%B9%8B--%E7%BC%96%E6%8E%92/9812895-d4768ca3ccd39816.jpeg" alt="img"></p>
+<p>图片描述</p>
+<h3 id="五、微服务编排的监控工具支撑"><a href="#五、微服务编排的监控工具支撑" class="headerlink" title="五、微服务编排的监控工具支撑"></a>五、微服务编排的监控工具支撑</h3><p>在生产环境中，我们需要通过查看日志来排除故障，应该有支持日志全路径回放的工具，来帮助我们快速定位故障。</p>
+<p>本文所讲的编排实际是编制，是一种集中式的控制，也就意味着如果被编排的服务有响应缓慢的情况，可能会影响到其他服务。这时候我们需要更快的监控来帮助我们发现这类服务，从而尽早优化。监控工具需要具备以下功能：</p>
+<ul>
+<li>通过可视化分布式系统的模块和他们之间的相互联系来理解系统拓扑。点击某个节点会展示这个模块的详情，比如它当前的状态和请求数量。</li>
+<li>实时监控应用内部的活动线程。</li>
+<li>可视化请求和响应数量来定位潜在问题（请求时间段分布、错误请求、响应时长等）。</li>
+<li>在分布式环境中为每个调用生成可视图，定位瓶颈和失败点。</li>
+<li>查看应用上的其他详细信息，比如CPU使用率，内存/垃圾回收，TPS，和JVM参数。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/b938b9cc.html">http://aichn.cn/post/b938b9cc.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-%E7%BC%96%E6%8E%92/">微服务,编排</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/d713bc0c.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大数据Flink详细教程(前篇)</div></div></a></div><div class="next-post pull-right"><a href="/post/c1de84f3.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">大数据Flink详细教程(终篇)</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">一、微服务编排的必要性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%EF%BC%9A3%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">二：3种常见的微服务编排方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81Orchestration%EF%BC%88%E7%BC%96%E5%88%B6%EF%BC%89"><span class="toc-number">2.0.1.</span> <span class="toc-text">1、Orchestration（编制）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81Choreography%EF%BC%88%E7%BC%96%E6%8E%92%EF%BC%89"><span class="toc-number">2.0.2.</span> <span class="toc-text">2、Choreography（编排）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E3%80%81API%E7%BD%91%E5%85%B3"><span class="toc-number">2.0.3.</span> <span class="toc-text">3、API网关</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%9A%84%E6%A1%86%E6%9E%B6%EF%BC%88Orchestration%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">三、微服务编排的框架（Orchestration方式）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1%E3%80%81%E7%BC%96%E6%8E%92%E6%B5%81%E7%A8%8B%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="toc-number">3.0.1.</span> <span class="toc-text">1、编排流程的思路</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2%E3%80%81%E7%BC%96%E6%8E%92%E6%B5%81%E7%A8%8B%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.0.2.</span> <span class="toc-text">2、编排流程的模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3%E3%80%81%E9%80%82%E9%85%8D%E5%8F%82%E6%95%B0"><span class="toc-number">3.0.3.</span> <span class="toc-text">3、适配参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4%E3%80%81%E6%B5%81%E6%B0%B4%E5%8F%B7"><span class="toc-number">3.0.4.</span> <span class="toc-text">4、流水号</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5%E3%80%81%E8%B0%83%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90"><span class="toc-number">3.0.5.</span> <span class="toc-text">5、调用链分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">四、微服务编排的事务一致性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E7%9A%84%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7%E6%94%AF%E6%92%91"><span class="toc-number">5.</span> <span class="toc-text">五、微服务编排的监控工具支撑</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

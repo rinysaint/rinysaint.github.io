@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>机器学习10个最佳人工智能开发框架和AI库（优缺点总结） | 君子兰萧宇的博客</title><meta name="keywords" content="人工智能,机器学习,开发框架和AI库"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="概述通过本文我们来一起看一些用于人工智能的高质量AI库，它们的优点和缺点，以及它们的一些特点。 人工智能（AI）已经存在很长时间了。然而，由于这一领域的巨大进步，近年来它已成为一个流行语。人工智能曾经被称为一个完整的书呆子和天才的领域，但由于各种开发库和框架的发展，它已经成为一个友好的IT领域，并有很多人正走进它。 在这篇文章中，我们将研究用于人工智能的优质库，它们的优缺点以及它们的一些特征。让我"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/d0f5fd4f"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726843672650.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">机器学习10个最佳人工智能开发框架和AI库（优缺点总结）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-12-23T13:06:36.000Z" title="undefined 2019-12-23 21:06:36">2019-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>通过本文我们来一起看一些用于人工智能的高质量AI库，它们的优点和缺点，以及它们的一些特点。</p>
+<p><strong>人工智能（AI）</strong>已经存在很长时间了。然而，由于这一领域的巨大进步，近年来它已成为一个流行语。人工智能曾经被称为一个完整的书呆子和天才的领域，但由于各种开发库和框架的发展，它已经成为一个友好的IT领域，并有很多人正走进它。</p>
+<p>在这篇文章中，我们将研究用于人工智能的优质库，它们的优缺点以及它们的一些特征。让我们深入并探索这些<strong>人工智能库</strong>的世界！</p>
+<h2 id="1-TensorFlow"><a href="#1-TensorFlow" class="headerlink" title="1. TensorFlow"></a><strong>1. TensorFlow</strong></h2><h4 id="“使用数据流图表的可伸缩机器学习的计算”"><a href="#“使用数据流图表的可伸缩机器学习的计算”" class="headerlink" title="“使用数据流图表的可伸缩机器学习的计算”"></a>“使用数据流图表的可伸缩机器学习的计算”</h4><p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726843672650.png" alt="img"></p>
+<p><strong>语言：</strong>C ++或Python。</p>
+<p>当进入AI时，你会听到的第一个框架之一就是Google的TensorFlow。</p>
+<p>TensorFlow是一个使用数据流图表进行数值计算的开源软件。这个框架被称为具有允许在任何CPU或GPU上进行计算的架构，无论是台式机、服务器还是移动设备。这个框架在Python编程语言中是可用的。</p>
+<p>TensorFlow对称为节点的数据层进行排序，并根据所获得的任何信息做出决定。</p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726844586861.png" alt="img"></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>使用易于学习的语言（Python）。</li>
+<li>使用计算图表抽象。</li>
+<li>用于TensorBoard的可用性的可视化。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>这很慢，因为Python不是语言中最快的。</li>
+<li>缺乏许多预先训练的模型。</li>
+<li>不完全开源。</li>
+</ul>
+<h2 id="2-Microsoft-CNTK"><a href="#2-Microsoft-CNTK" class="headerlink" title="2. Microsoft CNTK"></a><strong>2. Microsoft CNTK</strong></h2><h4 id="“开源深度学习工具包”"><a href="#“开源深度学习工具包”" class="headerlink" title="“开源深度学习工具包”"></a>“开源深度学习工具包”</h4><p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726844730194.png" alt="img"></p>
+<p><strong>语言：</strong>C ++。</p>
+<p>我们可以称之为微软对Google的TensorFlow的回应。</p>
+<p>微软的计算网络工具包是一个增强分离计算网络模块化和维护的库，提供学习算法和模型描述。</p>
+<p>在需要大量服务器进行操作的情况下，CNTK可以同时利用多台服务器。</p>
+<p>据说它的功能与Google的TensorFlow相近；但是，它会更快。</p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726844668687.png" alt="img"></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>这是非常灵活的。</li>
+<li>允许分布式训练。</li>
+<li>支持C ++、C＃、Java和Python。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>它以一种新的语言――网络描述语言（Network Description Language , NDL）来实现。</li>
+<li>缺乏可视化。</li>
+</ul>
+<h2 id="3-Theano"><a href="#3-Theano" class="headerlink" title="3. Theano"></a><strong>3. Theano</strong></h2><h4 id="“数值计算库”"><a href="#“数值计算库”" class="headerlink" title="“数值计算库”"></a>“数值计算库”</h4><p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726845929886.png" alt="img"></p>
+<p><strong>语言：</strong>Python。</p>
+<p>Theano是TensorFlow的强有力竞争者，是一个功能强大的Python库，允许以高效率的方式进行涉及多维数组的数值操作。</p>
+<p>Theano库透明地使用GPU来执行数据密集型计算而不是CPU，因此操作效率很高。</p>
+<p>出于这个原因，Theano已经被用于为大规模的计算密集型操作提供动力大约十年。</p>
+<p>然而，在2017年9月，宣布Theano的主要开发将于2017年11月发布的1.0版本后停止。</p>
+<p>这并不意味着它是一个不够强大的库。你仍然可以随时进行深入的学习研究。</p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726845589168.png" alt="img"></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>正确优化CPU和GPU。</li>
+<li>有效的数字任务。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>与其他库相比，原生Theano有点低级。</li>
+<li>需要与其他库一起使用以获得高度的抽象化。</li>
+<li>AWS上有点bug。</li>
+</ul>
+<h2 id="4-Caffe"><a href="#4-Caffe" class="headerlink" title="4. Caffe"></a><strong>4. Caffe</strong></h2><h4 id="“快速、开源的深度学习框架”"><a href="#“快速、开源的深度学习框架”" class="headerlink" title="“快速、开源的深度学习框架”"></a>“快速、开源的深度学习框架”</h4><p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726846426756.png" alt="img"></p>
+<p><strong>语言：</strong>C ++。</p>
+<p>Caffe是一个强大的深度学习框架。</p>
+<p>像这个清单上的其他框架一样，深度学习的研究速度非常快。</p>
+<p>借助Caffe，您可以非常轻松地构建用于图像分类的卷积神经网络（CNN）。Caffe在GPU上运行良好，这有助于在运行期间提高速度。</p>
+<p>Caffe主要的类有：</p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726846867003.png" alt="img"></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>Python和MATLAB的绑定可用。</li>
+<li>性能表现良好。</li>
+<li>无需编写代码即可进行模型的训练。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>对于经常性网络不太好。</li>
+<li>新体系结构不太好。</li>
+</ul>
+<h2 id="5-Keras"><a href="#5-Keras" class="headerlink" title="5. Keras"></a><strong>5. Keras</strong></h2><h4 id="“人类的深度学习”"><a href="#“人类的深度学习”" class="headerlink" title="“人类的深度学习”"></a>“人类的深度学习”</h4><blockquote>
+</blockquote>
+<p><strong>语言：</strong>Python。</p>
+<p>Keras是一个用Python编写的开源的神经网络库。</p>
+<p>与TensorFlow、CNTK和Theano不同，Keras不是一个端到端的机器学习框架。</p>
+<p>相反，它作为一个接口，提供了一个高层次的抽象化，这使得无论它坐落在哪个框架上，神经网络的配置都会变得容易。</p>
+<p>谷歌的TensorFlow目前支持Keras作为后端，而微软的CNTK也会在很短的时间内做到这一点。</p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/71f35ef9c4f49cd2dfa051dbdf6c47a2.jpg" alt="img"></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>它是用户友好的。</li>
+<li>它很容易扩展。</li>
+<li>在CPU和GPU上无缝运行。</li>
+<li>与Theano和TensorFlow无缝工作。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>不能有效地用作独立的框架。</li>
+</ul>
+<h2 id="6-Torch"><a href="#6-Torch" class="headerlink" title="6. Torch"></a><strong>6. Torch</strong></h2><h4 id="“一个开源的机器学习库”"><a href="#“一个开源的机器学习库”" class="headerlink" title="“一个开源的机器学习库”"></a>“一个开源的机器学习库”</h4><blockquote>
+</blockquote>
+<p><strong>语言：</strong>C。</p>
+<p>Torch是一个用于科学和数字操作的开源机器学习库。</p>
+<p>这是一个基于Lua编程语言而非Python的库。</p>
+<p>Torch通过提供大量的算法，使得深度学习研究更容易，并且提高了效率和速度。它有一个强大的N维数组，这有助于切片和索引等操作。它还提供了线性代数程序和神经网络模型。<a target="_blank" rel="noopener" href="http://torch.ch/">
+</a></p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/46a202b7e2595403f3df336e8736d4f5.jpg" alt="img"></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>非常灵活。</li>
+<li>高水平的速度和效率。</li>
+<li>大量的预训练模型可用。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>不清楚的文献记录。</li>
+<li>缺乏即时使用的即插即用代码。</li>
+<li>它基于一种不那么流行的语言――Lua。</li>
+</ul>
+<h2 id="7-Accord-NET"><a href="#7-Accord-NET" class="headerlink" title="7. Accord.NET"></a><strong>7. Accord.NET</strong></h2><h4 id="“机器学习、计算机视觉、统计和-NET通用科学计算”"><a href="#“机器学习、计算机视觉、统计和-NET通用科学计算”" class="headerlink" title="“机器学习、计算机视觉、统计和.NET通用科学计算”"></a>“机器学习、计算机视觉、统计和.NET通用科学计算”</h4><p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/97742ad082554ea8c7a12a6c20923c01.png" alt="img"></p>
+<p><strong>语言：</strong>C＃。</p>
+<p>这是专为C＃程序员设计的。</p>
+<p>Accord.NET框架是一个.NET机器学习框架，使音频和图像处理变得简单。</p>
+<p>这个框架可以有效地处理数值优化、人工神经网络，甚至可视化。除此之外，Accord.NET对计算机视觉和信号处理的功能非常强大，同时也使得算法的实现变得简单。</p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/bcb92c9f748b469c96cff329f8f3b804.jpg" alt="img"></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>它有一个强大而积极的开发团队。</li>
+<li>非常有据可查的框架。</li>
+<li>质量可视化。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>不是一个非常流行的框架。</li>
+<li>比TensorFlow慢。</li>
+</ul>
+<h2 id="8-Spark-MLlib"><a href="#8-Spark-MLlib" class="headerlink" title="8. Spark MLlib"></a><strong>8. Spark MLlib</strong></h2><h4 id="“可扩展的机器学习库”"><a href="#“可扩展的机器学习库”" class="headerlink" title="“可扩展的机器学习库”"></a>“可扩展的机器学习库”</h4><blockquote>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/eb3a3a6644854728d920ae1c1622425b.png" alt="img"></p>
+</blockquote>
+<p><strong>语言：</strong>Scala。</p>
+<p>Apache的Spark MLlib是一个非常可扩展的机器学习库。</p>
+<p>它非常适用于诸如Java、Scala、Python，甚至R等语言。它非常高效，因为它可以与Python库和R库中的numpy进行互操作。</p>
+<p>MLlib可以轻松插入到Hadoop工作流程中。它提供了机器学习算法，如分类、回归和聚类。</p>
+<p>这个强大的库在处理大型数据时非常快速。</p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/19a2dc5b2a510cbfa8e085cd4becc9d8.jpg" alt="img"></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>对于大规模数据处理非常快速。</li>
+<li>提供多种语言。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>陡峭的学习曲线。</li>
+<li>即插即用仅适用于Hadoop。</li>
+</ul>
+<h2 id="9-Sci-kit-Learn"><a href="#9-Sci-kit-Learn" class="headerlink" title="9. Sci-kit Learn"></a><strong>9. Sci-kit Learn</strong></h2><h4 id="“用Python的机器学习”"><a href="#“用Python的机器学习”" class="headerlink" title="“用Python的机器学习”"></a>“用Python的机器学习”</h4><p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/fa3129d1a5c4d32652c43ee5bfefc44e.jpg" alt="img"></p>
+<p><strong>语言：</strong>Python。</p>
+<p>Sci-kit learn是一个非常强大的机器学习Python库，主要用于构建模型。</p>
+<p>使用numpy、SciPy和matplotlib等其他库构建，对统计建模技术（如分类、回归和聚类）非常有效。</p>
+<p>Sci-kit learn带有监督学习算法、无监督学习算法和交叉验证等功能。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>许多主要算法的可用性。</li>
+<li>有效的数据挖掘。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>不是构建模型的最佳选择。</li>
+<li>GPU效率不高。</li>
+</ul>
+<h2 id="10-MLPack"><a href="#10-MLPack" class="headerlink" title="10. MLPack"></a><strong>10. MLPack</strong></h2><h4 id="“可扩展的C-机器学习库”"><a href="#“可扩展的C-机器学习库”" class="headerlink" title="“可扩展的C ++机器学习库”"></a>“可扩展的C ++机器学习库”</h4><p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/7547e8233eeaacfaa9dafe699537df27.png" alt="img"></p>
+<p><strong>语言：</strong>C ++。</p>
+<p>MLPack是一个用C ++实现的可扩展的机器学习库。因为它是用C ++编写的，所以你可以猜测它对于内存管理是非常好的。</p>
+<p>MLPack以极高的速度运行，因为高质量的机器学习算法与库一起出现。这个库是对新手友好的，并提供了一个简单的API使用。</p>
+<p><img src="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/a6801074bf4cc841424d99d786c6537b.png" alt="img"></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>非常可扩展。</li>
+<li>Python和C ++绑定可用。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>不是最好的文献记录。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>本文讨论的库非常有效，并且随着时间的推移已经证明都是高质量的。像Facebook、谷歌、雅虎、苹果和微软这样的大公司都利用其中的一些库来进行深度学习和机器学习项目，那么你为什么不呢？</p>
+<p>你能想到你经常使用的但并不在这个列表中的其他库吗？</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/d0f5fd4f.html">http://aichn.cn/post/d0f5fd4f.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">-人工智能 -机器学习</a></div><div class="post_share"><div class="social-share" data-image="/../images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A010%E4%B8%AA%E6%9C%80%E4%BD%B3%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%92%8CAI%E5%BA%93%EF%BC%88%E4%BC%98%E7%BC%BA%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%89/1528726843672650.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/15ebb916.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">docker的备份和迁移</div></div></a></div><div class="next-post pull-right"><a href="/post/57806a78.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CentOS7安装k8s （kubernetes）教程 yum方式</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-TensorFlow"><span class="toc-number"></span> <span class="toc-text">1. TensorFlow</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BE%E8%A1%A8%E7%9A%84%E5%8F%AF%E4%BC%B8%E7%BC%A9%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%AE%A1%E7%AE%97%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“使用数据流图表的可伸缩机器学习的计算”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Microsoft-CNTK"><span class="toc-number"></span> <span class="toc-text">2. Microsoft CNTK</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E5%BC%80%E6%BA%90%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7%E5%8C%85%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“开源深度学习工具包”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Theano"><span class="toc-number"></span> <span class="toc-text">3. Theano</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E5%BA%93%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“数值计算库”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Caffe"><span class="toc-number"></span> <span class="toc-text">4. Caffe</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E5%BF%AB%E9%80%9F%E3%80%81%E5%BC%80%E6%BA%90%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“快速、开源的深度学习框架”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Keras"><span class="toc-number"></span> <span class="toc-text">5. Keras</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E4%BA%BA%E7%B1%BB%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“人类的深度学习”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Torch"><span class="toc-number"></span> <span class="toc-text">6. Torch</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BA%93%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“一个开源的机器学习库”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Accord-NET"><span class="toc-number"></span> <span class="toc-text">7. Accord.NET</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E3%80%81%E7%BB%9F%E8%AE%A1%E5%92%8C-NET%E9%80%9A%E7%94%A8%E7%A7%91%E5%AD%A6%E8%AE%A1%E7%AE%97%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“机器学习、计算机视觉、统计和.NET通用科学计算”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Spark-MLlib"><span class="toc-number"></span> <span class="toc-text">8. Spark MLlib</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BA%93%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“可扩展的机器学习库”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Sci-kit-Learn"><span class="toc-number"></span> <span class="toc-text">9. Sci-kit Learn</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E7%94%A8Python%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“用Python的机器学习”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-MLPack"><span class="toc-number"></span> <span class="toc-text">10. MLPack</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%80%9C%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84C-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BA%93%E2%80%9D"><span class="toc-number">0.1.</span> <span class="toc-text">“可扩展的C ++机器学习库”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number"></span> <span class="toc-text">总结</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

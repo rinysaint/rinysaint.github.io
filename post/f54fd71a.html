@@ -1,0 +1,441 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>无监督学习 | 君子兰萧宇的博客</title><meta name="keywords" content="大数据,无监督学习"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="目录  1 关于机器学习 2 sklearn库中的标准数据集及基本功能 2.1 标准数据集 2.2 sklearn库的基本功能   3 关于无监督学习 4 K-means方法及应用 5 DBSCAN方法及应用 6  PCA方法及其应用 7 NMF方法及其实例 8 基于聚类的“图像分割”  正文 1 关于机器学习　　机器学习是实现人工智能的手段, 其主要研究内容是如何利用数据或经验进行学习, 改善具"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/f54fd71a"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518151628182-1057765599.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">无监督学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2017-12-23T13:06:36.000Z" title="undefined 2017-12-23 21:06:36">2017-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>目录</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_label0">1 关于机器学习</a></li>
+<li>2 sklearn库中的标准数据集及基本功能<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_label1_0">2.1 标准数据集</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_label1_1">2.2 sklearn库的基本功能</a></li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_label2">3 关于无监督学习</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_label3">4 K-means方法及应用</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_label4">5 DBSCAN方法及应用</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_label5">6  PCA方法及其应用</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_label6">7 NMF方法及其实例</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_label7">8 基于聚类的“图像分割”</a></li>
+</ul>
+<p><strong>正文</strong></p>
+<h1 id="1-关于机器学习"><a href="#1-关于机器学习" class="headerlink" title="1 关于机器学习"></a>1 关于机器学习</h1><p>　　机器学习是实现人工智能的手段, 其主要研究内容是如何利用数据或经验进行学习, 改善具体算法的性能 </p>
+<p>　　　　多领域交叉, 涉及概率论、统计学, 算法复杂度理论等多门学科</p>
+<p>　　　　广泛应用于网络搜索、垃圾邮件过滤、推荐系统、广告投放、信用评价、欺诈检测、股票交易和医疗诊断等应用<br>　　机器学习的分类</p>
+<p>　　　　<strong>监督学习</strong> （Supervised Learning）</p>
+<p>　　　　　　从给定的数据集中学习出一个函数, 当新的数据到来时, 可以根据这个函数预测结果, 训练集通常由人工标注</p>
+<p>　　　　<strong>无监督学习</strong> （Unsupervised Learning）</p>
+<p>　　　　　　相较于监督学习, 没有人工标注</p>
+<p>　　　　<strong>强化学习</strong>（Reinforcement Learning，增强学习）</p>
+<p>　　　　　　通过观察通过什么样的动作获得最好的回报, 每个动作都会对环境有所影响, 学习对象通过观察周围的环境进行判断</p>
+<p>　　　　<strong>半监督学习</strong>（Semi-supervised Learning）</p>
+<p>　　　　　　介于监督学习和无监督学习</p>
+<p>　　　　<strong>深度学习</strong> (Deep Learning)</p>
+<p>　　　　　　利用深层网络神经模型, 抽象数据表示特征</p>
+<p>　　在Python中使用**Scikit-learn(简化为sklearn)**这一模块来处理机器学习</p>
+<p>　　　　<a target="_blank" rel="noopener" href="http://scikit-learn.org/stable/">官网</a></p>
+<p>　　　　主要是依赖于numpy, scipy和matplotlib库</p>
+<p>　　　　开源可复用</p>
+<p>　　sklearn中机器学习模型十分丰富, 需要根据问题的类型来选择适当的模型</p>
+<p>　　sklearn常用的函数</p>
+<p>　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518151628182-1057765599.png" alt="img"></p>
+<p>　　关于sklearn库</p>
+<p>　　　　sklearn是scikit-learn的简称，是一个基于Python的第三方模块。sklearn库集成了一些常用的机器学习方法，在进行机器学习任务时，并不需要实现算法，只需要简单的调用sklearn库中提供的模块就能完成大多数的机器学习任务。</p>
+<p>　　　　安装sklearn库需要安装numpy, scipy(sklearn的基础, 集成了多种数学算法和函数), matplotlib(数据绘图工具)</p>
+<p>　　　　<a target="_blank" rel="noopener" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">安装地址</a></p>
+<p>　　　　注意安装有顺序: numpy -&gt; scipy -&gt; matplotlib -&gt; sklearn</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_labelTop">回到顶部</a></p>
+<h1 id="2-sklearn库中的标准数据集及基本功能"><a href="#2-sklearn库中的标准数据集及基本功能" class="headerlink" title="2 sklearn库中的标准数据集及基本功能"></a>2 sklearn库中的标准数据集及基本功能</h1><h2 id="2-1-标准数据集"><a href="#2-1-标准数据集" class="headerlink" title="2.1 标准数据集"></a>2.1 标准数据集</h2><p>　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518162319478-267092604.png" alt="img"></p>
+<p>　　1) 波士顿房价数据集</p>
+<p>　　　　波士顿房价数据集包含506组数据，每条数据包含房屋以及房屋周围的详细信息。其中包括城镇犯罪率、一氧化氮浓度、住宅平均房间数、到中心区域的加距离以及自住房平均房价等。因此，波士顿房价数据集能够应用到回归问题上。</p>
+<p>　　　　加载数据集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.datasets.load_boston()</span><br></pre></td></tr></table></figure>
+<p>　　　　其中有参数return_X_y, 设置为True是会返回(data, target)两个数据, <strong>默认为False</strong>, 只返回data(包含了data和target两个部分的内容)</p>
+<p>　　　　具体使用</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518163922713-1506268480.png" alt="img"></p>
+<p>　　2) 鸢尾花数据集</p>
+<p>　　　　鸢尾花数据集采集的是鸢尾花的测量数据以及其所属的类别</p>
+<p>　　　　测量数据包括: 萼片长度、萼片宽度、花瓣长度、花瓣宽度</p>
+<p>　　　　类别共分为三类: Iris Setosa，Iris Versicolour，Iris Virginica, 该数据集可用于多分类问题</p>
+<p>　　　　加载数据集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.datasets. load_iris()</span><br></pre></td></tr></table></figure>
+<p>　　　　同样有参数return_X_y, 使用方法雷同</p>
+<p>　　　　具体实例</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518164919900-1535707821.png" alt="img"></p>
+<p>　　3) 手写数字数据集</p>
+<p>　　　　手写数字数据集包括1797个0-9的手写数字数据，每个数字由8*8大小的矩阵构成，矩阵中值的范围是0-16，代表颜色的深度。</p>
+<p>　　　　加载数据集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.datasets.load_digits()</span><br></pre></td></tr></table></figure>
+<p>　　　　return_X_y: 效果依旧, True返回(data, target), 默认False直接返回全部内容</p>
+<p>　　　　n_class: 设置数据类别, 返回数据的类别比设置类别低的数据样本, 设置为5就会返回0~4的数据 </p>
+<p>　　　　基本使用<br>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518165720525-228666888.png" alt="img"></p>
+<h2 id="2-2-sklearn库的基本功能"><a href="#2-2-sklearn库的基本功能" class="headerlink" title="2.2 sklearn库的基本功能"></a>2.2 sklearn库的基本功能</h2><p>　　sklearn库的共分为6大部分，分别用于完成分类任务、回归任务、聚类任务、降维任务、 模型选择以及数据的预处理</p>
+<p>　　1) <strong>分类</strong>任务</p>
+<p>　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518170108494-1242465797.png" alt="img"></p>
+<p>　　2) <strong>回归</strong>任务</p>
+<p>　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518170135635-1624450024.png" alt="img"></p>
+<p>　　3) <strong>聚类</strong>任务</p>
+<p> 　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518170203385-816326160.png" alt="img"></p>
+<p>　　4) <strong>降维</strong>任务</p>
+<p>　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518170219666-1472992565.png" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_labelTop">回到顶部</a></p>
+<h1 id="3-关于无监督学习"><a href="#3-关于无监督学习" class="headerlink" title="3 关于无监督学习"></a>3 关于无监督学习</h1><p>　　无监督学习的目标</p>
+<p>　　　　利用无标签的数据学习数据的分布或数据与数据之间的关系被称作无监督学习</p>
+<p>　　　　有监督学习和无监督学习的最大区别在于数据是否有标签</p>
+<p>　　　　无监督学习最常应用的场景是<strong>聚类(clustering)**和</strong>降维(DimensionReduction)**</p>
+<p>　　<strong>聚类</strong></p>
+<p>　　　　聚类(clustering)，就是根据数据的“相似性”将数据分为多类的过程</p>
+<p>　　　　评估两个不同样本之间的“相似性” ，通常使用的方法就是计算两个样本之间的“距离”。使用不同的方法计算样本间的距离会关系到聚类结果的好坏</p>
+<p>　　1) <strong>欧氏距离</strong></p>
+<p>　　　　欧氏距离是最常用的一种距离度量方法，源于欧式空间中<strong>两点的距离</strong>。</p>
+<p>　　　　计算公式</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518170709135-1532917790.png" alt="img"></p>
+<p>　　　　直观表示</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518170832182-886281143.png" alt="img"></p>
+<p>　　2) <strong>曼哈顿距离</strong></p>
+<p>　　　　曼哈顿距离也称作“城市街区距离”，类似于在城市之中驾车行驶，<strong>从一个十字路口到另外一个十字楼口的距离(x与y两个方向的距离之和)</strong></p>
+<p>　　　　计算公式</p>
+<p> 　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518170923869-2101076582.png" alt="img"></p>
+<p>　　　　直观表示</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518170948603-1805810447.png" alt="img"></p>
+<p>　　3) <strong>马氏距离</strong></p>
+<p>　　　　马氏距离表示数据的协方差距离，是一种尺度无关的度量方式。也就是说马氏距离会先将样本点的各个属性标准化，再计算样本间的距离。</p>
+<p>　　　　计算公式, 其中s是协方差矩阵</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518171114385-1175330249.png" alt="img"></p>
+<p>　　　　马氏空间的距离</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518171159057-1051433700.png" alt="img"></p>
+<p>　　4) <strong>夹角余弦</strong></p>
+<p>　　　　余弦相似度用向量空间中两个向量夹角的余弦值作为衡量两个样本差异的大小。余弦值越接近1，说明两个向量夹角越接近0度，表明两个向量越相似</p>
+<p>　　　　计算公式</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518171255244-1619807957.png" alt="img"></p>
+<p>　　　　二维空间显示</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518171312307-1211754309.png" alt="img"></p>
+<p>　　sklearn提供的常用聚类算法函数包含在<strong>sklearn.cluster</strong>这个模块中</p>
+<p>　　以同样的数据集应用于不同的算法，可能会得到不同的结果，算法所耗费的时间也不尽相同，这是由算法的特性决定的</p>
+<p>　　sklearn.cluster</p>
+<p>　　　　sklearn.cluster模块提供的各聚类算法函数可以使用不同的数据形式作为输入</p>
+<p>　　　　标准数据输入格式:<strong>[**</strong>样本个数，特征个数****]**定义的矩阵形式</p>
+<p>　　　　相似性矩阵输入格式：即由**[样本数目，样本数目]**定义的矩阵形式，矩阵中的每一个元素为两个样本的相似度，如DBSCAN，AffinityPropagation(近邻传播算法)接受这种输入。如果以余弦相似度为例，则对角线元素全为1. 矩阵中每个元素的取值范围为[0,1]</p>
+<p>　　具有代表性的聚类函数</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518172253010-1621085682.png" alt="img"></p>
+<p>　　<strong>降维</strong></p>
+<p>　　　　降维就是在保证数据所具有的代表性特征或分布的情况下, 将<strong>高维数据转化为低维数据</strong>的过程</p>
+<p>　　　　作用:</p>
+<p>　　　　　　数据可视化</p>
+<p>　　　　　　作为中间过程, 起到精简数据, 提高其他机器学习算法效率的作用</p>
+<p>　　分类和降维</p>
+<p>　　　　聚类和分类都是无监督学习的典型任务，任务之间存在关联，比如某些高纬数据的分类可以通过降维处理更好的获得，另外学界研究也表明代表性的分类算法如k-means与降维算法如NMF之间存在等价性</p>
+<p>　　sklearn和降维</p>
+<p>　　　　降维是机器学习领域的一个重要研究内容，有很多被工业界和学术界接受的典型算法，截止到目前sklearn库提供7种降维算法</p>
+<p>　　　　降维过程也可以被理解为对<strong>数据集的组成成份进行分解（decomposition）</strong>的过程，因此sklearn为降维模块命名为decomposition, 在对降维算法调用需要使用sklearn.decomposition模块</p>
+<p>　　　　sklearn.decomposition的常用算法</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518173946947-1840266132.png" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_labelTop">回到顶部</a></p>
+<h1 id="4-K-means方法及应用"><a href="#4-K-means方法及应用" class="headerlink" title="4 K-means方法及应用"></a>4 K-means方法及应用</h1><p>　　k-means算法也就是<strong>k均值算法</strong></p>
+<p>　　k-means算法以k为参数，把n个对象分成k个簇, 使簇内具有较高的相似度, 而簇间的相似度较低</p>
+<p>　　处理结果如下</p>
+<p>　　　　1 随机选择k个点作为初始的聚类中心；</p>
+<p>　　　　2 对于剩下的点，根据其与聚类中心的距离，将其归入最近的簇</p>
+<p>　　　　3 对每个簇，计算所有点的均值作为新的聚类中心</p>
+<p>　　　　4 重复2、 3直到聚类中心不再发生改变</p>
+<p>　　k-meams方法的处理过程如下</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518184141416-532536277.png" alt="img"></p>
+<p>　　创建k-means实例</p>
+<p>　　　　创建实例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.cluster.Kmeans()</span><br></pre></td></tr></table></figure>
+<p>　　　　n_clusters: 用于指定聚类中心的个数, 一般设定此参数, 别的参数使用默认值</p>
+<p>　　　　init: 初始聚类中心的初始化方法, 默认值是k-means++</p>
+<p>　　　　max_iter: 最大的跌打次数, 默认值是30</p>
+<p>　　创建实例后, 可以通过实例对象调用<strong>fit_predict()**计算</strong>簇中心以及为簇分配序号**</p>
+<p>　　　　其中会传入参数data, 用于传入需要加载的数据</p>
+<p>　　　　返回的结果是一个label, 是聚类后各个数据所属的标签</p>
+<p>　　k-means实例还有一个参数 <strong>cluster_centers_</strong>, 可以通过处理该参数的值来得到更进一步的处理数据　　</p>
+<p>　　k-means的应用</p>
+<p>　　处理中国1999年各省份的消费水平</p>
+<p>　　　　处理的技术路线: sklearn.cluster.Kmeans</p>
+<p>　　　　数据模型为</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170525123220341-1430445217.png" alt="img"></p>
+<p>　　　　具体实例代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">from sklearn.cluster import KMeans</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">def loadData(filePath):</span><br><span class="line">    fr = open(filePath,&#x27;r+&#x27;)</span><br><span class="line">    lines = fr.readlines()</span><br><span class="line">    retData = []</span><br><span class="line">    retCityName = []</span><br><span class="line">    for line in lines:</span><br><span class="line">        items = line.strip().split(&quot;,&quot;)</span><br><span class="line">        retCityName.append(items[0])</span><br><span class="line">        retData.append([float(items[i]) for i in range(1,len(items))])</span><br><span class="line">    return retData,retCityName</span><br><span class="line">  </span><br><span class="line">      </span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    data,cityName = loadData(&#x27;31省市居民家庭消费水平-city.txt&#x27;)</span><br><span class="line">    km = KMeans(n_clusters=4)</span><br><span class="line">    label = km.fit_predict(data)</span><br><span class="line">    expenses = np.sum(km.cluster_centers_,axis=1)</span><br><span class="line">    #print(expenses)</span><br><span class="line">    CityCluster = [[],[],[],[]]</span><br><span class="line">    for i in range(len(cityName)):</span><br><span class="line">        CityCluster[label[i]].append(cityName[i])</span><br><span class="line">    for i in range(len(CityCluster)):</span><br><span class="line">        print(&quot;Expenses:%.2f&quot; % expenses[i])</span><br><span class="line">        print(CityCluster[i])</span><br></pre></td></tr></table></figure>
+<p>　　　　程序结果</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170525122740950-2018421250.png" alt="img"></p>
+<p>　　深入程序解释</p>
+<p>　　　　label是一个列表类型, 具体的值是 对应的数据被分成哪一类的索引</p>
+<p>　　　　也就是说, 遍历cityname的时候同步取得label的值, 就可以对应的把城市名字放到合适的分类中, 这就是下面这句话的来源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CityCluster[label[i]].append(cityName[i])</span><br></pre></td></tr></table></figure>
+<p>　　　　生成的cluster_centers_是一个二维数据, 是一个列表里面套列表, 里面列表存储的是一个分类中, 每个城市的值对应处理得到的结果</p>
+<p>　　　　所以对这个值在1维上相加得到的就是每一个聚类的综合的值, 这就是这句话的来源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expenses = np.sum(km.cluster_centers_,axis=1)</span><br></pre></td></tr></table></figure>
+<p>　　深入k-means</p>
+<p>　　　　k-means在计算两条数据相似性时, <strong>默认是使用欧式距离</strong>, 且没有给对应的参数来修改这个默认的计算距离的方法</p>
+<p>　　　　如果需要修改这个默认的距离方式, 需要修改源代码</p>
+<p>　　　　源码位置为C:\Python36\Lib\site-packages\sklearn\metrics\pairwise.py</p>
+<p>　　　　162行的euclidean_distances()函数</p>
+<p>　　　　建议使用scipy.spatial.distance.cdist方法</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_labelTop">回到顶部</a></p>
+<h1 id="5-DBSCAN方法及应用"><a href="#5-DBSCAN方法及应用" class="headerlink" title="5 DBSCAN方法及应用"></a>5 DBSCAN方法及应用</h1><p>　　DBSCAN算法是一种<strong>基于密度</strong>的聚类算法</p>
+<p>　　　　DBSCAN算法聚类的时候不要预先指定簇的个数</p>
+<p>　　　　因而最终的簇的个数不确定</p>
+<p>　　DBSCAN算法将数据点分为三类</p>
+<p>　　　　<strong>核心点</strong>: 在半径Eps内含有超过MinPts数据的点</p>
+<p>　　　　<strong>边界点</strong>: 在半径Eps内点的数量小于MinPts, 但是落在核心点的邻域内</p>
+<p>　　　　<strong>噪音点</strong>: 既不是核心点也不是边界点的点</p>
+<p>　　DBSCAN的算法流程</p>
+<p>　　　　1.将所有点标记为核心点、边界点或噪声点;</p>
+<p>　　　　2.删除噪声点;</p>
+<p>　　　　3.为距离在Eps之内的所有核心点之间赋予一条边;</p>
+<p>　　　　4.每组连通的核心点形成一个簇;</p>
+<p>　　　　5.将每个边界点指派到一个与之关联的核心点的簇中(哪一个核心点的半径范围之内)</p>
+<p>　　获得密度聚类的实例</p>
+<p>　　　　设Eps=3, MinPts=3, 采用曼哈顿距离聚类</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518192449353-152727134.png" alt="img"></p>
+<p>　　　　处理核心点, 边界点, 噪声点</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518192532416-1288859775.png" alt="img"></p>
+<p>　　　　将不超过Eps=3的点相互圈起来形成一个簇, 核心点邻域内的点都会被加入到这个簇当中</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518192641525-2103156938.png" alt="img"></p>
+<p>　　创建DBSCAN的实例</p>
+<p>　　　　使用代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.cluster.DBSCAN()</span><br></pre></td></tr></table></figure>
+<p>　　　　其中有几个参数</p>
+<p>　　　　eps: 两个样本被看做邻居节点的最大距离</p>
+<p>　　　　min_samples: 簇的样本数</p>
+<p>　　　　metric: 距离的计算方式</p>
+<p>　　　　<a target="_blank" rel="noopener" href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN">详细介绍</a></p>
+<p>　　创建完毕DBSCAN的对象之后</p>
+<p>　　　　可以后 DBSCAN对象.fix(数据) 来生成一个结果, 这个结果有一个属性是<strong>labels_</strong></p>
+<p>　　　　这个就是我们需要的标签</p>
+<p> 　　　其中标签中值为-1表示噪声</p>
+<p>　　实例处理, 学生上网时间分布</p>
+<p>　　数据</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170525160322966-58968362.png" alt="img"></p>
+<p>　　　　分别是 记录编号, 学生编号, MAC地址, IP地址, 开始上网时间, 结束上网时间, 上网时长(秒), …</p>
+<p>　　具体代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import sklearn.cluster as skc</span><br><span class="line">from sklearn import metrics</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"> </span><br><span class="line">onlinetimes = &#123;&#125;</span><br><span class="line">with open(&quot;学生月上网时间分布-TestData.txt&quot;, encoding=&quot;utf8&quot;) as f:</span><br><span class="line">    for line in f:</span><br><span class="line">        info_list = line.strip().split(&#x27;,&#x27;)</span><br><span class="line">        mac = info_list[2]</span><br><span class="line">        onlinetime = int(info_list[6])</span><br><span class="line">        # 获取上网的起始时候的小时 &quot;2014-07-21 08:14:29.287000000&quot; 这个的08</span><br><span class="line">        starttime = int(info_list[4].split(&#x27; &#x27;)[1].split(&#x27;:&#x27;)[0])</span><br><span class="line">        onlinetimes[mac] = (starttime, onlinetime)</span><br><span class="line">real_X = np.array([onlinetimes[key] for key in onlinetimes]).reshape((-1, 2))</span><br><span class="line"># 只获取上网的时间点</span><br><span class="line">X = real_X[:, 0:1]</span><br><span class="line"> </span><br><span class="line">db = skc.DBSCAN(eps=0.01, min_samples=20).fit(X)</span><br><span class="line">labels = db.labels_</span><br><span class="line"> </span><br><span class="line"># 获得噪声点比例</span><br><span class="line">raito = len(labels[labels[:] == -1]) / len(labels)</span><br><span class="line">print(&#x27;Noise raito:&#x27;, format(raito, &#x27;.2%&#x27;))</span><br><span class="line"> </span><br><span class="line"># 显示算法性能</span><br><span class="line">n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)</span><br><span class="line">print(&#x27;Estimated number of clusters: %d&#x27; % n_clusters_)</span><br><span class="line">print(&quot;Silhouette Coefficient: %0.3f&quot; % metrics.silhouette_score(X, labels))</span><br><span class="line"> </span><br><span class="line">for i in range(n_clusters_):</span><br><span class="line">    print(&#x27;Cluster &#x27;, i, &#x27;:&#x27;)</span><br><span class="line">    print(list(X[labels == i].flatten()))</span><br><span class="line"> </span><br><span class="line">plt.hist(X, 24)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>　　实验结果</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170525172657138-68858036.png" alt="img"></p>
+<p>　　处理数据的技巧</p>
+<p>　　　　如果原始数据不协调, 不利于数据处理, 可以对原始数据进行无损变化来使得数据大小更加合适处理</p>
+<p>　　　　具体的处理办法就是取对数变换</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_labelTop">回到顶部</a></p>
+<h1 id="6-PCA方法及其应用"><a href="#6-PCA方法及其应用" class="headerlink" title="6  PCA方法及其应用"></a>6  PCA方法及其应用</h1><p>　　PCA(Principal Component Analysis), 主成分分析, 是最常用的一种降维方法, 通常用于高维数据集的探索与可视化, 还可以用作数据压缩和预处理等</p>
+<p>　　PCA可以把具有相关性的高维变量<strong>合成</strong>为线性无关的低维变量，称为主成分。主成分能够尽可能保留原始数据的信息</p>
+<p>　　相关术语</p>
+<p>　　1) 方差</p>
+<p>　　　　是各个样本和样本均值的差的平方和的均值，用来度量一组数据的分散程度</p>
+<p>　　　　公式</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518200233775-1681892894.png" alt="img"></p>
+<p>　　2) 协方差</p>
+<p>　　　　用于度量两个变量之间的线性相关性程度，若两个变量的协方差为0，则可认为二者线性无关。协方差矩阵则是由变量的协方差值构成的矩阵（对称阵）</p>
+<p>　　　　公式</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518200343869-905360614.png" alt="img"></p>
+<p>　　3) 特征向量</p>
+<p>　　　　矩阵的特征向量是描述数据集结构的非零向量</p>
+<p>　　　　公式</p>
+<p>　　　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518200807557-1259352640.png" alt="img"></p>
+<p>　　主成分分析的原理</p>
+<p>　　　　矩阵的主成分就是其协方差矩阵对应的特征向量，按照对应的特征值大小进行排序，最大的特征值就是第一主成分，其次是第二主成分，以此类推</p>
+<p>　　使用PCA</p>
+<p>　　　　创建PCA对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.decomposition.PCA()</span><br></pre></td></tr></table></figure>
+<p>　　　　主要有两个参数</p>
+<p>　　　　n_components: 指定主要成分的个数</p>
+<p>　　　　svd_solver: 设置特征值分解的方法, 默认为auto, 其他可选的还有full, arpack, randomized</p>
+<p>　　创建PCA对象之后, 可以通过调用**fit_transform(data)**函数传入需要降维的数据, 返回的数据就是降维之后处理完毕的数据</p>
+<p>　　实例, 处理鸢尾花数据集</p>
+<p>　　　　鸢尾花数据集是(150, 4)</p>
+<p>　　　　可以利用PCA将数据集处理成(150, 2)的数据</p>
+<p>　　　　处理鸢尾花数据让其从4维数据编程2位平面数据, 具体代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">from sklearn.decomposition import PCA</span><br><span class="line">from sklearn.datasets import load_iris</span><br><span class="line">  </span><br><span class="line">data = load_iris()</span><br><span class="line">y = data.target</span><br><span class="line">X = data.data</span><br><span class="line">pca = PCA(n_components=2)</span><br><span class="line">reduced_X = pca.fit_transform(X)</span><br><span class="line">  </span><br><span class="line">red_x, red_y = [], []</span><br><span class="line">blue_x, blue_y = [], []</span><br><span class="line">green_x, green_y = [], []</span><br><span class="line">  </span><br><span class="line">for i in range(len(reduced_X)):</span><br><span class="line">    if y[i] == 0:</span><br><span class="line">        red_x.append(reduced_X[i][0])</span><br><span class="line">        red_y.append(reduced_X[i][1])</span><br><span class="line">    elif y[i] == 1:</span><br><span class="line">        blue_x.append(reduced_X[i][0])</span><br><span class="line">        blue_y.append(reduced_X[i][1])</span><br><span class="line">    else:</span><br><span class="line">        green_x.append(reduced_X[i][0])</span><br><span class="line">        green_y.append(reduced_X[i][1])</span><br><span class="line">  </span><br><span class="line">plt.scatter(red_x, red_y, c=&#x27;r&#x27;, marker=&#x27;x&#x27;)</span><br><span class="line">plt.scatter(blue_x, blue_y, c=&#x27;b&#x27;, marker=&#x27;D&#x27;)</span><br><span class="line">plt.scatter(green_x, green_y, c=&#x27;g&#x27;, marker=&#x27;.&#x27;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>　　具体结果</p>
+<p>　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170525184342372-23230586.png" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_labelTop">回到顶部</a></p>
+<h1 id="7-NMF方法及其实例"><a href="#7-NMF方法及其实例" class="headerlink" title="7 NMF方法及其实例"></a>7 NMF方法及其实例</h1><p>　　NMF(Non-negative Matrix Factorization, 非负矩阵分解), 是在矩阵中所有元素均为<strong>非负数</strong>约束条件之下的矩阵分解方法</p>
+<p>　　基本思想：给定一个非负矩阵V，NMF能够找到一个非负矩阵W和一个非负矩阵H，使得矩阵W和H的乘积近似等于矩阵V中的值</p>
+<p>　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170519085203932-1800063375.png" alt="img"></p>
+<p>　　W矩阵：基础图像矩阵, 相当于从原矩阵V中抽取出来的特征</p>
+<p>　　H矩阵：系数矩阵</p>
+<p>　　NMF能够广泛应用于图像分析、文本挖掘和语音处理等领域</p>
+<p>　　</p>
+<p>　　矩阵分解优化目标: 最小化W矩阵H矩阵的乘积和原始矩阵之间的差别，目标函数如下</p>
+<p>　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170519085903728-2129321519.png" alt="img"></p>
+<p>　　基于KL散度的优化目标, 损失函数如下</p>
+<p>　　<img src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170519091244353-1606654133.png" alt="img"></p>
+<p>　　<a target="_blank" rel="noopener" href="http://blog.csdn.net/acdreamers/article/details/44663421/">公式的推导</a></p>
+<p>　　在sklearn库中，可以使用sklearn.decomposition.NMF加载NMF算法，主要参数有</p>
+<p>　　生成NMF对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sklearn.decomposition.NMF()</span><br></pre></td></tr></table></figure>
+<p>　　　　n_components：用于指定分解后矩阵的单个维度k</p>
+<p>　　　　init：W矩阵和H矩阵的初始化方式，默认为‘ nndsvdar’</p>
+<p>　　使用NMF对人脸数据进行特征提取</p>
+<p>　　　　使用 <strong>NMF对象.fit(数据)</strong> 来处理数据, 生成的内容还是在NMF对象中</p>
+<p>　　　　获取处理数据 <strong>NMF对象.components_</strong> 获取得到的数据</p>
+<p>　　具体使用PCA和NMF处理人脸数据并且对比展示的代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">from numpy.random import RandomState</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">from sklearn.datasets import fetch_olivetti_faces</span><br><span class="line">from sklearn import decomposition</span><br><span class="line">  </span><br><span class="line">n_row, n_col = 2, 3</span><br><span class="line">n_components = n_row * n_col</span><br><span class="line">image_shape = (64, 64)</span><br><span class="line">  </span><br><span class="line"># Load faces data</span><br><span class="line">dataset = fetch_olivetti_faces(shuffle=True, random_state=RandomState(0))</span><br><span class="line">faces = dataset.data</span><br><span class="line">  </span><br><span class="line">def plot_gallery(title, images, n_col=n_col, n_row=n_row):</span><br><span class="line">    plt.figure(figsize=(2. * n_col, 2.26 * n_row))</span><br><span class="line">    plt.suptitle(title, size=16)</span><br><span class="line">    for i, comp in enumerate(images):</span><br><span class="line">        plt.subplot(n_row, n_col, i + 1)</span><br><span class="line">        vmax = max(comp.max(), -comp.min())</span><br><span class="line">  </span><br><span class="line">        plt.imshow(comp.reshape(image_shape), cmap=plt.cm.gray,</span><br><span class="line">                   interpolation=&#x27;nearest&#x27;, vmin=-vmax, vmax=vmax)</span><br><span class="line">        plt.xticks(())</span><br><span class="line">        plt.yticks(())</span><br><span class="line">    plt.subplots_adjust(0.01, 0.05, 0.99, 0.94, 0.04, 0.)</span><br><span class="line">  </span><br><span class="line">      </span><br><span class="line">plot_gallery(&quot;First centered Olivetti faces&quot;, faces[:n_components])</span><br><span class="line"> </span><br><span class="line">estimators = [</span><br><span class="line">    (&#x27;Eigenfaces - PCA using randomized SVD&#x27;,</span><br><span class="line">         decomposition.PCA(n_components=6,whiten=True)),</span><br><span class="line">  </span><br><span class="line">    (&#x27;Non-negative components - NMF&#x27;,</span><br><span class="line">         decomposition.NMF(n_components=6, init=&#x27;nndsvda&#x27;, tol=5e-3))</span><br><span class="line">]</span><br><span class="line">  </span><br><span class="line">for name, estimator in estimators:</span><br><span class="line">    print(&quot;Extracting the top %d %s...&quot; % (n_components, name))</span><br><span class="line">    print(faces.shape)</span><br><span class="line">    estimator.fit(faces)</span><br><span class="line">    components_ = estimator.components_</span><br><span class="line">    plot_gallery(name, components_[:n_components])</span><br><span class="line">  </span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weihuchao/p/6874683.html#_labelTop">回到顶部</a></p>
+<h1 id="8-基于聚类的“图像分割”"><a href="#8-基于聚类的“图像分割”" class="headerlink" title="8 基于聚类的“图像分割”"></a>8 基于聚类的“图像分割”</h1><p>　　图像分割：利用图像的灰度、颜色、纹理、形状等特征，把图像分成若干个互不重叠的区域，并使这些特征在同一区域内呈现相似性，在不同的区域之间存在明显的差异性。 然后就可以将分割的图像中具有独特性质的区域提取出来用于不同的研究</p>
+<p>　　图像分割技术已在实际生活中得到广泛的应用。例如：在机车检验领域，可以应用到轮毂裂纹图像的分割，及时发现裂纹，保证行车安全；在生物医学工程方面，对肝脏CT图像进行分割，为临床治疗和病理学研究提供帮助</p>
+<p>　　图像分割常用方法：</p>
+<p>　　　　1 阈值分割：对图像灰度值进行度量，设置不同类别的阈值，达到分割的目的</p>
+<p>　　　　2 边缘分割：对图像边缘进行检测，即检测图像中灰度值发生跳变的地方，则为一片区域的边缘</p>
+<p>　　　　3 直方图法：对图像的颜色建立直方图，而直方图的波峰波谷能够表示一块区域的颜色值的范围，来达到分割的目的</p>
+<p>　　　　4 特定理论：基于聚类分析、小波变换等理论完成图像分割</p>
+<p>　　实例描述</p>
+<p>　　　　目标: 利用K-means聚类算法对图像像素点颜色进行聚类实现简单的图像分割 </p>
+<p>　　　　输出: 同一聚类中的点使用相同颜色标记，不同聚类颜色不同</p>
+<p>　　　　技术路线: sklearn.cluster.KMeans</p>
+<p>　　具体代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import PIL.Image as image</span><br><span class="line">from sklearn.cluster import KMeans</span><br><span class="line">  </span><br><span class="line">def loadData(filePath):</span><br><span class="line">    f = open(filePath,&#x27;rb&#x27;)</span><br><span class="line">    data = []</span><br><span class="line">    img = image.open(f)</span><br><span class="line">    m,n = img.size</span><br><span class="line">    for i in range(m):</span><br><span class="line">        for j in range(n):</span><br><span class="line">            x,y,z = img.getpixel((i,j))</span><br><span class="line">            data.append([x/256.0,y/256.0,z/256.0])</span><br><span class="line">    f.close()</span><br><span class="line">    return np.mat(data),m,n</span><br><span class="line">  </span><br><span class="line">imgData,row,col = loadData(&#x27;kmeans/bull.jpg&#x27;)</span><br><span class="line">label = KMeans(n_clusters=4).fit_predict(imgData)</span><br><span class="line">  </span><br><span class="line">label = label.reshape([row,col])</span><br><span class="line">pic_new = image.new(&quot;L&quot;, (row, col))</span><br><span class="line">for i in range(row):</span><br><span class="line">    for j in range(col):</span><br><span class="line">        pic_new.putpixel((i,j), int(256/(label[i][j]+1)))</span><br><span class="line">pic_new.save(&quot;result-bull-4.jpg&quot;, &quot;JPEG&quot;)</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/f54fd71a.html">http://aichn.cn/post/f54fd71a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">-大数据</a></div><div class="post_share"><div class="social-share" data-image="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518151628182-1057765599.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/e5078155.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">决策树中结点的特征选择方法</div></div></a></div><div class="next-post pull-right"><a href="/post/e85f0a87.html"><img class="next-cover" src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-f20521a962005299.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">深入浅出--梯度下降法及其实现</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/89c41659.html" title="【数据可视化】电视产品精准营销推荐"><img class="cover" src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-882533662c432170019ffeeab963aee8_hd.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-23</div><div class="title">【数据可视化】电视产品精准营销推荐</div></div></a></div><div><a href="/post/e5078155.html" title="决策树中结点的特征选择方法"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-12-23</div><div class="title">决策树中结点的特征选择方法</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%85%B3%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">1 关于机器学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-sklearn%E5%BA%93%E4%B8%AD%E7%9A%84%E6%A0%87%E5%87%86%E6%95%B0%E6%8D%AE%E9%9B%86%E5%8F%8A%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text">2 sklearn库中的标准数据集及基本功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%A0%87%E5%87%86%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 标准数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-sklearn%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 sklearn库的基本功能</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%85%B3%E4%BA%8E%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text">3 关于无监督学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-K-means%E6%96%B9%E6%B3%95%E5%8F%8A%E5%BA%94%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">4 K-means方法及应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-DBSCAN%E6%96%B9%E6%B3%95%E5%8F%8A%E5%BA%94%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">5 DBSCAN方法及应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-PCA%E6%96%B9%E6%B3%95%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8"><span class="toc-number">6.</span> <span class="toc-text">6  PCA方法及其应用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-NMF%E6%96%B9%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E4%BE%8B"><span class="toc-number">7.</span> <span class="toc-text">7 NMF方法及其实例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E5%9F%BA%E4%BA%8E%E8%81%9A%E7%B1%BB%E7%9A%84%E2%80%9C%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2%E2%80%9D"><span class="toc-number">8.</span> <span class="toc-text">8 基于聚类的“图像分割”</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

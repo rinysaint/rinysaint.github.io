@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>深入浅出--梯度下降法及其实现 | 君子兰萧宇的博客</title><meta name="keywords" content="大数据,人工智能,梯度下降法"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="梯度下降的场景假设 梯度 梯度下降算法的数学解释 梯度下降算法的实例 梯度下降算法的实现 Further reading   本文将从一个下山的场景开始，先提出梯度下降算法的基本思想，进而从数学上解释梯度下降算法的原理，最后实现一个简单的梯度下降算法的实例！ 梯度下降的场景假设 梯度下降法的基本思想可以类比为一个下山的过程。假设这样一个场景：一个人被困在山上，需要从山上下来(i.e. 找到山的"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/e85f0a87"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-f20521a962005299.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">深入浅出--梯度下降法及其实现</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2017-12-23T13:06:36.000Z" title="undefined 2017-12-23 21:06:36">2017-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<ul>
+<li>梯度下降的场景假设</li>
+<li>梯度</li>
+<li>梯度下降算法的数学解释</li>
+<li>梯度下降算法的实例</li>
+<li>梯度下降算法的实现</li>
+<li>Further reading</li>
+</ul>
+</blockquote>
+<p>本文将从一个下山的场景开始，先提出梯度下降算法的基本思想，进而从数学上解释梯度下降算法的原理，最后实现一个简单的梯度下降算法的实例！</p>
+<h1 id="梯度下降的场景假设"><a href="#梯度下降的场景假设" class="headerlink" title="梯度下降的场景假设"></a>梯度下降的场景假设</h1><blockquote>
+<p>梯度下降法的基本思想可以类比为一个下山的过程。假设这样一个场景：一个人被困在山上，需要从山上下来(i.e. 找到山的最低点，也就是山谷)。但此时山上的浓雾很大，导致可视度很低。因此，下山的路径就无法确定，他必须利用自己周围的信息去找到下山的路径。这个时候，他就可以利用梯度下降算法来帮助自己下山。具体来说就是，以他当前的所处的位置为基准，寻找这个位置最陡峭的地方，然后朝着山的高度下降的地方走，同理，如果我们的目标是上山，也就是爬到山顶，那么此时应该是朝着最陡峭的方向往上走。然后每走一段距离，都反复采用同一个方法，最后就能成功的抵达山谷。</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-6ae594f795406b8b.png" alt="img"></p>
+<p>image.png</p>
+<p>我们同时可以假设这座山最陡峭的地方是无法通过肉眼立马观察出来的，而是需要一个复杂的工具来测量，同时，这个人此时正好拥有测量出最陡峭方向的能力。所以，此人每走一段距离，都需要一段时间来测量所在位置最陡峭的方向，这是比较耗时的。那么为了在太阳下山之前到达山底，就要尽可能的减少测量方向的次数。这是一个两难的选择，如果测量的频繁，可以保证下山的方向是绝对正确的，但又非常耗时，如果测量的过少，又有偏离轨道的风险。所以需要找到一个合适的测量方向的频率，来确保下山的方向不错误，同时又不至于耗时太多！</p>
+</blockquote>
+<h1 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h1><p>梯度下降的基本过程就和下山的场景很类似。</p>
+<hr>
+<p>首先，我们有一个可<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://en.wikipedia.org/wiki/Differentiable_function"><em>微分</em></a>的函数。这个函数就代表着一座山。我们的目标就是找到这个函数的最小值，也就是山底。根据之前的场景假设，最快的下山的方式就是找到当前位置最陡峭的方向，然后沿着此方向向下走，对应到函数中，就是找到给定点的<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://en.wikipedia.org/wiki/Gradient"><em>梯度</em></a> ，然后朝着梯度相反的方向，就能让函数值下降的最快！因为梯度的方向就是函数之变化最快的方向(在后面会详细解释)<br>所以，我们重复利用这个方法，反复求取梯度，最后就能到达局部的最小值，这就类似于我们下山的过程。而求取梯度就确定了最陡峭的方向，也就是场景中测量方向的手段。那么为什么梯度的方向就是最陡峭的方向呢？接下来，我们从微分开始讲起</p>
+<h1 id="微分"><a href="#微分" class="headerlink" title="微分"></a>微分</h1><p>看待微分的意义，可以有不同的角度，最常用的两种是：</p>
+<ul>
+<li><p>函数图像中，某点的切线的斜率</p>
+</li>
+<li><p>函数的变化率</p>
+<p>几个微分的例子：</p>
+</li>
+</ul>
+<p>  <img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-0eb0f1bfd7de705b.png" alt="img"></p>
+<p>  image.png</p>
+<p>上面的例子都是单变量的微分，当一个函数有多个变量的时候，就有了多变量的微分，即分别对每个变量进行求微分</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-4029977524e3b365.png" alt="img"></p>
+<p>image.png</p>
+<h1 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h1><p>梯度实际上就是多变量微分的一般化。<br>下面这个例子：</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-570afdfc6fabf3b6.png" alt="img"></p>
+<p>image.png</p>
+<p>我们可以看到，梯度就是分别对每个变量进行微分，然后用逗号分割开，梯度是用&lt;&gt;包括起来，说明梯度其实一个向量。</p>
+<p>梯度是微积分中一个很重要的概念，之前提到过梯度的意义</p>
+<ul>
+<li>在单变量的函数中，梯度其实就是函数的微分，代表着函数在某个给定点的切线的斜率</li>
+<li>在多变量函数中，梯度是一个向量，向量有方向，梯度的方向就指出了函数在给定点的上升最快的方向</li>
+</ul>
+<p>这也就说明了为什么我们需要千方百计的求取梯度！我们需要到达山底，就需要在每一步观测到此时最陡峭的地方，梯度就恰巧告诉了我们这个方向。梯度的方向是函数在给定点上升最快的方向，那么梯度的反方向就是函数在给定点下降最快的方向，这正是我们所需要的。所以我们只要沿着梯度的方向一直走，就能走到局部的最低点！</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-13d969531284a9f9.png" alt="img"></p>
+<p>image.png</p>
+<h1 id="梯度下降算法的数学解释"><a href="#梯度下降算法的数学解释" class="headerlink" title="梯度下降算法的数学解释"></a>梯度下降算法的数学解释</h1><p>上面我们花了大量的篇幅介绍梯度下降算法的基本思想和场景假设，以及梯度的概念和思想。下面我们就开始从数学上解释梯度下降算法的计算过程和思想！</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-f20521a962005299.png" alt="img"></p>
+<p>image.png</p>
+<p>此公式的意义是：J是关于Θ的一个函数，我们当前所处的位置为Θ0点，要从这个点走到J的最小值点，也就是山底。首先我们先确定前进的方向，也就是梯度的反向，然后走一段距离的步长，也就是α，走完这个段步长，就到达了Θ1这个点！</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-af8dd9722c762c13.png" alt="img"></p>
+<p>image.png</p>
+<p>下面就这个公式的几个常见的疑问：</p>
+<ul>
+<li>α是什么含义？<br>α在梯度下降算法中被称作为<strong>学习率</strong>或者<strong>步长</strong>，意味着我们可以通过α来控制每一步走的距离，以保证不要步子跨的太大扯着蛋，哈哈，其实就是不要走太快，错过了最低点。同时也要保证不要走的太慢，导致太阳下山了，还没有走到山下。所以α的选择在梯度下降法中往往是很重要的！α不能太大也不能太小，太小的话，可能导致迟迟走不到最低点，太大的话，会导致错过最低点！</li>
+</ul>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-ba3da0b06da97ddb.png" alt="img"></p>
+<p>image.png</p>
+<ul>
+<li>为什么要梯度要乘以一个负号？<br>梯度前加一个负号，就意味着朝着梯度相反的方向前进！我们在前文提到，梯度的方向实际就是函数在此点上升最快的方向！而我们需要朝着下降最快的方向走，自然就是负的梯度的方向，所以此处需要加上负号</li>
+</ul>
+<h1 id="梯度下降算法的实例"><a href="#梯度下降算法的实例" class="headerlink" title="梯度下降算法的实例"></a>梯度下降算法的实例</h1><p>我们已经基本了解了梯度下降算法的计算过程，那么我们就来看几个梯度下降算法的小实例，首先从单变量的函数开始</p>
+<h2 id="单变量函数的梯度下降"><a href="#单变量函数的梯度下降" class="headerlink" title="单变量函数的梯度下降"></a>单变量函数的梯度下降</h2><p>我们假设有一个单变量的函数</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-abb73822fb6d2a2c.png" alt="img"></p>
+<p>image.png</p>
+<p>函数的微分</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-66ce0cdcef5e2686.png" alt="img"></p>
+<p>image.png</p>
+<p>初始化，起点为</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-8ee36cc5ce832b17.png" alt="img"></p>
+<p>image.png</p>
+<p>学习率为</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-798b134107b6593d.png" alt="img"></p>
+<p>image.png</p>
+<p>根据梯度下降的计算公式</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-f20521a962005299.png" alt="img"></p>
+<p>image.png</p>
+<p>我们开始进行梯度下降的迭代计算过程：</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-57538d21dbb34e65.png" alt="img"></p>
+<p>image.png</p>
+<p>如图，经过四次的运算，也就是走了四步，基本就抵达了函数的最低点，也就是山底</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-bb7fa36d116fcadc.png" alt="img"></p>
+<p>image.png</p>
+<h2 id="多变量函数的梯度下降"><a href="#多变量函数的梯度下降" class="headerlink" title="多变量函数的梯度下降"></a>多变量函数的梯度下降</h2><p>我们假设有一个目标函数</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-a56cfde25c688859.png" alt="img"></p>
+<p>image.png</p>
+<p>现在要通过梯度下降法计算这个函数的最小值。我们通过观察就能发现最小值其实就是 (0，0)点。但是接下来，我们会从梯度下降算法开始一步步计算到这个最小值！<br>我们假设初始的起点为：</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-8b1b6f1b200fd7b5.png" alt="img"></p>
+<p>image.png</p>
+<p>初始的学习率为：</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-ccc1493848871074.png" alt="img"></p>
+<p>image.png</p>
+<p>函数的梯度为：</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-3d744d9364a4ba40.png" alt="img"></p>
+<p>image.png</p>
+<p>进行多次迭代：</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-b21bf64600c4e32f.png" alt="img"></p>
+<p>image.png</p>
+<p>我们发现，已经基本靠近函数的最小值点</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-becdcdfdefb4eab7.png" alt="img"></p>
+<p>image.png</p>
+<h1 id="梯度下降算法的实现"><a href="#梯度下降算法的实现" class="headerlink" title="梯度下降算法的实现"></a>梯度下降算法的实现</h1><p>下面我们将用python实现一个简单的梯度下降算法。场景是一个简单的<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://en.wikipedia.org/wiki/Linear_regression"><em>线性回归</em></a>的例子：假设现在我们有一系列的点，如下图所示</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-333f16d34874c230.png" alt="img"></p>
+<p>image.png</p>
+<p>我们将用梯度下降法来拟合出这条直线！</p>
+<p>首先，我们需要定义一个代价函数，在此我们选用<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://en.wikipedia.org/wiki/Least_squares"><em>均方误差代价函数</em></a></p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-4e4000e69f05af7b.png" alt="img"></p>
+<p>image.png</p>
+<p>此公示中</p>
+<ul>
+<li><p>m是数据集中点的个数</p>
+</li>
+<li><p>½是一个常量，这样是为了在求梯度的时候，二次方乘下来就和这里的½抵消了，自然就没有多余的常数系数，方便后续的计算，同时对结果不会有影响</p>
+</li>
+<li><p>y 是数据集中每个点的真实y坐标的值</p>
+</li>
+<li><p>h 是我们的预测函数，根据每一个输入x，根据Θ 计算得到预测的y值，即</p>
+</li>
+</ul>
+<p>  <img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-acea37db1e02004d.png" alt="img"></p>
+<p>  image.png</p>
+<p>我们可以根据代价函数看到，代价函数中的变量有两个，所以是一个多变量的梯度下降问题，求解出代价函数的梯度，也就是分别对两个变量进行微分</p>
+<p><img src="/" alt="img"></p>
+<p>image.png</p>
+<p>明确了代价函数和梯度，以及预测的函数形式。我们就可以开始编写代码了。但在这之前，需要说明一点，就是为了方便代码的编写，我们会将所有的公式都转换为矩阵的形式，python中计算矩阵是非常方便的，同时代码也会变得非常的简洁。</p>
+<p>为了转换为矩阵的计算，我们观察到预测函数的形式</p>
+<p><img src="/" alt="img"></p>
+<p>image.png</p>
+<p>我们有两个变量，为了对这个公式进行矩阵化，我们可以给每一个点x增加一维，这一维的值固定为1，这一维将会乘到Θ0上。这样就方便我们统一矩阵化的计算</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-a54d53411f945d95.png" alt="img"></p>
+<p>image.png</p>
+<p>然后我们将代价函数和梯度转化为矩阵向量相乘的形式</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-66b04086dd1f8ba9.png" alt="img"></p>
+<p>image.png</p>
+<h2 id="coding-time"><a href="#coding-time" class="headerlink" title="coding time"></a>coding time</h2><p>首先，我们需要定义数据集和学习率</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np# Size of the points dataset.m = 20# Points x-coordinate and dummy value (x0, x1).X0 = np.ones((m, 1))</span><br><span class="line">X1 = np.arange(1, m+1).reshape(m, 1)</span><br><span class="line">X = np.hstack((X0, X1))# Points y-coordinatey = np.array([    3, 4, 5, 5, 2, 4, 7, 8, 11, 8, 12,    11, 13, 13, 16, 17, 18, 17, 19, 21]).reshape(m, 1)# The Learning Rate alpha.alpha = 0.01</span><br></pre></td></tr></table></figure>
+<p>接下来我们以矩阵向量的形式定义代价函数和代价函数的梯度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def error_function(theta, X, y):</span><br><span class="line">    &#x27;&#x27;&#x27;Error function J definition.&#x27;&#x27;&#x27;</span><br><span class="line">    diff = np.dot(X, theta) - y    return (1./2*m) * np.dot(np.transpose(diff), diff)def gradient_function(theta, X, y):</span><br><span class="line">    &#x27;&#x27;&#x27;Gradient of the function J definition.&#x27;&#x27;&#x27;</span><br><span class="line">    diff = np.dot(X, theta) - y    return (1./m) * np.dot(np.transpose(X), diff)</span><br></pre></td></tr></table></figure>
+<p>最后就是算法的核心部分，梯度下降迭代计算</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def gradient_descent(X, y, alpha):</span><br><span class="line">    &#x27;&#x27;&#x27;Perform gradient descent.&#x27;&#x27;&#x27;</span><br><span class="line">    theta = np.array([1, 1]).reshape(2, 1)</span><br><span class="line">    gradient = gradient_function(theta, X, y)    while not np.all(np.absolute(gradient) &lt;= 1e-5):</span><br><span class="line">        theta = theta - alpha * gradient</span><br><span class="line">        gradient = gradient_function(theta, X, y)    return theta</span><br></pre></td></tr></table></figure>
+<p>当梯度小于1e-5时，说明已经进入了比较平滑的状态，类似于山谷的状态，这时候再继续迭代效果也不大了，所以这个时候可以退出循环！</p>
+<p>完整的代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np# Size of the points dataset.m = 20# Points x-coordinate and dummy value (x0, x1).X0 = np.ones((m, 1))</span><br><span class="line">X1 = np.arange(1, m+1).reshape(m, 1)</span><br><span class="line">X = np.hstack((X0, X1))# Points y-coordinatey = np.array([    3, 4, 5, 5, 2, 4, 7, 8, 11, 8, 12,    11, 13, 13, 16, 17, 18, 17, 19, 21]).reshape(m, 1)# The Learning Rate alpha.alpha = 0.01def error_function(theta, X, y):</span><br><span class="line">    &#x27;&#x27;&#x27;Error function J definition.&#x27;&#x27;&#x27;</span><br><span class="line">    diff = np.dot(X, theta) - y    return (1./2*m) * np.dot(np.transpose(diff), diff)def gradient_function(theta, X, y):</span><br><span class="line">    &#x27;&#x27;&#x27;Gradient of the function J definition.&#x27;&#x27;&#x27;</span><br><span class="line">    diff = np.dot(X, theta) - y    return (1./m) * np.dot(np.transpose(X), diff)def gradient_descent(X, y, alpha):</span><br><span class="line">    &#x27;&#x27;&#x27;Perform gradient descent.&#x27;&#x27;&#x27;</span><br><span class="line">    theta = np.array([1, 1]).reshape(2, 1)</span><br><span class="line">    gradient = gradient_function(theta, X, y)    while not np.all(np.absolute(gradient) &lt;= 1e-5):</span><br><span class="line">        theta = theta - alpha * gradient</span><br><span class="line">        gradient = gradient_function(theta, X, y)    return theta</span><br><span class="line"></span><br><span class="line">optimal = gradient_descent(X, y, alpha)</span><br><span class="line">print(&#x27;optimal:&#x27;, optimal)</span><br><span class="line">print(&#x27;error function:&#x27;, error_function(optimal, X, y)[0,0])</span><br></pre></td></tr></table></figure>
+<p>运行代码，计算得到的结果如下</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-af64f7e8e5fb3dfb.png" alt="img"></p>
+<p>image.png</p>
+<p>所拟合出的直线如下</p>
+<p><img src="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-27806efbd53ced41.png" alt="img"></p>
+<p>image.png</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>至此，我们就基本介绍完了梯度下降法的基本思想和算法流程，并且用python实现了一个简单的梯度下降算法拟合直线的案例！<br>最后，我们回到文章开头所提出的场景假设:<br><strong>这个下山的人实际上就代表了<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://en.wikipedia.org/wiki/Backpropagation">反向传播算法</a>，下山的路径其实就代表着算法中一直在寻找的参数Θ，山上当前点的最陡峭的方向实际上就是代价函数在这一点的梯度方向，场景中观测最陡峭方向所用的工具就是<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://en.wikipedia.org/wiki/Derivative">微分</a> 。在下一次观测之前的时间就是有我们算法中的学习率α所定义的。</strong><br>可以看到场景假设和梯度下降算法很好的完成了对应！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/e85f0a87.html">http://aichn.cn/post/e85f0a87.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">-大数据 -人工智能</a></div><div class="post_share"><div class="social-share" data-image="/../images/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA--%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/1234352-f20521a962005299.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/f54fd71a.html"><img class="prev-cover" src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518151628182-1057765599.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">无监督学习</div></div></a></div><div class="next-post pull-right"><a href="/post/56293a93.html"><img class="next-cover" src="/../images/%E9%87%8D%E5%81%9A%E7%BA%A2%E6%A5%BC%E6%A2%A6%E7%9A%84%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90-%E5%88%A4%E6%96%AD%E5%89%8D80%E5%9B%9E%E5%90%8E40%E5%9B%9E%E6%98%AF%E5%90%A6%E4%B8%80%E4%B8%AA%E4%BA%BA%E5%86%99%E7%9A%84/20160729160602300" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">重做红楼梦的数据分析-判断前80回后40回是否一个人写的</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%9A%84%E5%9C%BA%E6%99%AF%E5%81%87%E8%AE%BE"><span class="toc-number">1.</span> <span class="toc-text">梯度下降的场景假设</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="toc-number">2.</span> <span class="toc-text">梯度下降</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E5%88%86"><span class="toc-number">3.</span> <span class="toc-text">微分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6"><span class="toc-number">4.</span> <span class="toc-text">梯度</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E7%9A%84%E6%95%B0%E5%AD%A6%E8%A7%A3%E9%87%8A"><span class="toc-number">5.</span> <span class="toc-text">梯度下降算法的数学解释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">梯度下降算法的实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="toc-number">6.1.</span> <span class="toc-text">单变量函数的梯度下降</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="toc-number">6.2.</span> <span class="toc-text">多变量函数的梯度下降</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">7.</span> <span class="toc-text">梯度下降算法的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#coding-time"><span class="toc-number">7.1.</span> <span class="toc-text">coding time</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">小结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GAN的数学推导和案例应用 | 君子兰萧宇的博客</title><meta name="keywords" content="人工智能,神经网络,f-gan"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="本章涉及到的知识点清单： 1、数学期望的定义 2、KL散度的定义 3、零和博弈 4、GAN的工作原理 5、GAN的目标函数 6、求解D的最优解 7、反求解G使得G和D的概率分布差异最小 8、案例之GAN实现拟合二次函数  在推导GAN公式之前，需要预备一些数学期望和KL散度的知识点 一、数学期望的定义 期望：在概率论中，将实验中每次可能产生的结果的概率乘以其结果的总和，反映随机变量平均取值的大小"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/2379"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/2018122619412674.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">GAN的数学推导和案例应用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="undefined 2016-12-23 21:06:36">2016-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>本章涉及到的知识点清单：</p>
+<p><strong>1、数学期望的定义</strong></p>
+<p><strong>2、KL散度的定义</strong></p>
+<p><strong>3、零和博弈</strong></p>
+<p><strong>4、GAN的工作原理</strong></p>
+<p><strong>5、GAN的目标函数</strong></p>
+<p><strong>6、求解D的最优解</strong></p>
+<p><strong>7、反求解G使得G和D的概率分布差异最小</strong></p>
+<p><strong>8、案例之GAN实现拟合二次函数</strong></p>
+</blockquote>
+<p>在推导GAN公式之前，需要预备一些数学期望和KL散度的知识点</p>
+<p>一、数学期望的定义</p>
+<p>期望：在概率论中，将实验中<strong>每次可能产生的结果的概率乘以其结果的总和，反映随机变量平均取值的大小</strong>。根据其随机变量的取值范围不同，分为离散型和连续型</p>
+<p>对于连续型随机变量x，其概率密度函数为f(x)，则X的数学期望E(x)可以表示成微积分的形式</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194302590.png" alt="img"></p>
+<p>二、KL散度的定义</p>
+<p>KL散度：在信息论中，<strong>用生成的概率分布Q来拟合逼近真实的概率分布P时，所产生的信息损耗</strong>，即描述两个概率分布的差异，其本身是非对称的</p>
+<p>设x是连续型随机变量，其真实概率分布为P(x)，拟合分布概率为Q(x)，则P对Q的KL散度为</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194324640.png" alt="img"></p>
+<p>三、零和博弈</p>
+<p><strong>GAN被称为对抗式神经网络，启发自博弈论中的二人零和博弈</strong></p>
+<p>零和博弈：<strong>指参与博弈的双方，在严格的竞争下，一方的收益必然意味着另一方的损失，博弈过程中，双方的各自收益和损失的相加总和永远为零，双方完全不存在合作的可能</strong>。就好比下棋一样，你和对手的每一步棋都是向着自己最有利的方向走，最终只有一方赢一方输，而下棋的总成绩永远为零</p>
+<p>显然，GAN也是由博弈双方组成，分别为<strong>生成网络G（Generator）和判别网络D（Discriminator）</strong></p>
+<p>四、GAN的工作原理</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194349495.jpg" alt="img"></p>
+<p>GAN的工作过程</p>
+<p>上图中，x是真实数据，Pdata(x)是x的概率分布，z是噪点数据，P(z)是z的概率分布，其工作过程为：</p>
+<blockquote>
+<p><strong>(1)：从噪声z进行随机抽样，传入G网络，生成新数据G(z)和其概率分布Pg(G(z))</strong></p>
+<p><strong>(2)：将真实数据和G生成的新数据一起传入D网络进行真假判别，通过sigmoid函数来输出判定类别</strong></p>
+<p><strong>(3)：迭代优化D和G损失函数，根据D来调整G</strong></p>
+<p><strong>(4)：直到D和G达到收敛，即D无法判断G产生数据的真假性，即Pg(G(z))已经非常逼近Pdata(x)</strong></p>
+</blockquote>
+<p>至此，我们可以抽象看出GAN的目的，<strong>将随机噪声z通过G网络得到一个和真实数据分布Pdata(x)差不多的生成分布Pg(G(z))，这个过程就是G和D相互博弈的过程</strong></p>
+<p>五、GAN的目标函数</p>
+<p>定义GAN的目标函数为V(G，D)，在博弈过程中，G希望减少V的值让自己生成的分布无法识别，而D希望增大V的值让自己可以高效的判别出数据的真假类别，则V(G，D)的表达式为</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194407390.png" alt="img"></p>
+<p>目标函数</p>
+<p>其中E表示真实数据x和噪点数据z的数学期望</p>
+<p>G网络是一个生成器，可以是全连接神经网络、卷积神经网络等等，通过噪点分布P(z)，一般是高斯分布，得到一个生成数据的分布Pg(x)，我们希望Pg(x)非常靠近Pdata(x)，来拟合逼近真实分布</p>
+<p>D网络是一个判别函数，需要解决传统的二分类问题，其职责就是有效的区分真实分布和生成分布，即衡量Pg(x)和Pdata(x)之间的差距，并通过反复的迭代训练</p>
+<p>六、求解D的最优解</p>
+<p>从目标函数出发，由于V是连续的，我们将V写成微积分的形式来表示期望</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/2018122619450691.png" alt="img"></p>
+<p>目标函数的积分形式1</p>
+<p>设G(z)生成的数据是x，分别求出噪点z和噪点的微分dz表达式</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194521503.png" alt="img"></p>
+<p>z和dz关于x的表达式</p>
+<p>带入z和dz，可以得到</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194659286.png" alt="img"></p>
+<p>目标函数的积分形式2</p>
+<p>我们定义Pg(x)表示z的生成分布，则</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/2018122619474799.png" alt="img"></p>
+<p>生成分布Pg(x)</p>
+<p>带入目标函数可得</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194811812.png" alt="img"></p>
+<p>目标函数的积分形式3</p>
+<p>现在要求V(D，G)关于D的最大值，则固定G来求D的偏导数</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194831825.png" alt="img"></p>
+<p>求解D的最大值</p>
+<p>七、反求解G使得G和D的概率分布差异最小</p>
+<p>从D(x)的最优解D*(X)的表达式可以看到，我们期望当G产生出来的拟合分布和真实分布一致时，即</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/2018122619485130.png" alt="img"></p>
+<p>拟合分布和真实分布一致</p>
+<p>在这个条件下，D*(x)=1/2，<strong>即此时D网络已经无法直接分辨出G产生出来的数据的真假性了</strong></p>
+<p>那么当D满足最优解后，此时的G的解是什么呢？我们只需要带入D*(x)反过来求解G即可</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194914915.png" alt="img"></p>
+<p>带入D*(x)求出C(G)积分式</p>
+<p>我们对上述积分表达式进行等效处理，在log里面的分式上，分子分母同时除以2（分式不变原理），然后保持分母不变，将分子的1/2利用对数的乘法原理提到外面，则上式可以等效变形为</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226195008106.png" alt="img"></p>
+<p>等效变化C(G)积分式</p>
+<p>我们引入连续函数的KL散度将上式积分式整理成散度表达式</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226195102873.png" alt="img"></p>
+<p>C(G)散度表达式</p>
+<p>根据KL散度的定义，当拟合分布Pg(x)完全等于真实分布Pdata(x)时，KL=0，所以G网络的最小值是-log4</p>
+<p>由此证明了当D网络逼近其最优解的同时，G网络也无限逼近其最小值</p>
+<p>八、案例之GAN实现拟合二次函数</p>
+<p>有G网络和D网络的意义，我们编写如下代码来拟合二次函数，其中G网络只是一个全连接网络，利用梯度下降来反向传播更新其权重</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194020811.png" alt="img"></p>
+<p>G网络和D网络</p>
+<p>迭代5000次后的博弈结果为</p>
+<p>训练开始的生成分布</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/20181226194108608.png" alt="img"></p>
+<p>训练结束的生成分布</p>
+<p><img src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/2018122619412674.png" alt="img"></p>
+<p>从结果上可以看到，G网络生成的分布(绿色)已经非常逼近真实分布(蓝色)，且D网络的判别能力逼近50%，G网络的最优值逼近-log4=1.38629达到了很好的收敛效果</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/2379.html">http://aichn.cn/post/2379.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">-人工智能</a></div><div class="post_share"><div class="social-share" data-image="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/2018122619412674.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/cde4f897.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">FreeNas发布共享存储的三种方法</div></div></a></div><div class="next-post pull-right"><a href="/post/72ee8144.html"><img class="next-cover" src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/11b7b531f931d92ef630812af5a8b895.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">K1/K2刷华硕固件开OpenVPN安装HTTP透明代理搭建手机云免流服务器(苹果未越狱免流量)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/49c94cd0.html" title="f-gan生成对抗神经网络进阶第一级"><img class="cover" src="/../images/f-gan%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6%E7%AC%AC%E4%B8%80%E7%BA%A7/image-20210102233819152.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">f-gan生成对抗神经网络进阶第一级</div></div></a></div><div><a href="/post/7c5ef9ec.html" title="为什么交叉熵能作为损失函数及其弥补了平方差损失什么缺陷"><img class="cover" src="/../images/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BA%A4%E5%8F%89%E7%86%B5%E8%83%BD%E4%BD%9C%E4%B8%BA%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E5%BC%A5%E8%A1%A5%E4%BA%86%E5%B9%B3%E6%96%B9%E5%B7%AE%E6%8D%9F%E5%A4%B1%E4%BB%80%E4%B9%88%E7%BC%BA%E9%99%B7/20170827112109611" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-23</div><div class="title">为什么交叉熵能作为损失函数及其弥补了平方差损失什么缺陷</div></div></a></div><div><a href="/post/ea101373.html" title="交叉熵"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-23</div><div class="title">交叉熵</div></div></a></div><div><a href="/post/fbf175a6.html" title="似然函数"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-23</div><div class="title">似然函数</div></div></a></div><div><a href="/post/4c350e9d.html" title="信息熵"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-23</div><div class="title">信息熵</div></div></a></div><div><a href="/post/e66f8853.html" title="共轭函数"><img class="cover" src="/../images/%E5%85%B1%E8%BD%AD%E5%87%BD%E6%95%B0/20190108163103218.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-23</div><div class="title">共轭函数</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

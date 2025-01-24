@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>君子兰萧宇的博客 - 人工智能,大数据工程师</title><meta name="keywords" content="君子兰,萧宇,肖宇,博客,人工智能,大数据,aichn,智慧中夏"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="学而不思则罔，思而不学则殆"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/page/15/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-01-24 10:09:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="site-info"><h1 id="site-title">君子兰萧宇的博客</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/89080ece.html" title="【教程】自制解锁bios，加slic，改logo和添加序列号">     <img class="post_bg" src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/5d753adbb6fd5266ac527048a218972bd50736ab.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【教程】自制解锁bios，加slic，改logo和添加序列号"></a></div><div class="recent-post-info"><a class="article-title" href="/post/89080ece.html" title="【教程】自制解锁bios，加slic，改logo和添加序列号">【教程】自制解锁bios，加slic，改logo和添加序列号</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="content">今日放假，给大家发些我的心得，其实技术就是一层纸，一捅就破解锁bios什么的听起来高大上，其实没什么难度。我现在就给大家分享一下。（各种电脑bios解锁原理大同小异，今天以p775dm2g为例）
+用到的工具有rw everything，AMIBCP5.01.0014 ，UEFITool ， ChangeLogo 5.0.0.2 ，phoenixtool 。
+教程开始
+首先根据电脑型号在https://repo.palkeo.com/clevo-mirror 里找到对应bios刷新包并下载，我的775下载后得到一个P7xxDM3G_B10602.zip文件，解压后找到到一个8m的P7xxDM3.bin和一个5m的P7xxDM3.rom因为要修改序列号（bios文件中没有序列号，需要我们自己添加，否则会导致修改后的bios刷入后没有序列号的问题，各种用了大神的解锁bios的已经中枪，因为fpt刷新bios会覆盖原来所以block，如果刷入的bios没有序列号，那么刷完就没有）所以我们用8m的P7xxDM3.bin进行修改。
+用AMIBCP打开P7xxDM3.bin打开DMI Tables
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/17062.html" title="【解决方案】WordPress无法建立到WordPress。org的安全连接">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【解决方案】WordPress无法建立到WordPress。org的安全连接"></a></div><div class="recent-post-info"><a class="article-title" href="/post/17062.html" title="【解决方案】WordPress无法建立到WordPress。org的安全连接">【解决方案】WordPress无法建立到WordPress。org的安全连接</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%BB%BA%E7%AB%99/">建站</a></span></div><div class="content">服务器一直使用03系统，为了更好的满足需求决定升级系统，然而升级的路程的坎坷的，各种问题不曾间断，经过一夜努力终于在第二天的天明前完成了系统的各项配置。
+自以为风雨过后能见彩虹了，没想到这才是开始…
+安装好wordpress后发现许多需要跟wordpress.org进行连接的页面都无法打开了。
+期初以为是因为程序卡导致链接超时无法打开，于是就想到WordPress 的主题还有它的后台都会用到 Google 字体，在国内访问 Google 会遇到问题，这就是打开 WordPress 网站慢的主要原因。
+解决的办法是去安装一个叫 useso-take-over-google 的插件，它会用国内的 useso 替换 google，但是安装好后之前的问题仍然存在。
+于是又想到 WordPress 默认为用户使用的是 Gravatar 头像，我们访问这个网站也会遇到问题，虽然已经有现成的解决方案但仍然不太理想。
+解决办法：我们可以先禁用掉用户的头像功能，打开 设置 – 讨论 – 头像显示，去掉勾选显示头像，保存更改。
+OK 现在应该不会卡慢了，但是问题依旧，没办法自己的能力有限只能搜搜往上看有没 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/3420606c.html" title="一条短信直接崩溃iPhone，几乎所有iOS设备躺枪">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一条短信直接崩溃iPhone，几乎所有iOS设备躺枪"></a></div><div class="recent-post-info"><a class="article-title" href="/post/3420606c.html" title="一条短信直接崩溃iPhone，几乎所有iOS设备躺枪">一条短信直接崩溃iPhone，几乎所有iOS设备躺枪</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="content">iPhone 又出 Bug 了！国外有网友发现，只要给用 iPhone 的好友发送一段含有特殊字符的短信或者是 iMessage 消息，就会让对方的 iPhone 崩溃重启，这条信息最先出现在 Reddit 网站。这段字符信息包含了英文、阿拉伯文、中文和特殊符号：
+
+
+Powerلُلُصّبُلُلصّبُررً ॣ ॣh ॣ ॣ冗
+
+如果用户接收到这条短信，就会导致短信程序崩溃，手机重启。如果以短信应用的消息列表打开收到的短信，则会发生再次崩溃，如果进入了这条包含特殊字符的消息列表，这个对话窗口并不会崩溃，但如果再跳转到其他对话，消息应用又会崩溃，进入一个死循环。
+这个 BUG 目前影响苹果运行 iOS 8.3 的设备，包括 iPhone 和 iPad，也包括其他版本的 iOS 系统。如果 iPhone 处于安全模式下，则攻击不会生效，如果 iPhone 已经越狱，则越狱的 iPhone 会转入到安全模式。
+这可能是 iOS 通知中心预览功能处理 Unicode 字符时存在的一个 BUG，通知中心会在推送时会直接打开预览功能，所以会导致整个系统崩溃。
+如果收到这种短信，解决的办法有 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/c234aa14.html" title="不拆机仅用SD卡为Thinkpad E450 E460作磁盘永久缓存加速">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="不拆机仅用SD卡为Thinkpad E450 E460作磁盘永久缓存加速"></a></div><div class="recent-post-info"><a class="article-title" href="/post/c234aa14.html" title="不拆机仅用SD卡为Thinkpad E450 E460作磁盘永久缓存加速">不拆机仅用SD卡为Thinkpad E450 E460作磁盘永久缓存加速</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="content">**Thinkpad E450 E460 的特点：**一般标配机械硬盘，没有多余的光驱和内置硬盘接口。ngff M.2接口被阉割，截至目前，有人尝试自行焊接M.2插槽，失败。可能是BIOS里面的问题，而不是仅仅焊接一个插槽这么简单。个人猜测，未经验证。
+Windows Superfetch：将你经常运行的程序、经常读写的文件建立一个磁盘缓存，在系统预测的时刻读进内存。并且，将用户使用过程中的文件在内存复制一份，下次读写，只要文件内容没改，直接在内存中读取。缺点：开机后才有效，不能加速启动过程。
+Windows ReadyBoost：利用闪存盘的随机读写远大于机械硬盘特点，将superfetch的文件放置在优盘等闪存上，实现硬盘读写的加速。注意ReadyBoost不是扩展内存。缺点：ReadyBoost每次关机都会清除缓存文件，每次开机再次从C盘将缓存文件读出来在闪存中重建。
+联想ExpressCache：本来是用在固态硬盘为机械硬盘作高速缓存的机型上。它是将磁盘经常都写的文件在缓存盘（原装SSD）作永久缓存，开关机不会消失。在启动过程中，只要ExpressCache的驱动载入后，即可享 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/13526.html" title="人類學雜記——24. 中國人的超級祖先">     <img class="post_bg" src="/../images/%E4%BA%BA%E9%A1%9E%E5%AD%B8%E9%9B%9C%E8%A8%98%E2%80%94%E2%80%9424%E4%B8%AD%E5%9C%8B%E4%BA%BA%E7%9A%84%E8%B6%85%E7%B4%9A%E7%A5%96%E5%85%88/clip_image004.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="人類學雜記——24. 中國人的超級祖先"></a></div><div class="recent-post-info"><a class="article-title" href="/post/13526.html" title="人類學雜記——24. 中國人的超級祖先">人類學雜記——24. 中國人的超級祖先</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="content">人類學雜記——24. 中國人的超級祖先
+  (2013-10-18 12:53:53)
+（溫馨提示：簡化字版本見後。）
+2013年10月15日，我在arXiv文章數據庫掛出了一篇文章（http://arxiv.org/abs/1310.3897 ，帶附件的下載地址見http://vdisk.weibo.com/s/qGPNPvCSIf0t ），題目是«Y Chromosomes of 40% Chinese Are Descendants of Three Neolithic Super-grandfathers»，即《40%的中國人的Y染色體來自三個新石器時代的超級祖先》，基本內容如下：首先是對110個東亞樣本做Y染色體測序，得到質量可以接受的序列共78個。從裏面找到了4000多個新的SNP位點，命名以F（復旦）打頭。因爲我們捕獲來測序的範圍是隨機的（取的Y染色體上沒有重複的約4 Mbp的很多不連續片段的集合，與已知支系信息無關），範圍又比較大，所以可以畫一棵明確且沒有偏向的演化樹（因爲絕大多數位點都是沒有回復突變的），然後就能按傳統的分子鐘方法計算時閒了。
+計算相對時閒只要數每支的 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/a40b0852.html" title="在windows环境下让XAMPP使用Nginx作为Web服务器">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在windows环境下让XAMPP使用Nginx作为Web服务器"></a></div><div class="recent-post-info"><a class="article-title" href="/post/a40b0852.html" title="在windows环境下让XAMPP使用Nginx作为Web服务器">在windows环境下让XAMPP使用Nginx作为Web服务器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%BB%BA%E7%AB%99/">建站</a></span></div><div class="content">windows中下载（xampp）apache后使用nginx作为服务器首先去php文件夹那里, 把那个php.ini Copy一份, 命名为php-cli.ini 让nginx使用. 而不会影响Apache 的使用。
+打开php-cli.ini，配置下面几个 参数
+123456789101112131415161718192021222324252627282930313233enable_dl = On; cgi.force_redirect = 0; cgi.fix_pathinfo=1; fastcgi.impersonate = 1; cgi.rfc2616_headers = 1;
+然后下载nginx http://nginx.org/en/download.html解压
+
+在nginx上部署项目
+打开conf文件夹下的nginx.conf文件进行配置
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/22309.html" title="同时使用gitee和github">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="同时使用gitee和github"></a></div><div class="recent-post-info"><a class="article-title" href="/post/22309.html" title="同时使用gitee和github">同时使用gitee和github</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="content">Git共有三个级别的config文件，分别是：
+
+system ：%GitPath%\mingw64\etc\gitconfig文件
+global：$home.gitconfig文件
+local：%RepoPath%.git\config文件
+
+其中%GitPath%为Git的安装路径，%RepoPath%为某仓库的本地路径。
+
+删掉全局配置
+
+123git config --global --list$ git config --global --unset user.name &quot;你的名字&quot;$ git config --global --unset user.email &quot;你的邮箱&quot;
+
+为不同账户配置ssh秘钥
+
+123cd ~/.ssh 														# cd到当前用户的.ssh文件夹ssh-keygen -t rsa -f ~/.ssh/id_rsa.gitee -C &quot;注册gitee邮箱&quot;		#为不同秘钥指定名称ssh-keygen -t rsa -f ~/.ssh/id_rsa.github -C &q ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/398958a0.html" title="安装 - LNMP一键安装包">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="安装 - LNMP一键安装包"></a></div><div class="recent-post-info"><a class="article-title" href="/post/398958a0.html" title="安装 - LNMP一键安装包">安装 - LNMP一键安装包</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="content"> https://lnmp.org/install.html
+系统需求:
+
+CentOS/RHEL/Fedora/Debian/Ubuntu/Raspbian Linux系统
+需要5GB以上硬盘剩余空间
+需要128MB以上内存(如果为128MB的小内存VPS,Xen的需要有SWAP,OpenVZ的至少要有128MB以上的vSWAP或突发内存)，注意小内存请勿使用64位系统！
+**安装MySQL 5.6或5.7及MariaDB 10必须1G以上内存!**。
+VPS或服务器必须已经联网，且必须设置的是网络源不能是光盘源，同时VPS/服务器 DNS要正常！
+Linux下区分大小写，输入命令时请注意！
+
+LNMP一键安装包 V1.3 已经在PhotonVPS、Vultr、遨游主机、OneAsiahost新加坡VPS、搬瓦工、BudgetVM、、DigitalOcean、LocVPS、Linode、DiaHosting、瑞豪开源、KVMLA、景文互联、RamNode、Hostigation、BuyVM、80VPS、XSVPS、HostUS、快易互联、阿里云等众多VPS的CentOS 5-7、RH ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/8ff6ed20.html" title="VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统"></a></div><div class="recent-post-info"><a class="article-title" href="/post/8ff6ed20.html" title="VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统">VirtualminWebmin安装与使用强大的VPS服务器和虚拟主机管理系统</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/linux/">linux</a></span></div><div class="content">在FreeNAS/BSD搭建基于Nginx+FastCGI+MySQL+PHP的WebServer使用FreeNAS也快半月月了，在上一篇文章介绍了利用FreeNAS能做的一些事情，其中一项是WebServer。搭建了FreeNAS之后，这项功能也是必不可少的，简单分享一下配置步骤，希望能帮助到同我一样的刚刚接触FreeNAS（同样适用于FreeBSD）的朋友。
+在FreeNAS之前，一直都是在Atom上跑Windows，因为作为文件服务器，除了存储文件/共享（Windows的局域网共享做这个确实很方便，但相比FreeNAS内置的SMB，还是稍显复杂，因为还需要通过一些不算简单的设置，才能解决NTFS权限问题，而FreeNAS中，都为你做好了），还有一个更重要的功能就是下载，虽然迅雷的资源共享方式稍显流氓，但其下载速度和资源探索能力也是无需置疑的（之后也会介绍一下如何利用FreeNAS/BSD打造属于自己的全能下载机）。
+说实话，相比Windows用了十数年，对于类unix系统，我是相当的不熟悉，也是毕业以后，由于工作需要，才渐渐的接触一些。时至至今，也只会通过apt-get pkg_ ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/65be3812.html" title="如何让Win7开机不输入密码直接登录的方法">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何让Win7开机不输入密码直接登录的方法"></a></div><div class="recent-post-info"><a class="article-title" href="/post/65be3812.html" title="如何让Win7开机不输入密码直接登录的方法">如何让Win7开机不输入密码直接登录的方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="发表于 2016-12-23 21:06:36">2016-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/win7/">win7</a></span></div><div class="content">电脑是win7的系统，然而也很少别人来玩，但是为了安全还是设置了一个密码，但是每次开机后都需要在本地登录的时候填写密码，那么该如何让Win7开机不输入密码直接登录呢？
+方法/步骤
+点击屏幕左下角开始菜单
+ 点击运行，若没有运行，那么按win+R键也可以
+ 在运行的“打开”一行中输入“netplwiz” 点击”确定“
+ 在弹出的窗口中点中你需要输入密码的那个账号，默认是Administrator 点中之后该帐户背景会变为蓝色
+ 去掉”要使用本机，用户必须输入用户名和密码“前面框框中的勾。
+ 最后点击”应用“–在弹出的窗口中输入你电脑的登录密码   最后点击”确定“—“确定” 重启后生效。
+
+
+</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/14/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/16/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div><ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DDNS/"><span class="card-category-list-name">DDNS</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Git/"><span class="card-category-list-name">Git</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Hexo/"><span class="card-category-list-name">Hexo</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/K8S/"><span class="card-category-list-name">K8S</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/WireGuard/"><span class="card-category-list-name">WireGuard</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ddns/"><span class="card-category-list-name">ddns</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/docker/"><span class="card-category-list-name">docker</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/git/"><span class="card-category-list-name">git</span><span class="card-category-list-count">2</span></a></li>
+            <li class="card-category-list-item more is-center"><a class="card-category-list-link-more" href="/categories/">
+                <span>查看更多</span><i class="fas fa-angle-right"></i></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Python/" style="font-size: 1.3em; color: #99a1ac">-Python</a> <a href="/tags/WNMPA/" style="font-size: 1.1em; color: #999">-WNMPA</a> <a href="/tags/linux/" style="font-size: 1.25em; color: #999fa7">-linux</a> <a href="/tags/php/" style="font-size: 1.15em; color: #999b9e">-php</a> <a href="/tags/python/" style="font-size: 1.15em; color: #999b9e">-python</a> <a href="/tags/win10/" style="font-size: 1.1em; color: #999">-win10</a> <a href="/tags/win7/" style="font-size: 1.2em; color: #999da3">-win7</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.45em; color: #99a7ba">-人工智能</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 1.1em; color: #999">-人工智能 -大数据</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">-人工智能 -机器学习</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">-人工智能 -神经网络</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">-人工智能 -神经网络 -算法</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 1.35em; color: #99a3b1">-其他</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 1.2em; color: #999da3">-大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.1em; color: #999">-大数据 -人工智能</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">-大数据 -机器学习</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 1.5em; color: #99a9bf">-技术</a> <a href="/tags/%E6%96%90%E8%AE%AF-%E6%8A%80%E6%9C%AF/" style="font-size: 1.1em; color: #999">-斐讯 -技术</a> <a href="/tags/%E6%9D%82%E8%AE%B0/" style="font-size: 1.15em; color: #999b9e">-杂记</a> <a href="/tags/%E6%B8%B8%E6%88%8F/" style="font-size: 1.15em; color: #999b9e">-游戏</a> <a href="/tags/%E7%94%B5%E5%BD%B1/" style="font-size: 1.1em; color: #999">-电影</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 1.15em; color: #999b9e">-神经网络</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.2em; color: #999da3">-神经网络 -人工智能</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.15em; color: #999b9e">-算法</a> <a href="/tags/%E9%9F%B3%E4%B9%90/" style="font-size: 1.1em; color: #999">-音乐</a> <a href="/tags/Aplayer/" style="font-size: 1.1em; color: #999">Aplayer</a> <a href="/tags/Axhub/" style="font-size: 1.1em; color: #999">Axhub</a> <a href="/tags/CentOS7/" style="font-size: 1.1em; color: #999">CentOS7</a> <a href="/tags/DDNS-%E9%98%BF%E9%87%8C%E4%BA%91-Shell%E8%84%9A%E6%9C%AC/" style="font-size: 1.1em; color: #999">DDNS,阿里云,Shell脚本</a> <a href="/tags/Git-git%E6%9C%8D%E5%8A%A1%E5%99%A8-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" style="font-size: 1.1em; color: #999">Git,git服务器,自动化部署</a> <a href="/tags/Git%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">Git服务器</a> <a href="/tags/Hexo-git%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.15em; color: #999b9e">Hexo,git服务器</a> <a href="/tags/Hexo-%E4%B8%AA%E4%BA%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">Hexo,个人服务器</a> <a href="/tags/K8S-%E5%91%BD%E4%BB%A4/" style="font-size: 1.1em; color: #999">K8S,命令</a> <a href="/tags/Nginx-%E9%AB%98%E5%B9%B6%E5%8F%91-%E4%BC%98%E5%8C%96/" style="font-size: 1.1em; color: #999">Nginx,高并发,优化</a> <a href="/tags/OpenWRT-WireGuard-%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">OpenWRT,WireGuard,服务器</a> <a href="/tags/Openvpn-%E5%85%8D%E6%B5%81-%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">Openvpn,免流,服务器</a> <a href="/tags/WireGuard/" style="font-size: 1.1em; color: #999">WireGuard</a> <a href="/tags/ddns/" style="font-size: 1.15em; color: #999b9e">ddns</a> <a href="/tags/docker/" style="font-size: 1.4em; color: #99a5b6">docker</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/12/"><span class="card-archive-list-date">十二月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/12/"><span class="card-archive-list-date">十二月 2019</span><span class="card-archive-list-count">9</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">十月 2019</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/09/"><span class="card-archive-list-date">九月 2019</span><span class="card-archive-list-count">15</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/06/"><span class="card-archive-list-date">六月 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item more is-center"><a class="card-archive-list-link-more" href="/archives/">
+              <span>查看更多</span><i class="fas fa-angle-right"  ></i></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">163</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-24T02:09:02.047Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function subtitleType () {
+  getScript('https://sdk.jinrishici.com/v2/browser/jinrishici.js').then(() => {
+    jinrishici.load(function (result) {
+      if (true) {
+        var sub = "学而不思则罔，思而不学则殆,Learning without thinking is useless, Thinking without learning is dangerous,读万卷书，行万里路,Read ten thousands of books,Travel ten thousands of miles".length == 0 ? new Array() : "学而不思则罔，思而不学则殆,Learning without thinking is useless, Thinking without learning is dangerous,读万卷书，行万里路,Read ten thousands of books,Travel ten thousands of miles".split(',')
+        var content = result.data.content
+        var both = sub.unshift(content)
+        var typed = new Typed('#subtitle', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('subtitle').innerHTML = result.data.content
+      }
+    })
+  })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

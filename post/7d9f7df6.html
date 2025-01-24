@@ -1,0 +1,5532 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Axhub Charts Pro 帮助文档 | 君子兰萧宇的博客</title><meta name="keywords" content="Axure,Axhub,Charts"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="Axhub Charts Pro 帮助文档一、基本说明2020-09-22 12:44 二、Antv G2 4.x 基础图表2020-05-20 16:11 三、ECharts 地理可视化2020-05-14 19:42 四、Antv L7 地理可视化2020-05-19 22:07 五、动态元件2020-01-02 13:36 六、Block 元件2019-12-08 18:37 【历史版本】A"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/7d9f7df6"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">Axhub Charts Pro 帮助文档</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-12-23T13:06:36.000Z" title="undefined 2019-12-23 21:06:36">2019-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Axhub-Charts-Pro-帮助文档"><a href="#Axhub-Charts-Pro-帮助文档" class="headerlink" title="Axhub Charts Pro 帮助文档"></a>Axhub Charts Pro 帮助文档</h1><p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/zhvach">一、基本说明</a>2020-09-22 12:44</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/ya1f4q">二、Antv G2 4.x 基础图表</a>2020-05-20 16:11</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/pic2zi">三、ECharts 地理可视化</a>2020-05-14 19:42</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/cpzrdp">四、Antv L7 地理可视化</a>2020-05-19 22:07</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/mwis3t">五、动态元件</a>2020-01-02 13:36</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/gfx5qn">六、Block 元件</a>2019-12-08 18:37</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/gu3drv">【历史版本】Antv G2 3.x 图表配置列表</a>2020-05-16 15:35</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/puxrmr">更新日志</a>2020-05-10 22:56</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/un4o2x">二次创作分发</a>2019-12-14 23:38</p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/gmxtun">社群福利</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/ya1f4q">https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/ya1f4q</a></p>
+<p>密码：mrfq</p>
+<h1 id="一、基本说明"><a href="#一、基本说明" class="headerlink" title="一、基本说明"></a>一、基本说明</h1><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Axhub Charts Pro （ 下称 acp ）是一套基于 Antv 、ECharts 等前端可视化库开发的 Axure 元件库，旨在帮助用户快速实现高保真的数据可视化原型设计。</p>
+<p>本文档仅在语雀平台发布，密码定期更新在 Axhub 数据可视化原型设计社群内。</p>
+<h1 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h1><ol>
+<li>通过合法合规渠道下载 Axhub Charts Pro.rplib 文件</li>
+<li>在 Axure 内的 Libraries 面板，点击菜单导入下载的元件库</li>
+<li>在 Axure 内的 Libraries 面板选择对应图表，拖拽入目标页面即可，预览或生成即可看到图表</li>
+<li>建议使用前先阅读本文档，并学习下数据可视化图表的基础用法，<a target="_blank" rel="noopener" href="https://antv-2018.alipay.com/zh-cn/vis/chart/index.html">教程 &gt;&gt;</a></li>
+</ol>
+<h1 id="认识图表"><a href="#认识图表" class="headerlink" title="认识图表"></a>认识图表</h1><h3 id="元件组成"><a href="#元件组成" class="headerlink" title="元件组成"></a>元件组成</h3><p>每个图表元件一般为一个组合，组合名称可任意修改，组合内有：</p>
+<ul>
+<li>容器矩形：一般名称为 acp-xxx-chart ，名称不可更改，为图表容器</li>
+<li>数据中继器：一般名称为 acp-data ，名称不可更改，存放图表数据</li>
+<li>配置中继器：一般名称为 acp-config ，名称不可更改，存放图表数据配置</li>
+</ul>
+<p><img src="/../images/AxhubChartsPro%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3/1569252379002-4f54cccf-ea54-40d0-b415-920516d00083.png" alt="image.png"></p>
+<p>acp 工作原理就是通过 javascript 读取中继器内的数据和配置，然后通过第三方图表库渲染成对应图表。</p>
+<p>请注意，每个图表元件的组合不能打乱，否则将无法正常工作。</p>
+<p>请注意，你在 Axure 内的 Outline（中文翻译为大纲或概要） 面板即可看到元件库组合，若找不到该面板，请尝试点击 Axure 视图 Views 菜单 - 面板 Panes 打开。</p>
+<h3 id="图表组成"><a href="#图表组成" class="headerlink" title="图表组成"></a>图表组成</h3><p>为了更好地配置和设计，请先了解图表的组成以及相关概念。</p>
+<p>完整的图表组成如下图所示：</p>
+<p><img src="/../images/AxhubChartsPro%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3/image.png" alt="image"></p>
+<p>具体说明请查看 G2 官方介绍  <a target="_blank" rel="noopener" href="https://www.yuque.com/antv/g2-docs/tutorial-g2-chart-composition">https://www.yuque.com/antv/g2-docs/tutorial-g2-chart-composition</a></p>
+<h1 id="更改画布"><a href="#更改画布" class="headerlink" title="更改画布"></a>更改画布</h1><p>更改尺寸：在 Axure 内更改容器矩形（ acp-xxx-chart ）的尺寸和比例，图表画布即会更新</p>
+<p>更改颜色：图表画布背景是透明的，可以在 Axure 内自行增加一个背景层，实现图表的背景和纹路等</p>
+<h1 id="更改数据"><a href="#更改数据" class="headerlink" title="更改数据"></a>更改数据</h1><p>在 Axure 内更改数据中继器（ acp-data ）的数据，即可更改数据，录入数据量大的话建议从 Excel 复制。</p>
+<p>由于目前 Axure 中继器表头限制了输入中文，可以通过 <a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/gu3drv">fieldAlias 配置项</a>来解决这个问题。</p>
+<h1 id="更改配置"><a href="#更改配置" class="headerlink" title="更改配置"></a>更改配置</h1><p>在 Axure 内更改数据中继器（ acp-config ）的数据，可以针对数据、坐标轴、图形、文本及提示信息更多配置，具体配置内容请查看 <a target="_blank" rel="noopener" href="https://www.yuque.com/books/share/9d8112e1-5edf-4fd0-a435-ba151986c336/gu3drv">配置项列表</a>。</p>
+<p>同一配置项，权重顺序为 图表配置 &gt; 全局配置 &gt; 主题配置 ，权重最高的为最终配置结果。</p>
+<h1 id="数据交互"><a href="#数据交互" class="headerlink" title="数据交互"></a>数据交互</h1><p>目前可以实现实时刷新、滑块（slider）的数据交互新增，未来会逐步支持滑动，缩放等操作。</p>
+<h3 id="实时更新数据"><a href="#实时更新数据" class="headerlink" title="实时更新数据"></a>实时更新数据</h3><p><strong>Antv G2 3.x 、**</strong>Antv G2 4.x 适用**</p>
+<p>如上文所述，acp 的数据是存放在数据中继器（ acp-data ）内的，你可以通过 Axure 内置的中继器方法更改对应数据，这些操作都会实时同步到图表上的。</p>
+<p><a target="_blank" rel="noopener" href="http://www.woshipm.com/rp/614773.html">Axure 中继器教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://axhub.im/pro/84172de8e923cb73/#g=1&p=%E3%80%90new%E3%80%91%E4%B8%AD%E7%BB%A7%E5%99%A8%E4%BA%A4%E4%BA%92">Axure 实时更新数据案例</a></p>
+<h3 id="实时更新配置"><a href="#实时更新配置" class="headerlink" title="实时更新配置"></a>实时更新配置</h3><p><strong>Antv G2 4.x 适用</strong></p>
+<p>如上文所述，acp 的配置是存放在配置中继器（ acp-config ）内的，你可以通过 Axure 内置的中继器方法更改对应配置，这些操作都会实时同步到图表上的。</p>
+<p><a target="_blank" rel="noopener" href="http://www.woshipm.com/rp/614773.html">Axure 中继器教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://axhub.im/pro/84172de8e923cb73/#g=1&p=%E3%80%90new%E3%80%91%E4%B8%AD%E7%BB%A7%E5%99%A8%E4%BA%A4%E4%BA%92">Axure 实时更新配置案例</a></p>
+<h3 id="滑块使用"><a href="#滑块使用" class="headerlink" title="滑块使用"></a>滑块使用</h3><p><strong>Antv G2 3.x</strong>  <strong>适用</strong></p>
+<p>目前支持滑块交互的图表只有折线图、面积图和 K 线图，使用步骤如下：</p>
+<p><strong>创建滑块：</strong>将元件库的滑块元件拖放到目标图表所在页面</p>
+<p><strong>关联图表：</strong>将滑块放到目标图表元件的组内（如图）</p>
+<p>​         <img src="/../images/AxhubChartsPro%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3/1569754092690-7e681516-6745-4601-ba74-b5f787ff2bf3.png" alt="image.png"></p>
+<p><strong>修改属性：</strong>通过修改 slider 矩形可以改变滑块的大小和位置，通过 config 中继器 可以修改<a target="_blank" rel="noopener" href="https://www.yuque.com/lintendo/uux5xi/gu3drv#KAA2n">相关配置</a>。</p>
+<p>这就完成了，预览看看吧~</p>
+<h3 id="点击事件"><a href="#点击事件" class="headerlink" title="点击事件"></a>点击事件</h3><p><strong>Antv G2 4.x</strong>  <strong>ECharts地图、L7地图适用</strong></p>
+<ol>
+<li>创建全局变量 AxhubClickX 、AxhubClickName、AxhubClickValue，默认值为空</li>
+<li>为图表容器 acp-xxx-chart 添加点击事件，点击时，acp 会自动赋值给以上全局变量，让你知道所点击的图表内容，你可以根据该值进行条件判断或者赋值</li>
+<li>AxhubClickX 为点击的图形横坐标，无坐标轴则不支持；AxhubClickName 为点击的图形系列名称；AxhubClickValue为点击的图形值；</li>
+<li><a target="_blank" rel="noopener" href="https://axhub.im/pro/84172de8e923cb73/#g=1&p=%E3%80%90new%E3%80%91%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E4%BA%A4%E4%BA%92">在线例子 &gt;&gt;</a></li>
+</ol>
+<h1 id="伪实时预览"><a href="#伪实时预览" class="headerlink" title="伪实时预览"></a>伪实时预览</h1><p>由于 acp 的实现方式，导致 Axure 内无法实时预览。你可以通过以下步骤，实现伪实时预览：</p>
+<p>1、设置好目标图表的数据和配置，并在浏览器预览</p>
+<p>2、对图表右键，复制图片到 Axure，并将图片移入图表的元件组合</p>
+<p>3、将图片名称改为容器矩形的名称（ acp-xxx-chart ），并将原来的容器矩形删除</p>
+<p>这样就是实现了伪实时预览，效果可以看元件库内的部分示例。可以方便地在图表上加上自己需要的辅助线或者文案，也可以提升图表渲染过程的视觉效果。</p>
+<h1 id="离线使用"><a href="#离线使用" class="headerlink" title="离线使用"></a>离线使用</h1><h3 id="Antv-G2-离线"><a href="#Antv-G2-离线" class="headerlink" title="Antv G2 离线"></a>Antv G2 离线</h3><p><strong>方式一：自行部署 js 文件（推荐）</strong></p>
+<ul>
+<li>下载群内离线包的 <strong>g2v4.x.js</strong>，部署到自己的局域网或私有服务器</li>
+<li>设置项目全局变量 AxhubJsLink ，值为 部署后的 <strong>g2v4.x.js</strong> 链接</li>
+</ul>
+<p><strong>方式二：通过本地路径引入</strong></p>
+<ol>
+<li>下载群内的 acp离线.zip ，将压缩包内的  <strong>local-g2v4.x.js</strong> 放到生成的 html 文件根目录</li>
+<li>点击发布-&gt;生成 html , 添加字体 acp , 在 URL 输入框输入一下内容（含引号）：</li>
+</ol>
+<p>​    “&gt;<script type="text/javascript" src="./local-g2v4.x.js"></script> &lt;link href=” </p>
+<p>**<br>**</p>
+<h3 id="ECharts-Block-离线"><a href="#ECharts-Block-离线" class="headerlink" title="ECharts Block 离线"></a>ECharts Block 离线</h3><p><strong>方式一：自行部署 js 文件（推荐）</strong></p>
+<ul>
+<li>下载群内离线包内的 ec 文件夹下的所有 js ，部署到自己的局域网或私有服务器</li>
+<li>设置项目全局变量 AxhubECJsLink ，值为 部署后的 ec.js 链接</li>
+<li>其他 js 文件请安原来的顺序，用部署后的 js 链接替换 acp-js 中继器内的对应链接</li>
+</ul>
+<p><strong>方式二：通过本地路径引入</strong></p>
+<ol>
+<li>下载群内的 离线包zip ，将压缩包内的 ec 文件夹 放到生成的 html 文件根目录</li>
+<li>点击发布-&gt;生成 html , 添加字体 ec, 在 URL 输入框输入一下内容（含引号）：</li>
+</ol>
+<p>“&gt;<script type="text/javascript" src="./ec/local-ec.js"></script> &lt;link href=” </p>
+<ol>
+<li>在 acp-config 内，把 离线模式 设置为 true</li>
+</ol>
+<p><strong>请注意，使用了在线数据或者百度地图接口的图表是不支持离线的，若图表还使用了别的 js 文件，也需要一并下载和引入。</strong></p>
+<h1 id="开发者糖果"><a href="#开发者糖果" class="headerlink" title="开发者糖果"></a>开发者糖果</h1><p>（TODO）</p>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><p>（TODO）</p>
+<h1 id="版权说明"><a href="#版权说明" class="headerlink" title="版权说明"></a>版权说明</h1><p>acp 不是免费作品，仅允许 Axhub 数据可视化原型设计社群成员免费使用，包括个人学习、企业商业化等使用范围。但为了保障社群成员利益，禁止普通成员做任何二次分发包括转赠、销售（含二次创作）等，希望大家理解。</p>
+<p>如果你是原型创作者，需要使用 acp 完成作品并进行二次销售，可以查看 <a target="_blank" rel="noopener" href="https://www.yuque.com/lintendo/uux5xi/un4o2x">二次创作分发</a>。</p>
+<h1 id="特别感谢"><a href="#特别感谢" class="headerlink" title="特别感谢"></a>特别感谢</h1><p>图标来源：<a target="_blank" rel="noopener" href="https://github.com/Haonancx/chart-type-icon[">https://github.com/Haonancx/chart-type-icon[</a> ](<a target="_blank" rel="noopener" href="https://github.com/Haonancx/chart-type-icon)%EF%BC%88%E4%BD%9C%E8%80%85fsux">https://github.com/Haonancx/chart-type-icon)（作者fsux</a>  ）</p>
+<h1 id="二、Antv-G2-4-x-基础图表"><a href="#二、Antv-G2-4-x-基础图表" class="headerlink" title="二、Antv G2 4.x 基础图表"></a>二、Antv G2 4.x 基础图表</h1><h1 id="图表组成-1"><a href="#图表组成-1" class="headerlink" title="图表组成"></a>图表组成</h1><p>为了更好地配置，请先了解图表的组成以及相关概念。</p>
+<p>完整的图表组成如下图所示：</p>
+<p><img src="/../images/AxhubChartsPro%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3/image.png" alt="image"></p>
+<p>具体说明请查看 G2 官方介绍  <a target="_blank" rel="noopener" href="https://www.yuque.com/antv/g2-docs/tutorial-g2-chart-composition">https://www.yuque.com/antv/g2-docs/tutorial-g2-chart-composition</a></p>
+<p>只需将下方配置项填入 acp-config 中继器即可进行配置。当然，Axhub Charts Pro 默认已内置了部分常用配置，可以不必重复添加。</p>
+<p>同一配置项，权重顺序为 图表配置 &gt; 全局配置 &gt; 主题配置 ，权重最高的为最终配置结果。</p>
+<h1 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h1><p>优先推荐，你可以通过设置项目的 <strong>全局变量（Axure-项目-全局变量）</strong>，来实现全局配置，一旦设置，将在项目内所有图表生效，支持字段如下：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>globalTheme</td>
+<td>图表主题，可取值 default / dark</td>
+<td>dark</td>
+</tr>
+<tr>
+<td>globalColor</td>
+<td>图表颜色，可以参考配置列表里的 fieldColors 配置</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>globalFontSize</td>
+<td>字体大小</td>
+<td>14</td>
+</tr>
+<tr>
+<td>globalTextFill</td>
+<td>字体主颜色</td>
+<td>#BDCCED</td>
+</tr>
+<tr>
+<td>globalLineStroke</td>
+<td>坐标轴颜色</td>
+<td>#CCD6EC</td>
+</tr>
+<tr>
+<td>globalGridLineStroke</td>
+<td>网格颜色</td>
+<td>#BDCCED</td>
+</tr>
+<tr>
+<td>globalLegendTextFill</td>
+<td>图例文本颜色</td>
+<td>#BDCCED</td>
+</tr>
+</tbody></table>
+<h1 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h1><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>图形边距</td>
+<td>中间图形（不含图例和坐标轴标签）距离四周的距离按上右下左的顺序设置，用 ‘,’ 分隔</td>
+<td>12,24,12,24</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>镜像翻转</td>
+<td>图形镜像翻转，例如柱状图可以变成条形图</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="坐标轴"><a href="#坐标轴" class="headerlink" title="坐标轴"></a>坐标轴</h1><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显示x轴</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>x轴刻度数量</td>
+<td>x轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴数据类型</td>
+<td>分类度量：cat： 分类度量timeCat: 时间分类度量连续度量：linear: 线性度量time：连续的时间度量log: log 度量pow: pow 度量quantize：分段度量，用户可以指定不均匀的分段quantile: 等分度量，根据数据的分布自动计算分段常量度量identity: 常量度量</td>
+<td>linear</td>
+<td>cat</td>
+</tr>
+<tr>
+<td>x轴位置</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+</tr>
+<tr>
+<td>x轴标题</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+</tr>
+<tr>
+<td>x轴标签模板</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+</tr>
+<tr>
+<td>x轴标签角度</td>
+<td></td>
+<td>-20</td>
+<td></td>
+</tr>
+<tr>
+<td>自动隐藏x轴标签</td>
+<td></td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>x轴标签颜色</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标签字体大小</td>
+<td></td>
+<td>8</td>
+<td>12</td>
+</tr>
+<tr>
+<td>x轴网格线颜色</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴网格线宽</td>
+<td></td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>显示y轴</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>y轴最小值</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴数据类型</td>
+<td>分类度量：cat： 分类度量timeCat: 时间分类度量连续度量：linear: 线性度量time：连续的时间度量log: log 度量pow: pow 度量quantize：分段度量，用户可以指定不均匀的分段quantile: 等分度量，根据数据的分布自动计算分段常量度量identity: 常量度量</td>
+<td>linear</td>
+<td>cat</td>
+</tr>
+<tr>
+<td>y轴位置</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+</tr>
+<tr>
+<td>y轴标题</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+</tr>
+<tr>
+<td>y轴标签角度</td>
+<td></td>
+<td>-20</td>
+<td></td>
+</tr>
+<tr>
+<td>自动隐藏y轴标签</td>
+<td></td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>y轴标签颜色</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签字体大小</td>
+<td></td>
+<td>8</td>
+<td>12</td>
+</tr>
+<tr>
+<td>y轴网格线颜色</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴网格线宽</td>
+<td></td>
+<td>2</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h1 id="图例"><a href="#图例" class="headerlink" title="图例"></a>图例</h1><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显示图例</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>图例位置</td>
+<td>设置图例的显示位置，可设置的值为12个：left-top,left-center,left-bottom,right-top,right-center,right-bottom,top-left,top-center,top-right,bottom-left,bottom-center,bottom-right也可使用bottom,top,left,right设置位置</td>
+<td>top</td>
+<td>bottom</td>
+<td></td>
+</tr>
+<tr>
+<td>图例翻页</td>
+<td>图例过多换行时自动翻页</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>图例对齐方式</td>
+<td>用于设置各个图例项的排列方式，可设置值包括：vertical、horizontal，分别表示垂直和水平排布</td>
+<td>vertical</td>
+<td>horizontal</td>
+<td></td>
+</tr>
+<tr>
+<td>图例标志</td>
+<td>用于设置图例的 marker 样式，默认按照 图表 的类型显示，<a target="_blank" rel="noopener" href="https://www.yuque.com/antv/g2-docs/api-geom#6b5269ad">详情见 </a></td>
+<td>circle</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>图例文本颜色</td>
+<td>图例文本的颜色</td>
+<td>#BFBFBF</td>
+<td>#BFBFBF</td>
+<td></td>
+</tr>
+<tr>
+<td>图例字体大小</td>
+<td>图例文本大小</td>
+<td>14</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>图例横向偏移量</td>
+<td>图例 X 方向的偏移值，数值类型，数值单位为 ‘px’</td>
+<td>2</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>图例纵向偏移量</td>
+<td>图例 Y 方向的偏移值，数值类型，数值单位为 ‘px’</td>
+<td>2</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="提示信息"><a href="#提示信息" class="headerlink" title="提示信息"></a>提示信息</h1><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显示提示信息</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>隐藏提示信息标题</td>
+<td>是否隐藏提示信息标题</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>提示信息模板</td>
+<td>提示信息内容模板，支持变量{name},{value}，和换行符<br>柱状图、百分比堆叠图、饼图、环形图支持变量{percent}区间图、甘特图 支持变量 {start},{end}K线图，支持变量{date},{start}，{end}，{max}，{min}</td>
+<td>{value}</td>
+<td></td>
+</tr>
+<tr>
+<td>左Y轴提示信息模板</td>
+<td>双轴图专属，配置规则同上</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>右Y轴提示信息模板</td>
+<td>双轴图专属，配置规则同上</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="图形文本标签"><a href="#图形文本标签" class="headerlink" title="图形文本标签"></a>图形文本标签</h1><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显示标签</td>
+<td>是否显示字段对应的文本标签</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>标签偏移量</td>
+<td>label距当前图形偏移量，负数则标识渲染在图形内部</td>
+<td>-40</td>
+<td>20</td>
+</tr>
+<tr>
+<td>标签文本颜色</td>
+<td>label文本颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>标签字体大小</td>
+<td>label文本大小</td>
+<td>4</td>
+<td>12</td>
+</tr>
+<tr>
+<td>标签连线宽度</td>
+<td>label线宽</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>标签位置</td>
+<td>当前label与当前图形的相对位置，可选参数为middle, top,bottom,left,right</td>
+<td>middle</td>
+<td>top</td>
+</tr>
+<tr>
+<td>标签模板</td>
+<td>label文本模板，支持变量{name}、{value}、{br}，百分比堆叠图、饼图、环形图支持变量{percent}</td>
+<td>{value}个</td>
+<td>{value}</td>
+</tr>
+<tr>
+<td>左y轴图形标签模板</td>
+<td>双轴图专属，配置规则同上</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>右y轴图形标签模板</td>
+<td>双轴图专属，配置规则同上</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标签角度</td>
+<td>label文本角度</td>
+<td>30</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="辅助文本"><a href="#辅助文本" class="headerlink" title="辅助文本"></a>辅助文本</h1><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>显示辅助文本</td>
+<td>是否示辅助文本</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>辅助文本标题</td>
+<td>辅助文案标题</td>
+<td>数量</td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本标题颜色</td>
+<td>辅助文案标题颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>辅助文本标题大小</td>
+<td>辅助文案标题文本大小</td>
+<td>24</td>
+<td>20</td>
+</tr>
+<tr>
+<td>辅助文本内容</td>
+<td>辅助文案内容</td>
+<td>200台</td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本内容颜色</td>
+<td>辅助文本内容颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>辅助文本内容大小</td>
+<td>辅助文案文本大小</td>
+<td>12</td>
+<td>14</td>
+</tr>
+<tr>
+<td>辅助文本内容模板</td>
+<td>漏斗文本模板，支持变量{name},{value}，{percent}</td>
+<td>{name}</td>
+<td>{value}</td>
+</tr>
+<tr>
+<td>隐藏辅助文本标题</td>
+<td>简易环形图可用，配置后可以控制辅助文本标题的显示与关闭</td>
+<td>false</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<h1 id="图形样式"><a href="#图形样式" class="headerlink" title="图形样式"></a>图形样式</h1><h3 id="通用"><a href="#通用" class="headerlink" title="通用"></a>通用</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>图形左边距</td>
+<td>图形距离左边框的距离，单位px。一般用于左边坐标轴内容宽度不足被覆盖时配置。</td>
+<td>72</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id><a href="#" class="headerlink" title></a></h3><h3 id="线条"><a href="#线条" class="headerlink" title="线条"></a>线条</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线条宽度</td>
+<td>线宽</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>线条形状</td>
+<td>线条类型，支持line,smooth,dot,dash,spline</td>
+<td>line</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="-1"><a href="#-1" class="headerlink" title></a></h3><h3 id="点"><a href="#点" class="headerlink" title="点"></a>点</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>点的形状</td>
+<td>折线图节点形状，circle, square, bowtie, diamond, hexagon, triangle，设置为none则不显示</td>
+<td>circle</td>
+<td></td>
+</tr>
+<tr>
+<td>点的大小</td>
+<td>折线图节点大小</td>
+<td>4</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="-2"><a href="#-2" class="headerlink" title></a></h3><h3 id="柱子和条形"><a href="#柱子和条形" class="headerlink" title="柱子和条形"></a>柱子和条形</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>柱子宽度</td>
+<td>柱子的宽度，单位为 px</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>柱状图类型</td>
+<td>柱状图类型，可取 normal，stacked（堆叠）</td>
+<td>normal</td>
+<td></td>
+</tr>
+<tr>
+<td>柱子间距</td>
+<td>用于调整分组中各个柱子的间距，柱子宽度的倍数例如 0.5 则表示间距为柱子宽度的 1/2</td>
+<td>0.5</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<h3 id="-3"><a href="#-3" class="headerlink" title></a></h3><h3 id="面积"><a href="#面积" class="headerlink" title="面积"></a>面积</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>面积图类型</td>
+<td>面积类型，可取 normal，stacked（堆叠）</td>
+<td>normal</td>
+<td></td>
+</tr>
+<tr>
+<td>面积形状</td>
+<td>面积形状，支持area,smooth,line,smoothLine</td>
+<td>area</td>
+<td></td>
+</tr>
+<tr>
+<td>面积图不透明度</td>
+<td>取值0-1</td>
+<td>0.5</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h3 id="-4"><a href="#-4" class="headerlink" title></a></h3><h3 id="扇形和环形"><a href="#扇形和环形" class="headerlink" title="扇形和环形"></a>扇形和环形</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>饼图半径</td>
+<td>饼图半径，值范围为 0 至 1</td>
+<td>0.75</td>
+<td></td>
+</tr>
+<tr>
+<td>空心圆的半径</td>
+<td>空心圆的半径，值范围为 0 至 1</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="-5"><a href="#-5" class="headerlink" title></a></h3><h3 id="雷达图"><a href="#雷达图" class="headerlink" title="雷达图"></a>雷达图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>雷达图网格线类型</td>
+<td>可以设置为折线或者原型，取值 line,circle</td>
+<td>line</td>
+<td>circle</td>
+</tr>
+</tbody></table>
+<h1 id="动态交互"><a href="#动态交互" class="headerlink" title="动态交互"></a>动态交互</h1><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>图表交互</td>
+<td>Antv 图表元素交互，详情可以见 <a target="_blank" rel="noopener" href="https://g2.antv.vision/zh/docs/manual/concepts/interaction">官方文档&gt;&gt;</a></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示滑块</td>
+<td>是否显示滑块，适用于一般有 X 轴的图表</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>滑块开启面积图背景</td>
+<td>滑块背景是否为面积图</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>滑块默认起点</td>
+<td>滑块的默认起点，值范围0-1</td>
+<td>0.2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>滑块默认终点</td>
+<td>滑块的默认终点，值范围0-1</td>
+<td>0.8</td>
+<td>1</td>
+</tr>
+<tr>
+<td>排序方式</td>
+<td>数据排序的方式，ASC 为顺序，DESC 为倒序</td>
+<td>DESC</td>
+<td></td>
+</tr>
+<tr>
+<td>动态数据类型</td>
+<td>delay 数据延迟加载 scroll 数据轮播</td>
+<td>scroll</td>
+<td></td>
+</tr>
+<tr>
+<td>初始数据范围起始</td>
+<td>默认延迟加载或轮播的数据范围起点，填行数</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>初始数据范围末尾</td>
+<td>默认延迟加载或轮播的数据范围末尾，填行数</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>数据更新间隔</td>
+<td>数据间隔时间，单位毫秒</td>
+<td>2000</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>关闭循环轮播</td>
+<td>数据轮播，是否关闭循环轮播</td>
+<td>true</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<h2 id="-6"><a href="#-6" class="headerlink" title></a></h2><h1 id="颜色说明"><a href="#颜色说明" class="headerlink" title="颜色说明"></a>颜色说明</h1><p>颜色支持以下几种格式：</p>
+<p>16进制：#4169E1</p>
+<p>rgb、rgba：rgb(65,105,225)、rgba(65,105,225,0.5)</p>
+<p>渐变色：<a target="_blank" rel="noopener" href="https://www.yuque.com/antv/g2-docs/api-graphic#y6x6le">请查看 Antv 官方说明</a></p>
+<p>纹理：<a target="_blank" rel="noopener" href="https://www.yuque.com/antv/g2-docs/api-graphic#9w3mxd">请查看 Antv 官方说明</a></p>
+<h1 id="三、ECharts-地理可视化"><a href="#三、ECharts-地理可视化" class="headerlink" title="三、ECharts 地理可视化"></a>三、ECharts 地理可视化</h1><p>ECharts 的地图元件，包含了地图/散点/动态散点/飞线四个元素，可以任意组合搭配。每个元素都有对应的 data 和 config 中继器。</p>
+<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h1><h3 id="基础地图"><a href="#基础地图" class="headerlink" title="基础地图"></a>基础地图</h3><table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>说明</th>
+<th>示例值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>二级地区标准名称</td>
+<td>广州市</td>
+<td></td>
+</tr>
+<tr>
+<td>value</td>
+<td>值</td>
+<td>20</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="散点-动态散点"><a href="#散点-动态散点" class="headerlink" title="散点/动态散点"></a>散点/动态散点</h3><table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>说明</th>
+<th>示例值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>二级地区标准名称</td>
+<td>广州市</td>
+<td></td>
+</tr>
+<tr>
+<td>lnglat</td>
+<td>非必填，点的经纬度，为空则自动取二级地区的经纬度，可通过下方链接获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.280637,23.125178</td>
+<td></td>
+</tr>
+<tr>
+<td>value</td>
+<td>值</td>
+<td>20</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="飞线"><a href="#飞线" class="headerlink" title="飞线"></a>飞线</h3><table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>说明</th>
+<th>示例值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>startArea</td>
+<td>飞线起点二级地区标准名称</td>
+<td>广州市</td>
+<td></td>
+</tr>
+<tr>
+<td>endArea</td>
+<td>飞线终点二级地区标准名称</td>
+<td>深圳市</td>
+<td></td>
+</tr>
+<tr>
+<td>startLnglat</td>
+<td>非必填，飞线起点的经纬度，为空则自动取起点二级地区的经纬度，可通过下方链接获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.280637,23.125178</td>
+<td></td>
+</tr>
+<tr>
+<td>endLnglat</td>
+<td>非必填，飞线终点的经纬度，为空则自动取起点二级地区的经纬度，可通过下方链接获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.280637,23.125178</td>
+<td></td>
+</tr>
+<tr>
+<td>value</td>
+<td>值</td>
+<td>20</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="-7"><a href="#-7" class="headerlink" title></a></h3><h3 id="热力"><a href="#热力" class="headerlink" title="热力"></a>热力</h3><table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>说明</th>
+<th>示例值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>二级地区标准名称</td>
+<td>广州市</td>
+<td></td>
+</tr>
+<tr>
+<td>lnglat</td>
+<td>非必填，点的经纬度，为空则自动取二级地区的经纬度，可通过下方链接获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.280637,23.125178</td>
+<td></td>
+</tr>
+<tr>
+<td>value</td>
+<td>值</td>
+<td>20</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h1><h3 id="基础地图-1"><a href="#基础地图-1" class="headerlink" title="基础地图"></a>基础地图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>地区     adcode</td>
+<td>地区名称或行政区划代码，支持中国及大多数省市</td>
+<td>中国湖南广州市110101</td>
+<td>广东省</td>
+<td></td>
+</tr>
+<tr>
+<td>地区颜色     areaColor</td>
+<td>地区默认颜色，支持16进制/RGB/RGBA的格式，若开启下方视觉映射则会失效</td>
+<td>#FAE4C3rgb(0, 131, 143)</td>
+<td>#EEE</td>
+<td></td>
+</tr>
+<tr>
+<td>地区边框颜色     borderStroke</td>
+<td>地区边框颜色，支持16进制/RGB/RGBA的格式</td>
+<td>#FAE4C3rgb(0, 131, 143)</td>
+<td>#111</td>
+<td></td>
+</tr>
+<tr>
+<td>地区边框宽度     borderWidth</td>
+<td>地区边框宽度，单位为px</td>
+<td>2</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示标签</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>标签模板     labelTpl</td>
+<td>标签模板，支持地区名称 {name} 和 值 {value}</td>
+<td>{name}:{value}</td>
+<td>{name}</td>
+<td></td>
+</tr>
+<tr>
+<td>标签文本颜色     labeltextFill</td>
+<td>标签文本颜色，支持16进制/RGB/RGBA的格式</td>
+<td>#333</td>
+<td>#FFF</td>
+<td></td>
+</tr>
+<tr>
+<td>高亮时地区颜色     emphasisAreaColor</td>
+<td>高亮地区颜色，支持16进制/RGB/RGBA的格式</td>
+<td>#0050B3</td>
+<td>#0050B3</td>
+<td></td>
+</tr>
+<tr>
+<td>高亮时显示标签     emphasisShowLabel</td>
+<td>高亮地区是否显示标签</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>高亮时标签文本颜色     emphasisLabeltextFill</td>
+<td>高亮标签文本颜色，支持16进制/RGB/RGBA的格式</td>
+<td>#333</td>
+<td>#FFF</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>提示信息模板     tooltipItemTpl</td>
+<td>提示信息模板，支持地区名称 {name} 、 值 {value}、任意列 {列名}</td>
+<td>{name}:{value}</td>
+<td>{value}</td>
+<td></td>
+</tr>
+<tr>
+<td>视觉映射     visualMap</td>
+<td>是否开颜色映射模式，设置后将会根据值的大小来控制颜色的深浅</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>映射颜色     visualMapColor</td>
+<td>映射颜色取值范围，支持16进制/RGB/RGBA的格式，多个颜色用”-“链接。</td>
+<td>#BAE7FF-#1890FF-#0050B3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>映射范围最小值     visualRangeMin</td>
+<td>映射值范围的最小值，即最后一个映射颜色匹配的值</td>
+<td>10</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>映射范围最大值     visualRangeMax</td>
+<td>映射值范围的最大值，即第一个映射颜色匹配的值</td>
+<td>40</td>
+<td>40</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="散点"><a href="#散点" class="headerlink" title="散点"></a>散点</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>散点图形     symbol</td>
+<td>散点的图形，取值’circle’, ‘rect’, ‘roundRect’, ‘triangle’, ‘diamond’, ‘pin’, ‘arrow’, ‘none’还可以支持图片链接或者SVG矢量路径</td>
+<td>arrow</td>
+<td>circle</td>
+<td></td>
+</tr>
+<tr>
+<td>基础大小     baseSize</td>
+<td>基础大小n，散点实际大小为 （value/n）px ，若想统一大小则设置为 value 的最大值</td>
+<td>10</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示标签</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>高亮时显示标签     emphasisShowLabel</td>
+<td>高亮是否显示标签</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>标签模板     labelTpl</td>
+<td>标签模板，支持地区名称 {name} 和 值 {value}</td>
+<td>{name}:{value}</td>
+<td>{name}</td>
+<td></td>
+</tr>
+<tr>
+<td>散点颜色     color</td>
+<td>散点默认颜色，支持16进制/RGB/RGBA的格式</td>
+<td>#FAE4C3rgb(0, 131, 143)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>地区边框颜色     borderStroke</td>
+<td>散点边框颜色，支持16进制/RGB/RGBA的格式</td>
+<td>#FAE4C3rgb(0, 131, 143)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>地区边框宽度     borderWidth</td>
+<td>散点边框宽度，单位为px</td>
+<td>2</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>边框类型     borderType</td>
+<td>散点边框类型，取值 ‘solid’, ‘dashed’, ‘dotted’</td>
+<td>solid</td>
+<td>solid</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>提示信息模板     tooltipItemTpl</td>
+<td>提示信息模板，支持地区名称 {name} 、 值 {value}、任意列 {列名}</td>
+<td>{name}:{value}</td>
+<td>{value}</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="动态散点"><a href="#动态散点" class="headerlink" title="动态散点"></a>动态散点</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>散点图形     symbol</td>
+<td>散点的图形，取值’circle’, ‘rect’, ‘roundRect’, ‘triangle’, ‘diamond’, ‘pin’, ‘arrow’, ‘none’还可以支持图片链接或者SVG矢量路径</td>
+<td>arrow</td>
+<td>circle</td>
+<td></td>
+</tr>
+<tr>
+<td>基础大小     baseSize</td>
+<td>基础大小n，散点实际大小为 （value/n）px ，若想统一大小则设置为 value 的最大值</td>
+<td>10</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示标签</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>高亮时显示标签     emphasisShowLabel</td>
+<td>高亮是否显示标签</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>标签模板     labelTpl</td>
+<td>标签模板，支持地区名称 {name} 和 值 {value}</td>
+<td>{name}:{value}</td>
+<td>{name}</td>
+<td></td>
+</tr>
+<tr>
+<td>散点颜色     color</td>
+<td>散点默认颜色，支持16进制/RGB/RGBA的格式</td>
+<td>#FAE4C3rgb(0, 131, 143)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>地区边框颜色     borderStroke</td>
+<td>散点边框颜色，支持16进制/RGB/RGBA的格式</td>
+<td>#FAE4C3rgb(0, 131, 143)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>地区边框宽度     borderWidth</td>
+<td>散点边框宽度，单位为px</td>
+<td>2</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>边框类型     borderType</td>
+<td>散点边框类型，取值 ‘solid’, ‘dashed’, ‘dotted’</td>
+<td>solid</td>
+<td>solid</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>提示信息模板     tooltipItemTpl</td>
+<td>提示信息模板，支持地区名称 {name} 、 值 {value}、任意列 {列名}</td>
+<td>{name}:{value}</td>
+<td>{value}</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="飞线-1"><a href="#飞线-1" class="headerlink" title="飞线"></a>飞线</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>头尾点图形     pointSymbol</td>
+<td>起始点图形，取值’circle’, ‘rect’, ‘roundRect’, ‘triangle’, ‘diamond’, ‘pin’, ‘arrow’, ‘none’还可以支持图片链接或者SVG矢量路径</td>
+<td>arrow</td>
+<td>circle</td>
+<td></td>
+</tr>
+<tr>
+<td>头尾点大小    pointSymbolSize</td>
+<td>起始点的大小</td>
+<td>10</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>飞行点图形     symbol</td>
+<td>飞行点图形，取值’circle’, ‘rect’, ‘roundRect’, ‘triangle’, ‘diamond’, ‘pin’, ‘arrow’, ‘none’还可以支持图片链接或者SVG矢量路径</td>
+<td>arrow</td>
+<td>circle</td>
+<td></td>
+</tr>
+<tr>
+<td>飞行点大小     symbolSize</td>
+<td>飞行点的大小</td>
+<td>10</td>
+<td>12</td>
+<td></td>
+</tr>
+<tr>
+<td>动画时间     period</td>
+<td>飞线特效动画的时间</td>
+<td>4</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>飞线颜色     stroke</td>
+<td>飞线颜色，支持16进制/RGB/RGBA的格式</td>
+<td>#FAE4C3rgb(0, 131, 143)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>飞线宽度     width</td>
+<td>飞线宽度，单位为px</td>
+<td>2</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>飞线弧度     curveness</td>
+<td>飞线曲率，数值越大折越弯曲</td>
+<td>0.4</td>
+<td>0.2</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="热力-1"><a href="#热力-1" class="headerlink" title="热力"></a>热力</h3><p>暂无配置项</p>
+<h1 id="四、Antv-L7-地理可视化"><a href="#四、Antv-L7-地理可视化" class="headerlink" title="四、Antv L7 地理可视化"></a>四、Antv L7 地理可视化</h1><p>Antv L7 的地理可视化元件，是基于 <a target="_blank" rel="noopener" href="https://l7.antv.vision/zh">https://l7.antv.vision/zh</a> 开发的 Axure 元件，可以高效的在 Axure 内实现地理可视化的效果。</p>
+<p>一个元件一般由1个地图和多个图层两部分组成：</p>
+<p><strong>地图：</strong>基础地图，目前有高德地图（国内），和 Mapbox 地图（全球）</p>
+<p><strong>图层：</strong>地图上的可视化元素，目前支持 点/线/面/地区/热图 图层，图层可以任意组合，比如1个点图1个线图，或者2个点图1个面层。</p>
+<h1 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h1><p>可选择 高德地图（国内），和 Mapbox 地图（全球），元件由两个子元件组成</p>
+<p>acp-xxx-map：普通矩形，地图容器可以控制地图的大小</p>
+<p>acp-config：中继器，地图配置管理，具体配置项见下方</p>
+<h3 id="地图配置"><a href="#地图配置" class="headerlink" title="地图配置"></a>地图配置</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题</td>
+<td>地图主题，目前支持 dark（暗黑）light （简约）、normal （正常）、blank （无底图） 如果是高德地图，还可以之前高德的自定义样式链接，具体请看高德官方说明<a target="_blank" rel="noopener" href="https://lbs.amap.com/api/javascript-api/guide/map/map-style">https://lbs.amap.com/api/javascript-api/guide/map/map-style</a></td>
+<td>darkamap://styles/whitesmoke</td>
+<td>normal</td>
+</tr>
+<tr>
+<td>地图中心</td>
+<td>地图初始中心经纬度可通过高德拾取工具获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.280637,23.125178</td>
+<td>dark</td>
+</tr>
+<tr>
+<td>俯仰角度</td>
+<td>地图初始俯仰角度</td>
+<td>64.56</td>
+<td>0</td>
+</tr>
+<tr>
+<td>缩放等级</td>
+<td>地图初始显示级别 Mapbox （0-24） 高德 （3-18）</td>
+<td>8</td>
+<td></td>
+</tr>
+<tr>
+<td>最大缩放等级</td>
+<td>地图最大缩放等级  Mapbox（0-24） 高德 （3-18）</td>
+<td>15</td>
+<td>22</td>
+</tr>
+<tr>
+<td>最小缩放等级</td>
+<td>地图最小缩放等级Mapbox （0-24） 高德 （3-18）</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>开发Token</td>
+<td>自定义高德或 Mapbox 开发者 Token，元件库已经内置，但仅供测试使用</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="区域图"><a href="#区域图" class="headerlink" title="区域图"></a>区域图</h1><p>根据省市区的行政划分，显示对应的区域图。由两个子元件组成。</p>
+<p>acp-area-data：中继器，点图数据，格式参加下方说明</p>
+<p>acp-area-config：中继器，点图配置，格式参加下方说明</p>
+<h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h3><table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>area</td>
+<td>二级地区名称acp-config 配置的地区对应的二级地区</td>
+<td>广州市</td>
+</tr>
+<tr>
+<td>value</td>
+<td>地区值，可选一般用于显提示信息显示</td>
+<td>5</td>
+</tr>
+</tbody></table>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>地区</td>
+<td>地区名称或行政区划代码，支持中国及大多数省市</td>
+<td>中国湖南广州市110101</td>
+<td>广东省</td>
+</tr>
+<tr>
+<td>形状</td>
+<td>fill 绘制填充面  line 绘制填充图描边</td>
+<td>text</td>
+<td>circl</td>
+</tr>
+<tr>
+<td>图表颜色</td>
+<td>地区的颜色，多个请用英文逗号“,”隔开支持 hex/rgb/rgba 格式的颜色值</td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>大小</td>
+<td>点的大小，单位px，一搬情况下填数值。还支持 min,max 的格式，根据 data 中继器里 value 大小映射。</td>
+<td>84,32</td>
+<td>4</td>
+</tr>
+<tr>
+<td>显示提示信息</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>提示信息模板</td>
+<td>提示信息模板，支持 {br}（换行）、 {name} 、 {value} 、{任意列名} 注意列名需为小写</td>
+<td>{name}:{value}{area}</td>
+<td></td>
+</tr>
+<tr>
+<td>不透明度</td>
+<td>图形的不透明度，取值 0-1</td>
+<td>0.5</td>
+<td>0.8</td>
+</tr>
+</tbody></table>
+<h1 id="-8"><a href="#-8" class="headerlink" title></a></h1><h1 id="点图"><a href="#点图" class="headerlink" title="点图"></a>点图</h1><p>目前点图支持，普通散点、动态散点、自定义图片、文字、气泡图（形状图）和3D柱状图等，由两个子元件组成。</p>
+<p>acp-point-data：中继器，点图数据，格式参加下方说明</p>
+<p>acp-point-config：中继器，点图配置，格式参加下方说明</p>
+<h3 id="数据-1"><a href="#数据-1" class="headerlink" title="数据"></a>数据</h3><table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lnglat</td>
+<td>点的经纬度，lnglat 和 area 必填一个可通过高德拾取工具获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.280637,23.125178</td>
+</tr>
+<tr>
+<td>area</td>
+<td>地区名称当该地图组合内存在地区层，可以直接填写二级地区的名称来替代经纬度，程序会自动计算出其对应的经纬度</td>
+<td>广州市</td>
+</tr>
+<tr>
+<td>shape</td>
+<td>点图形状或类型，可选。优先级高于 acp-config 的形状配置。支持 circle、square、hexagon、triangle、pentagon、octogon、hexagram、rhombus、vesica</td>
+<td>circle</td>
+</tr>
+<tr>
+<td>value</td>
+<td>点值，可选一般用于显提示信息显示，点的颜色映射或图形大小映射</td>
+<td>5</td>
+</tr>
+<tr>
+<td>name</td>
+<td>点的名称，选填。当 shape = text 时，name则为显示在地图上的文本</td>
+<td>中心区域</td>
+</tr>
+<tr>
+<td>img</td>
+<td>图片地址，目前只支持 svg，选填。当 shape = img时，img 的图片会显示在地图上</td>
+<td><a target="_blank" rel="noopener" href="https://gw.alipayobjects.com/mdn/antv_site/afts/img/A*BJ6cTpDcuLcAAAAAAAAAAABkARQnAQ">https://gw.alipayobjects.com/mdn/antv_site/afts/img/A*BJ6cTpDcuLcAAAAAAAAAAABkARQnAQ</a></td>
+</tr>
+<tr>
+<td>color</td>
+<td>点的颜色，选填。优先级高于 acp-config 的图表颜色配置。支持 hex/rgb/rgba 格式的颜色值</td>
+<td>#e3e3e3</td>
+</tr>
+<tr>
+<td>size</td>
+<td>点的大小，单位px，选填。优先级高于 acp-config 的大小配置</td>
+<td>16</td>
+</tr>
+<tr>
+<td>height</td>
+<td>点的高度，单位px，选填。用于设置3D柱状图的高度</td>
+<td>24</td>
+</tr>
+</tbody></table>
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>形状</td>
+<td>点图形状或类型，可选普通形状：circle、square、hexagon、triangle、pentagon、octogon、hexagram、rhombus、vesica3D柱子：cylinder文本：text图片：img</td>
+<td>text</td>
+<td>circl</td>
+</tr>
+<tr>
+<td>图表颜色</td>
+<td>点的颜色，多个请用英文逗号“,”隔开支持 hex/rgb/rgba 格式的颜色值</td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>大小</td>
+<td>点的大小，单位px，一搬情况下填数值。还支持 min,max 的格式，根据 data 中继器里 value 大小映射。</td>
+<td>84,32</td>
+<td>4</td>
+</tr>
+<tr>
+<td>显示提示信息</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>提示信息模板</td>
+<td>提示信息模板，支持 {br}（换行）、 {name} 、 {value} 、{任意列名} 注意列名需为小写</td>
+<td>{name}:{value}{area}</td>
+<td></td>
+</tr>
+<tr>
+<td>不透明度</td>
+<td>图形的不透明度，取值 0-1</td>
+<td>0.5</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>描边宽度</td>
+<td>描边宽度，单位px</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>描边颜色</td>
+<td>图形边框颜色支持 hex/rgb/rgba 格式的颜色值</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>显示动画</td>
+<td>是否显示动画，普通点图开启动画后变成动态散点图</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>图形高亮</td>
+<td>是否支持 hover 状态下高亮显示</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>高亮颜色</td>
+<td>高亮状态下的颜色支持 hex/rgb/rgba 格式的颜色值</td>
+<td>#4169E1</td>
+<td></td>
+</tr>
+<tr>
+<td>geojson</td>
+<td>GeoJson 数据的 url，填写后 data 中继器的数据将无效</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="线图"><a href="#线图" class="headerlink" title="线图"></a>线图</h1><p>目前线图支持，路径图、绘制弧线、大圆航线、3d 弧线图，由两个子元件组成。</p>
+<p>acp-line-data：中继器，线图数据，格式参加下方说明</p>
+<p>acp-line-config：中继器，线图配置，格式参加下方说明</p>
+<h3 id="数据-2"><a href="#数据-2" class="headerlink" title="数据"></a>数据</h3><table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>startlnglat</td>
+<td>线起点的经纬度，lnglat 和 area 必填一个可通过高德拾取工具获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.280637,23.125178</td>
+</tr>
+<tr>
+<td>endlnglat</td>
+<td>线终点的经纬度，lnglat 和 area 必填一个可通过高德拾取工具获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.30,23.22</td>
+</tr>
+<tr>
+<td>startarea</td>
+<td>线起点地区名称当该地图组合内存在地区层，可以直接填写二级地区的名称来替代经纬度，程序会自动计算出其对应的经纬度</td>
+<td>广州市</td>
+</tr>
+<tr>
+<td>endarea</td>
+<td>线终点地区名称当该地图组合内存在地区层，可以直接填写二级地区的名称来替代经纬度，程序会自动计算出其对应的经纬度</td>
+<td>深圳市</td>
+</tr>
+<tr>
+<td>name</td>
+<td>线的名称，选填。</td>
+<td>司机路线</td>
+</tr>
+<tr>
+<td>color</td>
+<td>线的颜色，选填。优先级高于 acp-config 的图表颜色配置。支持 hex/rgb/rgba 格式的颜色值</td>
+<td>#e3e3e3</td>
+</tr>
+<tr>
+<td>size</td>
+<td>线宽，单位px，选填。优先级高于 acp-config 的大小配置当 shape 为绘制弧线、大圆航线、3d 弧线图时，支持配置“宽度,高度”的格式</td>
+<td>44,12</td>
+</tr>
+</tbody></table>
+<h3 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>形状</td>
+<td>线图形状或类型，可选line 绘制路径图，arc 绘制弧线 通过贝塞尔曲线算法技术弧线greatcircle 大圆航线，地图两个点的最近距离不是两个点连线，而是大圆航线arc3d 3d 弧线地图 3D 视角</td>
+<td>arc</td>
+<td>line</td>
+</tr>
+<tr>
+<td>图表颜色</td>
+<td>线的颜色，多个请用英文逗号“,”隔开支持 hex/rgb/rgba 格式的颜色值</td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>大小</td>
+<td>线宽，单位px，选填。当 shape 为绘制弧线、大圆航线、3d 弧线图时，支持配置“宽度,高度”的格式</td>
+<td>44,12</td>
+<td>2</td>
+</tr>
+<tr>
+<td>显示提示信息</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>提示信息模板</td>
+<td>提示信息模板，支持 {br}（换行）、 {name} 、 {value} 、{任意列名} 注意列名需为小写</td>
+<td>{name}:{value}{area}</td>
+<td></td>
+</tr>
+<tr>
+<td>不透明度</td>
+<td>图形的不透明度，取值 0-1</td>
+<td>0.5</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>显示动画</td>
+<td>是否显示动画，普通点图开启动画后变成动态散点图</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>动画间隔</td>
+<td>动画时间 单位(s)秒</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>持续时间</td>
+<td>轨迹间隔, 取值区间 0 - 1</td>
+<td>0.5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>流线长度</td>
+<td>轨迹长度 取值区间 0 - 1</td>
+<td>0.5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>geojson</td>
+<td>GeoJson 数据的 url，填写后 data 中继器的数据将无效</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="面图"><a href="#面图" class="headerlink" title="面图"></a>面图</h1><p>由两个子元件组成，支持任意变形，一般用于地理围栏、区域标识。</p>
+<p>acp-polygon-data：中继器，面图数据，格式参加下方说明</p>
+<p>acp-polygon-config：中继器，面图配置，格式参加下方说明</p>
+<h3 id="数据-3"><a href="#数据-3" class="headerlink" title="数据"></a>数据</h3><table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lnglat</td>
+<td>面图各个节点的经纬度，至少需要3行数据可通过高德拾取工具获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.280637,23.125178</td>
+</tr>
+</tbody></table>
+<h3 id="配置-3"><a href="#配置-3" class="headerlink" title="配置"></a>配置</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>形状</td>
+<td>fill 绘制填充面  line 绘制填充图描边  extrude 对填充图 3D 拉伸</td>
+<td>arc</td>
+<td>line</td>
+</tr>
+<tr>
+<td>图表颜色</td>
+<td>面的颜色，多个请用英文逗号“,”隔开支持 hex/rgb/rgba 格式的颜色值</td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>大小</td>
+<td>暂不支持，预留</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr>
+<td>显示提示信息</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>提示信息内容</td>
+<td>提示信息的内容</td>
+<td>地理围栏</td>
+<td></td>
+</tr>
+<tr>
+<td>不透明度</td>
+<td>图形的不透明度，取值 0-1</td>
+<td>0.5</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>geojson</td>
+<td>GeoJson 数据的 url，填写后 data 中继器的数据将无效</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="热力图"><a href="#热力图" class="headerlink" title="热力图"></a>热力图</h1><p>经典热力图，由两个子元件组成。</p>
+<p>acp-heatmap-data：中继器，热力图数据，格式参加下方说明</p>
+<p>acp-heatmap-config：中继器，热力图配置，格式参加下方说明</p>
+<h3 id="数据-4"><a href="#数据-4" class="headerlink" title="数据"></a>数据</h3><table>
+<thead>
+<tr>
+<th>列名称</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lnglat</td>
+<td>热力中心点的经纬度，lnglat 和 area 必填一个可通过高德拾取工具获取<a target="_blank" rel="noopener" href="https://lbs.amap.com/console/show/picker">https://lbs.amap.com/console/show/picker</a></td>
+<td>113.280637,23.125178</td>
+</tr>
+<tr>
+<td>area</td>
+<td>地区名称当该地图组合内存在地区层，可以直接填写二级地区的名称来替代经纬度，程序会自动计算出其对应的经纬度</td>
+<td>广州市</td>
+</tr>
+<tr>
+<td>value</td>
+<td>热力值，根据该值的大小决定颜色和热力大小</td>
+<td>5</td>
+</tr>
+<tr>
+<td>name</td>
+<td>热力图的名称，选填。</td>
+<td>中心区域</td>
+</tr>
+</tbody></table>
+<h3 id="配置-4"><a href="#配置-4" class="headerlink" title="配置"></a>配置</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>图表颜色</td>
+<td>热图的颜色范围，请用英文逗号“,”隔开支持 hex/rgb/rgba 格式的颜色值</td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>大小</td>
+<td>预留配置项</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>提示信息模板</td>
+<td>提示信息模板，支持 {br}（换行）、 {name} 、 {value} 、{任意列名} 注意列名需为小写</td>
+<td>{name}:{value}{area}</td>
+<td></td>
+</tr>
+<tr>
+<td>不透明度</td>
+<td>图形的不透明度，取值 0-1</td>
+<td>0.5</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>热图半径</td>
+<td>热力半径，单位px</td>
+<td>2</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<h1 id="五、动态元件"><a href="#五、动态元件" class="headerlink" title="五、动态元件"></a>五、动态元件</h1><p>由于 Axure 实现部分动态效果会比较占资源，在多图表的复杂场景下可能会让页面卡顿，acp 因此提供了部分动态可视化元件。使用方式跟普通文本原件一致，只是增加了 config 中继器提供相关配置。</p>
+<h3 id="实时时间"><a href="#实时时间" class="headerlink" title="实时时间"></a>实时时间</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>时间格式format</td>
+<td>时间格式，同 Excel 的时间格式，<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013400939/article/details/47761113">请参考</a></td>
+<td>YYYY-MM-DD HH:mm:ss</td>
+</tr>
+</tbody></table>
+<h3 id="倒计时"><a href="#倒计时" class="headerlink" title="倒计时"></a>倒计时</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>时间     time</td>
+<td>需要倒数的时间，单位为秒</td>
+<td>172800</td>
+</tr>
+<tr>
+<td>时间格式     format</td>
+<td>时间格式，同 Excel 的时间格式，<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013400939/article/details/47761113">请参考</a></td>
+<td>D天 H时 mm分 ss秒</td>
+</tr>
+</tbody></table>
+<h3 id="动态数字-自增数字"><a href="#动态数字-自增数字" class="headerlink" title="动态数字/自增数字"></a>动态数字/自增数字</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>启始值     startVal</td>
+<td>启始值</td>
+<td>0</td>
+</tr>
+<tr>
+<td>间隔时间     duration</td>
+<td>动画时长，单位为秒，每次加载/更新时动画时长，时间越短则数字变化越快</td>
+<td>2</td>
+</tr>
+<tr>
+<td>数字分组     useGrouping</td>
+<td>是否使用千分位，acp 会自动格式化</td>
+<td>true</td>
+</tr>
+<tr>
+<td>更新间隔     interval</td>
+<td>数字自增更新间隔，单位为秒</td>
+<td>2</td>
+</tr>
+<tr>
+<td>随机范围最小值     randomMin</td>
+<td>数字自增随机数范围最小值，可以填负数</td>
+<td>10</td>
+</tr>
+<tr>
+<td>随机范围最大值     randomMax</td>
+<td>数字自增随机数范围最大值，可以填负数</td>
+<td>100</td>
+</tr>
+</tbody></table>
+<h3 id="轮播表格"><a href="#轮播表格" class="headerlink" title="轮播表格"></a>轮播表格</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>行数     rowNum</td>
+<td>默认显示行数</td>
+<td>5</td>
+</tr>
+<tr>
+<td>奇数行背景颜色     oddRowBGC</td>
+<td>奇数行背景颜色</td>
+<td>#003B51</td>
+</tr>
+<tr>
+<td>偶素行背景颜色     evenRowBGC</td>
+<td>偶数行背景颜色</td>
+<td>#0A2732</td>
+</tr>
+<tr>
+<td>文字颜色     textFill</td>
+<td>文本颜色</td>
+<td>#FFF</td>
+</tr>
+<tr>
+<td>字体大小     fontSize</td>
+<td>文本字体大小</td>
+<td>12</td>
+</tr>
+<tr>
+<td>等待时间     waitTime</td>
+<td>轮播间隔（单位毫秒）</td>
+<td>2000</td>
+</tr>
+<tr>
+<td>轮播方式     carousel</td>
+<td>轮播方式，single（逐行）、page（每页）</td>
+<td>page</td>
+</tr>
+<tr>
+<td>对齐方式     align</td>
+<td>文本对齐方式 center、left、right</td>
+<td>center</td>
+</tr>
+<tr>
+<td>列宽     columnWidth</td>
+<td>列宽（单位px），支持分列设置，值 20,30，表示第1列为 20px 宽度，第 2 列为 30px 宽度</td>
+<td>20,3050</td>
+</tr>
+</tbody></table>
+<h3 id="轮播排行榜"><a href="#轮播排行榜" class="headerlink" title="轮播排行榜"></a>轮播排行榜</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>行数     rowNum</td>
+<td>默认显示行数</td>
+<td>5</td>
+</tr>
+<tr>
+<td>文字颜色     textFill</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>字体大小     fontSize</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>等待时间     waitTime</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>轮播方式     carousel</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>单位     unit</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="-9"><a href="#-9" class="headerlink" title></a></h3><h3 id="动态边框"><a href="#动态边框" class="headerlink" title="动态边框"></a>动态边框</h3><p>可以任意缩放的动态矢量边框，一般用于单个图表或者大屏的背景。</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>类型type</td>
+<td>边框类型，可选1-13，具体效果可以参考<a target="_blank" rel="noopener" href="http://datav-react.jiaminghi.com/guide/borderBox.html#borderbox1">http://datav-react.jiaminghi.com/guide/borderBox.html</a></td>
+<td>2</td>
+</tr>
+<tr>
+<td>反转     reverse</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>边框颜色     colors</td>
+<td>元件颜色，需要填写主色合副色，’,’ 分隔</td>
+<td>#003B51,#0A2732</td>
+</tr>
+<tr>
+<td>标题     title</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标题宽度     titleWidth</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>动画时长     duration</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="装饰文本"><a href="#装饰文本" class="headerlink" title="装饰文本"></a>装饰文本</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>颜色     colors</td>
+<td>元件颜色，需要填写主色合副色，’,’ 分隔</td>
+<td></td>
+</tr>
+<tr>
+<td>文本     text</td>
+<td>元件中央的文本</td>
+<td>66%</td>
+</tr>
+<tr>
+<td>字体大小     fontSize</td>
+<td>元件中央的文本字体大小，单位 px</td>
+<td>32</td>
+</tr>
+</tbody></table>
+<h1 id="六、Block-元件"><a href="#六、Block-元件" class="headerlink" title="六、Block 元件"></a>六、Block 元件</h1><p>Block 元件的存在是为了弥补部分 acp 常规元件图表不足和灵活性不足的问题。你可以轻易的将 ECharts、Highcharts 及 Antv 等官网超过 1000+ 图表复制到 Axure。缺点就是无法像普通元件一样通过中继器更改数据和样式，修改起来需要有一定前端基础，可以让开发来协助（反正他们最终都要实现的= =）。</p>
+<h1 id="ECharts-Block"><a href="#ECharts-Block" class="headerlink" title="ECharts Block"></a>ECharts Block</h1><p>ECharts Block 可以帮助你快速实现 ECharts 相关图表，和 Antv G2 相关元件库不一样，并不支持在 Axure 内直接修改图表样式和属性。好处就是可以支持 <a target="_blank" rel="noopener" href="https://gallery.echartsjs.com/explore.html">ECharts 社区</a> 和 <a target="_blank" rel="noopener" href="https://www.echartsjs.com/examples/zh/index.html">官方示例</a> 上千种图表，元件组合如下：</p>
+<ul>
+<li>容器矩形：名称为 acp-echats-chart ，名称不可更改，为图表容器</li>
+<li>js 文件中继器：acp-js，名称不可更改，设置需要加载的第三方脚本</li>
+<li>code 中继器：一般名称为 acp-code ，使用中继器内的 textArea 文本框来存放 ECharts 图表代码</li>
+</ul>
+<p>  <img src="/../images/AxhubChartsPro%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3/1569755846528-92454bcd-7311-4c59-9bf2-e0147ec8bc50.png" alt="image.png"></p>
+<p>使用步骤如下：</p>
+<p><strong>创建图表：</strong>将元件库的 ECharts Block 元件拖放到页面页面</p>
+<p><strong>填充代码：</strong>访问 <a target="_blank" rel="noopener" href="https://gallery.echartsjs.com/explore.html">ECharts 社区</a> 或 <a target="_blank" rel="noopener" href="https://www.echartsjs.com/examples/zh/index.html">官方示例</a> ，打开选定图表，复制对应代码到 code 中继器下的文本框</p>
+<p><strong>补充 js 脚本：</strong>点击 ECharts 图表详情页上顶部脚本按钮，将需要引用的脚本复制到 js 文件中继器。请注意，js 文件中继器第一条为 ECharts js文件的链接，可以更改版本但不能覆盖或删除。acp 已经默认填写了常用的脚本 js，<strong>这一步大部分情况下可以省略**</strong>。**</p>
+<p>这就完成了，预览看看吧。</p>
+<p>由于百度地图的 api 会限制调用的域名，暂不支持含有百度地图图表的引用。</p>
+<p>另外需要注意的事，社区的代码由第三方提供，代码质量参次不齐，如果遇到无法显示的图表，可以找首席客服反馈。</p>
+<h1 id="Highcharts-Block"><a href="#Highcharts-Block" class="headerlink" title="Highcharts Block"></a>Highcharts Block</h1><p>Highcharts Block 跟 ECharts Block 基本一致，<strong>但请注意</strong> <strong>Highcharts 本身是商业软件，任何使用带来的法律问题， Axhub 及本人概不承担，请谨慎使用。</strong></p>
+<p>使用步骤如下：</p>
+<p><strong>创建图表：</strong>将元件库的 Highcharts Block 元件拖放到页面页面</p>
+<p><strong>填充代码：</strong>访问 <a target="_blank" rel="noopener" href="https://www.highcharts.com.cn/demo/highcharts">Highcharts 官网</a>，打开选定图表，点击 js tab 复制对应代码到 code 中继器下的文本框</p>
+<p><strong>补充 js 脚本：</strong>点击图表详情页上 html tab，将需要加载的 js 链接复制到 js 文件中继器。请注意，js 文件中继器第一条为 Highcharts js文件的链接，可以更改版本但不能覆盖或删除。acp 已经默认填写了常用的脚本 js，所以这一部分大部分情况下可以省略。</p>
+<p>这就完成了，预览看看吧~</p>
+<h1 id="Antv-G2-G6-G2plot-L7-F2-Block"><a href="#Antv-G2-G6-G2plot-L7-F2-Block" class="headerlink" title="Antv G2/G6/G2plot/L7/F2 Block"></a>Antv G2/G6/G2plot/L7/F2 Block</h1><p>请参考 ECharts Blcok 使用方法前两步，可以复制的图表请看</p>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>图表类型</th>
+<th>适用图表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>G2</td>
+<td>常规图表</td>
+<td><a target="_blank" rel="noopener" href="https://g2.antv.vision/zh/examples/">https://g2.antv.vision/zh/examples/</a></td>
+</tr>
+<tr>
+<td>G2plot</td>
+<td>简易常规图表</td>
+<td><a target="_blank" rel="noopener" href="https://g2plot.antv.vision/zh/examples/">https://g2plot.antv.vision/zh/examples/</a></td>
+</tr>
+<tr>
+<td>G6</td>
+<td>数据关系图表</td>
+<td><a target="_blank" rel="noopener" href="https://g6.antv.vision/zh/examples/">https://g6.antv.vision/zh/examples/</a></td>
+</tr>
+<tr>
+<td>L7</td>
+<td>地理可视化</td>
+<td><a target="_blank" rel="noopener" href="https://l7.antv.vision/zh/examples/">https://l7.antv.vision/zh/examples/</a></td>
+</tr>
+<tr>
+<td>F2</td>
+<td>移动端图表</td>
+<td><a target="_blank" rel="noopener" href="https://f2.antv.vision/zh/examples/">https://f2.antv.vision/zh/examples/</a></td>
+</tr>
+</tbody></table>
+<h1 id="【历史版本】Antv-G2-3-x-图表配置列表"><a href="#【历史版本】Antv-G2-3-x-图表配置列表" class="headerlink" title="【历史版本】Antv G2 3.x 图表配置列表"></a>【历史版本】Antv G2 3.x 图表配置列表</h1><h1 id="全局配置-1"><a href="#全局配置-1" class="headerlink" title="全局配置"></a>全局配置</h1><p>优先推荐，你可以通过设置项目的 <strong>全局变量（Axure-项目-全局变量）</strong>，来实现全局配置，一旦设置，将在项目内所有图表生效，支持字段如下：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>globalTheme</td>
+<td>图表主题，可取值 default / dark</td>
+<td>dark</td>
+</tr>
+<tr>
+<td>globalColor</td>
+<td>图表颜色，可以参考配置列表里的 fieldColors 配置</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>globalFontSize</td>
+<td>字体大小</td>
+<td>14</td>
+</tr>
+<tr>
+<td>globalTextFill</td>
+<td>字体主颜色</td>
+<td>#BDCCED</td>
+</tr>
+<tr>
+<td>globalLineStroke</td>
+<td>坐标轴颜色</td>
+<td>#CCD6EC</td>
+</tr>
+<tr>
+<td>globalGridLineStroke</td>
+<td>网格颜色</td>
+<td>#BDCCED</td>
+</tr>
+<tr>
+<td>globalLegendTextFill</td>
+<td>图例文本颜色</td>
+<td>#BDCCED</td>
+</tr>
+</tbody></table>
+<h1 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h1><p><strong>温馨提示：</strong>由于单个图表的配置项过多，下方分为“常用配置”和“全部配置”。其中常用配置为图表 config 中继器默认内置的，若不满足需求，可以到全部配置内寻找配置项并自行添加到 config 中继器。</p>
+<h3 id="折线图"><a href="#折线图" class="headerlink" title="折线图"></a>折线图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>x轴刻度数量     xAxisTickCount</td>
+<td>x轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度     xAxisTicks</td>
+<td>x轴刻度，多个用‘,’分隔</td>
+<td>5,10,15,20</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示字段对应的文本</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>线条形状     lineShape</td>
+<td>折线图线条类型，支持line,smooth,dot,dash,spline</td>
+<td>smooth</td>
+<td>line</td>
+</tr>
+<tr>
+<td>点的形状     pointShape</td>
+<td>折线图节点形状，circle, square, bowtie, diamond, hexagon, triangle，设置为none则不显示</td>
+<td>none</td>
+<td>circle</td>
+</tr>
+<tr>
+<td>点的大小pointSize</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="柱状图-条形图-堆叠柱状图-堆叠条形图"><a href="#柱状图-条形图-堆叠柱状图-堆叠条形图" class="headerlink" title="柱状图/条形图/堆叠柱状图/堆叠条形图"></a>柱状图/条形图/堆叠柱状图/堆叠条形图</h3><p>请注意，条形图本质是镜像翻转的柱状图，配置时需要注意 x 轴和 y 轴的位置</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示字段对应的文本</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>标签偏移量     labelOffset</td>
+<td>label距当前图形偏移量，负数则标识渲染在图形内部</td>
+<td>-40</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>标签模板     labelTpl</td>
+<td>label文本模板，可取 变量{name},{value}, {percent}</td>
+<td>{value}个</td>
+<td>{value}</td>
+<td></td>
+</tr>
+<tr>
+<td>柱状图类型     columnType</td>
+<td>柱状图类型，可取 normal，stacked（堆叠）</td>
+<td>stacked</td>
+<td>normal</td>
+<td></td>
+</tr>
+<tr>
+<td>镜像翻转     transposeCoord</td>
+<td>是否转化为条形图</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>柱子间距     dodgeMarginRatio</td>
+<td>用于调整分组中各个柱子的间距</td>
+<td>4</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="分面条形图"><a href="#分面条形图" class="headerlink" title="分面条形图"></a>分面条形图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度数量     xAxisTickCount</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度     xAxisTicks</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="面积-面积堆叠图"><a href="#面积-面积堆叠图" class="headerlink" title="面积/面积堆叠图"></a>面积/面积堆叠图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示字段对应的文本</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>面积图类型     areaType</td>
+<td>面积类型，可取 normal，stacked（堆叠）</td>
+<td>stacked</td>
+<td>normal</td>
+<td></td>
+</tr>
+<tr>
+<td>面积形状     areaShape</td>
+<td>面积形状，支持area,smooth,line,smoothLine</td>
+<td>smooth</td>
+<td>area</td>
+<td></td>
+</tr>
+<tr>
+<td>面积透明度     areaOpacity</td>
+<td>面积透明度</td>
+<td>1</td>
+<td>0.5</td>
+<td></td>
+</tr>
+<tr>
+<td>线条形状     lineShape</td>
+<td>折线条类型，支持line,smooth,dot,dash,spline</td>
+<td>smooth</td>
+<td>line</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="百分比堆叠图-百分比堆叠面积图"><a href="#百分比堆叠图-百分比堆叠面积图" class="headerlink" title="百分比堆叠图/百分比堆叠面积图"></a>百分比堆叠图/百分比堆叠面积图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>是否显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+<td></td>
+</tr>
+<tr>
+<td>是否显示y轴     showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示字段对应的文本</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>堆叠图类型     stackedType</td>
+<td>堆叠图类型，可取 area，cloumn</td>
+<td>area</td>
+<td>cloumn</td>
+<td></td>
+</tr>
+<tr>
+<td>镜像翻转     transposeCoord</td>
+<td>是否镜像旋转（柱状图可转换为条形图）</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>是否显示线条     showLine</td>
+<td>是否显示折线</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="区间图-甘特图"><a href="#区间图-甘特图" class="headerlink" title="区间图/甘特图"></a>区间图/甘特图</h3><p>请注意，甘特图（区间条形图）本质是镜像翻转的柱状区间图，配置时需要注意 x 轴和 y 轴</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>提示信息模板     tooltipItemTpl</td>
+<td>提示信息内容模板，区间图、甘特图 支持变量 {start},{end}</td>
+<td>{start}至{end}</td>
+<td>{start}-{end}</td>
+<td></td>
+</tr>
+<tr>
+<td>镜像翻转     transposeCoord</td>
+<td>是否镜像旋转（柱状图可转换为条形图）</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="色块图"><a href="#色块图" class="headerlink" title="色块图"></a>色块图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度数量     xAxisTickCount</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度     xAxisTicks</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标签文本颜色     labelTextFill</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标签偏移量     labelOffset</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="饼图-环形图"><a href="#饼图-环形图" class="headerlink" title="饼图/环形图"></a>饼图/环形图</h3><p>请注意，环形图为带空心圆的饼图</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>标签偏移量     labelOffset</td>
+<td>label距当前图形偏移量，负数则标识渲染在图形内部</td>
+<td>-40</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>提示信息模板     tooltipItemTpl</td>
+<td>提示信息内容模板，支持变量{name},{value}，{percent}</td>
+<td>{value}</td>
+<td>{name}:{value}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示字段对应的文本</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>标签模板     labelTpl</td>
+<td>label文本模板，支持变量{name},{value}，{percent}</td>
+<td>{value}个</td>
+<td>{percent}</td>
+<td></td>
+</tr>
+<tr>
+<td>饼图半径     radius</td>
+<td>饼图半径，值范围为 0 至 1</td>
+<td>1</td>
+<td>0.75</td>
+<td></td>
+</tr>
+<tr>
+<td>空心圆的半径     innerRadius</td>
+<td>空心圆的半径，值范围为 0 至 1</td>
+<td>0.7</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本标题     guideTextTitle</td>
+<td>环形图中间的文案标题</td>
+<td>数量</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本内容     guideTextContent</td>
+<td>环形图中间的文案内容</td>
+<td>200台</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="简易环形图"><a href="#简易环形图" class="headerlink" title="简易环形图"></a>简易环形图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>环形宽度     circleLineWidth</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本标题     guideTextTitle</td>
+<td>环形图中间的文案标题</td>
+<td>数量</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本内容     guideTextContent</td>
+<td>环形图中间的文案内容</td>
+<td>200台</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示辅助文本     showGuideText</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="玉珏图"><a href="#玉珏图" class="headerlink" title="玉珏图"></a>玉珏图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标签偏移量     labelOffset</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>标签模板     labelTpl</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示辅助文本     showGuideText</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="玫瑰图"><a href="#玫瑰图" class="headerlink" title="玫瑰图"></a>玫瑰图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示字段对应的文本</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>标签模板     labelTpl</td>
+<td>label文本模板，支持变量{name},{value}</td>
+<td>{value}个</td>
+<td>{value}</td>
+<td></td>
+</tr>
+<tr>
+<td>饼图半径     radius</td>
+<td>玫瑰图半径，值范围为 0 至 1</td>
+<td>1</td>
+<td>0.75</td>
+<td></td>
+</tr>
+<tr>
+<td>空心圆的半径     innerRadius</td>
+<td>空心圆的半径，值范围为 0 至 1</td>
+<td>0.7</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="-10"><a href="#-10" class="headerlink" title></a></h3><h3 id="仪表盘"><a href="#仪表盘" class="headerlink" title="仪表盘"></a>仪表盘</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度间隔     yAxisTickInterval</td>
+<td>y轴刻度间隔</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>指针类型     pointerType</td>
+<td>指针类型</td>
+<td>2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本标题     guideTextTitle</td>
+<td>指标中间的文案标题</td>
+<td>数量</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本内容     guideTextContent</td>
+<td>指标中间的文案内容</td>
+<td>200台</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>隐藏y轴标签     hideYAxisLabel</td>
+<td>是否隐藏Y轴标签</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>起点角度     startAngle</td>
+<td>仪表盘极坐标的起始角度，值范围为 -16 至 16</td>
+<td>-10</td>
+<td>-9</td>
+<td></td>
+</tr>
+<tr>
+<td>终点角度     endAngle</td>
+<td>仪表盘极坐标的结束角度，值范围为 -16 至 16</td>
+<td>2</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="水波图"><a href="#水波图" class="headerlink" title="水波图"></a>水波图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>环形宽度     circleLineWidth</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>辅助字体大小     guideTextSize</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本颜色     guideTextFill</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示辅助文本     showGuideText</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本     guideText</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="雷达图-1"><a href="#雷达图-1" class="headerlink" title="雷达图"></a>雷达图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>饼图半径     radius</td>
+<td>雷达图半径，值范围为 0 至 1</td>
+<td>1</td>
+<td>0.8</td>
+<td></td>
+</tr>
+<tr>
+<td>雷达类型     radarType</td>
+<td>雷达图类型，可取值 line（线图），area（面积图）</td>
+<td>area</td>
+<td>line</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴网格矩形框颜色     yGridAlternateColor</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴网格类型     yGridType</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="散点图-气泡图"><a href="#散点图-气泡图" class="headerlink" title="散点图/气泡图"></a>散点图/气泡图</h3><p>气泡图为大小不一的散点图</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+</tr>
+<tr>
+<td>fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+</tr>
+<tr>
+<td>showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>xAxisTickCount</td>
+<td>x轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>xAxisTicks</td>
+<td>x轴刻度，多个用‘,’分隔</td>
+<td>5,10,15,20</td>
+<td></td>
+</tr>
+<tr>
+<td>xAxisPosition</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+</tr>
+<tr>
+<td>xAxisTitle</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+</tr>
+<tr>
+<td>xLabelTpl</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+</tr>
+<tr>
+<td>showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>yAxisPosition</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+</tr>
+<tr>
+<td>yAxisTitle</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+</tr>
+<tr>
+<td>yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+</tr>
+<tr>
+<td>showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>tooltipItemTpl</td>
+<td>提示信息内容模板，支持变量{name}，{xValue}（横坐标值），{yValue}（纵坐标值），{zValue}（点大小值）， <br>（换行）</td>
+<td>{xValue} {yValue}</td>
+<td>{name} <br> {xValue} {yValue}</td>
+</tr>
+<tr>
+<td>showLabel</td>
+<td>是否显示字段对应的文本</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>pointShape</td>
+<td>折线图节点形状，circle, square, bowtie, diamond, hexagon, triangle，设置为none则不显示</td>
+<td>none</td>
+<td>circle</td>
+</tr>
+</tbody></table>
+<h3 id="双轴图"><a href="#双轴图" class="headerlink" title="双轴图"></a>双轴图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+</tr>
+<tr>
+<td>形状     shapes</td>
+<td>字段对应图形类型，折线为line，柱状图为column，面积图为area，多个用“,”分开</td>
+<td>line,line,columncolumn</td>
+<td>circle</td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>x轴刻度数量     xAxisTickCount</td>
+<td>x轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度     xAxisTicks</td>
+<td>x轴刻度，多个用‘,’分隔</td>
+<td>5,10,15,20</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+</tr>
+<tr>
+<td>显示第二y轴     showSecondYAxis</td>
+<td>是否显示第二y轴</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>第二y轴最小值     secondYAxisMin</td>
+<td>第二 y 轴最小刻度</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>第二y轴最大值     secondYAxisMax</td>
+<td>第二 y 轴最大刻度</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>第二y轴刻度数量     secondYAxisTickCount</td>
+<td>第二 y 轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>第二y轴位置     secondYAxisPosition</td>
+<td>第二 y 轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+</tr>
+<tr>
+<td>第二y轴标题     secondYAxisTitle</td>
+<td>第二 y 轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+</tr>
+<tr>
+<td>第二y轴标签模板     secondYLabelTpl</td>
+<td>第二 y 轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>柱图提示信息模板     columnTooltipItemTpl</td>
+<td>柱状图提示信息内容模板，支持变量{name},{value}，{percent}</td>
+<td>{value}</td>
+<td>{name}:{value}</td>
+</tr>
+<tr>
+<td>线图提示信息模板     lineTooltipItemTpl</td>
+<td>折线图提示信息内容模板，支持变量{name},{value}</td>
+<td>{value}</td>
+<td>{name}:{value}</td>
+</tr>
+</tbody></table>
+<h3 id="K线图"><a href="#K线图" class="headerlink" title="K线图"></a>K线图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度数量     xAxisTickCount</td>
+<td>x轴刻度数量</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度     xAxisTicks</td>
+<td>x轴刻度，多个用‘,’分隔</td>
+<td>5,10,15,20</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>提示信息模板     tooltipItemTpl</td>
+<td>提示信息内容模板，支持变量{date},{start}，{end}，{max}，{min}</td>
+<td>{date}：{end}</td>
+<td>{date} <br>开盘价：{start}<br>收盘价：{end}<br>最高价：{max}<br>最低价：{min}</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="漏斗图"><a href="#漏斗图" class="headerlink" title="漏斗图"></a>漏斗图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>提示信息模板     tooltipItemTpl</td>
+<td>提示信息内容模板，支持变量{name},{value}，{percent}</td>
+<td>{value}</td>
+<td>{name}:{value}</td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td>是否显示字段对应的文本</td>
+<td>true</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>标签模板     labelTpl</td>
+<td>label文本模板，支持变量{name},{value}，{percent}</td>
+<td>{value}个</td>
+<td>{percent}</td>
+<td></td>
+</tr>
+<tr>
+<td>标签偏移量     labelOffset</td>
+<td></td>
+<td></td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>显示辅助文本     showGuideText</td>
+<td>是否显示图形中的辅助文本</td>
+<td></td>
+<td>true</td>
+<td></td>
+</tr>
+<tr>
+<td>辅助文本模板     guideTextTpl</td>
+<td>图形中的辅助文本模板，支持变量{name},{value}，{percent}</td>
+<td>{value}个</td>
+<td>{percent}</td>
+<td></td>
+</tr>
+<tr>
+<td>图表内边距     padding</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="散点图-气泡图-1"><a href="#散点图-气泡图-1" class="headerlink" title="散点图/气泡图"></a>散点图/气泡图</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+<td></td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>系列别名     fieldAlias</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示x轴     showXAxis</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度数量     xAxisTickCount</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴刻度     xAxisTicks</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴位置     xAxisPosition</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标题     xAxisTitle</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x轴标签模板     xLabelTpl</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示y轴     showYAxis</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最小值     yAxisMin</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴最大值     yAxisMax</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴刻度数量     yAxisTickCount</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴位置     yAxisPosition</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标题     yAxisTitle</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>y轴标签模板     yLabelTpl</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示图例     showLegend</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>提示信息模板     tooltipItemTpl</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>显示标签     showLabel</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>点的形状     pointShape</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="-11"><a href="#-11" class="headerlink" title></a></h3><h3 id="词云"><a href="#词云" class="headerlink" title="词云"></a>词云</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主题     theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+</tr>
+<tr>
+<td>图表颜色     fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>显示提示信息     showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>提示信息模板     tooltipItemTpl</td>
+<td>提示信息内容模板，支持变量{name},{value}</td>
+<td>{value}</td>
+<td>{name}: {value}</td>
+</tr>
+<tr>
+<td>最小字体大小     minFontSize</td>
+<td>词云文本最小字体大小</td>
+<td>24</td>
+<td>16</td>
+</tr>
+<tr>
+<td>词云字体     wordCloudFont</td>
+<td>词云文本字体</td>
+<td>微软雅黑</td>
+<td>Verdana</td>
+</tr>
+<tr>
+<td>词云内边距     wordCloudPadding</td>
+<td>词云文本内边距</td>
+<td>4</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<h3 id="滑块"><a href="#滑块" class="headerlink" title="滑块"></a>滑块</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>textFill</td>
+<td>slider 滑块文本颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>backgroundChartColor</td>
+<td>slider 滑块的背景图表颜色</td>
+<td>#CCD6EC</td>
+<td>#CCD6EC</td>
+</tr>
+<tr>
+<td>fillerFill</td>
+<td>slider 滑块选中区域颜色</td>
+<td>#BDCCED</td>
+<td>#BDCCED</td>
+</tr>
+<tr>
+<td>backgroundColor</td>
+<td>slider 滑块的背景颜色</td>
+<td>#CCD6EC</td>
+<td>#CCD6EC</td>
+</tr>
+</tbody></table>
+<h1 id="全部配置"><a href="#全部配置" class="headerlink" title="全部配置"></a>全部配置</h1><h3 id="图表配置"><a href="#图表配置" class="headerlink" title="图表配置"></a>图表配置</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>theme</td>
+<td>主题，目前支持 default 和 dark（适合深色背景）两种，<a href>欢迎贡献 </a></td>
+<td>dark</td>
+<td>default</td>
+</tr>
+<tr>
+<td>fieldColors</td>
+<td>图表字段对应的颜色，多个用‘,’或‘|’分隔，使用 rgb/rgba 格式时，分隔符号只能使用‘|’，具体请查看 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1,#B0C4DE</td>
+<td></td>
+</tr>
+<tr>
+<td>padding</td>
+<td>容器的内边距，支持多种设置方式，可以填写统一边距，也可以填写上下/左右边距，还可以单独填写上/下/左/右四边边距支持%格式的值；如果填写auto，则可以自动计算对应值</td>
+<td>20,30,20,302020,auto,20,3020%,30%</td>
+<td>auto</td>
+</tr>
+<tr>
+<td>renderer</td>
+<td>图表渲染方式，支持 svg 和 canvas，svg 可以复制到 Axure 进行二次设计</td>
+<td>svg</td>
+<td>canvas</td>
+</tr>
+<tr>
+<td>fieldAlias</td>
+<td>图表字段对应的别名，多个用‘,’分隔，一般用于解决 Axure 中继器表头不支持中文的问题</td>
+<td>东京,伦敦</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="坐标轴-1"><a href="#坐标轴-1" class="headerlink" title="坐标轴"></a>坐标轴</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>showXAxis</td>
+<td>是否显示X轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>xAxisMin</td>
+<td>x轴最小刻度</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>xAxisMax</td>
+<td>x轴最大刻度</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>xAxisTickCount</td>
+<td>x轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>xAxisTickInterval</td>
+<td>x轴两个刻度直接相差值</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>xAxisTicks</td>
+<td>x轴刻度，多个用‘,’分隔</td>
+<td>5,10,15,20</td>
+<td></td>
+</tr>
+<tr>
+<td>xAxisPosition</td>
+<td>x轴的位置，可选top/right/bottom/left</td>
+<td>top</td>
+<td>bottom</td>
+</tr>
+<tr>
+<td>xAxisTitle</td>
+<td>x轴的标题</td>
+<td>月份</td>
+<td>空</td>
+</tr>
+<tr>
+<td>xTitleTextFill</td>
+<td>x轴的标题字体颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>xTitleFontSize</td>
+<td>x轴的标题字体大小</td>
+<td>14</td>
+<td>12</td>
+</tr>
+<tr>
+<td>xLineStroke</td>
+<td>x轴颜色</td>
+<td>#BFBFBF</td>
+<td>#BFBFBF</td>
+</tr>
+<tr>
+<td>xLineWidth</td>
+<td>x轴线宽</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>hideXAxisLabel</td>
+<td>是否隐藏x轴标签</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>xLabelTpl</td>
+<td>x轴标签内容模板</td>
+<td>{x}年</td>
+<td>{x}</td>
+</tr>
+<tr>
+<td>xLabelOffset</td>
+<td>x轴标签位置距坐标轴偏移量</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>xLabelTextAlign</td>
+<td>x轴标签文本对齐方向，可取 start center end</td>
+<td>start</td>
+<td></td>
+</tr>
+<tr>
+<td>xLabelTextFill</td>
+<td>x轴标签文字颜色，参考 <a href="#e2VEH">颜色说明</a></td>
+<td>#4169E1</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>xLabelFontSize</td>
+<td>x轴标签文字大小</td>
+<td>14</td>
+<td>12</td>
+</tr>
+<tr>
+<td>xLabelFontWeight</td>
+<td>x轴标签字重</td>
+<td>bold</td>
+<td>normal</td>
+</tr>
+<tr>
+<td>xLabelRotate</td>
+<td>x轴标签文本角度</td>
+<td>30</td>
+<td></td>
+</tr>
+<tr>
+<td>xTickLineWidth</td>
+<td>x轴刻度线宽</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>xTickLineStroke</td>
+<td>x轴刻度颜色，参考 <a href="#e2VEH">颜色说明</a></td>
+<td>#BFBFBF</td>
+<td>#BFBFBF</td>
+</tr>
+<tr>
+<td>xTickLineLength</td>
+<td>x轴刻度线的长度，可以为负值（表示反方向渲染）</td>
+<td>-4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>xGridType</td>
+<td>x轴网格的类型，line 表示线，polygon 表示矩形框</td>
+<td>line</td>
+<td>line</td>
+</tr>
+<tr>
+<td>xGridLineStroke</td>
+<td>x轴网格线的颜色，参考 <a href="#e2VEH">颜色说明</a></td>
+<td>#404040</td>
+<td>#404040</td>
+</tr>
+<tr>
+<td>xGridLineWidth</td>
+<td>x轴网格线宽</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>xGridLineDash</td>
+<td>x轴网格线的虚线配置，第一个参数描述虚线的实部占多少像素，第二个参数描述虚线的虚部占多少像素</td>
+<td>3,3</td>
+<td></td>
+</tr>
+<tr>
+<td>xGridAlternateColor</td>
+<td>当网格类型 type 为 polygon 时，为x轴网格设置交替的颜色，指定一个值则先渲染奇数层，两个值则交替渲染，参考 <a target="_blank" rel="noopener" href="https://www.yuque.com/lintendo/uux5xi/gu3drv/edit">颜色说明</a></td>
+<td>#eeeeee</td>
+<td></td>
+</tr>
+<tr>
+<td>showYAxis</td>
+<td>是否显示Y轴</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>yAxisMin</td>
+<td>y轴最小刻度</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>yAxisMax</td>
+<td>y轴最大刻度</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>yAxisTickCount</td>
+<td>y轴刻度数量</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>yAxisTickInterval</td>
+<td>y轴两个刻度直接相差值</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr>
+<td>yAxisTicks</td>
+<td>y轴刻度，多个用‘,’分隔</td>
+<td>5,10,15,20</td>
+<td></td>
+</tr>
+<tr>
+<td>yAxisPosition</td>
+<td>y轴的位置，可取 top/right/bottom/left</td>
+<td>right</td>
+<td>left</td>
+</tr>
+<tr>
+<td>yAxisTitle</td>
+<td>y轴的标题</td>
+<td>摄氏度（℃）</td>
+<td></td>
+</tr>
+<tr>
+<td>yTitleTextFill</td>
+<td>y轴的标题字体颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>yTitleFontSize</td>
+<td>y轴的标题字体大小</td>
+<td>14</td>
+<td>12</td>
+</tr>
+<tr>
+<td>yLineStroke</td>
+<td>y轴颜色</td>
+<td>#BFBFBF</td>
+<td>#BFBFBF</td>
+</tr>
+<tr>
+<td>yLineWidth</td>
+<td>y轴线宽</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>hideYAxisLabel</td>
+<td>是否隐藏y轴标签</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>yLabelTpl</td>
+<td>y轴标签内容模板</td>
+<td>{y}℃</td>
+<td>{y}</td>
+</tr>
+<tr>
+<td>xLabelTextAlign</td>
+<td>y轴标签文本对齐方向，可取 start center end</td>
+<td>center</td>
+<td></td>
+</tr>
+<tr>
+<td>yLabelTextFill</td>
+<td>y轴标签文字颜色，参考 <a href="#e2VEH">颜色说明</a></td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>yLabelFontSize</td>
+<td>y轴标签文字大小</td>
+<td>14</td>
+<td>12</td>
+</tr>
+<tr>
+<td>yLabelFontWeight</td>
+<td>y轴标签字重</td>
+<td>bold</td>
+<td>normal</td>
+</tr>
+<tr>
+<td>yLabelOffset</td>
+<td>y轴标签位置距坐标轴偏移量</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>yTickLineWidth</td>
+<td>y轴刻度线宽</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>yTickLineStroke</td>
+<td>y轴刻度颜色，参考 <a href="#e2VEH">颜色说明</a></td>
+<td>#BFBFBF</td>
+<td>#BFBFBF</td>
+</tr>
+<tr>
+<td>yTickLineLength</td>
+<td>y轴刻度线的长度，可以为负值（表示反方向渲染）</td>
+<td>-4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>yGridType</td>
+<td>y轴网格的类型，line 表示线，polygon 表示矩形框</td>
+<td>line</td>
+<td>line</td>
+</tr>
+<tr>
+<td>yGridLinColor</td>
+<td>y轴网格线的颜色，参考 <a href="#e2VEH">颜色说明</a></td>
+<td>#404040</td>
+<td>#404040</td>
+</tr>
+<tr>
+<td>yGridLineWidth</td>
+<td>y轴网格线宽</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>yGridLineDash</td>
+<td>y轴网格线的虚线配置，第一个参数描述虚线的实部占多少像素，第二个参数描述虚线的虚部占多少像素</td>
+<td>3,3</td>
+<td></td>
+</tr>
+<tr>
+<td>yGridAlternateColor</td>
+<td>当网格类型 type 为 polygon 时，为y轴网格设置交替的颜色，指定一个值则先渲染奇数层，两个值则交替渲染</td>
+<td>#eeeeee</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="图例-1"><a href="#图例-1" class="headerlink" title="图例"></a>图例</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>showLegend</td>
+<td>是否显示图例</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>legendPosition</td>
+<td>设置图例的显示位置，可设置的值为12个：left-top,left-center,left-bottom,right-top,right-center,right-bottom,top-left,top-center,top-right,bottom-left,bottom-center,bottom-right也可使用bottom,top,left,right设置位置</td>
+<td>right-center</td>
+<td>bottom-center</td>
+</tr>
+<tr>
+<td>legendLayout</td>
+<td>用于设置各个图例项的排列方式，可设置值包括：vertical、horizontal，分别表示垂直和水平排布</td>
+<td>vertical</td>
+<td>horizontal</td>
+</tr>
+<tr>
+<td>legendMarker</td>
+<td>用于设置图例的 marker 样式，默认按照 图表 的类型显示，<a target="_blank" rel="noopener" href="https://www.yuque.com/antv/g2-docs/api-geom#6b5269ad">详情见 </a></td>
+<td>circle</td>
+<td></td>
+</tr>
+<tr>
+<td>legendTextFill</td>
+<td>图例文本的颜色</td>
+<td>#BFBFBF</td>
+<td>#BFBFBF</td>
+</tr>
+<tr>
+<td>legendFontSize</td>
+<td>图例文本大小</td>
+<td>14</td>
+<td>12</td>
+</tr>
+<tr>
+<td>legendOffsetX</td>
+<td>图例 X 方向的偏移值，数值类型，数值单位为 ‘px’</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>legendOffsetY</td>
+<td>图例 Y 方向的偏移值，数值类型，数值单位为 ‘px’</td>
+<td>2</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<h3 id="提示信息-1"><a href="#提示信息-1" class="headerlink" title="提示信息"></a>提示信息</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>showTooltips</td>
+<td>是否显示提示信息</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>hideTooltipTitle</td>
+<td>是否隐藏提示信息标题</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>tooltipItemTpl</td>
+<td>提示信息内容模板，支持变量{name},{value}，柱状图、百分比堆叠图、饼图、环形图支持变量{percent}区间图、甘特图 支持变量 {start},{end}</td>
+<td>{value}</td>
+<td>{name}:{value}</td>
+</tr>
+<tr>
+<td>tooltipCrosshairsType</td>
+<td>提示信息的辅助线或者辅助框，rect 表示矩形框，x 表示水平辅助线，y 表示垂直辅助线，cross 表示十字辅助线</td>
+<td>cross</td>
+<td>y</td>
+</tr>
+</tbody></table>
+<h3 id="图形文本"><a href="#图形文本" class="headerlink" title="图形文本"></a>图形文本</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>showLabel</td>
+<td>是否显示字段对应的文本</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>labelOffset</td>
+<td>label距当前图形偏移量，负数则标识渲染在图形内部</td>
+<td>-40</td>
+<td>20</td>
+</tr>
+<tr>
+<td>labelTextFill</td>
+<td>label文本颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>labelFontSize</td>
+<td>label文本大小</td>
+<td>4</td>
+<td>12</td>
+</tr>
+<tr>
+<td>labelLineWidth</td>
+<td>label线宽</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>labelPosition</td>
+<td>当前label与当前图形的相对位置，可选参数为middle, top,bottom,left,right</td>
+<td>middle</td>
+<td>top</td>
+</tr>
+<tr>
+<td>labelTpl</td>
+<td>label文本模板，支持变量{name},{value}，百分比堆叠图、饼图、环形图支持变量{percent}</td>
+<td>{value}个</td>
+<td>{value}</td>
+</tr>
+</tbody></table>
+<h3 id="辅助文本-1"><a href="#辅助文本-1" class="headerlink" title="辅助文本"></a>辅助文本</h3><p>只有仪表盘、环形图和漏斗支持以下配置。</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>guideTextTitle</td>
+<td>辅助文案标题</td>
+<td>数量</td>
+<td></td>
+</tr>
+<tr>
+<td>guideTextTitleFill</td>
+<td>辅助文案标题颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>guideTextTitleSize</td>
+<td>辅助文案标题文本大小</td>
+<td>12</td>
+<td>14</td>
+</tr>
+<tr>
+<td>guideTextContent</td>
+<td>辅助文案内容</td>
+<td>200台</td>
+<td></td>
+</tr>
+<tr>
+<td>guideTextContentFill</td>
+<td>辅助文案标题颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>guideTextContentSize</td>
+<td>辅助文案标题文本大小</td>
+<td>24</td>
+<td>20</td>
+</tr>
+<tr>
+<td>guideTextTitle</td>
+<td>辅助文案标题</td>
+<td>数量</td>
+<td></td>
+</tr>
+<tr>
+<td>guideTextFill</td>
+<td>辅助文案颜色</td>
+<td>#545454</td>
+<td>#545454</td>
+</tr>
+<tr>
+<td>guideTextSize</td>
+<td>辅助文案文本大小</td>
+<td>12</td>
+<td>14</td>
+</tr>
+</tbody></table>
+<h3 id="图形样式-1"><a href="#图形样式-1" class="headerlink" title="图形样式"></a>图形样式</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>示例值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lineWidth</td>
+<td>线宽</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>lineShape</td>
+<td>线条类型，支持line,smooth,dot,dash,spline</td>
+<td>line</td>
+<td></td>
+</tr>
+<tr>
+<td>pointShape</td>
+<td>折线图节点形状，circle, square, bowtie, diamond, hexagon, triangle，设置为none则不显示</td>
+<td>circle</td>
+<td></td>
+</tr>
+<tr>
+<td>pointSize</td>
+<td>折线图节点大小</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>columnType</td>
+<td>柱状图类型，可取 normal，stacked（堆叠）</td>
+<td>normal</td>
+<td></td>
+</tr>
+<tr>
+<td>transposeCoord</td>
+<td>是否镜像旋转（柱状图可转换为条形图）</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>dodgMarginRatio</td>
+<td>用于调整分组中各个柱子的间距</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>areaType</td>
+<td>面积类型，可取 normal，stacked（堆叠）</td>
+<td>normal</td>
+<td></td>
+</tr>
+<tr>
+<td>areaShape</td>
+<td>面积形状，支持area,smooth,line,smoothLine</td>
+<td>area</td>
+<td></td>
+</tr>
+<tr>
+<td>areaOpacity</td>
+<td>面积透明度</td>
+<td>0.5</td>
+<td></td>
+</tr>
+<tr>
+<td>stackedType</td>
+<td>堆叠图类型，可取 area，cloumn</td>
+<td>cloumn</td>
+<td></td>
+</tr>
+<tr>
+<td>showLine</td>
+<td>是否显示折线</td>
+<td>false</td>
+<td></td>
+</tr>
+<tr>
+<td>pieRadius</td>
+<td>饼图半径，值范围为 0 至 1</td>
+<td>0.75</td>
+<td></td>
+</tr>
+<tr>
+<td>pieInnerRadius</td>
+<td>空心圆的半径，值范围为 0 至 1</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>pointOpacity</td>
+<td>点的透明度</td>
+<td>0.5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>roseLineWidth</td>
+<td>玫瑰间隔图线框</td>
+<td>2</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<h1 id="颜色说明-1"><a href="#颜色说明-1" class="headerlink" title="颜色说明"></a>颜色说明</h1><p>颜色支持以下几种格式：</p>
+<p>16进制：#4169E1</p>
+<p>rgb、rgba：rgb(65,105,225)、rgba(65,105,225,0.5)</p>
+<p>渐变色：<a target="_blank" rel="noopener" href="https://www.yuque.com/antv/g2-docs/api-graphic#y6x6le">请查看 Antv 官方说明</a></p>
+<p>纹理：<a target="_blank" rel="noopener" href="https://www.yuque.com/antv/g2-docs/api-graphic#9w3mxd">请查看 Antv 官方说明</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/7d9f7df6.html">http://aichn.cn/post/7d9f7df6.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Axhub/">Axhub</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/e0cfee7a.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</div></div></a></div><div class="next-post pull-right"><a href="/post/b76d5600.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Docker Toolbox for Windows之安装二三事</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Axhub-Charts-Pro-%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3"><span class="toc-number">1.</span> <span class="toc-text">Axhub Charts Pro 帮助文档</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="toc-number">2.</span> <span class="toc-text">一、基本说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">3.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="toc-number">4.</span> <span class="toc-text">快速上手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86%E5%9B%BE%E8%A1%A8"><span class="toc-number">5.</span> <span class="toc-text">认识图表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E4%BB%B6%E7%BB%84%E6%88%90"><span class="toc-number">5.0.1.</span> <span class="toc-text">元件组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E8%A1%A8%E7%BB%84%E6%88%90"><span class="toc-number">5.0.2.</span> <span class="toc-text">图表组成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E7%94%BB%E5%B8%83"><span class="toc-number">6.</span> <span class="toc-text">更改画布</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="toc-number">7.</span> <span class="toc-text">更改数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E9%85%8D%E7%BD%AE"><span class="toc-number">8.</span> <span class="toc-text">更改配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92"><span class="toc-number">9.</span> <span class="toc-text">数据交互</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE"><span class="toc-number">9.0.1.</span> <span class="toc-text">实时更新数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0%E9%85%8D%E7%BD%AE"><span class="toc-number">9.0.2.</span> <span class="toc-text">实时更新配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%91%E5%9D%97%E4%BD%BF%E7%94%A8"><span class="toc-number">9.0.3.</span> <span class="toc-text">滑块使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6"><span class="toc-number">9.0.4.</span> <span class="toc-text">点击事件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%AA%E5%AE%9E%E6%97%B6%E9%A2%84%E8%A7%88"><span class="toc-number">10.</span> <span class="toc-text">伪实时预览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A6%BB%E7%BA%BF%E4%BD%BF%E7%94%A8"><span class="toc-number">11.</span> <span class="toc-text">离线使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Antv-G2-%E7%A6%BB%E7%BA%BF"><span class="toc-number">11.0.1.</span> <span class="toc-text">Antv G2 离线</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>君子兰萧宇的博客 - 人工智能,大数据工程师</title><meta name="keywords" content="君子兰,萧宇,肖宇,博客,人工智能,大数据,aichn,智慧中夏"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="学而不思则罔，思而不学则殆"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/page/6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-01-24 10:09:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="site-info"><h1 id="site-title">君子兰萧宇的博客</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/74e51a6a.html" title="深度学习1---最简单的全连接神经网络">     <img class="post_bg" src="/../images/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A01---%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/20180210030918240" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深度学习1---最简单的全连接神经网络"></a></div><div class="recent-post-info"><a class="article-title" href="/post/74e51a6a.html" title="深度学习1---最简单的全连接神经网络">深度学习1---最简单的全连接神经网络</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="content">本文有一部分内容参考以下两篇文章：　　一文弄懂神经网络中的反向传播法——BackPropagation　　神经网络　　　　最简单的全连接神经网络如下图所示(这张图极其重要，本文所有的推导都参照的这张图，如果有兴趣看推导，建议保存下来跟推导一起看)：
+
+　　它的前向传播计算过程非常简单，这里先讲一下：
+前向传播
+$$\begin{aligned}Y_{1} &amp;=f\left(W_{11}^{(1)} X_{1}+W_{12}^{(1)} X_{2}+K_{1}\right) \Y_{2} &amp;=f\left(W_{21}^{(1)} X_{1}+W_{22}^{(1)} X_{2}+K_{1}\right) \O_{1} &amp;=f\left(W_{11}^{(2)} Y_{1}+W_{12}^{(2)} Y_{2}+K_{2}\right) \O_{2} &amp;=f\left(W_{21}^{(2)} Y_{1}+W_{22}^{(2)} Y_{2}+K_{2}\right)\end{aligned}$$　　具体的，如果代入实际数值，取$$\begin{array ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/ee239b41.html" title="深度学习2---任意结点数的三层全连接神经网络">     <img class="post_bg" src="/../images/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A02---%E4%BB%BB%E6%84%8F%E7%BB%93%E7%82%B9%E6%95%B0%E7%9A%84%E4%B8%89%E5%B1%82%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/20180928134419558" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深度学习2---任意结点数的三层全连接神经网络"></a></div><div class="recent-post-info"><a class="article-title" href="/post/ee239b41.html" title="深度学习2---任意结点数的三层全连接神经网络">深度学习2---任意结点数的三层全连接神经网络</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="content">上一篇文章：深度学习1—最简单的全连接神经网络　　　我们完成了一个三层（输入+隐含+输出）且每层都具有两个节点的全连接神经网络的原理分析和代码编写。本篇文章将进一步探讨如何把每层固定的两个节点变成任意个节点，以方便我们下一篇文章用本篇文章完成的网络来训练手写字符集“mnist”。　　对于前向传播，基本上没有什么变化，就不用说了。主要看看后向传播的梯度下降公式。先放上上篇文章的网络图。　　上篇文章我们推知，含有两个节点的隐含层到输出层的权值对误差的偏导数，公式如下：　$$　\frac{\partial E_{总}}{\partial W_{11}^{(２)}}=(O_{1}-T_{1})*O_{1}(1-O_{1})*Y_{1}$$　　而含有两个节点的输入层到隐含层的权值对于误差梯度的偏导数公式如下：　　$$\frac{\partial E_{总}}{\partial W_{11}^{(1)}}=((O_{1}-T_{1})*O_{1}(1-O_{1})*W_{11}^{(2)}+(O_{2}-T_{2})*O_{2}(1-O_{2})*W_{21}^{(2)})*Y_{1}(1-Y_{ ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/96895f36.html" title="琴生(jensen)不等式">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="琴生(jensen)不等式"></a></div><div class="recent-post-info"><a class="article-title" href="/post/96895f36.html" title="琴生(jensen)不等式">琴生(jensen)不等式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="content">在Gan生成对抗神经网络中会用到Jensen不等式，因此做下记录。
+Jensen不等式告诉我们：如果f是在区间[a,b]上的凸函数（就是导数一直增长的函数，或者说是导数的导数大于0的函数），x是随机变量，那么有：$$E(f(x))≥f(E(x))$$也就是说函数f ff的期望大于等于期望的函数。
+下面来看看怎么证明，我们假设$$x_{1}, x_{2}, \ldots \ldots x_{n}$$都是区间[a,b]内的数，且$$x_{1} \leq x_{2} \leq, \ldots \ldots x_{n}$$，则上式可以写成下面这个形式：$$a_{1} f\left(x_{1}\right)+a_{2} f\left(x_{2}\right)+\ldots \ldots+a_{n} f\left(x_{n}\right) \geq f\left(a_{1} x_{1}+a_{2} x_{2}+\ldots \ldots+a_{n} x_{n}\right)$$其中$$\sum_{i=1}^{n} a_{i}=1 \text { 且 } a_{i}&gt;0$$当n = 1时，式子 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/abc0fd31.html" title="深度学习3—用三层全连接神经网络训练MNIST手写数字字符集">     <img class="post_bg" src="/../images/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A03%E2%80%94%E7%94%A8%E4%B8%89%E5%B1%82%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%AE%AD%E7%BB%83MNIST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E5%AD%97%E7%AC%A6%E9%9B%86/20180629031044540" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="深度学习3—用三层全连接神经网络训练MNIST手写数字字符集"></a></div><div class="recent-post-info"><a class="article-title" href="/post/abc0fd31.html" title="深度学习3—用三层全连接神经网络训练MNIST手写数字字符集">深度学习3—用三层全连接神经网络训练MNIST手写数字字符集</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="content">上一篇文章：深度学习2—任意结点数的三层全连接神经网络　　距离上篇文章过去了快四个月了，真是时光飞逝，之前因为要考博所以耽误了更新，谁知道考完博后之前落下的接近半个学期的工作是如此之多，以至于弄到现在才算基本填完坑，实在是疲惫至极。　　另外在这段期间，发现了一本非常好的神经网络入门书籍，本篇的很多细节问题本人就是在这本书上找到的答案，强烈推荐一下：
+　　
+
+　　上篇文章介绍了如何实现一个任意结点数的三层全连接神经网络。本篇，我们将利用已经写好的代码，搭建一个输入层、隐含层、输出层分别为784、100、10的三层全连接神经网络来训练闻名已久的mnist手写数字字符集，然后自己手写一个数字来看看网络是否能比较给力的工作。　　在正式做之前，还是按照惯例讲几个会用到的知识点。
+
+mnist数字字符集的结构解析，这个我单独写了一篇文章来做介绍了，如有需要了解请先移步：深度学习3番外篇—mnist数据集格式及转换
+我们之前都是直接放入几个数作为输入，然后给网络几个数作为目标来训练网络的，而mnist手写字符集给我们的是一堆手写的2828像素的图片还有图片对应的手写数字标签，我们怎么对它进行转换？　 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/66caae23.html" title="相对熵（KL散度）">     <img class="post_bg" src="/../images/%E7%9B%B8%E5%AF%B9%E7%86%B5%EF%BC%88KL%E6%95%A3%E5%BA%A6%EF%BC%89/201812181413501.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="相对熵（KL散度）"></a></div><div class="recent-post-info"><a class="article-title" href="/post/66caae23.html" title="相对熵（KL散度）">相对熵（KL散度）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="content">我们简单介绍了信息熵的概念，知道了信息熵可以表达数据的信息量大小，是信息处理一个非常重要的概念。
+对于离散型随机变量，信息熵公式如下：$$H ( p ) = H ( X ) = \mathrm { E } _ { x \sim p ( x ) } [ - \log p ( x ) ] = -\sum_{i=1}^n  p ( x )\log p ( x )$$对于连续型随机变量，信息熵公式如下：$$H ( p ) = H ( X ) = \mathrm { E } _ { x \sim p ( x ) } [ - \log p ( x ) ] = - \int p ( x ) \log p ( x ) d x$$注意，我们前面在说明的时候log是以2为底的，但是一般情况下在神经网络中，默认以e为底，这样算出来的香农信息量虽然不是最小的可用于完整表示事件的比特数，但对于信息熵的含义来说是区别不大的。其实只要这个底数是大于1的，都能用来表达信息熵的大小。
+本篇我们来看看机器学习中比较重要的一个概念—相对熵。相对熵，又被称为KL散度或信息散度，是两个概率分布间差异的非对称性度量 。在信息论中 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/602c2475.html" title="群晖+公网ip+阿里云ddns解析，完美外网访问">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖+公网ip+阿里云ddns解析，完美外网访问"></a></div><div class="recent-post-info"><a class="article-title" href="/post/602c2475.html" title="群晖+公网ip+阿里云ddns解析，完美外网访问">群晖+公网ip+阿里云ddns解析，完美外网访问</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/ddns/">ddns</a></span></div><div class="content">前言上回说到，通过公网IP，我们已经能使用 ip:端口 的方式，在外网访问到，我们的群晖nas了。
+但是面临着两个问题。第一点，公网ip复杂难记，就是你勉强记住了，熟悉了，第二点，ip是会变化的。
+这就很难受了。
+有没有什么好的解决方案。
+答案自然是有的——DDNS。
+什么是DDNS参考百度百科。
+
+DDNS（Dynamic Domain Name Server，动态域名服务）是将用户的动态IP地址映射到一个固定的域名解析服务上，用户每次连接网络的时候客户端程序就会通过信息传递把该主机的动态IP地址传送给位于服务商主机上的服务器程序，服务器程序负责提供DNS服务并实现动态域名解析。
+
+这东西听起来就很符合我们的需求。
+开搞。
+准备其实群晖自带也是有DDNS的设置的。在，控制面板-外部访问-DDNS中。
+
+其实，可以申请群晖自己的服务，包括域名那些。
+好像是可以免费的。（没折腾过，不清楚，回头试试）
+可是我为啥还是选择阿里云。
+
+机子支持docker，想玩。（别问我为啥需要docker，因为群晖ddns的设置里面，服务商没有阿里云的）
+我自己有阿里云服务器；
+我已经有备案好的自己的域名了 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/c004a920.html" title="通过广域网(Intelnet)进行远程唤醒[或开机] 图解">     <img class="post_bg" src="/../images/%E9%80%9A%E8%BF%87%E5%B9%BF%E5%9F%9F%E7%BD%91(Intelnet)%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%94%A4%E9%86%92%5B%E6%88%96%E5%BC%80%E6%9C%BA%5D%20%E5%9B%BE%E8%A7%A3/20150122155050140" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="通过广域网(Intelnet)进行远程唤醒[或开机] 图解"></a></div><div class="recent-post-info"><a class="article-title" href="/post/c004a920.html" title="通过广域网(Intelnet)进行远程唤醒[或开机] 图解">通过广域网(Intelnet)进行远程唤醒[或开机] 图解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="content">WAN远程唤醒与LAN远程唤醒有着诸多不同，WAN远程唤醒首先需要主板、网卡等硬件的支持，需要一条有效的Intelnet连接，与Lan远程唤醒不同的是，WAN远程唤醒需要经过路由器，因此下面我就来详细讲解如何在路由器上进行设置，以支持WAN远程唤醒，前提是，你已经成功进行了LAN远程唤醒。
+一、WOL（远程唤醒）工具介绍
+实现远程唤醒的软件有很多，原理都是相同的。下面列出几款常用的WOL软件：
+■ LanHelper
+■ Magic Packet Utility
+■ NetWaker for windows
+■ WakeOnLanGui（http://www.depicus.com）
+二、准备
+WAN与LAN在不同在于在广域网上，有许多的路由器等网络设备，这些设备可能会使Magic Packet的包不能到达我们想唤醒的电脑网卡上。因此，要实现通过internet来唤醒，必须得到路由器的支持。下面就以我的TP-Link WR841N无线路由为例来说明配置过程。
+首先确保路由器可以正常接入internet，即通过服务商得到一个公网IP（对于家庭来说ADSL、Cable Modem是常见的上 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/6375c8f0.html" title="香农信息量">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="香农信息量"></a></div><div class="recent-post-info"><a class="article-title" href="/post/6375c8f0.html" title="香农信息量">香农信息量</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="content">如果是连续型随机变量的情况，设p为随机变量X的概率分布，即p(x)为随机变量X在X=x处的概率密度函数值，则随机变量X在X=x处的香农信息量定义为：-$$log_2p(x)=log_2\frac{1}{p(x)}$$这时香农信息量的单位为比特。（如果非连续型随机变量，则为某一具体随机事件的概率，其他的同上）
+香农信息量用于刻画消除随机变量在处的不确定性所需的信息量的大小。
+上面是香农信息量的完整而严谨的表达，基本上读完就只剩下一个问题，为什么是这个式子？为了方便理解我们先看一下香农信息量在数据压缩应用的一般流程。
+假设我们有一段数据长下面这样：aaBaaaVaaaaa
+可以算出三个字母出现的概率分别为：
+$$a:\frac{10}{12}，B:\frac{1}{12}，V:\frac{1}{12}$$香农信息量为：a:0.263，B:3.585，V:3.585
+也就是说如果我们要用比特来表述这几个字母，分别需要0.263，3.585，3.585个这样的比特。当然，由于比特是整数的，因此应该向上取整，变为1，4，4个比特。
+这个时候我们就可以按照这个指导对字母进行编码，比如把a编码为”0 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/post/7e3b9734.html" title="遗传算法详解（GA）">     <img class="post_bg" src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110643602" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="遗传算法详解（GA）"></a></div><div class="recent-post-info"><a class="article-title" href="/post/7e3b9734.html" title="遗传算法详解（GA）">遗传算法详解（GA）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="发表于 2018-12-23 21:06:36">2018-12-23</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="content">本文是去年课题组周报中的一个专题讲解，详细讲了GA，由于是周报，所以十分详细。很适合初学者入门。文中也简单提及了模拟退火算法。文章综合参考了一些互联网资料。发博客以备忘！
+三：遗传算法
+​    照例先给出科学定义：
+​    遗传算法（Genetic Algorithm, GA）起源于对生物系统所进行的计算机模拟研究。它是模仿自然界生物进化机制发展起来的随机全局搜索和优化方法，借鉴了达尔文的进化论和孟德尔的遗传学说。其本质是一种高效、并行、全局搜索的方法，能在搜索过程中自动获取和积累有关搜索空间的知识，并自适应地控制搜索过程以求得最佳解。
+   再给出相关术语：（各位看看就好，后面都会涉及到，再细说）
+基因型(genotype)：性状染色体的内部表现；
+表现型(phenotype)：染色体决定的性状的外部表现，或者说，根据基因型形成的个体的外部表现；
+进化(evolution)：种群逐渐适应生存环境，品质不断得到改良。生物的进化是以种群的形式进行的。
+适应度(fitness)：度量某个物种对于生存环境的适应程度。
+选择(selection)：以一定的概率从种群中选择若干个个体。一般， ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/post/85ca40.html" title="基于TensorFlow框架搭建一个最简单的CNN框架">     <img class="post_bg" src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于TensorFlow框架搭建一个最简单的CNN框架"></a></div><div class="recent-post-info"><a class="article-title" href="/post/85ca40.html" title="基于TensorFlow框架搭建一个最简单的CNN框架">基于TensorFlow框架搭建一个最简单的CNN框架</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-20T13:06:36.000Z" title="发表于 2018-12-20 21:06:36">2018-12-20</time></span><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="content">项目简介本文将使用python，并借助TensorFlow框架搭建一个最简单的CNN框架，来实现对手写数字的识别。
+本文搭建的CNN框架结构【1】输入层（本文的输入是一个2828且为单通道的图片，所以输入层有784个节点）【2】第一个卷积层（该卷积层包含了32个不同的55的卷积核，即该卷积层提取了32种不同图形特征，【5,5,1,32】表示卷积核尺寸为55,1个颜色通道，32个不同的卷积核）【3】第一个卷积层后的最大池化层【4】第二个卷积层（该卷积层包含了64个不同的55的卷积核，即该卷积层提取了32种不同图形特征，【5,5,32,64】表示卷积核尺寸为5*5，64个不同的卷积核）【5】第二个卷积层后的最大池化层【6】全连接层【7】一个Dropout层（为了减轻过拟合，在训练时，我们随机丢弃一部分节点的数据来减轻过拟合，预测是则保留全部数据来追求最好的预测性能）【8】Softmax层，得到最后的概率输出。【9】定义损失函数为交叉熵（cross entropy），优化器使用Adam【10】得到模型的预测精度
+项目代码导入相应的库from tensorflow.examples.tutor ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/7/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div><ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/DDNS/"><span class="card-category-list-name">DDNS</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Git/"><span class="card-category-list-name">Git</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Hexo/"><span class="card-category-list-name">Hexo</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/K8S/"><span class="card-category-list-name">K8S</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/WireGuard/"><span class="card-category-list-name">WireGuard</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ddns/"><span class="card-category-list-name">ddns</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/docker/"><span class="card-category-list-name">docker</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/git/"><span class="card-category-list-name">git</span><span class="card-category-list-count">2</span></a></li>
+            <li class="card-category-list-item more is-center"><a class="card-category-list-link-more" href="/categories/">
+                <span>查看更多</span><i class="fas fa-angle-right"></i></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Python/" style="font-size: 1.3em; color: #99a1ac">-Python</a> <a href="/tags/WNMPA/" style="font-size: 1.1em; color: #999">-WNMPA</a> <a href="/tags/linux/" style="font-size: 1.25em; color: #999fa7">-linux</a> <a href="/tags/php/" style="font-size: 1.15em; color: #999b9e">-php</a> <a href="/tags/python/" style="font-size: 1.15em; color: #999b9e">-python</a> <a href="/tags/win10/" style="font-size: 1.1em; color: #999">-win10</a> <a href="/tags/win7/" style="font-size: 1.2em; color: #999da3">-win7</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.45em; color: #99a7ba">-人工智能</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 1.1em; color: #999">-人工智能 -大数据</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">-人工智能 -机器学习</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">-人工智能 -神经网络</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">-人工智能 -神经网络 -算法</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 1.35em; color: #99a3b1">-其他</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" style="font-size: 1.2em; color: #999da3">-大数据</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.1em; color: #999">-大数据 -人工智能</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">-大数据 -机器学习</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 1.5em; color: #99a9bf">-技术</a> <a href="/tags/%E6%96%90%E8%AE%AF-%E6%8A%80%E6%9C%AF/" style="font-size: 1.1em; color: #999">-斐讯 -技术</a> <a href="/tags/%E6%9D%82%E8%AE%B0/" style="font-size: 1.15em; color: #999b9e">-杂记</a> <a href="/tags/%E6%B8%B8%E6%88%8F/" style="font-size: 1.15em; color: #999b9e">-游戏</a> <a href="/tags/%E7%94%B5%E5%BD%B1/" style="font-size: 1.1em; color: #999">-电影</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 1.15em; color: #999b9e">-神经网络</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 1.2em; color: #999da3">-神经网络 -人工智能</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.15em; color: #999b9e">-算法</a> <a href="/tags/%E9%9F%B3%E4%B9%90/" style="font-size: 1.1em; color: #999">-音乐</a> <a href="/tags/Aplayer/" style="font-size: 1.1em; color: #999">Aplayer</a> <a href="/tags/Axhub/" style="font-size: 1.1em; color: #999">Axhub</a> <a href="/tags/CentOS7/" style="font-size: 1.1em; color: #999">CentOS7</a> <a href="/tags/DDNS-%E9%98%BF%E9%87%8C%E4%BA%91-Shell%E8%84%9A%E6%9C%AC/" style="font-size: 1.1em; color: #999">DDNS,阿里云,Shell脚本</a> <a href="/tags/Git-git%E6%9C%8D%E5%8A%A1%E5%99%A8-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" style="font-size: 1.1em; color: #999">Git,git服务器,自动化部署</a> <a href="/tags/Git%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">Git服务器</a> <a href="/tags/Hexo-git%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.15em; color: #999b9e">Hexo,git服务器</a> <a href="/tags/Hexo-%E4%B8%AA%E4%BA%BA%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">Hexo,个人服务器</a> <a href="/tags/K8S-%E5%91%BD%E4%BB%A4/" style="font-size: 1.1em; color: #999">K8S,命令</a> <a href="/tags/Nginx-%E9%AB%98%E5%B9%B6%E5%8F%91-%E4%BC%98%E5%8C%96/" style="font-size: 1.1em; color: #999">Nginx,高并发,优化</a> <a href="/tags/OpenWRT-WireGuard-%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">OpenWRT,WireGuard,服务器</a> <a href="/tags/Openvpn-%E5%85%8D%E6%B5%81-%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.1em; color: #999">Openvpn,免流,服务器</a> <a href="/tags/WireGuard/" style="font-size: 1.1em; color: #999">WireGuard</a> <a href="/tags/ddns/" style="font-size: 1.15em; color: #999b9e">ddns</a> <a href="/tags/docker/" style="font-size: 1.4em; color: #99a5b6">docker</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/02/"><span class="card-archive-list-date">二月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/12/"><span class="card-archive-list-date">十二月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/12/"><span class="card-archive-list-date">十二月 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/12/"><span class="card-archive-list-date">十二月 2019</span><span class="card-archive-list-count">9</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">十月 2019</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/09/"><span class="card-archive-list-date">九月 2019</span><span class="card-archive-list-count">15</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/06/"><span class="card-archive-list-date">六月 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item more is-center"><a class="card-archive-list-link-more" href="/archives/">
+              <span>查看更多</span><i class="fas fa-angle-right"  ></i></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">163</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-01-24T02:09:02.047Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function subtitleType () {
+  getScript('https://sdk.jinrishici.com/v2/browser/jinrishici.js').then(() => {
+    jinrishici.load(function (result) {
+      if (true) {
+        var sub = "学而不思则罔，思而不学则殆,Learning without thinking is useless, Thinking without learning is dangerous,读万卷书，行万里路,Read ten thousands of books,Travel ten thousands of miles".length == 0 ? new Array() : "学而不思则罔，思而不学则殆,Learning without thinking is useless, Thinking without learning is dangerous,读万卷书，行万里路,Read ten thousands of books,Travel ten thousands of miles".split(',')
+        var content = result.data.content
+        var both = sub.unshift(content)
+        var typed = new Typed('#subtitle', {
+          strings: sub,
+          startDelay: 300,
+          typeSpeed: 150,
+          loop: true,
+          backSpeed: 50,
+        })
+      } else {
+        document.getElementById('subtitle').innerHTML = result.data.content
+      }
+    })
+  })
+}
+
+if (true) {
+  if (typeof Typed === 'function') {
+    subtitleType()
+  } else {
+    getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+  }
+} else {
+  subtitleType()
+}
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

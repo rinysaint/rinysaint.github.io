@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Docker Toolbox for Windows之安装二三事 | 君子兰萧宇的博客</title><meta name="keywords" content="docker,Toolbox,Windows"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="安装所需的环境1、Win7 及以上版本，Win10 以上可以安装 Docker for Windows 2、MacType 和 VirtualBox 冲突，导致无法启动虚拟机 3、安装 VirtualBox 时选择 NDIS5 驱动器。根据官方的说法，从 Windows Vista 开始， VirtualBox 默认安装 NDIS6 驱动，但是可能会导致虚拟机从系统变慢到网络异常的一系列问题，所以"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/b76d5600"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">Docker Toolbox for Windows之安装二三事</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-12-23T13:06:36.000Z" title="undefined 2019-12-23 21:06:36">2019-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="安装所需的环境"><a href="#安装所需的环境" class="headerlink" title="安装所需的环境"></a>安装所需的环境</h3><p>1、Win7 及以上版本，Win10 以上可以安装 <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://docs.docker.com/docker-for-windows/install/">Docker for Windows</a><br> 2、MacType 和 VirtualBox 冲突，导致无法启动虚拟机<br> 3、安装 VirtualBox 时选择 NDIS5 驱动器。根据官方的说法，从 Windows Vista 开始， VirtualBox 默认安装 NDIS6 驱动，但是可能会导致虚拟机从系统变慢到网络异常的一系列问题，所以如果不幸出现了问题，可以重装 Docker Toolbox，选择用 NDIS5 驱动安装 VirtualBox<br> <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://docs.docker.com/toolbox/toolbox_install_windows/%23looking-for-troubleshooting-help">点击查看官方说法</a></p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>点击 Docker Quickstart Terminal</p>
+<blockquote>
+<p>有时点击可能无效，是因为之前有安装过 git 了，但是 git 的安装路径不对，点击<code>右键 - 属性 - 快捷方式</code> 修改 bash 的路径即可</p>
+</blockquote>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-e52468f17ccb66bf.png" alt="img"></p>
+<p>不出意外会需要更新 <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://github.com/boot2docker/boot2docker/releases">boot2docker.iso</a> 文件，但是下载很慢，此时可以退出直接去 <code>github</code> 下载最新版的 <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://github.com/boot2docker/boot2docker/releases">boot2docker.iso</a> 到 <code>C:\Users\Administrator\.docker\machine\cache</code>路径下</p>
+<p>重新点击，启动成功</p>
+<blockquote>
+<p>此前电脑上装了 MacType，导致一直无法启动 VirtualBox 的虚拟机，这里再次提个醒。其实以前安装 Genymotion 的时候就遇到过 MacType 和 VirtualBox 冲突的情况，只是一直没有联系到一起</p>
+</blockquote>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-9848860e09999627.png" alt="img"></p>
+<p>创建虚拟机 default</p>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-9b9572c4ac43cc4e.png" alt="img"></p>
+<p>鲸鱼出现说明启动成功了！</p>
+<p>现在可以 Hello World 了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-c7f737c80adf52ac.png" alt="img"></p>
+<p>Hello World</p>
+<p>现在你有一个镜像 (image) 和一个容器(container)了</p>
+<blockquote>
+<p>镜像和容器，可以用类和实例类比，镜像是模版，容器是实例</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker images <span class="comment">// 查看所有镜像</span></span><br><span class="line">docker container ls <span class="comment">// 查看正在运行的容器，辛辛苦苦敲了这几个单词却没有显示容器怎么办？</span></span><br><span class="line">docker container ls -a <span class="comment">// 可以带上 -a 参数，列出所有的容器，此时可以看到刚才的 hello-world 容器了，因为它运行完就退出了</span></span><br><span class="line">docker rm -f container CONTAINER ID <span class="comment">// 删除容器</span></span><br><span class="line">docker rmi IMAGE ID <span class="comment">// 删除镜像</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置国内镜像源"><a href="#设置国内镜像源" class="headerlink" title="设置国内镜像源"></a>设置国内镜像源</h3><p>如果尝试拉取一个比较大的镜像，比如<code>nginx</code>，你会发现速度慢得让人怀疑人生，此时可以设置一下国内的镜像源，让下载速度起飞</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh <span class="literal">default</span> <span class="comment">// 先进入虚拟机，default 是默认的虚拟机名称</span></span><br><span class="line">sudo vi /<span class="keyword">var</span>/lib/boot2docker/profile <span class="comment">// 编辑这个文件，添加镜像源 --registry-mirror https://registry.docker-cn.com</span></span><br></pre></td></tr></table></figure>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-02bccbeb80092bc4.png" alt="img"></p>
+<p>sudo vi /var/lib/boot2docker/profile</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/docker restart <span class="comment">// 重启 docker 进程</span></span><br><span class="line">exit <span class="comment">// 退出虚拟机</span></span><br><span class="line">docker info <span class="comment">// 看一下镜像源是否设置成功（是否有刚刚设置的 --registry-mirror 这一行）</span></span><br><span class="line">docker pull nginx <span class="comment">// 现在可以愉快地拉取`nginx`镜像了</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里有个问题，对于虚拟机中的配置的修改，在重启虚拟机之后（比如关机再开机）配置又被重置了，导致每次开机都要重新配置一遍，比如上面的镜像源配置。Github 上也有不少这方面的 issue <a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://github.com/docker/machine/issues/1718%23%23issuecomment-176653850">#1718 这个描述得比较清晰</a>，暂时的解决方案也很简单，第一次启动后修改启动脚本 <code>start.sh</code> 注释掉 <code>yes | &quot;$&#123;DOCKER_MACHINE&#125;&quot; regenerate-certs &quot;$&#123;VM&#125;&quot;</code> 这一行即可</p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="subst">$&#123;VM_STATUS&#125;</span>&quot;</span> != <span class="string">&quot;Running&quot;</span> ]; then</span><br><span class="line">  <span class="string">&quot;<span class="subst">$&#123;DOCKER_MACHINE&#125;</span>&quot;</span> start <span class="string">&quot;<span class="subst">$&#123;VM&#125;</span>&quot;</span></span><br><span class="line">  # yes | <span class="string">&quot;<span class="subst">$&#123;DOCKER_MACHINE&#125;</span>&quot;</span> regenerate-certs <span class="string">&quot;<span class="subst">$&#123;VM&#125;</span>&quot;</span></span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h3 id="文件夹权限"><a href="#文件夹权限" class="headerlink" title="文件夹权限"></a>文件夹权限</h3><p>在 boot2docker 中，默认的用户名和密码是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user: docker pass: tcuser</span><br></pre></td></tr></table></figure>
+<p>Toolbox 默认只能访问 <code>C:\Users</code> 这个文件夹下的内容，映射到虚拟机上就是 <code>/c/Users</code></p>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-8df6d1b4263d241c.png" alt="img"></p>
+<blockquote>
+<p>注意：<code>c</code> 是小写，<code>Users</code> 是大写开头</p>
+</blockquote>
+<p>如果你的项目在这个目录内，在添加数据卷（Volume）挂载本机目录时，可以使用相对路径， 比如这样</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">redis:</span><br><span class="line">  ...</span><br><span class="line">  volumes:</span><br><span class="line">    - ./<span class="keyword">data</span>:/<span class="keyword">data</span></span><br><span class="line">  ...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>如果你本机的项目放在其他目录，或者需要进入到其他目录的权限，需要添加该目录到虚拟机的共享文件夹</p>
+<ol>
+<li><p>打开 VirtualBox</p>
+</li>
+<li><p>选择虚拟机，点击设置，这里是 default</p>
+</li>
+<li><p>选择共享文件夹，添加目录，映射到虚拟机的对应路径（截图显示是映射到 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Dockerfile</span><br></pre></td></tr></table></figure>
+<p> 文件夹）</p>
+<p><img src="/../images/DockerToolboxforWindows%E4%B9%8B%E5%AE%89%E8%A3%85%E4%BA%8C%E4%B8%89%E4%BA%8B/2381335-e7cd4526e6d754c9.png" alt="img"></p>
+<p>添加共享文件夹</p>
+</li>
+<li><p>重启虚拟机</p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine restart <span class="keyword">default</span></span><br></pre></td></tr></table></figure>
+<p>这样就可以愉快地写数据卷（Volume）了，比如这样：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="symbol">redis:</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="symbol">volumes:</span></span><br><span class="line">    - <span class="regexp">/Dockerfile/data</span><span class="symbol">:/data</span> <span class="comment">#这里就只能使用绝对路径了</span></span><br><span class="line">  ...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="Docker-开机自启动"><a href="#Docker-开机自启动" class="headerlink" title="Docker 开机自启动"></a>Docker 开机自启动</h3><p>将 <code>Docker Quickstart Terminal</code> 快捷方式拖到开始菜单『启动』文件夹下即可，这样 Docker 每次开机都会自行启动，相应的为了能让容器也重新启动（因为关机等原因容器停止运行了，但是并未删除，只需重新启动即可），可以加一条重启的命令：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="symbol">redis:</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="symbol">restart:</span> always <span class="comment"># 加一条重启的命令</span></span><br><span class="line">  <span class="symbol">volumes:</span></span><br><span class="line">    - <span class="regexp">/Dockerfile/data</span><span class="symbol">:/data</span> </span><br><span class="line">  ...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="卸载-Toolbox"><a href="#卸载-Toolbox" class="headerlink" title="卸载 Toolbox"></a>卸载 Toolbox</h3><p>进入控制面板，先卸载 Toolbox，再卸载 VirtualBox，<code>C:\Users\Administor\.docker</code> 需要手动删除。</p>
+<h3 id="Toolbox修改虚拟机IP"><a href="#Toolbox修改虚拟机IP" class="headerlink" title="Toolbox修改虚拟机IP"></a>Toolbox修改虚拟机IP</h3><p>changeip.bat</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line">set machine=%1</span><br><span class="line">if &quot;%machine%&quot; == &quot;&quot; (</span><br><span class="line">    echo dmvbf expects a machine name</span><br><span class="line">    exit /b 1</span><br><span class="line">)</span><br><span class="line">set ipx=%2</span><br><span class="line">if &quot;%ipx%&quot; == &quot;&quot; (</span><br><span class="line">    echo dmvbf x missing ^(for 192.168.x.y^)</span><br><span class="line">    exit /b 2</span><br><span class="line">)</span><br><span class="line">set ipy=%3</span><br><span class="line">if &quot;%ipy%&quot; == &quot;&quot; (</span><br><span class="line">    echo dmvbf y missing ^(for 192.168.x.y^)</span><br><span class="line">    exit /b 3</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">echo kill $(more /var/run/udhcpc.eth0.pid) ^| docker-machine ssh %machine% sudo tee /var/lib/boot2docker/bootsync.sh ^&gt;NUL</span><br><span class="line">echo ifconfig eth0 192.168.%ipx%.%ipy% netmask 255.255.255.0 broadcast 192.168.%ipx%.255 up ^| docker-machine ssh %machine% sudo tee -a /var/lib/boot2docker/bootsync.sh ^&gt;NUL</span><br><span class="line">echo route add default gw ^&lt;gateway ip address here^&gt; ^| docker-machine ssh %machine% sudo tee -a /var/lib/boot2docker/bootsync.sh ^&gt;NUL</span><br><span class="line"></span><br><span class="line">docker-machine ssh %machine% &quot;sudo cat /var/run/udhcpc.eth0.pid | xargs sudo kill -9&quot;</span><br><span class="line"></span><br><span class="line">docker-machine ssh %machine% &quot;sudo ifconfig eth0 192.168.%ipx%.%ipy% netmask 255.255.255.0 broadcast 192.168.%ipx%.255 up&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">changeip.bat &lt;machine-name&gt; 99 100</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-machine regenerate-certs &lt;machine-name&gt;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/b76d5600.html">http://aichn.cn/post/b76d5600.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/docker/">docker</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/7d9f7df6.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Axhub Charts Pro 帮助文档</div></div></a></div><div class="next-post pull-right"><a href="/post/af5306f2.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Armbian搭建Git服务器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/a9214619.html" title="docker命令"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-23</div><div class="title">docker命令</div></div></a></div><div><a href="/post/9693aef8.html" title="DockerFiles_alpine"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-23</div><div class="title">DockerFiles_alpine</div></div></a></div><div><a href="/post/43a20585.html" title="Docker中部署Kubernetes"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-23</div><div class="title">Docker中部署Kubernetes</div></div></a></div><div><a href="/post/c5c20dab.html" title="Kubernetes(K8S)集群管理Docker容器（部署篇）"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-23</div><div class="title">Kubernetes(K8S)集群管理Docker容器（部署篇）</div></div></a></div><div><a href="/post/1b6b37c5.html" title="Windows10 使用docker toolbox安装docker"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-23</div><div class="title">Windows10 使用docker toolbox安装docker</div></div></a></div><div><a href="/post/15ebb916.html" title="docker的备份和迁移"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-23</div><div class="title">docker的备份和迁移</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%89%80%E9%9C%80%E7%9A%84%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">安装所需的环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">2.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E6%BA%90"><span class="toc-number">3.</span> <span class="toc-text">设置国内镜像源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%83%E9%99%90"><span class="toc-number">4.</span> <span class="toc-text">文件夹权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">5.</span> <span class="toc-text">Docker 开机自启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD-Toolbox"><span class="toc-number">6.</span> <span class="toc-text">卸载 Toolbox</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Toolbox%E4%BF%AE%E6%94%B9%E8%99%9A%E6%8B%9F%E6%9C%BAIP"><span class="toc-number">7.</span> <span class="toc-text">Toolbox修改虚拟机IP</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

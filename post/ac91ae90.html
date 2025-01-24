@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpringCloud微服务：基于Nacos组件，整合Dubbo框架 | 君子兰萧宇的博客</title><meta name="keywords" content="微服务,Spring Cloud,Nacos,Dubbo"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="源码地址：GitHub·点这里 || GitEE·点这里 一、基础组件简介1、Dubbo框架Dubbo服务化治理的核心框架，之前几年在国内被广泛使用，后续由于微服务的架构的崛起，更多的公司转向微服务下成熟的技术栈，但是Dubbo本身确实是非常优秀的框架。 常见的应用迭代和升级的过程基本如下：  当应用访问量逐渐增大，单一应用增加机器带来的加速度越来越小，提升效率的方法之一是将应用拆成互不相干的几个"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/ac91ae90"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">SpringCloud微服务：基于Nacos组件，整合Dubbo框架</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-09-28T12:10:33.000Z" title="undefined 2018-09-28 20:10:33">2018-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>源码地址：<a target="_blank" rel="noopener" href="https://github.com/cicadasmile/spring-cloud-base">GitHub·点这里</a> || <a target="_blank" rel="noopener" href="https://gitee.com/cicadasmile/spring-cloud-base">GitEE·点这里</a></p>
+<h1 id="一、基础组件简介"><a href="#一、基础组件简介" class="headerlink" title="一、基础组件简介"></a>一、基础组件简介</h1><h2 id="1、Dubbo框架"><a href="#1、Dubbo框架" class="headerlink" title="1、Dubbo框架"></a>1、Dubbo框架</h2><p>Dubbo服务化治理的核心框架，之前几年在国内被广泛使用，后续由于微服务的架构的崛起，更多的公司转向微服务下成熟的技术栈，但是Dubbo本身确实是非常优秀的框架。</p>
+<p>常见的应用迭代和升级的过程基本如下：</p>
+<ul>
+<li>当应用访问量逐渐增大，单一应用增加机器带来的加速度越来越小，提升效率的方法之一是将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。</li>
+<li>随着垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求。此时，用于提高业务复用及整合的分布式服务框架(RPC)是关键。</li>
+<li>伴随业务发展，服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。此时，用于提高机器利用率的资源调度和治理中心(SOA)是关键。</li>
+</ul>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPdf" alt="image"></p>
+<p>而Dubbo框架的核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。正好可以解决上述业务发展的痛点。</p>
+<h2 id="2、微服务框架"><a href="#2、微服务框架" class="headerlink" title="2、微服务框架"></a>2、微服务框架</h2><p>SpringCloud是一系列框架的有序集合。它利用SpringBoot的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用SpringBoot的开发风格做到一键启动和部署。</p>
+<p>后续AliCloud微服务系列组件也不断被使用起来，其中最基础的组件Nacos注册中心，更是直接支持Dubbo框架，这样Cloud和Dubbo两大框架就成功的整合在了一起。</p>
+<h2 id="3、Nacos注册中心"><a href="#3、Nacos注册中心" class="headerlink" title="3、Nacos注册中心"></a>3、Nacos注册中心</h2><p>Nacos注册中心主要用于发现、配置、管理微服务。并且提供一组简单易用的特性集，快速实现动态服务发现、服务配置、服务元数据及流量管理。</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPdc" alt="image"></p>
+<p>如上图Nacos无缝支持一些主流的开源生态框架，例如SprinCloud,Dubbo两大框架。在AliCloud的系列组件中，还包含了Seata，RocketMQ，Sentinel等一系列组件。</p>
+<h1 id="二、服务结构图解"><a href="#二、服务结构图解" class="headerlink" title="二、服务结构图解"></a>二、服务结构图解</h1><p>SpringCloud和Dubbo整合的结构示意图如下，使用的Nacos中心：</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPc9" alt="image"></p>
+<p><strong>Provider提供方</strong>：提供核心的Dubbo服务接口；</p>
+<p><strong>Consumer消费方</strong>：消费注册的Dubbo服务接口；</p>
+<p><strong>Nacos注册中心</strong>：配置、发现和管理Dubbo服务；</p>
+<p>通过上述流程不难发现，不管从架构上看，还是用法过程，基于核心Dubbo框架和微服务原生框架是十分相似，上述流程也遵循这样一个规则：dubbo-server连接自己的业务库DB，并通过dubbo-facade中接口向外提供服务，如果不同dubbo-server需要访问其他服务接口，也必须要通过其他服务的facade接口操作，dubbo-client作为接口服务消费端，可以通过facade接口访问很多业务模块的服务，整体架构层次十分明了。</p>
+<h1 id="三、编码案例实现"><a href="#三、编码案例实现" class="headerlink" title="三、编码案例实现"></a>三、编码案例实现</h1><h2 id="1、案例结构和依赖"><a href="#1、案例结构和依赖" class="headerlink" title="1、案例结构和依赖"></a>1、案例结构和依赖</h2><p><strong>案例结构</strong></p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPc7" alt="image"></p>
+<p>包含三个模块：server、facade、client。</p>
+<p><strong>核心依赖</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-dubbo&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.1.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.1.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.1.1.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="2、服务端配置"><a href="#2、服务端配置" class="headerlink" title="2、服务端配置"></a>2、服务端配置</h2><p><strong>配置文件</strong></p>
+<p>主要是Nacos注册中心和Dubbo两个核心配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 9010</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: node10-dubbo-server</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: http://localhost:8848</span><br><span class="line">      config:</span><br><span class="line">        server-addr: http://localhost:8848</span><br><span class="line">        file-extension: yaml</span><br><span class="line"># Dubbo服务配置</span><br><span class="line">dubbo:</span><br><span class="line">  scan:</span><br><span class="line">    base-packages: com.cloud.dubbo.service</span><br><span class="line">  protocol:</span><br><span class="line">    name: dubbo</span><br><span class="line">    port: -1</span><br><span class="line">  registry:</span><br><span class="line">    address: spring-cloud://localhost</span><br></pre></td></tr></table></figure>
+<p><strong>服务接口实现</strong></p>
+<p>这里DubboService即dubbo-facade包中对外提供的接口。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.dubbo.config.annotation.Service;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line">@Service</span><br><span class="line">public class DubboServiceImpl implements DubboService &#123;</span><br><span class="line"></span><br><span class="line">    private static final Logger LOGGER = LoggerFactory.getLogger(DubboServiceImpl.class) ;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String getInfo() &#123;</span><br><span class="line">        LOGGER.info(&quot;node10-dubbo-server start ...&quot;);</span><br><span class="line">        return &quot;node10-dubbo-server&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：@Service是Dubbo框架中的注解，不是Spring框架的注解。</p>
+<h2 id="3、消费端配置"><a href="#3、消费端配置" class="headerlink" title="3、消费端配置"></a>3、消费端配置</h2><p><strong>配置文件</strong></p>
+<p>主要配置是链接Nacos注册中心，订阅注册中心的node10-dubbo-server服务。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 9011</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: node10-dubbo-client</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: http://localhost:8848</span><br><span class="line">      config:</span><br><span class="line">        server-addr: http://localhost:8848</span><br><span class="line"># Dubbo服务配置</span><br><span class="line">dubbo:</span><br><span class="line">  protocol:</span><br><span class="line">    name: dubbo</span><br><span class="line">    port: -1</span><br><span class="line">  registry:</span><br><span class="line">    address: spring-cloud://localhost</span><br><span class="line">  cloud:</span><br><span class="line">    subscribed-services: node10-dubbo-server</span><br></pre></td></tr></table></figure>
+<p><strong>Dubbo接口调用</strong></p>
+<p>同样，这里DubboService即dubbo-facade包中对外提供的接口。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import com.cloud.dubbo.service.DubboService;</span><br><span class="line">import org.apache.dubbo.config.annotation.Reference;</span><br><span class="line">import org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">public class DubboWeb &#123;</span><br><span class="line"></span><br><span class="line">    @Reference</span><br><span class="line">    private DubboService dubboService ;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;/getInfo&quot;)</span><br><span class="line">    public String getInfo () &#123;</span><br><span class="line">        return dubboService.getInfo() ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：@Reference也是Dubbo框架中的注解。</p>
+<p>如上流程开发完成，先后启动dubbo-server服务和dubbo-client服务，查看注册中心服务列表：</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%9F%BA%E4%BA%8ENacos%E7%BB%84%E4%BB%B6%E6%95%B4%E5%90%88Dubbo%E6%A1%86%E6%9E%B6/bVbKPc6" alt="image"></p>
+<p>通过上述getInfo接口请求测试，即可看到完整的案例效果。</p>
+<h1 id="四、技术选型"><a href="#四、技术选型" class="headerlink" title="四、技术选型"></a>四、技术选型</h1><p>很少有选择SpringCloud+Dubbo框架的架构模式，这里简单说明一下为何，因为这两个框架都是相当复杂的，学习成本是一个方面，风险是最主要原因，这两个框架同时使用，就意味要面对和解决两个框架下产生的问题，在任何一个框架都可以稳定的解决业务问题时，完全没必要花里胡哨。</p>
+<h1 id="五、源代码地址"><a href="#五、源代码地址" class="headerlink" title="五、源代码地址"></a>五、源代码地址</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GitHub地址：知了一笑</span><br><span class="line">https://github.com/cicadasmile/spring-cloud-base</span><br><span class="line">GitEE地址：知了一笑</span><br><span class="line">https://gitee.com/cicadasmile/spring-cloud-base</span><br></pre></td></tr></table></figure>
+<p><strong>推荐阅读：微服务组件和应用</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th>文章标题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">01</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/cbEnCOhgo-5wGFX-GAUQtg">微服务基础：Eureka组件，管理服务注册发现</a></td>
+</tr>
+<tr>
+<td align="center">02</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/yHCC-MwFtDda_y817CV2XA">微服务基础：Ribbon和Feign组件，实现请求负载均衡</a></td>
+</tr>
+<tr>
+<td align="center">03</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/pDrda8tBbNfReWVQrzal6w">微服务基础：Hystrix组件，实现服务熔断</a></td>
+</tr>
+<tr>
+<td align="center">04</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-PPL5jwe4OdoBq7kQwePKA">微服务基础：Turbine组件，实现微服务集群监控</a></td>
+</tr>
+<tr>
+<td align="center">05</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/A7xiIp9EG62_1y-F23TATg">微服务基础：Zuul组件，实现路由网关控制</a></td>
+</tr>
+<tr>
+<td align="center">06</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_WZ1r0Kas5yMMPfwZ4MRUw">微服务基础：Config组件，实现配置统一管理</a></td>
+</tr>
+<tr>
+<td align="center">07</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/p3p3Wi72rJngqMz4FSICBQ">微服务基础：Zipkin组件，实现请求链路追踪</a></td>
+</tr>
+<tr>
+<td align="center">08</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RC8F_D1J75XEv7oR7xdK5Q">微服务基础：与Dubbo框架、Boot框架对比分析</a></td>
+</tr>
+<tr>
+<td align="center">09</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/adwfdDGg9DQleYLECA8raQ">微服务基础：Nacos组件，服务和配置管理</a></td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/L_Q9PyPKngmCx-c94o0UmA">微服务基础：Sentinel组件，服务限流和降级</a></td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/yCRwHGUd7xzQeEhoXFeO-w">微服务应用：分库分表模式下，数据库扩容方案</a></td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/QHF4qFP0JUhmievlj3FQPQ">微服务应用：Shard-Jdbc分库分表，扩容方案实现</a></td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/ac91ae90.html">http://aichn.cn/post/ac91ae90.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-Spring-Cloud-Nacos-Dubbo/">微服务,Spring Cloud,Nacos,Dubbo</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/ed863d59.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Spring Cloud体系介绍</div></div></a></div><div class="next-post pull-right"><a href="/post/69d47631.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring Cloud 微服务架构学习笔记与示例</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一、基础组件简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81Dubbo%E6%A1%86%E6%9E%B6"><span class="toc-number">1.1.</span> <span class="toc-text">1、Dubbo框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6"><span class="toc-number">1.2.</span> <span class="toc-text">2、微服务框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81Nacos%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="toc-number">1.3.</span> <span class="toc-text">3、Nacos注册中心</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%9C%8D%E5%8A%A1%E7%BB%93%E6%9E%84%E5%9B%BE%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">二、服务结构图解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%BC%96%E7%A0%81%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">三、编码案例实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%A1%88%E4%BE%8B%E7%BB%93%E6%9E%84%E5%92%8C%E4%BE%9D%E8%B5%96"><span class="toc-number">3.1.</span> <span class="toc-text">1、案例结构和依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">2、服务端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%B6%88%E8%B4%B9%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-number">3.3.</span> <span class="toc-text">3、消费端配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">四、技术选型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%BA%90%E4%BB%A3%E7%A0%81%E5%9C%B0%E5%9D%80"><span class="toc-number">5.</span> <span class="toc-text">五、源代码地址</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

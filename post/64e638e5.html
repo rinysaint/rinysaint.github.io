@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>系统如何分辨出垃圾邮件? 数据挖掘算法与现实生活中的应用案例 | 君子兰萧宇的博客</title><meta name="keywords" content="数据挖掘,算法"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="对于武汉，北京的秋来的真是早，九月初的傍晚，就能够感觉到丝丝丝丝丝丝的凉意。 最近两件事挺有感觉的。 看某发布会，设计师李剑叶的话挺让人感动的。“**的设计是内敛和克制的…。希望设计成为一种，可以被忽略的存在感”。 其次，有感于不断跳Tone的妇科圣手，冯唐，“有追求、敢放弃”是他的标签。 “如何分辨出垃圾邮件”、“如何判断一笔交易是否属于欺诈”、“如何判断红酒的品质和档次”、“扫描王是如何做到文"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/64e638e5"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">系统如何分辨出垃圾邮件? 数据挖掘算法与现实生活中的应用案例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="undefined 2019-09-28 20:10:33">2019-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>对于武汉，北京的秋来的真是早，九月初的傍晚，就能够感觉到丝丝丝丝丝丝的凉意。</p>
+<p>最近两件事挺有感觉的。</p>
+<p>看某发布会，设计师李剑叶的话挺让人感动的。“**的设计是内敛和克制的…。希望设计成为一种，可以被忽略的存在感”。</p>
+<p>其次，有感于不断跳Tone的妇科圣手，冯唐，“有追求、敢放弃”是他的标签。</p>
+<p>“如何分辨出垃圾邮件”、“如何判断一笔交易是否属于欺诈”、“如何判断红酒的品质和档次”、“扫描王是如何做到文字识别的”、“如何判断佚名的著作是否出自某位名家之手”、“如何判断一个细胞是否属于肿瘤细胞”等等，这些问题似乎都很专业，都不太好回答。但是，如果了解一点点数据挖掘（Data Mining）的知识，你，或许会有柳暗花明的感觉。</p>
+<p>的确，数据挖掘无处不在。它和生活密不可分，就像空气一样，弥漫在你的周围。但是，很多时候，你并不能意识到它。因此，它是陌生的，也是熟悉的。</p>
+<p>本文，主要想简单介绍下数据挖掘中的<a target="_blank" rel="noopener" href="http://www.dataguru.cn/article-5747-1.html?union_site=innerlink">算法</a>，以及它包含的类型。然后，通过现实中触手可及的、活生生的案例，去诠释它的真实存在。</p>
+<p>一、数据挖掘的算法类型</p>
+<p><img src="/../images/%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%88%86%E8%BE%A8%E5%87%BA%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%AE%97%E6%B3%95%E4%B8%8E%E7%8E%B0%E5%AE%9E%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B/112529swlt4f4etwfiote5.jpg" alt="数据挖掘"></p>
+<p>一般来说，数据挖掘的算法包含四种类型，即分类、预测、聚类、关联。前两种属于有监督学习，后两种属于无监督学习，属于描述性的模式识别和发现。</p>
+<p>（一）有监督学习</p>
+<p>有监督的学习，即存在目标变量，需要探索特征变量和目标变量之间的关系，在目标变量的监督下学习和优化算法。例如，信用评分模型就是典型的有监督学习，目标变量为“是否违约”。算法的目的在于研究特征变量（人口统计、资产属性等）和目标变量之间的关系。</p>
+<p>（1）分类算法</p>
+<p>分类算法和预测算法的较大区别在于，前者的目标变量是分类离散型（例如，是否逾期、是否肿瘤细胞、是否垃圾邮件等），后者的目标变量是连续型。一般而言，具体的分类算法包括，逻辑回归、决策树、KNN、贝叶斯判别、SVM、随机森林、<a target="_blank" rel="noopener" href="http://www.dataguru.cn/article-8976-1.html?union_site=innerlink">神经网络</a>等。</p>
+<p>（2）预测算法</p>
+<p>预测类算法，其目标变量一般是连续型变量。常见的算法，包括线性回归、回归树、神经网络、SVM等。</p>
+<p>（二）无监督学习</p>
+<p>无监督学习，即不存在目标变量，基于数据本身，去识别变量之间内在的模式和特征。例如关联分析，通过数据发现项目A和项目B之间的关联性。例如聚类分析，通过距离，将所有样本划分为几个稳定可区分的群体。这些都是在没有目标变量监督下的模式识别和分析。</p>
+<p>（1）聚类分析</p>
+<p>聚类的目的就是实现对样本的细分，使得同组内的样本特征较为相似，不同组的样本特征差异较大。常见的聚类算法包括kmeans、系谱聚类、密度聚类等。</p>
+<p>（2）关联分析</p>
+<p>关联分析的目的在于，找出项目（item）之间内在的联系。常常是指购物篮分析，即消费者常常会同时购买哪些产品（例如游泳裤、防晒霜），从而有助于商家的捆绑销售。</p>
+<p>二、基于数据挖掘的案例和应用</p>
+<p>上文所提到的四种算法类型（分类、预测、聚类、关联），是比较传统和常见的。还有其他一些比较有趣的算法分类和应用场景，例如协同过滤、异常值分析、社会网络、文本分析等。下面，想针对不同的算法类型，具体的介绍下数据挖掘在日常生活中真实的存在。下面是能想到的、几个比较有趣的、和生活紧密关联的例子。</p>
+<p><img src="/../images/%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%88%86%E8%BE%A8%E5%87%BA%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%AE%97%E6%B3%95%E4%B8%8E%E7%8E%B0%E5%AE%9E%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B/112529hed5dyfefxkg2hud.jpg" alt="数据挖掘"></p>
+<p>（一）基于分类模型的案例</p>
+<p>这里面主要想介绍两个案例，一个是垃圾邮件的分类和判断，另外一个是在生物医药领域的应用，即肿瘤细胞的判断和分辨。</p>
+<p><img src="/../images/%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%88%86%E8%BE%A8%E5%87%BA%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%AE%97%E6%B3%95%E4%B8%8E%E7%8E%B0%E5%AE%9E%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B/112529mxx3yxy5pxxpqpyx.jpg" alt="数据挖掘"></p>
+<p>（1）垃圾邮件的判别</p>
+<p>邮箱系统如何分辨一封Email是否属于垃圾邮件？这应该属于文本挖掘的范畴，通常会采用朴素贝叶斯的方法进行判别。它的主要原理是，根据邮件正文中的单词，是否经常出现在垃圾邮件中，进行判断。例如，如果一份邮件的正文中包含“报销”、“发票”、“促销”等词汇时，该邮件被判定为垃圾邮件的概率将会比较大。</p>
+<p>一般来说，判断邮件是否属于垃圾邮件，应该包含以下几个步骤。</p>
+<p>第一，把邮件正文拆解成单词组合，假设某篇邮件包含100个单词。</p>
+<p>第二，根据贝叶斯条件概率，计算一封已经出现了这100个单词的邮件，属于垃圾邮件的概率和正常邮件的概率。如果结果表明，属于垃圾邮件的概率大于正常邮件的概率。那么该邮件就会被划为垃圾邮件。</p>
+<p>（2）医学上的肿瘤判断</p>
+<p>如何判断细胞是否属于肿瘤细胞呢？肿瘤细胞和普通细胞，有差别。但是，需要非常有经验的医生，通过病理切片才能判断。如果通过<a target="_blank" rel="noopener" href="http://www.dataguru.cn/article-4063-1.html?union_site=innerlink">机器学习</a>的方式，使得系统自动识别出肿瘤细胞。此时的效率，将会得到飞速的提升。并且，通过主观（医生）+客观（模型）的方式识别肿瘤细胞，结果交叉验证，结论可能更加靠谱。</p>
+<p>如何操作？通过分类模型识别。简言之，包含两个步骤。首先，通过一系列指标刻画细胞特征，例如细胞的半径、质地、周长、面积、光滑度、对称性、凹凸性等等，构成细胞特征的数据。其次，在细胞特征宽表的基础上，通过搭建分类模型进行肿瘤细胞的判断。</p>
+<p>（二）基于预测模型的案例</p>
+<p>这里面主要想介绍两个案例。即通过化学特性判断和预测红酒的品质。另外一个是，通过搜索引擎来预测和判断股价的波动和趋势。</p>
+<p>（1）红酒品质的判断</p>
+<p>如何评鉴红酒？有经验的人会说，红酒最重要的是口感。而口感的好坏，受很多因素的影响，例如年份、产地、气候、酿造的工艺等等。但是，统计学家并没有时间去品尝各种各样的红酒，他们觉得通过一些化学属性特征就能够很好地判断红酒的品质了。并且，现在很多酿酒企业其实也都这么干了，通过监测红酒中化学成分的含量，从而控制红酒的品质和口感。</p>
+<p>那么，如何判断鉴红酒的品质呢？</p>
+<p>第一步，收集很多红酒样本，整理检测他们的化学特性，例如酸性、含糖量、氯化物含量、硫含量、酒精度、PH值、密度等等。</p>
+<p>第二步，通过分类回归树模型进行预测和判断红酒的品质和等级。</p>
+<p>（2）搜索引擎的搜索量和股价波动</p>
+<p>一只南美洲热带雨林中的蝴蝶，偶尔扇动了几下翅膀，可以在两周以后，引起美国德克萨斯州的一场龙卷风。你在互联网上的搜索是否会影响公司股价的波动？</p>
+<p>很早之前，就已经有文献证明，互联网关键词的搜索量（例如流感）会比疾控中心提前1到2周预测出某地区流感的爆发。</p>
+<p>同样，现在也有些学者发现了这样一种现象，即公司在互联网中搜索量的变化，会显著影响公司股价的波动和趋势，即所谓的投资者注意力理论。该理论认为，公司在搜索引擎中的搜索量，代表了该股票被投资者关注的程度。因此，当一只股票的搜索频数增加时，说明投资者对该股票的关注度提升，从而使得该股票更容易被个人投资者购买，进一步地导致股票价格上升，带来正向的股票收益。这是已经得到无数论文验证了的。</p>
+<p>（三）基于关联分析的案例：沃尔玛的啤酒尿布</p>
+<p>啤酒尿布是一个非常非常古老陈旧的故事。故事是这样的，沃尔玛发现一个非常有趣的现象，即把尿布与啤酒这两种风马牛不相及的商品摆在一起，能够大幅增加两者的销量。原因在于，美国的妇女通常在家照顾孩子，所以，她们常常会嘱咐丈夫在下班回家的路上为孩子买尿布，而丈夫在买尿布的同时又会顺手购买自己爱喝的啤酒。沃尔玛从数据中发现了这种关联性，因此，将这两种商品并置，从而大大提高了关联销售。</p>
+<p>啤酒尿布主要讲的是产品之间的关联性，如果大量的数据表明，消费者购买A商品的同时，也会顺带着购买B产品。那么A和B之间存在关联性。在超市中，常常会看到两个商品的捆绑销售，很有可能就是关联分析的结果。</p>
+<p>（四）基于聚类分析的案例：零售客户细分</p>
+<p>对客户的细分，还是比较常见的。细分的功能，在于能够有效的划分出客户群体，使得群体内部成员具有相似性，但是群体之间存在差异性。其目的在于识别不同的客户群体，然后针对不同的客户群体，精准地进行产品设计和推送，从而节约营销成本，提高营销效率。</p>
+<p>例如，针对商业银行中的零售客户进行细分，基于零售客户的特征变量（人口特征、资产特征、负债特征、结算特征），计算客户之间的距离。然后，按照距离的远近，把相似的客户聚集为一类，从而有效的细分客户。将全体客户划分为诸如，理财偏好者、基金偏好者、活期偏好者、国债偏好者、风险均衡者、渠道偏好者等。</p>
+<p><img src="/../images/%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%88%86%E8%BE%A8%E5%87%BA%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%AE%97%E6%B3%95%E4%B8%8E%E7%8E%B0%E5%AE%9E%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B/112529woa4d740pdtyroxi.jpg" alt="数据挖掘"></p>
+<p>（五）基于异常值分析的案例：支付中的交易欺诈侦测</p>
+<p>采用支付宝支付时，或者刷信用卡支付时，系统会实时判断这笔刷卡行为是否属于盗刷。通过判断刷卡的时间、地点、商户名称、金额、频率等要素进行判断。这里面基本的原理就是寻找异常值。如果您的刷卡被判定为异常，这笔交易可能会被终止。</p>
+<p>异常值的判断，应该是基于一个欺诈规则库的。可能包含两类规则，即事件类规则和模型类规则。第一，事件类规则，例如刷卡的时间是否异常（凌晨刷卡）、刷卡的地点是否异常（非经常所在地刷卡）、刷卡的商户是否异常（被列入黑名单的套现商户）、刷卡金额是否异常（是否偏离正常均值的三倍标准差）、刷卡频次是否异常（高频密集刷卡）。第二，模型类规则，则是通过算法判定交易是否属于欺诈。一般通过支付数据、卖家数据、结算数据，构建模型进行分类问题的判断。</p>
+<p>（六）基于协同过滤的案例：电商猜你喜欢和推荐引擎</p>
+<p>电商中的猜你喜欢，应该是大家更为熟悉的。在京东商城或者亚马逊购物，总会有“猜你喜欢”、“根据您的浏览历史记录精心为您推荐”、“购买此商品的顾客同时也购买了<strong>商品”、“浏览了该商品的顾客最终购买了</strong>商品”，这些都是推荐引擎运算的结果。</p>
+<p>这里面，确实很喜欢亚马逊的推荐，通过“购买该商品的人同时购买了**商品”，常常会发现一些质量比较高、较为受认可的书。</p>
+<p>一般来说，电商的“猜你喜欢”（即推荐引擎）都是在协同过滤算法（Collaborative Filter）的基础上，搭建一套符合自身特点的规则库。即该算法会同时考虑其他顾客的选择和行为，在此基础上搭建产品相似性矩阵和用户相似性矩阵。基于此，找出最相似的顾客或最关联的产品，从而完成产品的推荐。</p>
+<p>（七）基于社会网络分析的案例：电信中的种子客户</p>
+<p>种子客户和社会网络，最早出现在电信领域的研究。即，通过人们的通话记录，就可以勾勒出人们的关系网络。电信领域的网络，一般会分析客户的影响力和客户流失、产品扩散的关系。</p>
+<p>基于通话记录，可以构建客户影响力指标体系。采用的指标，大概包括如下，一度人脉、二度人脉、三度人脉、平均通话频次、平均通话量等。基于社会影响力，分析的结果表明，高影响力客户的流失会导致关联客户的流失。其次，在产品的扩散上，选择高影响力客户作为传播的起点，很容易推动新套餐的扩散和渗透。</p>
+<p>此外，社会网络在银行（担保网络）、保险（团伙欺诈）、互联网（社交互动）中也都有很多的应用和案例。</p>
+<p><img src="/../images/%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%88%86%E8%BE%A8%E5%87%BA%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%AE%97%E6%B3%95%E4%B8%8E%E7%8E%B0%E5%AE%9E%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B/112529ymohcxcw100x51ok.jpg" alt="数据挖掘"></p>
+<p>（八）基于文本分析的案例</p>
+<p>这里面主要想介绍两个案例。一个是类似“扫描王”的APP，直接把纸质文档扫描成电子文档。相信很多人都用过，这里准备简单介绍下原理。另外一个是，江湖上总是传言红楼梦的前八十回和后四十回，好像并非都是出自曹雪芹之手，这里面准备从统计的角度聊聊。</p>
+<p>（1）字符识别：扫描王APP</p>
+<p>手机拍照时会自动识别人脸，还有一些APP，例如扫描王，可以扫描书本，然后把扫描的内容自动转化为word。这些属于图像识别和字符识别（Optical Character Recognition）。图像识别比较复杂，字符识别理解起来比较容易些。</p>
+<p>查找了一些资料，字符识别的大概原理如下，以字符S为例。</p>
+<p>第一，把字符图像缩小到标准像素尺寸，例如12*16。注意，图像是由像素构成，字符图像主要包括黑、白两种像素。</p>
+<p>第二，提取字符的特征向量。如何提取字符的特征，采用二维直方图投影。就是把字符（12*16的像素图）往水平方向和垂直方向上投影。水平方向有12个维度，垂直方向有16个维度。这样分别计算水平方向上各个像素行中黑色像素的累计数量、垂直方向各个像素列上的黑色像素的累计数量。从而得到水平方向12个维度的特征向量取值，垂直方向上16个维度的特征向量取值。这样就构成了包含28个维度的字符特征向量。</p>
+<p>第三，基于前面的字符特征向量，通过神经网络学习，从而识别字符和有效分类。</p>
+<p>（2）文学著作与统计：红楼梦归属</p>
+<p>这是非常著名的一个争论，悬而未决。对于红楼梦的作者，通常认为前80回合是曹雪芹所著，后四十回合为高鹗所写。其实主要问题，就是想确定，前80回合和后40回合是否在遣词造句方面存在显著差异。</p>
+<p>这事让一群统计学家比较兴奋了。有些学者通过统计名词、动词、形容词、副词、虚词出现的频次，以及不同词性之间的相关系做判断。有些学者通过虚词（例如之、其、或、亦、了、的、不、把、别、好），判断前后文风的差异。有些学者通过场景（花卉、树木、饮食、医药与诗词）频次的差异，来做统计判断。总而言之，主要通过一些指标量化，然后比较指标之间是否存在显著差异，藉此进行写作风格的判断。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/64e638e5.html">http://aichn.cn/post/64e638e5.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E7%AE%97%E6%B3%95/">数据挖掘,算法</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/c1de84f3.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">大数据Flink详细教程(终篇)</div></div></a></div><div class="next-post pull-right"><a href="/post/4ee0bec6.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">WireGuard安装配置教程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

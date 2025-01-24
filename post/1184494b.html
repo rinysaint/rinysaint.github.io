@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>漫谈网络通信——从OSI网络模型到TCP/IP协议族 | 君子兰萧宇的博客</title><meta name="keywords" content="网络通信,OSI"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="OSI七层模型　　OSI(Open System Interconnection，开放系统互联)七层网络模型成为开放式系统互联参考模型，是一个把网络通信在逻辑上的定义，也可以理解成为定义了通用的网络通信规范。而我们的数据在网络中传输的过程，实际上就是如下图的封装和解封装的过程，发送方通过各种封装处理，把数据转换成比特流的形式，比特流在信号传输的硬件媒介中传输，接收方再把比特流进行解封装处理。"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/1184494b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">漫谈网络通信——从OSI网络模型到TCP/IP协议族</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-09-28T12:10:33.000Z" title="undefined 2018-09-28 20:10:33">2018-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">网络通信</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="OSI七层模型"><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h2><p>　　OSI(Open System Interconnection，开放系统互联)七层网络模型成为开放式系统互联参考模型，是一个把网络通信在逻辑上的定义，也可以理解成为定义了通用的网络通信规范。而我们的数据在网络中传输的过程，实际上就是如下图的封装和解封装的过程，发送方通过各种封装处理，把数据转换成比特流的形式，比特流在信号传输的硬件媒介中传输，接收方再把比特流进行解封装处理。</p>
+<p><img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161125200042800-2141541665.png" alt="img"> </p>
+<p><strong>1.物理层</strong></p>
+<p>　　<strong>规定了如何为网络通信实现最底层的物理连接，以及物理设备的机械、电气、功能和过程特性。</strong>如：如何使用电缆和接头的类型、用来传送信号的电压等。需要注意的是，网络通信过程中所需的物理媒介(网线、线缆等)，其实并不属于物理层，因为物理层实际上是一种规定，规定这些物理媒介设备在连接网络时的各种规格、参数以及工作方式。但是同时，双绞线、线缆等物理媒介又是物理层的实现。</p>
+<p><strong>2.数据链路层</strong></p>
+<p>　　<strong>规定了如何进行物理地址寻址、如何在物理线路上进行数据(帧frame)的可靠传递以及流量控制。</strong></p>
+<p>　　数据链路层协议有SLIP协议、CSLIP协议、PPP协议等。交换机，对帧解码并根据帧中包含的信息把数据发送到正确的接收方，所以交换机是工作在数据链路层的。</p>
+<p><strong>3.网络层</strong></p>
+<p>　　<strong>规定了通过哪些网络节点、什么样的网络路径来将数据(数据包)从发送方发送到接收方。</strong>在网络层中，确定了从节点A发数据到节点B的网络路径，经过哪些节点。网络层既可以建立LAN通信系统，更主要的是可以在WAN网络系统中建立通信，这是因为它有自己的路由地址结构，通过路由协议(又称可路由协议)进行网络通信的路由工作。</p>
+<p><strong>4.传输层</strong></p>
+<p>　　<strong>负责总体的数据传输和数据控制，提供端到端的交换数据的机制。</strong>传输层对数据(段)进行分割和重组，并且进行流量控制和根据接收方的接收数据能力确定适当的传输速率。例如以太网无法处理大于1500字节的数据包，传输层将数据分割成数据片段，并对小数据片段进行序列编号。接收方的传输层将根据序列编号对数据进行重组。</p>
+<p>　　传输层协议有TCP协议、UDP协议等。</p>
+<p><strong>5.会话层</strong></p>
+<p>　　<strong>在网络中的两个节点之间建立、维持和终止通信。</strong></p>
+<p><strong>6.表示层</strong></p>
+<p>　　<strong>在应用程序和网络之间对数据进行格式化，使之能够被另一方理解。</strong>即发送方的表示层将应用程序数据的抽象语法转换成网络适用于OSI网络传输的传送语法，接收方则相反。除此之外，表示层还可对数据进行加密与解密。</p>
+<p><strong>7.应用层</strong></p>
+<p>　　<strong>最顶层的OSI层，为应用程序提供网络服务。</strong>如为电子邮件、文件传输功能提供协议支持。</p>
+<p>　　应用层协议有HTTP协议、FTP协议、SMTP协议等。</p>
+<h2 id="什么是TCP-IP协议？"><a href="#什么是TCP-IP协议？" class="headerlink" title="什么是TCP/IP协议？"></a>什么是TCP/IP协议？</h2><p>　　TCP/IP协议定义了今天的电子设备如何连入internet网络，以及数据如何在他们之间传输的标准。在今天的基于TCP/IP的互联网诞生之前，能够使用接口通信处理实现互联互通的电脑并不多，而且大部分电脑之间信息的交换并不兼容。后来好几个牛逼哄哄的歪果仁开始捣鼓一些协议，能够让电脑之间进行通信。终于在1974年12月，Bob Kahn和Vinton G.Cerf带领的团队首先制定出了通过详细定义的TCP/IP协议标准。当时作了一个试验，将信息包通过点对点的卫星网络，再通过陆地电缆，再通过卫星网络，再由地面传输，贯串欧洲和美国，经过各种电脑系统，全程9.4万公里竟然没有丢失一个数据位，远距离的可靠数据传输证明了TCP/IP协议的成功。1983年1月1日，运行较长时期曾被人们习惯了的NCP被停止使用，TCP/IP协议作为因特网上所有主机间的共同协议，从此以后被作为一种必须遵守的规则被肯定和应用。（让我们为Bob Kahn和Vinton G.Cerf两位老爷爷撒花鼓掌吧👏👏👏）</p>
+<p>　　从“TCP/IP”名字上来看，貌似这只是tcp协议和ip协议，但是实际上，这是很多协议(有人说有几百个协议，感觉待考证)的集合。由于知识广度和时间限制，将不对TCP/IP协议进行全面剖析，主要对其中比较重要的几个点进行阐述。</p>
+<p>　　从概念上来讲，TCP/IP协议族则把7层网络模型合并成4层，其对应关系如下：</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161127194411487-172064230.png" alt="img"></p>
+<p>　　各层协议举例如下：</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161208161042226-139297074.png" alt="img"></p>
+<h2 id="TCP-IP——网络接口层"><a href="#TCP-IP——网络接口层" class="headerlink" title="TCP/IP——网络接口层"></a>TCP/IP——网络接口层</h2><p>　　<strong>主要作用一：数据封装/解封装成帧(frame)。</strong>为了保证可靠传输，网络层传过来的数据在这里被加工成了可被物理层传输的结构包——帧。帧中除了包括需要传输的数据外，还包括发送方和接收方的<strong>物理地址</strong>以及检错和控制信息。其中的物理地址确定了帧将发送到何处，检错和控制信息则是用来保证数据的无差错到达。数据帧结构如下(Address均为mac地址)：</p>
+<p>　　　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209103142351-268019127.png" alt="img"></p>
+<p>　　<strong>主要作用二：控制帧传输。</strong>控制帧的传输主要体现在反馈重发、计时器、帧序号方面。接收方通过对帧的差错编码(奇偶校验码或 CRC 码)的检查，来判断帧在传输过程中是否出错，并向发送发进行反馈，如果传输发生差错，则需要重发纠正。作为发送发，如果在发送帧后，会同时启动定时器，如果帧发送后在一定时间内没有收到反馈，为了避免传输停滞不前，则在计时器Timeou后认为帧传输出错，自动重发。为了避免多次收到同一帧并将其递交给网络层的情况发生，则需要对每个发送的帧进行编号，接收方以此来判断该帧是否重复接受了。</p>
+<p>　　<strong>主要作用三：流量控制。</strong>由于收发双方各自使用的设备工作速率和缓冲存储空间的差异，可能出现发送方的发送能力大于接收方接收能力的现象，此时若不对发送方的发送速率做适当的限制，前面来不及接收的帧将被后面不断发送来的帧“淹没”，从而造成帧的丢失而出错。由此可见，流量控制实际上是对发送方数据流量的控制，使其发送速率不超过接收方的速率。所以需要一些规则使得发送方知道在什么情况下可以接着发送下一帧，而在什么情况下必须暂停发送，以等待收到某种反馈信息后再继续发送。</p>
+<h2 id="TCP-IP——网络层"><a href="#TCP-IP——网络层" class="headerlink" title="TCP/IP——网络层"></a>TCP/IP——网络层</h2><p>　　说到网络层不得不提的就是IP协议，它是TCP/IP协议族中最为核心的协议。所有的TCP、UDP、ICMP、IGMP协议数据都以IP数据报格式传输。IP协议提供的是不可靠的、无连接的数据报传输服务。不可靠是指IP协议不会保证数据报能否成功到达目的地，仅提供传输服务，传输出错，则会丢弃出错的数据报。无连接是指IP协议对数据报的处理是独立的，这也意味着接收方不一定会按照发送顺序接收数据报。</p>
+<p><strong>IP数据报格式如下：</strong></p>
+<p>　　　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209104632866-706720294.png" alt="img"></p>
+<p><strong>IP地址分类：</strong></p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209114704288-2100256593.png" alt="img"></p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209111532132-1543406608.png" alt="img"></p>
+<p><strong>子网划分：</strong></p>
+<p>　　一个有500台主机的网络，如果使用C类地址，则无法满足主机数量需求，使用B类地址则会造成IP地址的浪费。由此，需要在ABC类网络的基础上进行子网划分：即占用主机号的前几位表示子网号。子网掩码的概念由此被引入。</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209115838397-1820346421.png" alt="img"></p>
+<p>　　子网掩码中的 1 标识了 IP 地址中相应的网络号，0 标识了主机号。将 IP 地址和子网掩码进行逻辑与运算 ，结果就能得到网络号和子网号。</p>
+<p><strong>IP路由：</strong></p>
+<p>　　如果发送方和接收方在直接点对点连接或者在一个共享网络上，那么IP数据报则可以直接送达。但多数情况下，两台主机互联，需要通过多台路由器，需要路由转发送达消息。这个路由的过程是怎样的呢？这里有个重要的角色——路由表。路由表是一张存储在内存中的记录路由信息的表，定义着到达特定网络终端的路径，在某些情况下，还有一些与这些路径相关的度量。路由表中保存的信息，则用来指导消息从发送方到达接受方的网络路由路径。Linux下查看路由表的命令是route -n，mac os查看路由表的命令是netstat -nr。</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209143711991-246353042.png" alt="img"></p>
+<p>　　有了路由表，网络路径的确认过程则如下所示：</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209144715413-241953243.png" alt="img"></p>
+<p>　　接收到数据报的路由器按照它自己的理由表进行继续转发，直到到达目的地址。而除了在路由寻址过程中失败会导致丢弃数据报之外，IP数据报的TTL(生命周期)被减为0，则该IP数据报也会被丢弃。</p>
+<p>　　网络层还有几个比较重要的协议，ARP(Address Resolution Protocol地址解析协议)、ICMP(Internet Control Message Protocol报文控制协议)、IGMP(Internet Group Management Protocol组管理协议)，这里不做具体说明啦。</p>
+<h2 id="TCP-IP——传输层"><a href="#TCP-IP——传输层" class="headerlink" title="TCP/IP——传输层"></a>TCP/IP——传输层</h2><p>　　无论参考OSI还是TCP/IP的网络模型，我们从传输层向更底层看，各层的协议都是在直接或间接的服务于主机与主机之间的通信，而传输层则是在进程与进程通信层面上的。传输层有两个重要的协议——TCP协议和UDP协议。不同的应用进程则使用不同的传输层协议。</p>
+<p> 　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209165325585-1031551702.png" alt="img"></p>
+<p>　　端口的作用则正是体现在传输层的。用来区分网络消息由主机上的那一个进程处理。端口号有 0～65535 的编号，其中0～1023为系统端口号。</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161209165511679-2059357072.png" alt="img"></p>
+<p><strong>UDP协议：</strong></p>
+<p>　　UDP(User Datagram Protocol)即用户数据报协议，其传输机制决定了它的最大优点——快，同时也决定了它最大的缺点——不可靠、不稳定。</p>
+<p>　　UDP是无连接的，发送数据之前不需要建立连接(TCP需要)。减少了开销和延时。</p>
+<p>　　UDP是面向报文的，对IP数据报只做简单封装(8字节UDP报头)。减少报头开销。</p>
+<p>　　UDP没有阻塞机制，宁愿阻塞时丢弃数据不传，也不阻塞造成延时。</p>
+<p>　　UDP支持一对一、一对多、多对一、多对多通信。</p>
+<p>　　　　</p>
+<p>　　UDP报文结构：</p>
+<p>　　　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161211140636694-1580349406.png" alt="img"></p>
+<p><strong>TCP协议：</strong></p>
+<p>　　TCP(Transmission Control Protocol)传输控制协议，相对于UDP，TCP是面向连接的、提供可靠的数据传输服务。同时也是较UDP开销较大的、传输速度较慢的。</p>
+<p>　　TCP提供可靠的、面向连接的数据传输服务。使用TCP通信之前，需要进行“三次握手”建立连接，通信结束后还要使用“四次挥手”断开连接。</p>
+<p>　　TCP是点对点的连接。一条TCP连接只能连接两个端点。</p>
+<p>　　TCP 提供可靠传输，无差错、不丢失、不重复、按顺序。</p>
+<p>　　TCP 提供全双工通信，允许通信双方任何时候都能发送数据，发送方设有发送缓存，接收方设有接收缓存。</p>
+<p>　　TCP 面向字节流 。TCP 并不知道所传输的数据的含义，仅把数据看作一连串的字节序列，它也不保证接收方收到的数据块和发送方发出的数据块具有大小对应关系。</p>
+<p>　　TCP报文结构：</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161211202231726-826238063.png" alt="img"></p>
+<p>　　TCP是面向字节流的，通过 TCP 传送的字节流中的每个字节都按顺序编号，而报头中的Sequence Number字段值则指的是本报文段数据的第一个字节的序号。Acknowledgment Number是期望收到对方下个报文段的第一个数据字节的序号。</p>
+<p>　　Offset：占4位，指 TCP 报文段的报头长度，包括固定的20字节和TCP Options字段。</p>
+<p>　　Reserved：占6位，保留为今后使用，目前为0。</p>
+<p>　　TCP flags的C、E、U、A、P、R、S、F字段用来说明该报文的性质。意义如下： </p>
+<p>　　　　C(CWR)和E(ECE)用来支持ECN(显示阻塞通告)。</p>
+<p>　　　　U(URGENT)：当 URG=1时，它告诉系统此报文中有紧急数据，应优先传送(比如紧急关闭)，这要与紧急指针字段配合使用。</p>
+<p>　　　　A(ACK)：仅当 ACK=1时确认号字段才有效。建立 TCP 连接后，所有报文段都必须把 ACK 字段置为 1。</p>
+<p>　　　　P(PUSH)：若TCP连接的一端希望另一端立即响应，PSH字段便可以“催促”对方，不再等到缓存区填满才发送。</p>
+<p>　　　　R(RESET)：若 TCP 连接出现严重差错，RST 置为 1，断开 TCP 连接，再重新建立连接。</p>
+<p>　　　　S(SYN)：用于建立和释放连接，当SYN=1时，表示建立连接。</p>
+<p>　　　　F(FIN)：用于释放连接，当 FIN=1，表明发送方已经发送完毕，要求释放TCP 连接。</p>
+<p>　　Window：占2个字节。窗口值是指发送者自己的接收窗口大小，因为接收缓存的空间有限。 </p>
+<p>　　CheckSum：占2个字节。和UDP报文一样，有一个检验和，用于检查报文是否在传输过程中出差错。</p>
+<p>　　Urgent Pointer：占2字节。当URG=1时才有效，指出本报文段紧急数据的字节数。</p>
+<p>　　TCP建立连接的三次握手：</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161211174151304-1668168182.png" alt="img"></p>
+<p>　　(1)Client首先向Server发送连接请求报文段，同步自己的seq(x)，Client进入SYN_SENT状态。</p>
+<p>　　(2)Server收到Client的连接请求报文段，返回给Client自己的seq(y)以及ack(x+1)，Server进入SYN_REVD状态。</p>
+<p>　　(3)Client收到Server的返回确认，再次向服务器发送确认报文段ack(y+1)，这个报文段已经可以携带数据了。Client进入ESTABLISHED状态。</p>
+<p>　　(4)Server再次收到Client的确认信息后，进入ESTABLISHED状态。</p>
+<p>　　TCP连接至此建立起来了。为什么要做三次握手呢？握手的过程实际上是在通知对方自己的初始化序号(Initial Sequence Number)，简称ISN，也就是上图中的x和y。x和y会被当作之后传输数据的一个依据，以保证TCP报文在传输过程中不会混乱。</p>
+<p>　　我们回到TCP Header结构来看，Sequence Number和Acknowledgment Number都是占32位，所以seq和ack的取值范围是0 ～ 2^32-1。seq和ack每增加到2^32-1，则重新从0开始。值得一提的是，seq的初始值(ISN)并不是每次都从0开始的。我们设想一下，如果是从0开始，那么当TCP三次握手建立连接完成后，Client发送了30个报文，然后Client断线了。于是Client重连，再次用0作为初始的seq，这样就会出现两个报文具有相同的seq，就出现了混乱。事实上TCP的做法是每隔4微秒就对ISN做一次加1操作，当ISN到达2^32-1后再次从0开始的时候，已经过去了几个小时，之前的seq=0的报文已经不存在于这次连接中了，这样就避免了上面的问题。</p>
+<p>　　</p>
+<p>　　TCP断开连接的四次挥手：</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161211181122866-333961282.png" alt="img"></p>
+<p>　　(1)Client向Server发送断开连接请求的报文段，seq=m(m为Client最后一次向Server发送报文段的最后一个字节序号加1)，Client进入FIN-WAIT-1状态。</p>
+<p>　　(2)Server收到断开报文段后，向Client发送确认报文段，seq=n(n为Server最后一次向Client发送报文段的最后一个字节序号加1)，ack=m+1，Server进入CLOSE-WAIT状态。此时这个TCP连接处于半开半闭状态，Server发送数据的话，Client仍然可以接收到。</p>
+<p>　　(3)Server向Client发送断开确认报文段，seq=u(u为半开半闭状态下Server最后一次向Client发送报文段的最后一个字节序号加1)，ack=m+1，Server进入LAST-ACK状态。</p>
+<p>　　(4)Client收到Server的断开确认报文段后，向Server发送确认断开报文，seq=m+1，ack=u+1，Client进入TIME-WAIT状态。</p>
+<p>　　(5)Server收到Client的确认断开报文，进入CLOSED状态，断开了TCP连接。</p>
+<p>　　(6)Client在TIME-WAIT状态等待一段时间(时间为2*MSL((Maximum Segment Life))，确认Client向Server发送的最后一次断开确认到达(如果没有到达，Server会重发步骤(3)中的断开确认报文段给Client，告诉Client你的最后一次确认断开没有收到)。如果Client在TIME-WAIT过程中没有再次收到Server的报文段，就进入CLOSES状态。TCP连接至此断开。</p>
+<p>　　</p>
+<p>　　TCP连接可靠性的体现：</p>
+<p>　　(1)TCP报文段的长度可变，根据收发双方的缓存状态、网络状态而调整。</p>
+<p>　　(2)当TCP收到发自TCP连接另一端的数据，它将发送一个确认。</p>
+<p>　　(3)当TCP发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段，如果不能及时收到一个确认，将重发这个报文段。</p>
+<p>　　(4)TCP将保持它首部和数据的检验和。如果通过检验和发现报文段有差错，这个报文段将被丢弃，等待超时重传。</p>
+<p>　　(5)TCP将数据按字节排序，报文段中有序号，以确保顺序的正确性。</p>
+<p>　　(6)TCP还能提供流量控制。TCP连接的每一方都有收发缓存。TCP的接收端只允许另一端发送接收端缓冲区所能接纳的数据。这将防止较快主机致使较慢主机的缓冲区溢出。</p>
+<p>　　需要注意的是，TCP报文传输采用接受后返回确认的方式来保证报文传输的可靠性，并不是意味着发送方在发送一个报文段后就进入等待确认状态，让后面的报文段等着。也不是接收方在接收到一个报文后，对每一个报文都进行回复确认。</p>
+<p>　　真实的情况是，对于发送方，在发送一个报文段后，复制一份该报文段的副本，然后继续进行下一个报文段的发送，如果没有得到发送方的回复确认，就对该报文段进行超时重发。对于接收方来说，则采用“积累确认”的方式进行回复。接收者收到多个连续的报文段后，只回复确认最后一个报文段，表示在这之前的数据都已收到。以此达到提升传输效率的目的。</p>
+<p>　　TCP的流量控制和阻塞控制：</p>
+<p>　　由于接收方缓存的限制，发送窗口不能大于接收方接收窗口。在报文段首部有一个字段就叫做窗口(rwnd)，这便是用于告诉对方自己的接收窗口，可见窗口的大小是可以变化的。　</p>
+<p>　　<img src="/../images/%E6%BC%AB%E8%B0%88%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E2%80%94%E2%80%94%E4%BB%8EOSI%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E5%88%B0TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F/1061765-20161211194817054-1656684718.png" alt="img"></p>
+<p>　　总结起来如上图，TCP的流量和阻塞控制采用“慢启动”、“加性增”、“乘性减”的策略。</p>
+<p>　　慢启动：初始的窗口值很小，但是按指数规律渐渐增长，直到达到慢开始门限(ssthresh)。</p>
+<p>　　加性增：窗口值达到慢开始门限后，每发送一个报文段，窗口值增加一个单位量。</p>
+<p>　　乘性减：无论什么阶段，只要出现超时，则把窗口值减小一半。</p>
+<h2 id="TCP-IP——应用层"><a href="#TCP-IP——应用层" class="headerlink" title="TCP/IP——应用层"></a>TCP/IP——应用层</h2><p> 　关于应用层协议，不同的应用或者具体来说同一种应用不同的需求，都会使用不同的应用层协议，作为互联网软件开发工程师，我们可能对应用层协议最为熟悉，这篇文章中将不再对应用层协议进行总结。</p>
+<p>　　</p>
+<p>　　</p>
+<hr>
+<p>　　写在最后：</p>
+<p>　　　　实不相瞒，在写下这篇文章之前，文章中至少有一半的内容(😏甚至不止一半)是作者不完全掌握或者知其然不知其所以然的，本来想把文章题目叫做《深度分析….》，但是觉得技术文章动不动的“深度分析”可能只是相较于自己的知识层面的深度，而非真正客观意义上的深度技术分析，所以本着谦虚和严谨的态度把题目改成了《漫谈…》，想通过这种方式，对网络通信这一块做一个总结性的学习。讲真，这篇文章的部分内容 = 网络技术文章借鉴 + 个人理解，本人非专家，如有错误，欢迎斧正！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/1184494b.html">http://aichn.cn/post/1184494b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1-OSI/">网络通信,OSI</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/4cb6bc33.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">搭建SpringCloud项目，并实现自动化部署</div></div></a></div><div class="next-post pull-right"><a href="/post/84925621.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">超强、超详细Redis入门教程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">OSI七层模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFTCP-IP%E5%8D%8F%E8%AE%AE%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">什么是TCP&#x2F;IP协议？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%B1%82"><span class="toc-number">3.</span> <span class="toc-text">TCP&#x2F;IP——网络接口层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E2%80%94%E2%80%94%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="toc-number">4.</span> <span class="toc-text">TCP&#x2F;IP——网络层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E2%80%94%E2%80%94%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="toc-number">5.</span> <span class="toc-text">TCP&#x2F;IP——传输层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP%E2%80%94%E2%80%94%E5%BA%94%E7%94%A8%E5%B1%82"><span class="toc-number">6.</span> <span class="toc-text">TCP&#x2F;IP——应用层</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

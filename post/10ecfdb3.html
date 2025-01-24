@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Springcloud 配置 | 史上最全,一文全懂 | 君子兰萧宇的博客</title><meta name="keywords" content="微服务,Spring Cloud"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="疯狂创客圈 经典图书 ： 《Netty Zookeeper Redis 高并发实战》 面试必备 + 面试必备 + 面试必备 【博客园总入口 】 疯狂创客圈 经典图书 ： 《SpringCloud、Nginx高并发核心编程》 大厂必备 + 大厂必备 + 大厂必备 【博客园总入口 】 入大厂+涨工资必备： 高并发【 亿级流量IM实战】 实战系列 【 SpringCloud Nginx秒杀】 实战系列"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/10ecfdb3"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">Springcloud 配置 | 史上最全,一文全懂</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-09-28T12:10:33.000Z" title="undefined 2018-09-28 20:10:33">2018-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+<li>疯狂创客圈 经典图书 ： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/11397271.html">《Netty Zookeeper Redis 高并发实战》</a> 面试必备 + 面试必备 + 面试必备 【<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html">博客园总入口</a> 】</li>
+<li>疯狂创客圈 经典图书 ： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/13878143.html">《SpringCloud、Nginx高并发核心编程》</a> 大厂必备 + 大厂必备 + 大厂必备 【<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html">博客园总入口</a> 】</li>
+<li>入大厂+涨工资必备： 高并发【 亿级流量IM实战】 实战系列 【 SpringCloud Nginx秒杀】 实战系列 【<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html">博客园总入口</a> 】</li>
+</ul>
+<hr>
+<h3 id="Springcloud的性能问题"><a href="#Springcloud的性能问题" class="headerlink" title="Springcloud的性能问题"></a>Springcloud的性能问题</h3><p>Springcloud 原始的配置，性能是很低的，大家可以使用Jmeter测试一下，QPS不会到50。要做到高并发，需要做不少的配置优化，主要的配置优化有以下几点：</p>
+<ul>
+<li>Feign 配置优化</li>
+<li>hystrix配置 优化</li>
+<li>ribbon 优化</li>
+<li>Servlet 容器 优化</li>
+<li>Zuul配置 优化</li>
+</ul>
+<h3 id="Servlet-容器-优化"><a href="#Servlet-容器-优化" class="headerlink" title="Servlet 容器 优化"></a>Servlet 容器 优化</h3><p>默认情况下，Spring Boot 使用 Tomcat 来作为内嵌的 Servlet 容器，可以将 Web 服务器切换到 Undertow 来提高应用性能，Undertow 是红帽公司开发的一款基于 NIO 的高性能 Web 嵌入式<br>Zuul使用的内置容器默认是Tomcat，可以将其换成undertow，可以显著减少线程的数量，替换方式即在pom中添加以下内容：<br>第一步，移除Tomcat 依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">   &lt;exclusions&gt;</span><br><span class="line">      &lt;exclusion&gt;</span><br><span class="line">         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;</span><br><span class="line">      &lt;/exclusion&gt;</span><br><span class="line">   &lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>第二步，增加Untertow 依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-starter-undertow&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>第三步,Undertow 的属性配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  undertow:</span><br><span class="line">     io-threads: 16</span><br><span class="line">     worker-threads: 256</span><br><span class="line">     buffer-size: 1024</span><br><span class="line">     buffers-per-region: 1024</span><br><span class="line">     direct-buffers: true</span><br></pre></td></tr></table></figure>
+<p>server.undertow.io-threads: 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程,不要设置过大，如果过大，启动项目会报错：打开文件数过多<br>server.undertow.worker-threads: 阻塞任务线程池, 当执行类似servlet请求阻塞IO操作, undertow会从这个线程池中取得线程,它的值设置取决于系统线程执行任务的阻塞系数，默认值是IO线程数*8<br>server.undertow.buffer-size: 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理,每块buffer的空间大小,越小的空间被利用越充分，不要设置太大，以免影响其他应用，合适即可<br>server.undertow.buffers-per-region: 每个区分配的buffer数量 , 所以pool的大小是buffer-size * buffers-per-region<br>server.undertow.direct-buffers: 是否分配的直接内存(NIO直接分配的堆外内存)</p>
+<h3 id="Zuul配置-优化"><a href="#Zuul配置-优化" class="headerlink" title="Zuul配置 优化"></a>Zuul配置 优化</h3><p>我们知道Hystrix有隔离策略：THREAD 以及SEMAPHORE ，默认是 SEMAPHORE 。<br>Zuul默认是使用信号量隔离，并且信号量的大小是100，请求的并发线程超过100就会报错，可以调大该信号量的最大值来提高性能，配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zuul:</span><br><span class="line">  semaphore:</span><br><span class="line">    max-semaphores: 5000</span><br></pre></td></tr></table></figure>
+<p>表示，当Zuul的隔离策略为SEMAPHORE时，设置指定服务的最大信号量为5000。对于特定的微服务，可以通过下面的方式，设置最大信号量</p>
+<p>设置默认最大信号量：</p>
+<p>zuul:<br>semaphore:<br>max-semaphores: 5000 # 默认值<br>设置指定服务的最大信号量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zuul:</span><br><span class="line">  eureka:</span><br><span class="line">    &lt;commandKey&gt;:</span><br><span class="line">      semaphore:</span><br><span class="line">        max-semaphores: 5000 	</span><br></pre></td></tr></table></figure>
+<p>为了方便ThreadLocal的使用，也可以改为使用线程隔离的策略，这种场景下，就需要调大hystrix线程池线程大小，该线程池默认10个线程，调整的配置示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">zuul:</span><br><span class="line">  ribbonIsolationStrategy: THREAD</span><br><span class="line">hystrix:</span><br><span class="line">  threadpool:</span><br><span class="line">    default:</span><br><span class="line">      coreSize: 100</span><br><span class="line">      maximumSize: 400</span><br><span class="line">      allowMaximumSizeToDivergeFromCoreSize: true</span><br><span class="line">      maxQueueSize: -1</span><br></pre></td></tr></table></figure>
+<p>hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize：是否让maximumSize生效，false的话则只有coreSize会生效<br>hystrix.threadpool.default.maxQueueSize：线程池的队列大小，-1代表使用SynchronousQueue队列<br>hystrix.threadpool.default.maximumSize：最大线程数量<br>hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize：是否让maximumSize生效，false的话则只有coreSize会生效<br>hystrix.threadpool.default.maxQueueSize：线程池的队列大小，-1代表使用SynchronousQueue队列<br>zuul.ribbon-isolation-strategy:设置线程隔离，thread 线程隔离，SEMAPHORE 表示信号量隔离</p>
+<p>默认配置都可以去HystrixThreadPoolProperties和ZuulProperties这两个java文件中查找</p>
+<h3 id="Feign-配置优化"><a href="#Feign-配置优化" class="headerlink" title="Feign 配置优化"></a>Feign 配置优化</h3><p>feign 默认不启用hystrix，需要手动指定 feign.hystrix.enabled=true 开启熔断<br>feign 启用压缩也是一种有效的性能优化方式，具体的配置如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">	compression:</span><br><span class="line">		request:</span><br><span class="line">			enabled: true</span><br><span class="line">			mime-types: text/xml,application/xml,application/json</span><br><span class="line">		response:</span><br><span class="line">			enabled: true</span><br></pre></td></tr></table></figure>
+<p>feign HTTP请求方式选择<br>feign默认使用的是基于JDK提供的URLConnection调用HTTP接口，不具备连接池,所以资源开销上有点影响，经测试JDK的URLConnection比Apache HttpClient快很多倍。Apache HttpClient和okhttp都支持配置连接池功能,也可以使用okhttp请求方式。<br>当使用HttpClient时，可如下设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  httpclient:</span><br><span class="line">    enabled: true</span><br><span class="line">    max-connections:1000</span><br><span class="line">    max-connections-per-route: 200 </span><br></pre></td></tr></table></figure>
+
+<p>当使用OKHttp时，可如下设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  okhttp:</span><br><span class="line">    enabled: true</span><br><span class="line">  httpclient:</span><br><span class="line">    max-connections: 1000</span><br><span class="line">    max-connections-per-route: 200 	 </span><br></pre></td></tr></table></figure>
+
+<p>max-connections 设置整个连接池最大连接数（该值默认为200）， 根据自己的场景决定<br>max-connections-per-route 设置路由的默认最大连接（该值默认为50），限制数量实际使用</p>
+<h3 id="hystrix配置-优化"><a href="#hystrix配置-优化" class="headerlink" title="hystrix配置 优化"></a>hystrix配置 优化</h3><p>首先需要设置参数hystrix.threadpool.default.coreSize 来指定熔断隔离的线程数，这个数需要调优，经测试线程数我们设置为和提供方的容器线程差不多，吞吐量高许多。</p>
+<p>其次，启用Hystrix后，很多服务当第一次访问的时候都会失败 是因为初始化负载均衡一系列操作已经超出了超时时间了，因为默认的超时时间为1S，需要修改超时时间参数，方可解决这个问题。<br>参考的hystrix配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hystrix:</span><br><span class="line">  threadpool:</span><br><span class="line">    default:</span><br><span class="line">      coreSize: 500</span><br><span class="line">  command:</span><br><span class="line">    default:</span><br><span class="line">	  circuitBreaker: </span><br><span class="line">	    requestVolumeThreshold: 1000</span><br><span class="line">      fallback:</span><br><span class="line">        enabled: true</span><br><span class="line">      execution:</span><br><span class="line">        isolation:</span><br><span class="line">          thread:</span><br><span class="line">            timeoutInMilliseconds: 100000 </span><br></pre></td></tr></table></figure>
+<p>hystrix.command.default: 全局的作用域，作用的所有的hystrix的客户端,如果需要对某个微服务，可以写serviceId<br>hystrix.command.default.fallback.enabled 是否开启回退方法<br>hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds 请求处理的超时时间，缺省为1000,表示默认的超时时间为1S</p>
+<p>hystrix.threadpool.default.coreSize 核心线程池数量<br>hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests 回退最大线程数<br>hystrix.command.default.circuitBreaker.requestVolumeThreshold 熔断器失败的个数，进入熔断器的请求达到1000时服务降级（之后的请求直接进入熔断器）</p>
+<h3 id="ribbon-优化"><a href="#ribbon-优化" class="headerlink" title="ribbon 优化"></a>ribbon 优化</h3><p>Ribbon进行客户端负载均衡的Client并不是在服务启动的时候就初始化好的，而是在调用的时候才会去创建相应的Client，所以第一次调用的耗时不仅仅包含发送HTTP请求的时间，还包含了创建RibbonClient的时间，这样一来如果创建时间速度较慢，同时设置的超时时间又比较短的话，很容易就会出现上面所描述的显现。</p>
+<p>因此我们可以通过设置:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ribbon:</span><br><span class="line">	eager-load:</span><br><span class="line">    	enabled：true</span><br><span class="line">	clients：service-1,service-2,service-n</span><br></pre></td></tr></table></figure>
+<p>参数说明:</p>
+<p>ribbon.eager-load.enabled : 开启Ribbon的饥饿加载模式</p>
+<p>ribbon.eager-load.clients: 指定需要饥饿加载的服务名，如果不指定服务名称，饥饿加载模式无效</p>
+<p>Zuul的饥饿加载，没有设计专门的参数来配置，而是直接采用了读取路由配置来进行饥饿加载。所以，如果我们使用默认路由，而没有通过配置的方式指定具体路由规则，那么 zuul.ribbon.eager-load.enabled=true 的配置就没有什么作用了。</p>
+<p>如果需要真正启用Zuul 的饥饿加载，需要通过<code>zuul.ignored-services=*</code>来忽略所有的默认路由，让所有路由配置均维护在配置文件中，以达到网关启动的时候就加载好各个路由的负载均衡对象。</p>
+<p>关于Zuul 的默认路由，这里详细介绍一下。假设你的注册服务中心有三个已经注册的服务名称service-a，service-b，service-c。但是在zuul配置文件中，只映射了service-a，service-b，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">zuul:</span><br><span class="line">  ribbon:</span><br><span class="line">    eager-load:</span><br><span class="line">      enabled: true </span><br><span class="line">  ignored-services: ‘*’</span><br><span class="line">  routes:</span><br><span class="line">    a:</span><br><span class="line">      path: /a/**</span><br><span class="line">      serviceId: service-a</span><br><span class="line">    b:</span><br><span class="line">     path: /b/**</span><br><span class="line">     serviceId: service-b</span><br></pre></td></tr></table></figure>
+<p>这里，虽然没有配置service-c的映射，但是，由于zuul有默认的映射机制，还是可以通过<a href="http://ip:port/service-c/的Url，访问到你的service-c服务，如果不想向外界暴露默认的服务映射，可以加上">http://ip:port/service-c/的Url，访问到你的service-c服务，如果不想向外界暴露默认的服务映射，可以加上</a> zuul.ignored-services:*</p>
+<p>最后，介绍一下疯狂创客圈：<strong>疯狂创客圈，一个Java 高并发研习社群</strong> 【<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html">博客园 总入口</a> 】</p>
+<p>疯狂创客圈，倾力推出：<strong>面试必备 + 面试必备 + 面试必备</strong> 的基础原理+实战 书籍 《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/11397271.html">Netty Zookeeper Redis 高并发实战</a>》</p>
+<p><a target="_blank" rel="noopener" href="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvMTQ4NTM5OC8yMDE5MDgvMTQ4NTM5OC0yMDE5MDgyMjIyNTE1NjQyNy05NTY0MjQxMjQuanBn?x-oss-process=image/format,png">![img](../images/Springcloud 配置  史上最全,一文全懂/aHR0.jpg)</a></p>
+<hr>
+<h2 id="疯狂创客圈-Java-死磕系列"><a href="#疯狂创客圈-Java-死磕系列" class="headerlink" title="疯狂创客圈 Java 死磕系列"></a>疯狂创客圈 Java 死磕系列</h2><ul>
+<li><strong>Java (Netty) 聊天程序【 亿级流量】实战 开源项目实战</strong></li>
+<li><strong>Netty 源码、原理、JAVA NIO 原理</strong></li>
+<li><strong>Java 面试题 一网打尽</strong></li>
+<li>疯狂创客圈 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html"><strong>【 博客园 总入口 】</strong></a></li>
+</ul>
+<hr>
+<p>[外链图片转存中…(img-AaP9w9ZI-1571062386803)]</p>
+<hr>
+<h2 id="疯狂创客圈-Java-死磕系列-1"><a href="#疯狂创客圈-Java-死磕系列-1" class="headerlink" title="疯狂创客圈 Java 死磕系列"></a>疯狂创客圈 Java 死磕系列</h2><ul>
+<li><strong>Java (Netty) 聊天程序【 亿级流量】实战 开源项目实战</strong></li>
+<li><strong>Netty 源码、原理、JAVA NIO 原理</strong></li>
+<li><strong>Java 面试题 一网打尽</strong></li>
+<li>疯狂创客圈 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/crazymakercircle/p/9904544.html"><strong>【 博客园 总入口 】</strong></a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/10ecfdb3.html">http://aichn.cn/post/10ecfdb3.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-Spring-Cloud/">微服务,Spring Cloud</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/69d47631.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Spring Cloud 微服务架构学习笔记与示例</div></div></a></div><div class="next-post pull-right"><a href="/post/39be146d.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Springcloud学习笔记之微服务之间互相调用时token传递问题</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/d41eacb4.html" title="2020周阳Spring Cloud完整版笔记一"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">2020周阳Spring Cloud完整版笔记一</div></div></a></div><div><a href="/post/ed863d59.html" title="Spring Cloud体系介绍"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">Spring Cloud体系介绍</div></div></a></div><div><a href="/post/69d47631.html" title="Spring Cloud 微服务架构学习笔记与示例"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">Spring Cloud 微服务架构学习笔记与示例</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Springcloud%E7%9A%84%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">Springcloud的性能问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-%E5%AE%B9%E5%99%A8-%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">Servlet 容器 优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Zuul%E9%85%8D%E7%BD%AE-%E4%BC%98%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">Zuul配置 优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Feign-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">Feign 配置优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hystrix%E9%85%8D%E7%BD%AE-%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">hystrix配置 优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ribbon-%E4%BC%98%E5%8C%96"><span class="toc-number">6.</span> <span class="toc-text">ribbon 优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%96%AF%E7%8B%82%E5%88%9B%E5%AE%A2%E5%9C%88-Java-%E6%AD%BB%E7%A3%95%E7%B3%BB%E5%88%97"><span class="toc-number"></span> <span class="toc-text">疯狂创客圈 Java 死磕系列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%96%AF%E7%8B%82%E5%88%9B%E5%AE%A2%E5%9C%88-Java-%E6%AD%BB%E7%A3%95%E7%B3%BB%E5%88%97-1"><span class="toc-number"></span> <span class="toc-text">疯狂创客圈 Java 死磕系列</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

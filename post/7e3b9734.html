@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>遗传算法详解（GA） | 君子兰萧宇的博客</title><meta name="keywords" content="算法,遗传算法"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="本文是去年课题组周报中的一个专题讲解，详细讲了GA，由于是周报，所以十分详细。很适合初学者入门。文中也简单提及了模拟退火算法。文章综合参考了一些互联网资料。发博客以备忘！ 三：遗传算法 ​    照例先给出科学定义： ​    遗传算法（Genetic Algorithm, GA）起源于对生物系统所进行的计算机模拟研究。它是模仿自然界生物进化机制发展起来的随机全局搜索和优化方法，借鉴了达尔文的进化"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/7e3b9734"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110643602)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">遗传算法详解（GA）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="undefined 2018-12-23 21:06:36">2018-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>本文是去年课题组周报中的一个专题讲解，详细讲了GA，由于是周报，所以十分详细。很适合初学者入门。文中也简单提及了模拟退火算法。文章综合参考了一些互联网资料。发博客以备忘！</strong></p>
+<p><strong>三：遗传算法</strong></p>
+<p>​    照例先给出科学定义：</p>
+<p>​    遗传算法（Genetic Algorithm, GA）起源于对生物系统所进行的计算机模拟研究。它是模仿自然界生物进化机制发展起来的随机全局搜索和优化方法，借鉴了达尔文的进化论和孟德尔的遗传学说。其本质是一种高效、并行、全局搜索的方法，能在搜索过程中自动获取和积累有关搜索空间的知识，并自适应地控制搜索过程以求得最佳解。</p>
+<p>   <strong>再给出相关术语：（各位看看就好，后面都会涉及到，再细说）</strong></p>
+<p>基因型(genotype)：性状染色体的内部表现；</p>
+<p>表现型(phenotype)：染色体决定的性状的外部表现，或者说，根据基因型形成的个体的外部表现；</p>
+<p>进化(evolution)：种群逐渐适应生存环境，品质不断得到改良。生物的进化是以种群的形式进行的。</p>
+<p>适应度(fitness)：度量某个物种对于生存环境的适应程度。</p>
+<p>选择(selection)：<strong>以一定的概率</strong>从种群中选择若干个个体。一般，选择过程是一种<strong>基于适应度</strong>的优胜劣汰的过程。</p>
+<p>复制(reproduction)：细胞分裂时，遗传物质DNA通过复制而转移到新产生的细胞中，新细胞就继承了旧细胞的基因。</p>
+<p>交叉(crossover)：两个染色体的某一相同位置处DNA被切断，前后两串分别交叉组合形成两个新的染色体。也称基因重组或杂交；</p>
+<p>变异(mutation)：复制时可能（很小的概率）产生某些复制差错，变异产生新的染色体，表现出新的性状。</p>
+<p>编码(coding)：DNA中遗传信息在一个长链上按一定的模式排列。遗传编码可看作从表现型到基因型的映射。</p>
+<p>解码(decoding)：基因型到表现型的映射。</p>
+<p>个体（individual）：指染色体带有特征的实体；</p>
+<p>种群（population）：个体的集合，该集合内个体数称为种群的大小。 </p>
+<p>​    遗传算法的有趣应用很多，诸如寻路问题，8数码问题，囚犯困境，动作控制，找圆心问题（在一个不规则的多边形中，寻找一个包含在该多边形内的最大圆圈的圆心），TSP问题，生产调度问题，人工生命模拟等。下面我以袋鼠为例子讲讲遗传算法。（因为袋鼠会跳） </p>
+<p>   遗传算法中每一条染色体，对应着遗传算法的一个解决方案，一般我们用适应性函数（fitness function）来衡量这个解决方案的优劣。所以从一个基因组到其解的适应度形成一个映射。可以把遗传算法的过程看作是一个在多元函数里面求最优解的过程。 <strong>可以这样想象，这个多维曲面里面有数不清的“山峰”，而这些山峰所对应的就是局部最优解。而其中也会有一个“山峰”的海拔最高的，那么这个就是全局最优解。而遗传算法的任务就是尽量爬到最高峰，而不是陷落在一些小山峰。</strong>（另外，值得注意的是遗传算法不一定要找“最高的山峰”，如果问题的适应度评价越小越好的话，那么全局最优解就是函数的最小值，对应的，遗传算法所要找的就是“最深的谷底”）</p>
+<p>​                            <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419105834575" alt="img"></p>
+<p><strong>问题的提出与解决方案：</strong></p>
+<p>  让我们先来考虑考虑下面这个问题的解决办法。</p>
+<p>​      已知一元函数：<img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419105917087" alt="img"></p>
+<p>现在要求在既定的区间内找出函数的最大值 </p>
+<p>​               <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419105954545" alt="img"></p>
+<p><strong>“袋鼠跳”问题</strong></p>
+<p>​    既然我们把函数曲线理解成一个一个山峰和山谷组成的山脉。那么我们可以设想所得到的每一个解就是一只袋鼠，我们希望它们不断的向着更高处跳去，直到跳到最高的山峰（尽管袋鼠本身不见得愿意那么做）。所以求最大值的过程就转化成一个“袋鼠跳”的过程。</p>
+<p>作为对比下面简单介绍“袋鼠跳”的几种方式。</p>
+<p> \1. 爬山法（最速上升爬山法）：</p>
+<p>   从搜索空间中随机产生邻近的点，从中选择对应解最优的个体，替换原来的个体，不断重复上述过程。因为爬山法只对“邻近”的点作比较，所以目光比较“短浅”，常常只能收敛到离开初始位置比较近的局部最优解上面。对于存在很多局部最优点的问题，通过一个简单的迭代找出全局最优解的机会非常渺茫。（在爬山法中，袋鼠最有希望到达最靠近它出发点的山顶，但不能保证该山顶是珠穆朗玛峰，或者是一个非常高的山峰。因为一路上它只顾上坡，没有下坡。）</p>
+<p>\2. 模拟退火：</p>
+<p>   这个方法来自金属热加工过程的启发。在金属热加工过程中，当金属的温度超过它的熔点（Melting Point）时，原子就会激烈地随机运动。与所有的其它的物理系统相类似，原子的这种运动趋向于寻找其能量的极小状态。在这个能量的变迁过程中，开始时，温度非常高， 使得原子具有很高的能量。随着温度不断降低，金属逐渐冷却，金属中的原子的能量就越来越小，最后达到所有可能的最低点。利用模拟退火的时候，让算法从较大的跳跃开始，使到它有足够的“能量”逃离可能“路过”的局部最优解而不至于限制在其中，当它停在全局最优解附近的时候，逐渐的减小跳跃量，以便使其“落脚 ”到全局最优解上。（在模拟退火中，袋鼠喝醉了，而且随机地大跳跃了很长时间。运气好的话，它从一个山峰跳过山谷，到了另外一个更高的山峰上。但最后，它渐渐清醒了并朝着它所在的峰顶跳去。）</p>
+<p>\3. 遗传算法：</p>
+<p>  模拟物竞天择的生物进化过程，通过维护一个潜在解的群体执行了多方向的搜索，并支持这些方向上的信息构成和交换。是以面为单位的搜索，比以点为单位的搜索，更能发现全局最优解。（在遗传算法中，有很多袋鼠，它们降落到喜玛拉雅山脉的任意地方。<strong>这些袋鼠并不知道它们的任务是寻找珠穆朗玛峰。</strong>但每过几年，就在一些海拔高度较低的地方射杀一些袋鼠，并希望存活下来的袋鼠是多产的，在它们所处的地方生儿育女<em>。</em>）（或者换个说法。从前，有一大群袋鼠，它们被莫名其妙的零散地遗弃于喜马拉雅山脉。于是只好在那里艰苦的生活。海拔低的地方弥漫着一种无色无味的毒气，海拔越高毒气越稀薄。可是可怜的袋鼠们对此<strong>全然不觉</strong>，还是习惯于活蹦乱跳。于是，不断有袋鼠死于海拔较低的地方，而越是在海拔高的袋鼠越是能活得更久，也越有机会生儿育女。就这样经过许多年，这些袋鼠们竟然都不自觉地聚拢到了一个个的山峰上，可是在所有的袋鼠中，只有聚拢到珠穆朗玛峰的袋鼠被带回了美丽的澳洲。）</p>
+<p><strong>遗传算法的实现过程</strong></p>
+<p>​    遗传算法的实现过程实际上就像自然界的进化过程那样。首先寻找一种对问题潜在解进行“数字化”编码的方案。（建立表现型和基因型的映射关系）然后用随机数初始化一个种群（那么第一批袋鼠就被随意地分散在山脉上），种群里面的个体就是这些数字化的编码。接下来，通过适当的解码过程之后（得到袋鼠的位置坐标），用适应性函数对每一个基因个体作一次适应度评估（袋鼠爬得越高，越是受我们的喜爱，所以适应度相应越高）。用选择函数按照某种规定择优选择（我们要每隔一段时间，在山上射杀一些所在海拔较低的袋鼠，以保证袋鼠总体数目持平。）。让个体基因变异（让袋鼠随机地跳一跳）。然后产生子代（希望存活下来的袋鼠是多产的，并在那里生儿育女）。遗传算法并不保证你能获得问题的最优解，但是使用遗传算法的最大优点在于你不必去了解和操心如何去“找”最优解。（你不必去指导袋鼠向那边跳，跳多远。）而只要简单的“否定”一些表现不好的个体就行了。（*<strong>*把那些总是爱走下坡路的袋鼠射杀，这就是遗传算法的精粹！\</strong>）**</p>
+<p> <strong>所以我们总结出遗传算法的一般步骤：</strong></p>
+<p>​    开始循环直至找到满意的解。</p>
+<p>1.评估每条染色体所对应个体的适应度。</p>
+<p>2.遵照适应度越高，选择概率越大的原则，从种群中选择两个个体作为父方和母方。</p>
+<p>3.抽取父母双方的染色体，进行交叉，产生子代。</p>
+<p>4.对子代的染色体进行变异。</p>
+<p>5.重复2，3，4步骤，直到新种群的产生。</p>
+<p>结束循环。</p>
+<p>​                <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110213089" alt="img"></p>
+<p><strong>接下来，我们将详细地剖析遗传算法过程的每一个细节。</strong></p>
+<p><strong>编制袋鼠的染色体—-基因的编码方式</strong></p>
+<p>   受到人类染色体结构的启发，我们可以设想一下，假设目前只有“0”，“1”两种碱基，我们也用一条链条把他们有序的串连在一起，因为每一个单位都能表现出 1 bit的信息量，所以一条足够长的染色体就能为我们勾勒出一个个体的所有特征。<strong>这就是二进制编码法</strong>，染色体大致如下：</p>
+<p><strong>010010011011011110111110</strong></p>
+<p>   上面的编码方式虽然简单直观，但明显地，当个体特征比较复杂的时候，需要大量的编码才能精确地描述，相应的解码过程（类似于生物学中的DNA翻译过程，就是把基因型映射到表现型的过程。）将过分繁复，为改善遗传算法的计算复杂性、提高运算效率，提出了浮点数编码。染色体大致如下：</p>
+<p><strong>1.2 –3.3 – 2.0 –5.4 – 2.7 – 4.3</strong></p>
+<p><strong>（注：还有一种编码方式叫符号编码）</strong></p>
+<p>   那么我们如何利用这两种编码方式来为袋鼠的染色体编码呢？因为编码的目的是建立表现型到基因型的映射关系，而表现型一般就被理解为个体的特征。比如人的基因型是46条染色体所描述的却能解码成一个眼，耳，口，鼻等特征各不相同的活生生的人。所以我们要想为“袋鼠”的染色体编码，我们必须先来考虑“袋鼠”的“个体特征”是什么。也许有的人会说，袋鼠的特征很多，比如性别，身长，体重，也许它喜欢吃什么也能算作其中一个特征。但具体在解决这个问题的情况下，我们应该进一步思考：无论这只袋鼠是长短，肥瘦，黑白只要它在低海拔就会被射杀，同时也没有规定身长的袋鼠能跳得远一些，身短的袋鼠跳得近一些。当然它爱吃什么就更不相关了。<strong>我们由始至终都只关心一件事情：袋鼠在哪里。</strong>因为只要我们知道袋鼠在那里，我们就能做两件必须去做的事情：</p>
+<p>（1）通过查阅喜玛拉雅山脉的地图来得知袋鼠所在的海拔高度（通过自变量求适应函数的值。）以判断我们有没必要把它射杀。</p>
+<p>（2）知道袋鼠跳一跳（交叉和变异）后去到哪个新位置。</p>
+<p>   如果我们一时无法准确的判断哪些“个体特征”是必要的，哪些是非必要的，我们常常可以用到这样一种思维方式：比如你认为袋鼠的爱吃什么东西非常必要，那么你就想一想，有两只袋鼠，它们其它的个体特征完全同等的情况下，一只长得黑，另外一只长得不是那么黑。你会马上发现，这不会对它们的命运有丝毫的影响，它们应该有同等的概率被射杀！<strong>只因它们处于同一个地方</strong>。（<strong>值得一提的是</strong>，如果你的基因编码设计中包含了袋鼠黑不黑的信息，这其实不会影响到袋鼠的进化的过程，而那只攀到珠穆朗玛峰的袋鼠黑与白什么的也完全是随机的，但是它所在的位置却是非常确定的。）</p>
+<p>  <strong><em>\</em>以上是对遗传算法编码过程中经常经历的思维过程，必须把具体问题抽象成数学模型，突出主要矛盾，舍弃次要矛盾。只有这样才能简洁而有效的解决问题。**</strong></p>
+<p>   既然确定了袋鼠的位置作为个体特征，具体来说位置就是横坐标。那么接下来，我们就要建立表现型到基因型的映射关系。就是说如何用编码来表现出袋鼠所在的横坐标。由于横坐标是一个实数，所以说透了我们就是要对这个实数编码。回顾我们上面所介绍的两种编码方式，最先想到的应该就是，对于二进制编码方式来说，编码会比较复杂，而对于浮点数编码方式来说，则会比较简洁。恩，正如你所想的，用浮点数编码，仅仅需要一个浮点数而已。而下面则介绍如何建立二进制编码到一个实数的映射。</p>
+<p> 明显地，一定长度的二进制编码序列，只能表示一定精度的浮点数。譬如我们要求解<strong>精确到六位小数</strong>，由于区间长度为2 – (-1) = 3 ,为了保证精度要求，至少把区间[-1,2]分为3 × 106等份。又因为</p>
+<p>​      <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110310909" alt="img"></p>
+<p>所以编码的二进制串至少需要22位。</p>
+<p>​    把一个二进制串（b0,b1,….bn)转化位区间里面对应的实数值通过下面两个步骤。</p>
+<p>  （1）将一个二进制串代表的二进制数转化为10进制数：</p>
+<p>​         <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110345793" alt="img"></p>
+<p>  （2）对应区间内的实数：</p>
+<p>​             <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110410684" alt="img"></p>
+<p>   （像极了模数转换）</p>
+<p>  例如一个二进制串&lt;1000101110110101000111&gt;表示实数值0.637197。</p>
+<p>​     <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110442168" alt="img"></p>
+<p>（纠正一个错误，这里是-1） </p>
+<p>​    二进制串&lt;0000000000000000000000&gt;和&lt;1111111111111111111111&gt;则分别表示区间的两个端点值-1和2。</p>
+<p>   好了，目前为止我们把袋鼠的染色体给研究透了，让我们继续跟进袋鼠的进化旅程</p>
+<p><strong>物竞天择－－适应性评分与及选择函数。</strong></p>
+<p><strong>1.物竞――适应度函数（fitness function）</strong></p>
+<p>  自然界生物竞争过程往往包含两个方面：生物相互间的搏斗与及生物与客观环境的搏斗过程。但在我们这个实例里面，你可以想象到，袋鼠相互之间是非常友好的，它们并不需要互相搏斗以争取生存的权利。它们的生死存亡更多是取决于你的判断。因为你要衡量哪只袋鼠该杀，哪只袋鼠不该杀，所以你必须制定一个衡量的标准。而对于这个问题，这个衡量的标准比较容易制定：袋鼠所在的海拔高度。（因为你单纯地希望袋鼠爬得越高越好。）所以我们直接用袋鼠的海拔高度作为它们的适应性评分。即适应度函数直接返回函数值就行了。</p>
+<p><strong>2.天择――选择函数（selection）</strong></p>
+<p>  自然界中，越适应的个体就越有可能繁殖后代。但是也不能说适应度越高的就肯定后代越多，只能是从概率上来说更多。（毕竟有些所处海拔高度较低的袋鼠很幸运，逃过了你的眼睛。）那么我们怎么来建立这种概率关系呢？下面我们介绍一种常用的选择方法――轮盘赌（Roulette Wheel Selection）选择法。                 </p>
+<p>   比如我们有5条染色体，他们所对应的适应度评分分别为：5，7，10，13，15。</p>
+<p>​    所以累计总适应度为：</p>
+<p>​                 <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110514403" alt="img"></p>
+<p>​    所以各个个体被选中的概率分别为：</p>
+<p>​         <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110549491" alt="img"></p>
+<p> <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110611554" alt="img"></p>
+<p>你可以想象一下，我们转动轮盘，轮盘停下来的时候，指针会随机地指向某一个个体所代表的区域，那么非常幸运地，这个个体被选中了。（很明显，适应度评分越高的个体被选中的概率越大。）</p>
+<p><strong><em>\</em>注：还有精英选择机制**</strong></p>
+<p><strong>遗传变异――基因重组（交叉）与基因突变。</strong></p>
+<p> 应该说<strong>这两个步骤就是使得子代不同于父代的根本原因</strong>（<strong>注意，我没有说是子代优于父代，只有经过自然的选择后，才会出现子代优于父代的倾向。</strong>）。对于这两种遗传操作，二进制编码和浮点型编码在处理上有很大的差异，其中二进制编码的遗传操作过程，比较类似于自然界里面的过程，下面将分开讲述。</p>
+<p><strong>1.基因重组/交叉(recombination/crossover)</strong></p>
+<p>  （1）二进制编码</p>
+<p>  二进制编码的基因交换过程非常类似高中生物中所讲的同源染色体的联会过程――随机把其中几个位于同一位置的编码进行交换，产生新的个体。</p>
+<p><img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110643602" alt="img"></p>
+<p>（2）浮点数编码</p>
+<p>   如果一条基因中含有多个浮点数编码，那么也可以用跟上面类似的方法进行基因交叉，不同的是进行交叉的基本单位不是二进制码，而是浮点数。而如果对于单个浮点数的基因交叉，就有其它不同的重组方式了，比如中间重组：随机产生就能得到介于父代基因编码值和母代基因编码值之间的值作为子代基因编码的值。比如5.5和6交叉，产生5.7，5.6。</p>
+<p>  考虑到“袋鼠跳”问题的具体情况――袋鼠的个体特征仅仅表现为它所处的位置。可以想象，同一个位置的袋鼠的基因是完全相同的，而两条相同的基因进行交叉后，相当于什么都没有做，所以我们不打算在这个例子里面使用交叉这一个遗传操作步骤。（当然硬要这个操作步骤也不是不行的，你可以把两只异地的袋鼠捉到一起，让它们交配，然后产生子代，再把它们送到它们应该到的地方。）</p>
+<p><strong>2.基因突变(Mutation)</strong></p>
+<p> （1）二进制编码</p>
+<p>   基因突变过程：基因突变是染色体的某一个位点上基因的改变。基因突变使一个基因变成它的等位基因，并且通常会引起一定的表现型变化。正如上面所说，二进制编码的遗传操作过程和生物学中的过程非常相类似，基因串上的“ 0”或“ 1”有一定几率变成与之相反的“ 1”或“ 0”。例如下面这串二进制编码：</p>
+<p><strong>101101001011001</strong></p>
+<p>经过基因突变后，可能变成以下这串新的编码：</p>
+<p><strong>001101011011001</strong></p>
+<p>（2）浮点型编码</p>
+<p>   浮点型编码的基因突变过程一般是对原来的浮点数增加或者减少一个小随机数。比如原来的浮点数串如下：</p>
+<p>1.2,3.4,5.1, 6.0, 4.5</p>
+<p>变异后，可能得到如下的浮点数串：</p>
+<p>1.3,3.1,4.9, 6.3, 4.4</p>
+<p> 当然，<strong>这个小随机数也有大小之分，我们一般管它叫“步长”。</strong>（想想“袋鼠跳”问题，袋鼠跳的长短就是这个步长。）一般来说<strong>步长越大，开始时进化的速度会比较快，但是后来比较难收敛到精确的点上</strong>。而小步长却能较精确的收敛到一个点上。所以<strong>很多时候为了加快遗传算法的进化速度，而又能保证后期能够比较精确地收敛到最优解上面，会采取动态改变步长的方法。</strong>其实这个过程与前面介绍的模拟退火过程比较相类似。</p>
+<p> 到此为止，<strong>基因编码，基因适应度评估，基因选择，基因变异都一一实现了</strong>，剩下来的就是把这些遗传过程的“零件”装配起来了。（写成代码）</p>
+<p>下面是上例的运行结果：</p>
+<p> <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110727716" alt="img"></p>
+<p>红点代表真实的最大点，由求导法可求的为f(1.85)=3.85</p>
+<p> <img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110801498" alt="img"></p>
+<p><img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110917904" alt="img"></p>
+<p><img src="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110954715" alt="img"></p>
+<p><strong>总结：</strong></p>
+<p><strong>编码原则</strong><br>完备性（completeness）：问题空间的所有解都能表示为所设计的基因型；<br>健全性（soundness）：任何一个基因型都对应于一个可能解；<br>非冗余性（non-redundancy）：问题空间和表达空间一一对应。</p>
+<p><strong>适应度函数的重要性</strong><br>   适应度函数的选取直接影响遗传算法的收敛速度以及能否找到最优解。一般而言，适应度函数是由目标函数变换而成的。</p>
+<p>适应度函数设计不当有可能出现欺骗问题：<br>（1）进化初期，个别超常个体控制选择过程；<br>（2）进化末期，个体差异太小导致陷入局部极值。</p>
+<p>欺骗问题举例：</p>
+<p>还是袋鼠问题，如果低海拔的地方出现毒雾，会杀死袋鼠，只有爬上珠穆朗玛峰顶端的袋鼠才能生存下来。</p>
+<p>因为喜马拉雅山脉有很多山峰，我们以高度作为适应度，case（1）：如果不在珠峰的猴子若比在珠峰半山腰的猴子要高，因为种群大小不变，在珠峰的猴子可能就会被淘汰；case（2）：100只猴子都不在珠峰；</p>
+<p>\1. 选择的作用：优胜劣汰，适者生存；</p>
+<p>\2. 交叉的作用：保证种群的稳定性，朝着最优解的方向进化；</p>
+<p>\3. 变异的作用：保证种群的多样性，避免交叉可能产生的局部收敛。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/7e3b9734.html">http://aichn.cn/post/7e3b9734.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">-算法</a></div><div class="post_share"><div class="social-share" data-image="/../images/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3%EF%BC%88GA%EF%BC%89/20160419110643602" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/6375c8f0.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">香农信息量</div></div></a></div><div class="next-post pull-right"><a href="/post/85ca40.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基于TensorFlow框架搭建一个最简单的CNN框架</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/d601a254.html" title="【算法】超详细的遗传算法(Genetic Algorithm)解析"><img class="cover" src="/../images/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%B6%85%E8%AF%A6%E7%BB%86%E7%9A%84%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95-Genetic-Algorithm-%E8%A7%A3%E6%9E%90/10386940-517221056cd4af43.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-12-23</div><div class="title">【算法】超详细的遗传算法(Genetic Algorithm)解析</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>斐讯PSG1208 K1 免拆机刷breed恢复控制台 | 君子兰萧宇的博客</title><meta name="keywords" content="斐讯,技术,PSG1208,K1,breed"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="Breed，不是 U-Boot，也不是 U-Boot 的改进版，是全新、独立的、跟 U-Boot 平级的 Bootloader。 进入breed恢复控制台的方法:路由断电,按住复位键不放,路由通电,5秒后放开复位键,等一会,在浏览器上打开192.168.1.1,进入breed恢复控制台. 今天有人找我要潘多拉的设置方法,这里发教程,需要的朋友去安装吧. 看这么多人路由器刷了潘多拉，发个多拨教程 首"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/cf81e54b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">斐讯PSG1208 K1 免拆机刷breed恢复控制台</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="undefined 2016-12-23 21:06:36">2016-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>Breed，不是 U-Boot，也不是 U-Boot 的改进版，是全新、独立的、跟 U-Boot 平级的 Bootloader。</p>
+<p>进入breed恢复控制台的方法:路由断电,按住复位键不放,路由通电,5秒后放开复位键,等一会,在浏览器上打开192.168.1.1,进入breed恢复控制台.</p>
+<p>今天有人找我要潘多拉的设置方法,这里发教程,需要的朋友去安装吧.</p>
+<p>看这么多人路由器刷了潘多拉，发个多拨教程</p>
+<p>首先本文是介绍breed恢复控制台的,不是介绍刷固件的,刷完breed恢复控制台,不刷固件的话,是正常使用原版固件的,没任何影响的,刷了breed恢复控制台后,可以轻松的备份固件(也就是路由器的系统),更新固件,刷第三方固件,超频等,具体介绍和功能看注释.至于刷第三方固件有什么用,本文不作介绍.</p>
+<p>刷breed恢复控制台步骤:<br>1.先接好路由,设置好,让路由能连网;<br>2.查看自己的电脑ip地址,这里假设电脑的ip是192.168.2.100;<br>3.在浏览器上登陆路由器,192.168.2.1,账号:admin,密码:admin;<br>4.浏览器地址栏打开 <a target="_blank" rel="noopener" href="http://192.168.2.1/goform/Diagnosis?pingAddr=192.168.2.100%7Cecho&quot;&quot;%7Ctelnetd">http://192.168.2.1/goform/Diagnosis?pingAddr=192.168.2.100|echo&quot;&quot;|telnetd</a> (红色部分是本机ip,如果你的电脑ip不是192.168.2.100,请改成你电脑的ip);<br>5.点击 <a target="_blank" rel="noopener" href="http://www.cr173.com/k/kscd/">开始菜单</a>-&gt;运行,输入cmd,打开控制台;<br>6.telnet 192.168.2.1,账号:admin,密码:admin;<br>7.cd /tmp;<br>8.wget <a target="_blank" rel="noopener" href="http://breed.hackpascal.net/breed-mt7620-reset1.bin">http://breed.hackpascal.net/breed-mt7620-reset1.bin</a>;</p>
+<p>9.mtd_write write breed-mt7620-reset1.bin Bootloader;</p>
+<p>10.重启路由,按住复位键(大概3-5秒左右),如果看到路由器的部分或全部LED连闪4次，或 ping 通即表明进入 Web 刷机模式(路由地址为:192.168.1.1).<br>如果不按住复位键则正常启动路由(路由地址为:192.168.2.1).</p>
+<p>这时你就可以刷入你想要使用的固件了,建议刷固件前先备份固件,如果刷的新的固件不能用,可以重新刷备份的固件就可以了.</p>
+<p>潘多拉固件下载地址:<br><a target="_blank" rel="noopener" href="http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/stable/PandoraBox-ralink-mt7620-xiaomi-mini-squashfs-sysupgrade-r1024-20150608.bin">http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/stable/PandoraBox-ralink-mt7620-xiaomi-mini-squashfs-sysupgrade-r1024-20150608.bin</a></p>
+<p>老毛子Padavan固件:<a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-161324-1-1.html">http://www.right.com.cn/forum/thread-161324-1-1.html</a></p>
+<p>注释:<br>breed恢复控制台作用功能:<br>Breed，不是 U-Boot，也不是 U-Boot 的改进版，是全新、独立的、跟 U-Boot 平级的 Bootloader。<br>[功能介绍]<br>Breed 拥有不死 U-Boot 的全部功能，并且还有以下特性：<br>真正多线程<br>实时刷机进度，进度条能准确反映刷机进度<br>Web 页面快速响应<br>最大固件备份速度，依 Flash 而定，一般能达到 1MB/s<br>免按复位键进入 Web 刷机模式<br>telnet 功能，免 TTL 进入 Breed 命令控制台<br>复位键定义测试功能<br>固件启动失败自动进入 Web 刷机模式</p>
+<p>Web 界面跟不死 U-Boot 基本一致</p>
+<p>[U-Boot功能介绍]<br>能够启动 TP-LINK 原厂固件、OpenWrt 固件 (包含石像鬼固件)、DD-WRT 固件、UBNT 固件<br>支持大量 Flash，支持型号识别，能自动识别未知 FLASH 的大小 (4M / 8M / 16M / 32M)。<br>支持 TP-LINK 固件头和 U-Boot 固件头。<br>带 Web 刷机界面。支持开机按 RESET/W<a target="_blank" rel="noopener" href="http://www.cr173.com/k/photoshopcs5/">PS</a> 按钮进入刷机界面。<br>开启交换机 LED，以便检查 U-Boot 更新固件时网络连接是否正常<br>所有版本均有不死超频功能</p>
+<p>[Web 刷机界面功能]<br>兼容大部分主流浏览器<br>自动分配 IP 地址，不用手动修改计算机 IP 地址<br>显示 FLASH 型号和大小、CPU 型号、内存容量、系统频率<br>固件更新，U-Boot、固件、ART均可更新；支持直刷编程器固件<br>自动去除 TP-LINK 官方固件的 U-Boot 部分<br>自动补充 ART，解决刷官方固件丢失无线的问题<br>刷机前文件大小、MD5值确认<br>恢复出厂设置<br>不死超频/降频<br>修改特定设备的相关信息，包括修改 MAC 地址和 PIN 码、修改 UBNT 无线 MAC 地址等<br>编程器固件备份<br>网络控制台 (UDP 协议)<br>支持 Web 界面重启路由<br>详细的失败信息<br>全中文版界面</p>
+<h1 id="PSG1208-K1固件下载地址"><a href="#PSG1208-K1固件下载地址" class="headerlink" title="PSG1208 K1固件下载地址"></a>PSG1208 K1固件下载地址</h1><p>Breed控制台：<a target="_blank" rel="noopener" href="http://breed.hackpascal.net/breed-mt7620-reset1.bin">http://breed.hackpascal.net/breed-mt7620-reset1.bin</a></p>
+<p>小米潘多拉（多拨）：<a target="_blank" rel="noopener" href="http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/">http://downloads.openwrt.org.cn/PandoraBox/Xiaomi-Mini-R1CM/</a></p>
+<p>老毛子改（华硕稳定版本）：<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1qWr367y">http://pan.baidu.com/s/1qWr367y</a></p>
+<h1 id="斐讯PSG1208刷机大合集"><a href="#斐讯PSG1208刷机大合集" class="headerlink" title="斐讯PSG1208刷机大合集"></a>斐讯PSG1208刷机大合集</h1><p>斐讯PSG1208刷机教程  <a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1bpXKlS%E9%87%8C%E9%9D%A2%E6%9C%89%E8%A7%86%E9%A2%91%E9%87%8C%E7%9A%84%E5%85%A8%E9%83%A8%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E5%B7%A5%E5%85%B7%E5%92%8Cbreed">http://pan.baidu.com/s/1bpXKlS里面有视频里的全部所需要的工具和breed</a></p>
+<p>还有一个华硕老毛子固件 原帖  <a target="_blank" rel="noopener" href="http://forum.anywlan.com/forum.p">http://forum.anywlan.com/forum.p</a> … 6orderby%3Ddateline </p>
+<p>刷完潘多拉后 在浏览器中输入192.168.1.1 密码admin 点击登入 OK 进入到路由页面 </p>
+<p>1 进入路由管理界面后点击左侧的“接口”，选择“WAN”。 </p>
+<p>2 点击“协议”选项栏里的“DHCP客户端”改为“PPPoE”,点击“切换协议”。 </p>
+<p>3 在“PAP/CHAP用户名”输入你宽带的用户名，“PAP/CHAP密码”输入你宽带的密码。</p>
+<p> 4 在当前页面点击“高级设置”,“使用网关跃点”输入“40”，点击右下角的“保存并应用”。 上面的是潘多拉固件普通拨号方法，接下来才是怎么多播。如果不需要多播，到此步即可结束操作。</p>
+<p> 5 点击左侧的”虚拟WAN接口“，“启用”前面打对钩，“虚拟接口”数量建议输入“10”，“断线自动重连”打对钩，最低在线数输入“1”，“保存并应用”。 </p>
+<p>6 等待15S后，点击“重新并发拨号”。 </p>
+<p>7 检查多拨状态，点左侧“负载均衡”，等1分钟，看看你下图的接口绿了几个就是成功多拨了几个。 </p>
+<p>原帖  <a target="_blank" rel="noopener" href="http://www.52pojie.cn/thread-409698-1-1.html">http://www.52pojie.cn/thread-409698-1-1.html</a> </p>
+<p>不需要多拨的，可以刷华硕的，感觉比原厂固件好 地址  <a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-161324-1-1.html">http://www.right.com.cn/forum/thread-161324-1-1.html</a></p>
+<p> 更新更多斐讯k1 斐讯1208固件  <a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/fo">http://www.right.com.cn/forum/fo</a> … &amp;highlight=1208  </p>
+<p>下载地址  <a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1skl0VIP">http://pan.baidu.com/s/1skl0VIP</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/cf81e54b.html">http://aichn.cn/post/cf81e54b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%96%90%E8%AE%AF-%E6%8A%80%E6%9C%AF/">-斐讯 -技术</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/fb16d405.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">整套1208-20160109_免费高速下载百度云 斐讯PSG1208刷机大合集</div></div></a></div><div class="next-post pull-right"><a href="/post/8461f8ca.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">源码分享</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PSG1208-K1%E5%9B%BA%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">PSG1208 K1固件下载地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%90%E8%AE%AFPSG1208%E5%88%B7%E6%9C%BA%E5%A4%A7%E5%90%88%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">斐讯PSG1208刷机大合集</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

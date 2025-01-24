@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【教程】自制解锁bios，加slic，改logo和添加序列号 | 君子兰萧宇的博客</title><meta name="keywords" content="bios,slic"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="今日放假，给大家发些我的心得，其实技术就是一层纸，一捅就破解锁bios什么的听起来高大上，其实没什么难度。我现在就给大家分享一下。（各种电脑bios解锁原理大同小异，今天以p775dm2g为例） 用到的工具有rw everything，AMIBCP5.01.0014 ，UEFITool ， ChangeLogo 5.0.0.2 ，phoenixtool 。 教程开始 首先根据电脑型号在https:"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/89080ece"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/5d753adbb6fd5266ac527048a218972bd50736ab.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">【教程】自制解锁bios，加slic，改logo和添加序列号</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="undefined 2016-12-23 21:06:36">2016-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>今日放假，给大家发些我的心得，其实技术就是一层纸，一捅就破解锁bios什么的听起来高大上，其实没什么难度。我现在就给大家分享一下。（各种电脑bios解锁原理大同小异，今天以p775dm2g为例）</p>
+<p>用到的工具有rw everything，AMIBCP5.01.0014 ，UEFITool ， ChangeLogo 5.0.0.2 ，phoenixtool 。</p>
+<p>教程开始</p>
+<p>首先根据电脑型号在<a target="_blank" rel="noopener" href="http://jump.bdimg.com/safecheck/index?url=rN3wPs8te/qbcLzWBl/RW4zMiwubX/xvWaradDzoQEzXjPfwV/i0jfMRfhec8gePPLBQPbWwUIJiRR7/sVRYQw7xFUSAhTAdBah3aBIyVP8ZkoQYdFPNPPXl0gK0SNcDzgGXzQWatLPKq8EYKcRO9DA8Zu4mdgY0">https://repo.palkeo.com/clevo-mirror </a>里找到对应bios刷新包并下载，我的775下载后得到一个P7xxDM3G_B10602.zip文件，解压后找到到一个8m的P7xxDM3.bin和一个5m的P7xxDM3.rom因为要修改序列号（bios文件中没有序列号，需要我们自己添加，否则会导致修改后的bios刷入后没有序列号的问题，各种用了大神的解锁bios的已经中枪，因为fpt刷新bios会覆盖原来所以block，如果刷入的bios没有序列号，那么刷完就没有）所以我们用8m的P7xxDM3.bin进行修改。</p>
+<p>用AMIBCP打开P7xxDM3.bin打开DMI Tables</p>
+<p><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/142bd243ad4bd113fdb0fa6e53afa40f4afb05af.jpg" alt="img"></p>
+<p>再打开rw everything</p>
+<p><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/5d753adbb6fd5266ac527048a218972bd50736ab.jpg" alt="img"><br>点击上面的倒数第八项sm bios会出现上图，这时点击左侧第三项 bios board information<br>会出现下图<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/6080b23533fa828be9e3d2bff41f4134950a5aec.jpg" alt="img"><br>我们可以看到 serial number 对应的是string4 </p>
+<p>再到rw everything左侧点击第二项system information，也会看到一个 serial number条目，对应的也是string4，这时可以关闭rw everything了回到AMIBCP 我们之前就已经在DMI Tables选项卡了 如下图所示<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/82618eb1cb13495434f9a1385f4e9258d3094ac1.jpg" alt="img"></p>
+<p>右下角的第四条就是string4 但是我们需要修改2条这个号码，一个是左边第二个选项卡system information的string4 一个是左边第三个选项卡base board的string4，把它替换为自己的序列号，一般电脑后面都有贴，那些刷过大神制作的解锁bios的人可以通过这个补救（刚才在rw everything中serial number后面的引号里就是序列号，这里可以直接粘贴过来要是显示为Not Applicable说明序列号被刷掉了）然后点击上面的保存即可。</p>
+<p>下面开始解锁bios在AMIBCP中打开setup configuration选项卡<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/155416ce36d3d53942bc459f3387e950342ab02c.jpg" alt="img"><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/aab74836acaf2eddb38ffcb5841001e9380193aa.jpg" alt="img">点击上图所示加号弹出下图<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/8b9212dfa9ec8a13a10ae3bcfe03918fa1ecc09d.jpg" alt="img"></p>
+<p>打开setup的加号我这里为了示范打开main选项卡后弹出下图<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/ed13c8ef76094b36a109afb1aacc7cd98c109d15.jpg" alt="img"></p>
+<p>所谓解锁就是有些选项卡的Access/Use默认是Default可能是不开放的，我们把权限强制调整为user在低权限下开放就行这个bios有好多可以调整的地方，方便起见我解锁上面那页。<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/4bb4334e251f95ca9f9524eac0177f3e6609524c.jpg" alt="img"></p>
+<p>总之要解锁什么就把对应条目的Access/Use由Default改成user即可（有的Default在默认状态下也是显示的，不用改。还有些空条目如第十四行，这些保持Default就好，不用动了。）解锁完保存就行。添加slic模块<br>添加slic模块可以oem激活windows，除了win10 win8以外windows都可以激活，但是win10 可以用windows server 2016代替，win8可以用server 2012代替，所以其实变相激活了win10 win8 而且服务器版本windows更加稳定，功能齐全。就是有些繁琐。适合能琢磨的人。</p>
+<p>打开phoenixtool（最新版本2.66）用phoenixtool打开修改好的bios文件P7xxDM3.bin，选好主板厂商（主板厂商没有clevo，直接选个dell 戴尔）和slic文件这里我们刷dell的slic2.4（等下会提供地址）<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/d069922397dda1445019d1eebbb7d0a20df4869d.jpg" alt="img"><br>点击高级，并勾除常规选项里的2，3，5项<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/68318f5494eef01f1ce3a599e9fe9925bd317d31.jpg" alt="img"></p>
+<p>点击完成后回到主页面再点击执行，会生成一个P7xxDM3_SLIC.bin的文件，我们下面就用这个文件进行操作。</p>
+<p>为了安全起见，我们还需要再向P7xxDM3_SLIC.bin中加一个slic头文件来确保成功（不添加没试过，这里不评论，此处引用<a target="_blank" rel="noopener" href="http://jump.bdimg.com/safecheck/index?url=x+Z5mMbGPAsDFYW2HqnwkaDRjkrD11q/cYQkE10N22RcMgJTrvpu7I8isJhwUWTPGmT1ugAiyeQYQSBtpbfyfjywUD21sFCCYkUe/7FUWEMO8RVEgIUwHQWod2gSMlT/GZKEGHRTzTz15dICtEjXA84Bl80FmrSzyqvBGCnETvQwPGbuJnYGNA==">http://bbs.bios.net.cn/thread-4527211-1-1.html</a>)打开UEFItool，并用UEFItool打开P7xxDM3_SLIC.bin按照上面的引用贴的方法找到需要添加的位置（由于我们之前用了phoenixtool，会含有pubkey模块和marker模块所以我们直接搜索这些模块的GUID就可以直接确定位置）我们打开搜索框转到搜索GUID选项卡输入69009842<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/bf9961d0f703918f0c359396583d26975beec4c1.jpg" alt="img"><br>摁ok下面的messages框里会出现上面的消息，点击第二条消息，会把你直接带到要找的模块。<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/be6ef403918fa0eca523ca512f9759ee3f6ddbc1.jpg" alt="img"></p>
+<p>在那个模块上摁右键点击insert before，插入4C494E55-5849-5342-4554-544552212121.ffs文件（等下提供，这个不能用引用贴的slic表头文件，这里是slic2.4，引用贴是slic2.3，表头文件不同。然后点击UEFItool左上角的file，点save image file保存，这时软件会自动重新构架这个bios文件，并提示你是否打开修改过的文件，我们选择是，下面就是重点了。</p>
+<p>注意，这步很重要，要删除8m的bios文件中多余的部分，有些人会问为什么不直接用5m的P7xxDM3.rom，因为5m的bios可以解锁bios（有些不能），可以加slic2.4，可以改logo，但是不能改序列号，因此不选用。</p>
+<p>如图展开intel image项<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/a74a09d162d9f2d3f6868fb3a0ec8a136227cc12.jpg" alt="img"></p>
+<p>在bios region上摁右键点击extract as is…会让你保存。随便保存一个名字，但是扩展名为.rgn我们直接把.rgn改成.rom就行。这样提取的bios就是5m了，前面3m是校验用的。下面更改logo<br>用ChangeLogo 5.0.0.2打开上面的文件，直接用想用的logo替换里面的logo就行，但是要注意logo文件大小和画面大小还有文件格式，这里不做太多说明。</p>
+<p>最后就是刷入了，我们选用fpt方法刷入，用<a target="_blank" rel="noopener" href="http://tieba.baidu.com/p/4936939406">@827270744</a><br>大神提供的工具<br><img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/e994c55c103853432156137d9a13b07ecb808814.jpg" alt="img"></p>
+<p>做好启动盘后把我们修改完的bios重命名为P7DM2G.ROM，替换原来启动盘里的P7DM2G.ROM，然后重启进入dos，执行fpt.bat刷新就行。<img src="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/6d8b30fa828ba61e8ee259734834970a314e5998.jpg" alt="img"> 下面提供所用工具和各种文件<br><img src="http://imgsrc.baidu.com/forum/w%3D580/sign=f76968d36581800a6ee58906813433d6/6d8b30fa828ba61e8ee259734834970a314e5998.jpg" alt="img"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/89080ece.html">http://aichn.cn/post/89080ece.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%8A%80%E6%9C%AF/">-技术</a></div><div class="post_share"><div class="social-share" data-image="/../images/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E8%87%AA%E5%88%B6%E8%A7%A3%E9%94%81bios%EF%BC%8C%E5%8A%A0slic%EF%BC%8C%E6%94%B9logo%E5%92%8C%E6%B7%BB%E5%8A%A0%E5%BA%8F%E5%88%97%E5%8F%B7/5d753adbb6fd5266ac527048a218972bd50736ab.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/945e81c2.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【君子兰】如何强制刷新MSI的VBIOS让Clevo蓝天的5870M支持Powerplay自动降频,Overdrive超频教程</div></div></a></div><div class="next-post pull-right"><a href="/post/17062.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【解决方案】WordPress无法建立到WordPress。org的安全连接</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/7f94f96a.html" title="EFI系统分区设定盘符 取消盘符"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">EFI系统分区设定盘符 取消盘符</div></div></a></div><div><a href="/post/72ee8144.html" title="K1/K2刷华硕固件开OpenVPN安装HTTP透明代理搭建手机云免流服务器(苹果未越狱免流量)"><img class="cover" src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/11b7b531f931d92ef630812af5a8b895.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">K1/K2刷华硕固件开OpenVPN安装HTTP透明代理搭建手机云免流服务器(苹果未越狱免流量)</div></div></a></div><div><a href="/post/11f986cf.html" title="【教程固件】 酷比魔方Talk5H刷机指南,解救小白"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">【教程固件】 酷比魔方Talk5H刷机指南,解救小白</div></div></a></div><div><a href="/post/24717.html" title="iPhone6/6 Plus怎么换电池"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">iPhone6/6 Plus怎么换电池</div></div></a></div><div><a href="/post/a50b72fa.html" title="【刷机教程】【四核RK3128芯迪优美特X5】4个最新安卓固件〖附详细教程〗"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">【刷机教程】【四核RK3128芯迪优美特X5】4个最新安卓固件〖附详细教程〗</div></div></a></div><div><a href="/post/4248109d.html" title="【2016-02-22】改华硕【N14U N54U】5G 2G的7620老毛子Padavan固件(百度云同步 aria2 QOS)"><img class="cover" src="/../images/%E3%80%902016-02-22%E3%80%91%E6%94%B9%E5%8D%8E%E7%A1%95%E3%80%90N14U%20N54U%E3%80%915G%202G%E7%9A%847620%E8%80%81%E6%AF%9B%E5%AD%90Padavan%E5%9B%BA%E4%BB%B6%E3%80%90%E7%99%BE%E5%BA%A6%E4%BA%91%E5%90%8C%E6%AD%A5%20aria2%20QOS%E3%80%91/223637bazt2t1sqtzo8sea.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">【2016-02-22】改华硕【N14U N54U】5G 2G的7620老毛子Padavan固件(百度云同步 aria2 QOS)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

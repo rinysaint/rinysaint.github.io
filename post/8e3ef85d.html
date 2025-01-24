@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nginx高并发优化方案(血荐！) | 君子兰萧宇的博客</title><meta name="keywords" content="Nginx,高并发,优化"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="一、一般来说nginx 配置文件中对优化比较有作用的为以下几项： 1. worker_processes 8; nginx 进程数，建议按照cpu 数目来指定，一般为它的倍数 (如,2个四核的cpu计为8)。 2. worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/8e3ef85d"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">Nginx高并发优化方案(血荐！)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-09-28T12:10:33.000Z" title="undefined 2018-09-28 20:10:33">2018-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/">分布式架构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>一、一般来说nginx 配置文件中对优化比较有作用的为以下几项：</strong></p>
+<p><strong>1. worker_processes 8;</strong></p>
+<p>nginx 进程数，建议按照cpu 数目来指定，一般为它的倍数 (如,2个四核的cpu计为8)。</p>
+<p><strong>2. worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;</strong></p>
+<p>为每个进程分配cpu，上例中将8 个进程分配到8 个cpu，当然可以写多个，或者将一<br>个进程分配到多个cpu。</p>
+<p><strong>3.</strong> <strong>worker_rlimit_nofile 65535;</strong></p>
+<p>这个指令是指当一个nginx 进程打开的最多文件描述符数目，理论值应该是最多打开文<br>件数（ulimit -n）与nginx 进程数相除，但是nginx 分配请求并不是那么均匀，所以最好与ulimit -n 的值保持一致。</p>
+<p>现在在linux 2.6内核下开启文件打开数为65535，worker_rlimit_nofile就相应应该填写65535。</p>
+<p>这是因为nginx调度时分配请求到进程并不是那么的均衡，所以假如填写10240，总并发量达到3-4万时就有进程可能超过10240了，这时会返回502错误。</p>
+<p>查看linux系统文件描述符的方法：</p>
+<p>[root@web001 ~]# sysctl -a | grep fs.file</p>
+<p>fs.file-max = 789972</p>
+<p>fs.file-nr = 510 0 789972</p>
+<p><strong>4.</strong> <strong>use epoll;</strong></p>
+<p>使用epoll 的I/O 模型</p>
+<p>(</p>
+<p>补充说明:</p>
+<p>与apache相类，nginx针对不同的操作系统，有不同的事件模型</p>
+<p>A）标准事件模型<br>Select、poll属于标准事件模型，如果当前系统不存在更有效的方法，nginx会选择select或poll<br>B）高效事件模型<br><strong>Kqueue：</strong>使用于 FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0 和 MacOS X. 使用双处理器的MacOS X系统使用kqueue可能会造成内核崩溃。<br><strong>Epoll:</strong> 使用于Linux内核2.6版本及以后的系统。</p>
+<p>/dev/poll：使用于 Solaris 7 11/99+, HP/UX 11.22+ (eventport), IRIX 6.5.15+ 和 Tru64 UNIX 5.1A+。</p>
+<p>Eventport：使用于 Solaris 10. 为了防止出现内核崩溃的问题， 有必要安装安全补丁。</p>
+<p>)</p>
+<p><strong>5.</strong> <strong>worker_connections 65535;</strong></p>
+<p>每个进程允许的最多连接数， 理论上每台nginx 服务器的最大连接数为worker_processes*worker_connections。</p>
+<p><strong>6.</strong> <strong>keepalive_timeout 60;</strong></p>
+<p>keepalive 超时时间。</p>
+<p><strong>7**</strong>.** <strong>client_header_buffer_size 4k;</strong></p>
+<p>客户端请求头部的缓冲区大小，这个可以根据你的系统分页大小来设置，一般一个请求头的大小不会超过1k，不过由于一般系统分页都要大于1k，所以这里设置为分页大小。</p>
+<p>分页大小可以用命令<strong>getconf PAGESIZE</strong> 取得。</p>
+<p>[root@web001 ~]# getconf PAGESIZE</p>
+<p>4096</p>
+<p>但也有client_header_buffer_size超过4k的情况，但是client_header_buffer_size该值必须设置为<strong>“系统分页大小”的整倍数。</strong></p>
+<p><strong>8**</strong>.** <strong>open_file_cache max=65535 inactive=60s;</strong></p>
+<p>这个将为打开文件指定缓存，默认是没有启用的，max 指定缓存数量，建议和打开文件数一致，inactive 是指经过多长时间文件没被请求后删除缓存。</p>
+<p><strong>9**</strong>.** <strong>open_file_cache_valid 80s;</strong></p>
+<p>这个是指多长时间检查一次缓存的有效信息。</p>
+<p><strong>10**</strong>.** <strong>open_file_cache_min_uses 1;</strong></p>
+<p>open_file_cache 指令中的inactive 参数时间内文件的最少使用次数，如果超过这个数字，文件描述符一直是在缓存中打开的，如上例，如果有一个文件在inactive 时间内一次没被使用，它将被移除。</p>
+<p><strong>二、关于内核参数的优化：</strong></p>
+<p><strong>net.ipv4.tcp_max_tw_buckets = 6000</strong></p>
+<p>timewait 的数量，默认是180000。</p>
+<p><strong>net.ipv4.ip_local_port_range = 1024 65000</strong></p>
+<p>允许系统打开的端口范围。</p>
+<p><strong>net.ipv4.tcp_tw_recycle = 1</strong></p>
+<p>启用timewait 快速回收。</p>
+<p><strong>net.ipv4.tcp_tw_reuse = 1</strong></p>
+<p>开启重用。允许将TIME-WAIT sockets 重新用于新的TCP 连接。</p>
+<p><strong>net.ipv4.tcp_syncookies = 1</strong></p>
+<p>开启SYN Cookies，当出现SYN 等待队列溢出时，启用cookies 来处理。</p>
+<p><strong>net.core.somaxconn = 262144</strong></p>
+<p>web 应用中listen 函数的backlog 默认会给我们内核参数的net.core.somaxconn 限制到128，而nginx 定义的NGX_LISTEN_BACKLOG 默认为511，所以有必要调整这个值。</p>
+<p><strong>net.core.netdev_max_backlog = 262144</strong></p>
+<p>每个网络接口接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目。</p>
+<p><strong>net.ipv4.tcp_max_orphans = 262144</strong></p>
+<p>系统中最多有多少个TCP 套接字不被关联到任何一个用户文件句柄上。如果超过这个数字，孤儿连接将即刻被复位并打印出警告信息。这个限制仅仅是为了防止简单的DoS 攻击，不能过分依靠它或者人为地减小这个值，更应该增加这个值(如果增加了内存之后)。</p>
+<p><strong>net.ipv4.tcp_max_syn_backlog = 262144</strong></p>
+<p>记录的那些尚未收到客户端确认信息的连接请求的最大值。对于有128M 内存的系统而言，缺省值是1024，小内存的系统则是128。</p>
+<p><strong>net.ipv4.tcp_timestamps = 0</strong></p>
+<p>时间戳可以避免序列号的卷绕。一个1Gbps 的链路肯定会遇到以前用过的序列号。时间戳能够让内核接受这种“异常”的数据包。这里需要将其关掉。</p>
+<p><strong>net.ipv4.tcp_synack_retries = 1</strong></p>
+<p>为了打开对端的连接，内核需要发送一个SYN 并附带一个回应前面一个SYN 的ACK。也就是所谓三次握手中的第二次握手。这个设置决定了内核放弃连接之前发送SYN+ACK 包的数量。</p>
+<p><strong>net.ipv4.tcp_syn_retries = 1</strong></p>
+<p>在内核放弃建立连接之前发送SYN 包的数量。</p>
+<p><strong>net.ipv4.tcp_fin_timeout = 1</strong></p>
+<p>如 果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2 状态的时间。对端可以出错并永远不关闭连接，甚至意外当机。缺省值是60 秒。2.2 内核的通常值是180 秒，3你可以按这个设置，但要记住的是，即使你的机器是一个轻载的WEB 服务器，也有因为大量的死套接字而内存溢出的风险，FIN- WAIT-2 的危险性比FIN-WAIT-1 要小，因为它最多只能吃掉1.5K 内存，但是它们的生存期长些。</p>
+<p><strong>net.ipv4.tcp_keepalive_time = 30</strong></p>
+<p>当keepalive 起用的时候，TCP 发送keepalive 消息的频度。缺省是2 小时。</p>
+<p><strong>三、下面贴一个完整的内核优化设置:</strong></p>
+<p><strong>vi /etc/sysctl.conf</strong> CentOS5.5中可以将所有内容清空直接替换为如下内容:</p>
+<p>net.ipv4.ip_forward = 0<br>net.ipv4.conf.default.rp_filter = 1<br>net.ipv4.conf.default.accept_source_route = 0<br>kernel.sysrq = 0<br>kernel.core_uses_pid = 1<br>net.ipv4.tcp_syncookies = 1<br>kernel.msgmnb = 65536<br>kernel.msgmax = 65536<br>kernel.shmmax = 68719476736<br>kernel.shmall = 4294967296<br>net.ipv4.tcp_max_tw_buckets = 6000<br>net.ipv4.tcp_sack = 1<br>net.ipv4.tcp_window_scaling = 1<br>net.ipv4.tcp_rmem = 4096 87380 4194304<br>net.ipv4.tcp_wmem = 4096 16384 4194304<br>net.core.wmem_default = 8388608<br>net.core.rmem_default = 8388608<br>net.core.rmem_max = 16777216<br>net.core.wmem_max = 16777216<br>net.core.netdev_max_backlog = 262144<br>net.core.somaxconn = 262144<br>net.ipv4.tcp_max_orphans = 3276800<br>net.ipv4.tcp_max_syn_backlog = 262144<br>net.ipv4.tcp_timestamps = 0<br>net.ipv4.tcp_synack_retries = 1<br>net.ipv4.tcp_syn_retries = 1<br>net.ipv4.tcp_tw_recycle = 1<br>net.ipv4.tcp_tw_reuse = 1<br>net.ipv4.tcp_mem = 94500000 915000000 927000000<br>net.ipv4.tcp_fin_timeout = 1<br>net.ipv4.tcp_keepalive_time = 30<br>net.ipv4.ip_local_port_range = 1024 65000</p>
+<p>使配置立即生效可使用如下命令：<br><strong>/sbin/sysctl -p</strong></p>
+<p><strong>四、下面是关于系统连接数的优化</strong></p>
+<p><strong>linux 默认值 open files 和 max user processes 为 1024</strong></p>
+<p>#ulimit -n</p>
+<p>1024</p>
+<p>#ulimit Cu</p>
+<p>1024</p>
+<p><strong>问题描述：</strong> 说明 server 只允许同时打开 1024 个文件，处理 1024 个用户进程</p>
+<p>使用ulimit -a 可以查看当前系统的所有限制值，使用ulimit -n 可以查看当前的最大打开文件数。</p>
+<p>新装的linux 默认只有1024 ，当作负载较大的服务器时，很容易遇到error: too many open files 。因此，需要将其改大。</p>
+<p><strong>解决方法：</strong></p>
+<p>使用 ulimit Cn 65535 可即时修改，但重启后就无效了。（注ulimit -SHn 65535 等效 ulimit -n 65535 ，-S 指soft ，-H 指hard)</p>
+<p>有如下三种修改方式：</p>
+<p>\1. 在/etc/rc.local 中增加一行 ulimit -SHn 65535<br>\2. 在/etc/profile 中增加一行 ulimit -SHn 65535<br>\3. 在**/etc/security/limits.conf** 最后增加：</p>
+<p><strong>* soft nofile 65535<br>* hard nofile 65535<br>* soft nproc 65535<br>* hard nproc 65535</strong></p>
+<p>具体使用哪种，<strong>在 CentOS 中使用第1 种方式无效果，使用第3 种方式有效果</strong>，而在Debian 中使用第2 种有效果</p>
+<p># ulimit -n</p>
+<p>65535</p>
+<p># ulimit -u</p>
+<p>65535</p>
+<p>备注：ulimit 命令本身就有分软硬设置，加-H 就是硬，加-S 就是软默认显示的是软限制</p>
+<p>soft 限制指的是当前系统生效的设置值。 hard 限制值可以被普通用户降低。但是不能增加。 soft 限制不能设置的比 hard 限制更高。 只有 root 用户才能够增加 hard 限制值。</p>
+<p><strong>五、下面是一个简单的nginx 配置文件：</strong></p>
+<p>user www www;<br>worker_processes 8;<br>worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000<br>01000000;<br>error_log /www/log/nginx_error.log crit;<br>pid /usr/local/nginx/nginx.pid;<br>worker_rlimit_nofile 204800;<br>events<br>{<br>use epoll;<br>worker_connections 204800;<br>}<br>http<br>{<br>include mime.types;<br>default_type application/octet-stream;<br>charset utf-8;<br>server_names_hash_bucket_size 128;<br>client_header_buffer_size 2k;<br>large_client_header_buffers 4 4k;<br>client_max_body_size 8m;<br>sendfile on;<br>tcp_nopush on;<br>keepalive_timeout 60;<br>fastcgi_cache_path /usr/local/nginx/fastcgi_cache levels=1:2<br>keys_zone=TEST:10m<br>inactive=5m;<br>fastcgi_connect_timeout 300;<br>fastcgi_send_timeout 300;<br>fastcgi_read_timeout 300;<br>fastcgi_buffer_size 4k;<br>fastcgi_buffers 8 4k;<br>fastcgi_busy_buffers_size 8k;<br>fastcgi_temp_file_write_size 8k;<br>fastcgi_cache TEST;<br>fastcgi_cache_valid 200 302 1h;<br>fastcgi_cache_valid 301 1d;<br>fastcgi_cache_valid any 1m;<br>fastcgi_cache_min_uses 1;<br>fastcgi_cache_use_stale error timeout invalid_header http_500;<br>open_file_cache max=204800 inactive=20s;<br>open_file_cache_min_uses 1;<br>open_file_cache_valid 30s;<br>tcp_nodelay on;<br>gzip on;<br>gzip_min_length 1k;<br>gzip_buffers 4 16k;<br>gzip_http_version 1.0;<br>gzip_comp_level 2;<br>gzip_types text/plain application/x-javascript text/css application/xml;<br>gzip_vary on;<br>server<br>{<br>listen 8080;<br>server_name backup.aiju.com;<br>index index.php index.htm;<br>root /www/html/;<br>location /status<br>{<br>stub_status on;<br>}<br>location ~ .<em>/.(php|php5)?$<br>{<br>fastcgi_pass 127.0.0.1:9000;<br>fastcgi_index index.php;<br>include fcgi.conf;<br>}<br>location ~ .</em>/.(gif|jpg|jpeg|png|bmp|swf|js|css)$<br>{<br>expires 30d;<br>}<br>log_format access ‘$remote_addr — $remote_user [$time_local] “$request” ‘<br>‘$status $body_bytes_sent “$http_referer” ‘<br>‘”$http_user_agent” $http_x_forwarded_for’;<br>access_log /www/log/access.log access;<br>}<br>}</p>
+<p><strong>六、关于FastCGI 的几个指令：</strong></p>
+<p>fastcgi_cache_path /usr/local/nginx/fastcgi_cache levels=1:2 keys_zone=TEST:10minactive=5m;</p>
+<p>这个指令为FastCGI 缓存指定一个路径，目录结构等级，关键字区域存储时间和非活动删除时间。</p>
+<p><strong>fastcgi_connect_timeout 300;</strong></p>
+<p>指定连接到后端FastCGI 的超时时间。</p>
+<p><strong>fastcgi_send_timeout 300;</strong></p>
+<p>向FastCGI 传送请求的超时时间，这个值是指已经完成两次握手后向FastCGI 传送请求的超时时间。</p>
+<p><strong>fastcgi_read_timeout 300;</strong></p>
+<p>接收FastCGI 应答的超时时间，这个值是指已经完成两次握手后接收FastCGI 应答的超时时间。</p>
+<p><strong>fastcgi_buffer_size 4k;</strong></p>
+<p>指定读取FastCGI 应答第一部分需要用多大的缓冲区，一般第一部分应答不会超过1k，由于页面大小为4k，所以这里设置为4k。</p>
+<p><strong>fastcgi_buffers 8 4k;</strong></p>
+<p>指定本地需要用多少和多大的缓冲区来缓冲FastCGI 的应答。</p>
+<p><strong>fastcgi_busy_buffers_size 8k;</strong></p>
+<p>这个指令我也不知道是做什么用，只知道默认值是fastcgi_buffers 的两倍。</p>
+<p><strong>fastcgi_temp_file_write_size 8k;</strong></p>
+<p>在写入fastcgi_temp_path 时将用多大的数据块，默认值是fastcgi_buffers 的两倍。</p>
+<p><strong>fastcgi_cache TEST</strong></p>
+<p>开启FastCGI 缓存并且为其制定一个名称。个人感觉开启缓存非常有用，可以有效降低CPU 负载，并且防止502 错误。</p>
+<p><strong>fastcgi_cache_valid 200 302 1h;<br>fastcgi_cache_valid 301 1d;<br>fastcgi_cache_valid any 1m;</strong></p>
+<p>为指定的应答代码指定缓存时间，如上例中将200，302 应答缓存一小时，301 应答缓存1 天，其他为1 分钟。</p>
+<p><strong>fastcgi_cache_min_uses 1;</strong></p>
+<p>缓存在fastcgi_cache_path 指令inactive 参数值时间内的最少使用次数，如上例，如果在5 分钟内某文件1 次也没有被使用，那么这个文件将被移除。</p>
+<p><strong>fastcgi_cache_use_stale error timeout invalid_header http_500;</strong></p>
+<p>不知道这个参数的作用，猜想应该是让nginx 知道哪些类型的缓存是没用的。以上为nginx 中FastCGI 相关参数，另外，FastCGI 自身也有一些配置需要进行优化，如果你使用php-fpm 来管理FastCGI，可以修改配置文件中的以下值：</p>
+<p><strong><value name="”max_children”">60</value></strong></p>
+<p>同时处理的并发请求数，即它将开启最多60 个子线程来处理并发连接。</p>
+<p><strong><value name="”rlimit_files”">102400</value></strong></p>
+<p>最多打开文件数。</p>
+<p><strong><value name="”max_requests”">204800</value></strong></p>
+<p>每个进程在重置之前能够执行的最多请求数。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/8e3ef85d.html">http://aichn.cn/post/8e3ef85d.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Nginx-%E9%AB%98%E5%B9%B6%E5%8F%91-%E4%BC%98%E5%8C%96/">Nginx,高并发,优化</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/a3a76214.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Kafka与Flink集成</div></div></a></div><div class="next-post pull-right"><a href="/post/d5a75aab.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Openvpn免流服务器搭建2客户端client.ovpn内容</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

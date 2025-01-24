@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>主元分析（PCA）在计算机图形学中的应用 | 君子兰萧宇的博客</title><meta name="keywords" content="大数据,图形学,PCA"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="本文首先简要介绍主元分析，然后侧重于举例说明主元分析在计算机图形学中的应用，最后给出主元分析的计算步骤与其作用于三维数据的相应代码。 一. 简介  主元分析，即Principal Component Analysis，简称PCA，是一种对数据进行分析的技术。如其名字所述，它的作用是分析数据分布的主要元素&amp;#x2F;结构。主元分析会由主到次找到数据的分布方向，通过舍去那些次要的分布方向，它可以用于去除噪声、数"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/146ab2c6"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">主元分析（PCA）在计算机图形学中的应用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="undefined 2019-09-28 20:10:33">2019-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">图像处理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本文首先简要介绍主元分析，然后侧重于举例说明主元分析在计算机图形学中的应用，最后给出主元分析的计算步骤与其作用于三维数据的相应代码。</p>
+<h5 id="一-简介"><a href="#一-简介" class="headerlink" title="一. 简介"></a>一. 简介</h5><p>  主元分析，即Principal Component Analysis，简称PCA，是一种对数据进行分析的技术。如其名字所述，它的作用是分析数据分布的主要元素/结构。主元分析会由主到次找到数据的分布方向，通过舍去那些次要的分布方向，它可以用于去除噪声、数据降维等。其计算简单，在多个领域有着广泛的应用。</p>
+<p>  以二维平面数据可以形象地说明主元分析。如图 1所示，给定XA、YA坐标系下的一些2维数据点（图中圆圈），我们希望找到方向轴Xp、Yp，其中Xp代表了数据的主要分布方向（主元轴），当Yp方向的变化很小时，我们可以认为Yp方向的变化为噪声所产生，因此可以去掉Yp这一维。</p>
+<p><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052003595514.gif" alt="img"></p>
+<p>图 1 主元分析示意图</p>
+<p>  设图1中原来的有一个数据P为（3.05, 2.95），即</p>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052003598479.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004001445.gif" alt="CodeCogsEqn (10)"></a></p>
+<p>  主元分析获得主元轴Xp、Yp后，P可以表示为</p>
+<p><a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004014410.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004025740.gif" alt="CodeCogsEqn (11)"></a>   此时P仍为2维数据，但是因为Xp轴的存在，只用一个坐标4.184表示就可以了。</p>
+<p>  教程“A tutorial on Principal Components Analysis, Lindsay I Smith”给出了十分浅显易懂的主元分析推理，你可以在本文附件中获得此教程，同时本文附件中的代码实现了该教程的方法（教程中的代码仅限于对三维数据的分析）。</p>
+<h5 id="二-主元分析在图形学中的应用"><a href="#二-主元分析在图形学中的应用" class="headerlink" title="二. 主元分析在图形学中的应用"></a>二. 主元分析在图形学中的应用</h5><p>  在此举出本人在计算机图形学领域利用PCA的几个地方:</p>
+<ol>
+<li>通过降维找出一堆顶点数据的分布特征（或者说模式pattern）：分析网格数据（如对人物的网格进行分析从而发现其骨架拓扑）时，有时会得到一堆散乱分布在关节附近的顶点数据，利用主元分析对这些散乱的顶点进行降维，如从3维降到2维，则可以发现这些顶点数据的分布特征。<br>如图 2所示，图 2a在3ds Max中以Top、Front、Left、Perspective视角显示了原数据，图 2b中的蓝色线条表示主元分析得到的前两个主元轴，去掉最不重要的一个轴后，点数据表示在两个主元轴下，可看出此时数据更好的呈现出了圆环分布的特征。</li>
+</ol>
+<ol start="2">
+<li>求给定三角形网格的有向包围盒（OBB）。OBB是一种对模型进行视锥裁剪与碰撞检测的有效方式，然而通常网格模型表示在一个与世界坐标系平行的框架中，可以利用主元分析求得模型所在的各个自然轴，如一个斜放着的圆柱其第一个自然轴是有圆柱底面中心指向圆柱顶面中心的方向。求得各个自然轴后，通过各顶点坐标与单位自然轴的点积，即可获得各顶点在自然轴上的分布范围，进而得到OBB。</li>
+</ol>
+<ol start="3">
+<li>对人物动画进行特征提取。例如数据捕捉采集到的人体步行动画通常由不同时刻各个关节（约40~60个）的角度来表示，当数据量很大时，对数据的存储与处理都是一件耗费资源的事情。而普通的步行动作中，当一个人左臂向前摆动时右臂总向后摆动，这就是说这些数据有耦合，从而可以利用主元分析进行特征提取与压缩。由此也可以想象得到主元分析另一个强大的地方：对于一些高维度的数据，很难用三维图形的方式去展现，因此很难观察出其分布特征，而主元分析计算则可以发现这些特征。</li>
+</ol>
+<p><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004054264.jpg" alt="img"><br>a 原始数据<br><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004095504.jpg" alt="img"></p>
+<p>b 主元分析后的数据</p>
+<p>图 2 三维点数据降维</p>
+<h5 id="三-主元分析计算步骤与代码"><a href="#三-主元分析计算步骤与代码" class="headerlink" title="三. 主元分析计算步骤与代码"></a>三. 主元分析计算步骤与代码</h5><p>  那么如何进行主元分析呢，教程“A tutorial on Principal Components Analysis》，Lindsay I Smith”已经给出了近乎于完美的讲解，在此，本人列出其计算步骤（以m维数据为例）：</p>
+<ol>
+<li><p>获取数据<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004118686.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004122175.gif" alt="CodeCogsEqn (1)"></a> （每一个数据为一个m维列向量）</p>
+</li>
+<li><p>求出数据平均值<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004122665.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004133156.gif" alt="CodeCogsEqn (2)"></a> ，并用原数据减去均值得到<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004148912.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004154320.gif" alt="CodeCogsEqn (3)"></a></p>
+</li>
+<li><p>计算协方差矩阵<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004164810.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004165301.gif" alt="CodeCogsEqn (4)"></a></p>
+</li>
+<li><p>计算协方差矩阵的特征值<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004172203.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004172693.gif" alt="CodeCogsEqn (5)"></a> 与特征向量<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004187959.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/2011010520041886.gif" alt="CodeCogsEqn (6)"></a> （特征值与特征向量成对出现）。</p>
+</li>
+<li><p>由大到小依次排列特征值得<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004199954.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004205220.gif" alt="CodeCogsEqn (7)"></a> ，对应特征向量为<a target="_blank" rel="noopener" href="http://images.cnblogs.com/cnblogs_com/ArenAK/201101/201101052004207347.gif"><img src="/../images/%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%EF%BC%88PCA%EF%BC%89%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/201101052004212613.gif" alt="CodeCogsEqn (8)"></a> 。特征向量代表了原数据的分布方向，其对应的特征值越大，则该向量越重要（即为主元）；其对应的特征值越小，则该向量越次要。</p>
+<p>此时即可根据特征值的大小来决定取舍了。如一个特征值为10，而另一个特征值为0.1，在说明这两个分布差了100倍，通常我们会舍弃特征值为0.1的方向的那个维度，因此就可以对数据进行降维表示了。例如我们取了前k个特征值，则就可以将数据表示在以前K个特征向量为基轴的坐标系下了。</p>
+</li>
+</ol>
+<p>  你可以在<a target="_blank" rel="noopener" href="http://www.cnblogs.com/ArenAK/archive/2010/12/19/1910404.html#PCAcode">这里</a>下载本文C++代码。</p>
+<p>  代码以SampleData.txt中的三维数据点作为输入，程序的输出存放在Results目录，</p>
+<p>  输出的目录中包括3个文件：</p>
+<ol>
+<li><p>PCAResult.txt 存放经主元分析后在主元轴坐标系下的数据坐标。</p>
+</li>
+<li><p>DisplaySamples.ms 为3ds Max脚本文件，用3ds Max打开后可看到SampleData.txt表示的数据点。</p>
+</li>
+<li><p>DisplayResult.ms 为3ds Max脚本文件，用3ds Max打开后可看到将原3维数据在主元轴坐标系下降到2维后的数据点；同时该文件还显示了主元分析得到的前两个主元轴。</p>
+<p>更加通用的pca代码（Matlab代码）在<a target="_blank" rel="noopener" href="http://files.cnblogs.com/ArenAK/matlabpca.zip">这里</a>下载。</p>
+</li>
+</ol>
+<p>–ArenAK–</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/146ab2c6.html">http://aichn.cn/post/146ab2c6.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE-%E5%9B%BE%E5%BD%A2%E5%AD%A6-PCA/">大数据,图形学,PCA</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/3eb9c17e.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">springcloud项目网关升级：gateway替代zuul以及解决gateway跨域访问问题</div></div></a></div><div class="next-post pull-right"><a href="/post/c4bcdb47.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">在服务器上搭建自己的git私人仓库</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">一. 简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C-%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%E5%9C%A8%E5%9B%BE%E5%BD%A2%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">二. 主元分析在图形学中的应用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89-%E4%B8%BB%E5%85%83%E5%88%86%E6%9E%90%E8%AE%A1%E7%AE%97%E6%AD%A5%E9%AA%A4%E4%B8%8E%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">三. 主元分析计算步骤与代码</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

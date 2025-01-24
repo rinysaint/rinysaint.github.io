@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>K1/K2刷华硕固件开OpenVPN安装HTTP透明代理搭建手机云免流服务器(苹果未越狱免流量) | 君子兰萧宇的博客</title><meta name="keywords" content="技术,华硕固件,手机免流,K1,K2,OpenVPN"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="第1步：打开www.ip138.com检查你的ip是否与路由器的WAN口IP一样，如果不一样，请跳过第2-4步，参考：[华硕老毛子固件Ngrok内网穿透教程](http:&amp;#x2F;&amp;#x2F;www.ittel.cn&amp;#x2F;archives&amp;#x2F;494.html)。  第2步：注册花生壳帐号，http:&amp;#x2F;&amp;#x2F;hsk.oray.com 第3步：到域名管理，注册一个花生壳域名：http:&amp;#x2F;&amp;#x2F;hsk.oray.com&amp;#x2F;bang&amp;#x2F;do"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/72ee8144"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/11b7b531f931d92ef630812af5a8b895.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">K1/K2刷华硕固件开OpenVPN安装HTTP透明代理搭建手机云免流服务器(苹果未越狱免流量)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2016-12-23T13:06:36.000Z" title="undefined 2016-12-23 21:06:36">2016-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>第1步：打开<a href="http://www.ip138.com检查你的ip是否与路由器的WAN口IP一样，如果不一样，请跳过第2-4步，参考：[华硕老毛子固件Ngrok内网穿透教程](http://www.ittel.cn/archives/494.html)。">www.ip138.com检查你的ip是否与路由器的WAN口IP一样，如果不一样，请跳过第2-4步，参考：[华硕老毛子固件Ngrok内网穿透教程](http://www.ittel.cn/archives/494.html)。</a></p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/11b7b531f931d92ef630812af5a8b895.png" alt="img"></p>
+<p>第2步：注册花生壳帐号，<a target="_blank" rel="noopener" href="http://hsk.oray.com/">http://hsk.oray.com</a></p>
+<p>第3步：到域名管理，注册一个花生壳域名：<a target="_blank" rel="noopener" href="http://hsk.oray.com/bang/domain/">http://hsk.oray.com/bang/domain/</a></p>
+<p>不会注册的请参考：<a target="_blank" rel="noopener" href="http://www.ittel.cn/archives/498.html">怎么注册花生壳免费域名</a>。</p>
+<p>温馨提醒：每一步设置完之后都要在最下面点一下“应用本页面配置”。</p>
+<p>第4步：在华硕固件中填写你的花生壳帐号和密码以及刚申请的花生壳域名（记得删除前面的#号）。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/e05172123ae95a75e469f4a53ebadfc1.png" alt="img"></p>
+<p>第5步：启用华硕固件VPN服务器，VPN服务器协议选择OpenVPN，交通选择TCP，如下图。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/b8e950f260b4778fabb6e47f1fd36b01.png" alt="img"></p>
+<p>第6步：生成OpenVPN的证书及密钥，点击生成即可，这里生成时间较长，请耐心等待一会，然后保存。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/f705d09c6ac051792b6edb547ac17930.png" alt="img"></p>
+<p>第7步：添加OpenVPN用户，切换到设置页面，VPN服务器协议选择PPTP，这里是临时切换，不要保存本页面，然后到客户帐户里添加。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/7cbd716a6cc92bdaf74fb74ee9be3140.png" alt="img"></p>
+<p>第8步：切换到VPN服务器设置页面，找到VPN隧道设置如下两项。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/12f86fac7248b0492abae79477b0e6c8.png" alt="img"></p>
+<p>第9步：导出OpenVPN配置文件，点击出口client.ovpn，如果无法导出换个浏览器即可。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/06056c18e852096797271e963819c445.png" alt="img"></p>
+<p>设置完成后点击右上角注销右边的重启按钮重启路由器，切勿断电再开机，否则就前功尽弃了。</p>
+<p>第10步：到花生壳域名列表中点击域名诊断看是否与自己的宽带拨号WAN口IP一致，如果不一致就是第4步没有配置好。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/05cc13d35b54903bf967367198a1a56a.png" alt="img"></p>
+<p>第11步：修改刚才导出的client.ovpn，如下图所示，这里的难点在于你们地区的免流代码。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/246b1da1b22a015a00df6ae51751d8c2.png" alt="img"></p>
+<p>第12步：然后将client.ovpn配置文件导入你的手机即可。</p>
+<p>总结搭建OpenVPN免流失败的原因：</p>
+<p>①路由器WAN口地址不是外网IP。</p>
+<p>②没有严格按照以上教程配置OpenVPN。</p>
+<p>③免流代码无效。</p>
+<p>视频教程观看地址：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1pyxNNQF0Cpj6ksmImOMFuw">http://pan.baidu.com/s/1mhQhPig</a></p>
+<p>安卓OpenVPN客户端现在基本度已经自带里，或者百度搜索。</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/q-300x300.jpg" alt="img"></p>
+<p>扫描加入群<a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=5xodyNl">点此加入刷机交流群：773721392</a></p>
+<blockquote>
+<p>二、接下来是如何安装TinyProxy透明代理+免流代码</p>
+</blockquote>
+<p><em>因为对Linux不熟悉，通过一定的学习和研究，已经请教了原帖作者bigandy（在此表示感谢），基本搞定TinyProxy代理安装（高手略过）</em><br>第一步：下载TinyProxy，地址</p>
+<p><a target="_blank" rel="noopener" href="https://coding.net/u/bigandy/p/rt-n56u-ext-bin/git/tree/master/bin">https://coding.net/u/bigandy/p/rt-n56u-ext-bin/git/tree/master/bin</a></p>
+<p> 作者已修改的支持 sock4/5 的编译版本。<br>第二步：修改配置文件，将Port改为自己需要的，这里我保留作者的9999不动（当然这一步可以省略）<br>第三步：路由器开启SSH的情况下用WinSCP将下好的文件传到路由的 /etc/storage/bin 文件夹里面，没有的创建，不要改路径。<br>第四步：赋予bin文件夹7777权限，并在命令行中运行./tinyproxy -c /etc/storage/bin/tinyproxy.conf （确认当前运行路径是/etc/storage/bin）<br>第五步：如果运行后没有任何提示，则自己改IE代理验证是否成功。</p>
+<p>如果运行后有如下错误<br>/etc/storage/bin$ tinyproxy<br>-sh: tinyproxy: not found</p>
+<h1 id="请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。"><a href="#请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。" class="headerlink" title="请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。"></a>请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。</h1><p>三、部分核心免流代码简介<br>那么如何能手机免流呢？免流代码是关键！至于原理自己李彦宏，至于是否能成功，必须亲自测试，请看好是必须！<br>以下代码是用于替换或添加openvpn配置文件里的免流代码的，具体看第一部分最后的截图。<br>#########免流代码############<br>这是免流代码之前必须添加的部分<br>dev tun<br>connect-retry-max 5<br>connect-retry 5<br>resolv-retry 60<br>下面是核心免流代码，能否免流就看这儿的了！<br>移动免流代码举例：<br>一、4 G<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://mmsc.monternet.com/">http://mmsc.monternet.com</a>“<br>二、<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.sc.10086.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.sc.10086.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “Host: wap.sc.10086.cn”<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.sc.10086.cn/">http://wap.sc.10086.cn</a>“<br>http-proxy-option EXT1 “Host: wap.sc.10086.cn”<br>http-proxy 10.0.0.172 80<br>（记得把wap.sc.10086.cn换成所在地区的wap掌厅）<br>三、<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.cmvideo.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.cmvideo.cn”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “Host: wap.cmvideo.cn”<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.cmvideo.cn/">http://wap.cmvideo.cn</a>“<br>http-proxy-option EXT1 “Host: wap.cmvideo.cn”<br>http-proxy 106.2.108.242 80</p>
+<p>常用移动免流host有：wap.xx.10086.cn (xx是代表地区，比如广西就是wap.gx.10086.cn) wap.cmvideo.cn rd.go.10086.cn<br>联通免流host有：wap.10010.com<br>电信免流host有：ltetp.tv189.com<br>以上代码任选，以能够实现免流为准！是否免流可以下载个大文件过10分钟到一小时后查询流量，如果只跑了几个k则是免流成功！<br>如果跑了你那个大文件的流量就是不免，不要来找我，自己悠着点！<br>亲测sd地区必须加http-proxy 10.0.0.172 80这句代码才可以免，4G峰值也很快哦！ </p>
+<p>联通免流代码举例：<br>一、虾米模式<br>http-proxy-option EXT1 “Proxy-Authorization: Basic MzAwMDAwNDU5MDpGRDYzQTdBNTM0NUMxMzFF”<br>http-proxy xiami.gzproxy.10155.com 8143<br>二、<br>http-proxy-option EXT1 “Proxy-Authorization: Basic MzAwMDAwNDU5MDpGRDYzQTdBNTM0NUMxMzFF”<br>http-proxy kugou.gzproxy.10155.com 8143<br>三、<br>http-proxy-option EXT1 Proxy-Authorization:Basic YWs0NDc5OjZjOGJlMmRkYzU3MjM4MmYxNzMyMmJiMjlhNDNkZjJi<br>http-proxy 123.138.56.20 81439 </p>
+<p>四、<br>http-proxy-option EXT1 “Proxy-Authorization:Basic YWs0NDc5OjZjOGJlMmRkYzU3MjM4MmYxNzMyMmJiMjlhNDNkZjJi”<br>http-proxy 10.0.0.172 80</p>
+<p>五、<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.10010.com”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “X-Online-Host: wap.10010.com”<br>http-proxy-option EXT1 “POST <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “Host: wap.10010.com”<br>http-proxy-option EXT1 “GET <a target="_blank" rel="noopener" href="http://wap.10010.com/">http://wap.10010.com</a>“<br>http-proxy-option EXT1 “Host: wap.10010.com”<br>http-proxy 106.2.108.242 80</p>
+<p>使用自己服务器建立透明代理，如Squid、TinyProxy、Mproxy等的免流代码最后一行改为<br>http-proxy 你的服务器ip 端口号<br>电信没有测试，在此没有发言权，请测试了的朋友自己开贴发教程，谢谢！</p>
+<p>四、内网IP用户突破限制架设云免服务器有关内网用户，可能以为云免与其无缘，其实华硕固件自带了穿透模式，即ngrokc服务！<br>请先去<a target="_blank" rel="noopener" href="http://www.ngrok.cc/">www.ngrok.cc</a>网站注册一下，然后设定一个域名和tcp转发端口</p>
+<p><img src="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/forum.php" alt="img"></p>
+<p>路由器里设置的命令 按要求修改  记得系统域名和端口要和ngrok.cc服务器设置的一样 有很多在这一步设置错误</p>
+<p>代码1<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0*<strong>这个是你自己的token**</strong>e]*</p>
+<p>-*AddTun[Type:tcp,Lhost:192.168.X.1,Lport:1194,Rport:<em>你自己的端口</em>] </p>
+<p>*-AddTun[Type:http,Lhost:192.168.0.1,Lport:80,Sdname:<em>你自己的系统域名</em>]</p>
+<p>代码2<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0*<strong>这个是你自己的token**</strong>e] -AddTun[Type:http,Lhost:192.168.X.1,Lport:80,Sdname:<em>你自己的系统域名</em>]<br>ngrokc -SER[Shost:server.ngrok.cc,Sport:4443,Atoken:0*<strong>这个是你自己的token**</strong>e] </p>
+<p>*-AddTun[Type:tcp,Lhost:192.168.X.1,Lport:1194,Rport:<em>你自己的端口</em>] &amp;</p>
+<p>这2种代码自选一个测试 楼主只能用代码1 群内很多群友用的代码2 应该都能使用 使用方法看下图 点击图片放大</p>
+<p><img src="https://www.anywlan.com/forum.php?mod=attachment&aid=NjM1Mzk3fDE0Mzg4ZjNjfDE2MDkyMTEzMTZ8MHwzOTU4MzQ=&noupdate=yes" alt="img"> </p>
+<p>如何检查是否穿透成功呢<br>比如我<a target="_blank" rel="noopener" href="http://www.ngrok.cc/">ngrok.cc</a>设置的系统域名:admin TCP转发端口:8888</p>
+<p>例如：<br>这个代码和路由自带的不一样  会多出-Addtun什么 后边的一部分是路由远程域名<br>一切设置好了登录admin.ngrok.cc 可以登录路由器管理界面就算穿透了<br>这个admin是你自己在<a target="_blank" rel="noopener" href="http://www.ngrok.cc/">ngrok.cc</a>设置的系统域名 自己设置什么请对应填写什么 端口同样</p>
+<p><img src="https://www.anywlan.com/forum.php?mod=attachment&aid=NjM1Mzk4fGY5YjBmMjdkfDE2MDkyMTEzMTZ8MHwzOTU4MzQ=&noupdate=yes" alt="img"></p>
+<p>关于ngrokc更新问题 我用的是华硕5.26版本 没有更新ngrok插件写入代码直接可以用<br>内网也可以使用花生壳但是花生壳不出SN码 没办法  出SN码的自己实验提供一行代码<br>原贴地址:<a target="_blank" rel="noopener" href="http://www.right.com.cn/forum/thread-161324-1-1.html">http://www.right.com.cn/forum/thread-161324-1-1.html</a>      6楼</p>
+<p>我改了一份花生壳内网版的脚本，和adbyby一样独立运行在tmp下的脚本，麻烦楼主帮忙看看能不能合入到固件里，这样和ss分开，一些低内存没有usb口的机器也可以用了。此代码不用开启花生壳拓展  也不需要opt环境   只需一行代码就可以开启了</p>
+<p>wget -t 10 -O /tmp/install_oray.sh <a target="_blank" rel="noopener" href="http://code.taobao.org/svn/test43/phddns2/tmp/install_oray.sh">http://code.taobao.org/svn/test43/phddns2/tmp/install_oray.sh</a> &amp;&amp; sh /tmp/install<br>sleep 30<br>sh /home/root/startss.sh” </p>
+<p>直接加在自定义脚本 运行路由启动后的脚本最下面<br>ngrok服务器映射没有想象中的稳定，要重复多次，大家可以多换几个服务器试试</p>
+<p>如果有想法，也可以用小主机、树莓派搭建，效果要比路由器好，而且能够一次集成透明代理服务。<br>有关路由器的搭建方法到此结束，云主机、小主机搭建方法很多，网上有很多一键脚本，具体可以看如下链接，在此不再赘述。<br><a target="_blank" rel="noopener" href="http://www.aeink.com/42.html0">http://www.aeink.com/42.html0</a> </p>
+<p>贴中引用了部分作者的原创，在此表示感谢<a target="_blank" rel="noopener" href="http://www.92zuanke.com/">www.92zuanke.com</a>（就爱赚客）、4G免流社区（<a target="_blank" rel="noopener" href="http://www.4gml.com/">www.4gml.com</a>）、百度相关贴吧（云免、免流、移动免流、免流破解等等）</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/72ee8144.html">http://aichn.cn/post/72ee8144.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%8A%80%E6%9C%AF/">-技术</a></div><div class="post_share"><div class="social-share" data-image="/../images/K1K2%E5%88%B7%E5%8D%8E%E7%A1%95%E5%9B%BA%E4%BB%B6%E5%BC%80OpenVPN%E5%AE%89%E8%A3%85HTTP%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA%E6%89%8B%E6%9C%BA%E4%BA%91%E5%85%8D%E6%B5%81%E6%9C%8D%E5%8A%A1%E5%99%A8(%E8%8B%B9%E6%9E%9C%E6%9C%AA%E8%B6%8A%E7%8B%B1%E5%85%8D%E6%B5%81%E9%87%8F)/11b7b531f931d92ef630812af5a8b895.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/2379.html"><img class="prev-cover" src="/../images/GAN%E7%9A%84%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A1%88%E4%BE%8B%E5%BA%94%E7%94%A8/2018122619412674.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">GAN的数学推导和案例应用</div></div></a></div><div class="next-post pull-right"><a href="/post/b5e8cb00.html"><img class="next-cover" src="/../images/WNMPA%E4%B8%80%E9%94%AE%E7%8E%AF%E5%A2%831000%E6%AD%A3%E5%BC%8F%E7%89%88%E5%8F%91%E5%B8%83/wnmpa.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">WNMPA一键环境 1.0.0.0 正式版发布</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/7f94f96a.html" title="EFI系统分区设定盘符 取消盘符"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">EFI系统分区设定盘符 取消盘符</div></div></a></div><div><a href="/post/11f986cf.html" title="【教程固件】 酷比魔方Talk5H刷机指南,解救小白"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">【教程固件】 酷比魔方Talk5H刷机指南,解救小白</div></div></a></div><div><a href="/post/24717.html" title="iPhone6/6 Plus怎么换电池"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">iPhone6/6 Plus怎么换电池</div></div></a></div><div><a href="/post/a50b72fa.html" title="【刷机教程】【四核RK3128芯迪优美特X5】4个最新安卓固件〖附详细教程〗"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">【刷机教程】【四核RK3128芯迪优美特X5】4个最新安卓固件〖附详细教程〗</div></div></a></div><div><a href="/post/4248109d.html" title="【2016-02-22】改华硕【N14U N54U】5G 2G的7620老毛子Padavan固件(百度云同步 aria2 QOS)"><img class="cover" src="/../images/%E3%80%902016-02-22%E3%80%91%E6%94%B9%E5%8D%8E%E7%A1%95%E3%80%90N14U%20N54U%E3%80%915G%202G%E7%9A%847620%E8%80%81%E6%AF%9B%E5%AD%90Padavan%E5%9B%BA%E4%BB%B6%E3%80%90%E7%99%BE%E5%BA%A6%E4%BA%91%E5%90%8C%E6%AD%A5%20aria2%20QOS%E3%80%91/223637bazt2t1sqtzo8sea.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">【2016-02-22】改华硕【N14U N54U】5G 2G的7620老毛子Padavan固件(百度云同步 aria2 QOS)</div></div></a></div><div><a href="/post/945e81c2.html" title="【君子兰】如何强制刷新MSI的VBIOS让Clevo蓝天的5870M支持Powerplay自动降频,Overdrive超频教程"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2016-12-23</div><div class="title">【君子兰】如何强制刷新MSI的VBIOS让Clevo蓝天的5870M支持Powerplay自动降频,Overdrive超频教程</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B7%E9%87%8D%E5%90%AF%E8%B7%AF%E7%94%B1%E5%86%8D%E8%AF%95%E3%80%82%E5%A6%82%E6%9E%9C%E9%9C%80%E8%A6%81%E9%95%BF%E4%B9%85%E8%BF%90%E8%A1%8C%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%90%8E%E5%8F%B0%E6%94%B9%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC%E5%8A%A0%E5%85%A5%E4%BB%A5%E4%B8%8A%E5%91%BD%E4%BB%A4%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">请重启路由再试。如果需要长久运行，可以在路由后台改自定义脚本加入以上命令。</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

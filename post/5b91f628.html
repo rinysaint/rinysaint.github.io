@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GAN生成对抗式神经网络数学推导 | 君子兰萧宇的博客</title><meta name="keywords" content="人工智能,神经网络,GAN"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="由上面一篇文章我们已经知道了，如果我们从真实数据分布里面取n个样本，根据给定样本我们可以列出其出现概率的表达式，那么生成这N个样本数据的似然(likelihood)就是$$l ( \theta )&amp;#x3D; \prod _ { i &amp;#x3D; 1 } ^ { N } p \left( x _ { i } | \theta \right)$$我们要找到\thetaθ来最大化这个函数，便是极大似然估计，公式如下：$$"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/5b91f628"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/GAN%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E5%BC%8F%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC/20181224170233872.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">GAN生成对抗式神经网络数学推导</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-12-24T13:06:36.000Z" title="undefined 2018-12-24 21:06:36">2018-12-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>由<a href="https://aichn.cn/post/fbf175a6.html">上面一篇文章</a>我们已经知道了，如果我们从真实数据分布里面取n个样本，根据给定样本我们可以列出其出现概率的表达式，那么生成这N个样本数据的似然(likelihood)就是<br>$$<br>l ( \theta )= \prod _ { i = 1 } ^ { N } p \left( x _ { i } | \theta \right)<br>$$<br>我们要找到\thetaθ来最大化这个函数，便是极大似然估计，公式如下：<br>$$<br>\hat { \theta } = \arg \max _ { \theta } H ( \theta ) = \arg \max _ { \theta } \ln l ( \theta ) = \arg \max _ { \theta } \sum _ { i = 1 } ^ { N } \ln p \left( x _ { i } | \theta \right)<br>$$<br>那么下面我们来看看GAN的推导。</p>
+<p>在极大似然估计中，我们假定要求的事物有一个固定的模型，写作<br>$$<br>P_{data}(x)Pdata(x)<br>$$<br>，但这个模型十分复杂，我们无法完全彻底的去刻画它，只能列一个带有参数的式子，然后用模型抽样出来的样本去估计出这个参数到底最有可能是什么。</p>
+<p>打个比方，有一个箱子，里面有一百多亿个球，球的颜色分别是红橙黄绿蓝靛紫七种，那么问从里面拿一个球出来是红色的概率。</p>
+<p>面对这样一个问题。如果“一百多”后面没有跟着个“亿”，我们可以直接把不同颜色的球数出来，这样概率就有了。但有个”亿”要去数就比较要命了。因此我们知道这个系统肯定是存在着一个固定分布的参数，但不知道这个参数是个什么鬼，就只能把分布模型写成<br>$$<br>P_{data}(x)<br>$$<br>，然后用别的方式来想办法逼近这个模型。</p>
+<p>我们从模型中抽出m个样本，记为<br>$$<br>{ x _{ 1 } , x _ { 2 } , \ldots , x _ { m }}<br>$$<br>然后用这些样本来估计我们模型的参数，列式如下（这里式子用李宏毅教授视频写法，和之前的有些许差异，但所表述东西是一样的）：<br>$$<br>\theta ^ { * } = \arg \max _ { \theta } \prod _ { i = 1 } ^ { m } P _ { G } \left( x ^ { i } ; \theta \right) = \arg \max _ { \theta } \log \prod _ { i = 1 } ^ { m } P _ { G } \left( x ^ { i } ; \theta \right)<br>$$</p>
+<p>$$<br>= \arg \max _ { \theta } \sum _ { i = 1 } ^ { m } \log P _ { G } \left( x ^ { i } ; \theta \right)  \quad\left{ x <em>{ 1 } , x _ { 2 } , \ldots , x _ { m } \right} , from ,P</em>{data}(x)<br>$$</p>
+<p>$$<br>\approx \arg \max _ { \theta } E _ { x \sim P _ { \text {data} } } \left[ \log P _ { G } ( x ; \theta ) \right]<br>$$</p>
+<p>这里的≈可能需要稍微看看，中间一道式子的意思是我们利用抽样得到的样本列出极大似然估计式子，在这个之间会对所有样本概率做处理之后进行累加。假设我们取的样本就是全部样本空间（也就是我们完整取了一百多亿个球），那么它将等于<br>$$<br>\arg \max _ { \theta } m\times E _ { x \sim P _ { \text {data} } } \left[ \log P _ { G } ( x ; \theta ) \right]<br>$$<br>这里的m是样本个数，也就是一个正整数，而我们式子求的是最大值点，因此上面的式子m写不写是一样的，式子变成<br>$$<br>\arg \max _ { \theta } E _ { x \sim P _ { \text {data} } } \left[ \log P _ { G } ( x ; \theta ) \right]<br>$$<br>但因为我们取的样本并不是整个样本空间（如果我们能取整个样本空间那还聊个屁啊），我们只能尽可能的让样本分布与整个样本空间近似，因此才有了这个约定于号。</p>
+<p>如果<br>$$<br>P_{data}(x)<br>$$<br>这东西是连续型的，那么上面的式子可以写成积分的形式，如下：<br>$$<br>\arg \max _ { \theta } \int _ { x } P _ { d a t a } ( x ) \log P _ { G } ( x ; \theta )\ dx<br>$$<br>又因为对于求最大值而言，对式子加上一个固定常数和减掉一个固定常数都不会影响最后的结果，因此我们可以再给上面的式子凑一个常数进去。变成如下形式：<br>$$<br>\arg \max _ { \theta } \int _ { x } P _ { d a t a } ( x ) \log P _ { G } ( x ; \theta ) d x - \int _ { x } P _ { d a t a } ( x ) \log P _ { d a t a } ( x ) d x<br>$$<br>这里这样凑是很巧妙的！！！因为要把公式凑成KLKL散度的样子。至于是怎么想到的这件事情。。。我也不知道，依稀记得初中参加奥数班的时候，老师在空间中取一个点，然后做了快十条辅助线来求解几何问题，那个时候我就觉得智商不够用了。。。</p>
+<p>将上面式子整理如下：<br>$$<br>\arg \max _ { \theta } \int _ { x }[ P _ { d a t a } ( x ) \log P _ { G } ( x ; \theta ) -P _ { d a t a } ( x ) \log P _ { d a t a } ( x ) ]d x<br>$$</p>
+<p>$$<br>=\arg \max _ { \theta } \int _ { x } P _ { d a t a } ( x ) \log \frac{P _ { G } ( x ; \theta )}{P _ { d a t a } ( x )} d x<br>$$</p>
+<p>$$<br>=\arg \min _ { \theta } \int _ { x } P _ { d a t a } ( x ) \log \frac{P _ { d a t a } ( x )}{P _ { G } ( x ; \theta )} d x<br>$$</p>
+<p>$$<br>=\arg \min _ { \theta } K L \left( P _ { d a t a } ( x ) | P _ { G } ( x ; \theta ) \right)<br>$$</p>
+<p>中间最大值变最小值的步骤其实就相当于在公式前面乘一个负号，那么最大值自然就变成最小值。</p>
+<p>好了，公式推到这里我们知道了，如果要去做一个模型的极大似然估计，那么相当于求真实模型和拟合模型之间的KL散度取最小值时的θ取值。</p>
+<p>当然进一步想，假设这里求的不是KL散度，而是另外的一种距离，应该也是差不多的。</p>
+<p>到了这一步，相信明眼人早已经看出来了，上面的推理不过就是对极大似然估计的式子做进一步的推导，其实还是跟GAN没什么关系。但那是基础，只能先推一推，然后再抛出一个问题：假设我们连带参数的式子都列不出来呢？</p>
+<p>比如图像的生成问题。或许你现在还没意识到这个问题的难度，那么请你用一道公式写出世界上所有美女在图像中的表达式，那道公式就是：“我以后的女朋友”。恩，说远了，其实那道公式是，，，列不出来。。。</p>
+<p>一脸懵逼了吧，哈哈，说实在的，本人以前做图像处理的时候遇到这种问题都是充满绝望的。</p>
+<p>依照李教授视频的说法，有人尝试用高斯混合模型来做这件事情，但是效果很悲剧，就是因为高斯混合模型的复杂度和图像的复杂度比起来还是太小儿科了。可以做个简单的比较，曾经很流行的一个说法形容围棋的复杂度，说它的可能性比天上的星体还要多。而围棋也就19*19的361个交叉点，每个交叉点3种可能。图像哪怕是200 * 200的灰度图，每个点都有256种可能，这个数量级远非围棋可比！那么围棋用传统方法都解决不好的，图像怎么可能解决的好呢？</p>
+<p>是的，要用传统方法在图像上解决问题一般限制比较多，最大的问题就是这里的这道模型公式真的很难列出来，除非你人为去加了很多限制，但这样做出来的模型泛化性又很差。而神经网络则不然，简单的讲，假设神经网络够复杂且训练的好，它可以拟合世间所有能拟合的东西，注意，是所有！因此有大神就想，要不就用神经网络来表述图像的模型好啦，于是GAN神经网络中的G(Gernerator)网络就诞生了，平地一声雷，逻辑图如下：<br><img src="/../images/GAN%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E5%BC%8F%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC/20181224170233872.png" alt="在这里插入图片描述"></p>
+<p>看到这个图，相信很多人一开始也跟我一样是崩溃的。没事，崩溃是我们这一行的常态嘛。首先我们要搞清楚我们要用G来做什么，前面我们讲对于图像来说，哪怕你手头上有一类图像（比如说美女图片啥的），你也很难去刻画出美女的公式是什么，而G正是来帮我们列式的。我们让它去看遍天下所有美女的图片，不断通过与真实图像进行分布差距对比来优化自己学到的规律，最终学到炉火纯青，基本上可以做到手中无片，心中有片的最高境界，可能它看到远山娥黛，便画出了王语嫣，看到绝世出尘，便画出了小龙女（李若彤版）。总之你要什么它就来什么。</p>
+<p>那么对于一个神经网络，它学的是什么呢？自然是里面的权重嘛，我们可以把它写作θ。</p>
+<p>一般来讲我们人如果要去学习美女图片的规律，首先会真的去看各种美女图片然后总结规律。但对于科学推理它不是这个样子的，我们要假定美女图片是一种图片的分布形式，然后列一道式子让其输出符合这个分布，那么这个式子就是美女图片的模型。这里的式子是G定义的，而因为它一开始的参数是随机的，基本不可能刚刚好就符合输出是美女这一分布。因此我们要让它批量的输出一堆的图片，然后算这些图片的分布<br>$$<br>P _ { G } ( x ; \theta )<br>$$<br>和实际的分布<br>$$<br>P _ { d a t a } ( x )<br>$$<br>之间到底差了多少，以此来调整参数θ。也就是你不给它看美女的图片，而是让它直接画，然后每次都把它画的东西撕了，骂它画的是什么屎，然后告诉他美女并不是长这样的，回去慢慢悟。经过千锤百炼，沧海桑田，它终于有一天总结出了美女的规律，功成之日仰天长啸，哈哈哈哈哈。</p>
+<p>那么，前面的z又是个什么鬼？它是一个分布函数，我们每次从这个函数中取出一个样本扔进去神经网络，然后让他输出一个样本。假设我们遍历完整个z的样本空间输出了全部对应的x，而对应的x的分布又跟真实数据的分布一样，那么我们的美女生成器就做成了！</p>
+<p>这里这样解释是OK的，但有点不清楚。首先是为什么用z而不用x，我们知道当神经网络的参数固定住，你扔一个东西它必然会对应一个输出。假设x的可能空间比z大，那么这个网络不就无法完全拟合整个x空间了吗？是的，但我们本来也没有想拟合整个x空间，我们需要拟合的是x空间下美女这个子集，而只要z的复杂度足够，那么经过神经网络之后出来的xx应该就可以非常近似于这个子集。当然我们这么做，主要也是不想输入太复杂。</p>
+<p>如果上面关于z的解释你完全看不懂，那么除了回去看数学之外，你还能这样理解。这里的z就是前面的“远山娥黛”、“绝世出尘”、“风华绝代”、“沉鱼落雁”、“闭月羞花”、“明眸善睐”等等等等，突然想去看一遍《洛神赋》哇槽。</p>
+<p>推到这里我们就把逻辑图推完了，嘴角上扬，发出得意的奸笑。然后下一秒就僵硬了，因为这个看似天衣无缝的推导有个致命的问题，就是，算不了。。。</p>
+<p>我们可以看看里面的<br>$$<br>P _ { G } ( x ; \theta )<br>$$<br>长什么样：<br>$$<br>P _ { G } ( x ) = \int _ { z } P _ { \text {prior} } ( z ) I _ { [ G ( z ) = x ] } d z<br>$$<br>长这样，这个公式的x是样本给的，z是一个随机分布，整体的意思是说我们对z进行积分，积分里面是z出现的可能性乘以z经过神经网络生出来的这个东西的分布与样本的比较结果（相同为1不同为0）。为什么是这样的？</p>
+<p>因为我们前面说过，我们要用z来映射到x，假设映射关系已经确定，那么z出现的可能性就直接对应于x分布的可能性，当然也可能出现多个z对应一个x的映射。<br>$$<br> I _{ [ G ( z ) = x ]}<br>$$<br>就是我们判定z映射到x的标准。</p>
+<p>但这公式算不了。因为这样我们给定一个样本，要做的是遍历整个z空间来找到映射关系，而G网络又是个很复杂的东西，基本上无法算出来（再说，我们之所以用G网络也就看中了它的复杂性）。因此推到这里就推死了！原因就是算不出来。</p>
+<p>那么能不能通过一个神经网络来拟合<br>$$<br>P _ { G } ( x ; \theta )<br>$$<br>呢？可以应该是可以的，但问题是拟合出来的<br>$$<br>P _ { G } ( x ; \theta )<br>$$<br>哪怕比这货<br>$$<br>P _ { G } ( x ) = \int _ { z } P _ { \text {prior} } ( z ) I _ { [ G ( z ) = x ] } d z<br>$$<br>简单一点，但也是个很复杂的神经网络啊！这样后面拿它去算KL散度也没得算。因此进一步，能不能直接用神经网络来帮忙评估各个分布之间的距离呢？</p>
+<p>D（Discriminator）网络就这么诞生了。这个D网络干的事情就是输入一个x来自真实样本或者拟合样本，然后分析它们来自哪里，并输出一个标量。这个标量你可以训练它为一个判定标准，就是如果是真实样本就输出接近1的数，拟合样本就输出接近0的数这样子。这样我们的判别器也就有了，把判别器对于真实样本和拟合样本的所有判别做比较处理，则我们G网络需要的分布距离也就有了。</p>
+<p>上面说了那么多，其实实际上，GAN论文告诉我们只要让G和D各自来解下面这道式子就完事了（牛逼的人从来就是这样，不啰嗦，人狠话不多）。<br>$$<br>G ^ { * } = \arg \min _ { G } \max _ { D } V ( G , D )<br>$$<br>右边的<br>$$<br>\max _ { D } V ( G , D )<br>$$<br>假定G已经是确定的，那么就变成<br>$$<br>\arg\max _ { D } V ( D )<br>$$<br>。V这个函数算的是<br>$$<br>P _ { d a t a } ( x )<br>$$<br> 和<br>$$<br>P _ { G }<br>$$<br>之间的距离。那么我们这个时候就是要训练D网络来最大化这个距离，因为只有这样我们的判别器才是给力的。然后一旦我们的判别器非常给力了，那么我们只要定住它，训练G来使得<br>$$<br>\arg\min _ { G } V ( G )<br>$$<br>这道公式最小就可以了。因为这道公式最小说明我们通过神经网络实现了类似于极大似然法，找到了网络的最优解<br>$$<br>\theta  ^ { * }<br>$$<br>。</p>
+<p>现在剩下的最后一个问题就是V这个算<br>$$<br>P _ { d a t a } ( x )<br>$$<br> 和<br>$$<br>P _ { G }<br>$$<br>之间距离的函数到底长什么样了。原生GAN的论文告诉我们V长这样：<br>$$<br>V = E _ { x \sim P _ { \text {data} } } [ \log D ( x ) ] + E _ { x \sim P _ { G } } [ \log ( 1 - D ( x ) ) ]<br>$$<br>看到这里我满脑子的“哇槽”，为什么啊！这为什么就是<br>$$<br>P _ { d a t a } ( x )<br>$$<br>和<br>$$<br>P _ { G }<br>$$<br>之间的距离啊？？？</p>
+<p>想到头发白了之后终于明白了。假设我们训练出来的这个D网络输出的是样本是真样本的概率，那么公式第一项我们肯定希望这个D(x)越接近于1越好，而第二项希望它越接近于0越好，这样整个V取得最大值（注意这里两项的x不是同一个，李教授的视频这样写感觉不如原论文区分开来清楚），如果是一个真的无敌的神经网络上面这个区分它是做的到的（当然随着拟合越来越好要区分则越来越难，如果有拟合的数据和实际的数据重叠了，则无法取得理想的最大值）。反之，如果网络判断能力越差，则这个式子越小。因此它就是一个衡量<br>$$<br>P _ { d a t a } ( x )<br>$$<br>和<br>$$<br> P _ { G }<br>$$<br>之间的距离的公式。另外这里最妙的还在于后面，我们对公式做展开。<br>$$<br>V = E _ { x \sim P _ { d a t a } } [ \log D ( x ) ] + E _ { x \sim P _ { G } } [ \log ( 1 - D ( x ) ) ]<br>$$</p>
+<p>$$<br>= \int _ { x } P _ { d a t a } ( x ) \log D ( x ) d x + \int _ { x } P _ { G } ( x ) \log ( 1 - D ( x ) ) d x<br>$$</p>
+<p>$$<br>= \int_ { x }  \left[ P _ { d a t a } ( x ) \log D ( x ) + P _ { G } ( x ) \log ( 1 - D ( x ) ) \right] d x<br>$$</p>
+<p>这里我们假设D(x)是无敌的，对于每个积分中的积分的x都能找到一个D(x)使得积分里面的式子最大，那么最后积分出来的值肯定就是最大的。所以我们现在如果要求使得上面这个式子最大的D(x)，就相当于求使得下面这个式子最大的D(x)<br>$$<br>P _ { d a t a } ( x ) \log D ( x ) + P _ { G } ( x ) \log ( 1 - D ( x ) )<br>$$<br>这里的计算就极其简单了（李教授表示小学生都会算），就是求导然后让式子等于0，求出这个时候D(x)是多少就行。最后求出来：<br>$$<br>D ^ { * } ( x ) = \frac { P _ { d a t a } ( x ) } { P _ { d a t a } ( x ) + P _ { G } ( x ) }<br>$$<br>可以看出<br>$$<br>D ^ { * } ( x )<br>$$<br>是大于0小于1的数，符合我们刚刚对D(x)的定义。</p>
+<p>这样我们这道神话般的公式：<br>$$<br>G ^ { * } = \arg \min _ { G } \max _ { D } V ( G , D )<br>$$<br>的右边部分就有了。我们把<br>$$<br>D ^ { * } ( x )<br>$$<br>往公式V代入：<br>$$<br>V = E _ { x \sim P _ { d a t a } } [ \log D ( x ) ] + E _ { x \sim P _ { G } } [ \log ( 1 - D ( x ) ) ]<br>$$</p>
+<p>$$<br>= E _ { x \sim P _ { d a t a } } \left[ \log \frac { P _ { d a t a } ( x ) } { P _ { d a t a } ( x ) + P _ { G } ( x ) } \right]+ E _ { x \sim P _ { G } } \left[ \log \frac { P _ { G } ( x ) } { P _ { d a t a } ( x ) + P _ { G } ( x ) } \right]<br>$$</p>
+<p>$$<br>= \int _ { x } P _ { d a t a } ( x ) \log \frac { \frac { 1 } { 2 } P _ { d a t a } ( x ) } { \frac { P _ { d a t a } ( x ) + P _ { G } ( x ) } { 2 } } d x+ \int _ { x } P _ { G } ( x ) \log \frac { \frac { 1 } { 2 }P _ { G } ( x ) } { \frac { d a t a ( x ) + P _ { G } ( x ) } { 2 } } d x<br>$$</p>
+<p>$$<br>=  2 \log \frac { 1 } { 2 }+\int _ { x } P _ { d a t a } ( x ) \log \frac {P _ { d a t a } ( x ) } { \frac { P _ { d a t a } ( x ) + P _ { G } ( x ) } { 2 } } d x+ \int _ { x } P _ { G } ( x ) \log \frac { P _ { G } ( x ) } { \frac { d a t a ( x ) + P _ { G } ( x ) } { 2 } } d x<br>$$</p>
+<p>上面的<br>$$<br>2 \log \frac { 1 } { 2 }<br>$$<br>是把两项分子的<br>$$<br>\frac { 1 } { 2 }<br>$$<br>拿出来的结果，因为log里面相乘就等于外面相加，然后对<br>$$<br>P _ { d a t a } ( x )<br>$$<br>或<br>$$<br>P _ { G }( x )<br>$$<br>的整个空间进行积分结果都等于1。推导比较简单，就不写了。<br>$$<br>=  -2 \log 2+\int _ { x } P _ { d a t a } ( x ) \log \frac {P _ { d a t a } ( x ) } { \frac { P _ { d a t a } ( x ) + P _ { G } ( x ) } { 2 } } d x+ \int _ { x } P _ { G } ( x ) \log \frac { P _ { G } ( x ) } { \frac { d a t a ( x ) + P _ { G } ( x ) } { 2 } } d x<br>$$</p>
+<p>$$<br>= - 2 \log 2 + \mathrm { KL } \left( \mathrm { P } _ { \text { data } } ( \mathrm { x } ) | \frac { \mathrm { P } _ { \mathrm { data } } ( \mathrm { x } ) + \mathrm { P } _ { \mathrm { G } } ( \mathrm { x } ) } { 2 } \right)+ \mathrm { KL } \left( \mathrm { P } _ { \mathrm { G } } ( \mathrm { x } ) | \frac { \mathrm { P } _ { \mathrm { data } } ( \mathrm { x } ) + \mathrm { P } _ { \mathrm { G } } ( \mathrm { x } ) } { 2 } \right)<br>$$</p>
+<p>$$<br>= - 2 \log 2 + 2 J S  \left( P _ { \text {data} } ( x ) | P _ { G } ( x ) \right)<br>$$</p>
+<p>推到这一步基本上没什么难度，当看到<br>$$<br>J S  \left( P _ { \text {data} } ( x ) | P _ { G } ( x ) \right)<br>$$<br>这一项出来的时候差点跪了下去，牛逼啊哇槽！因为这一项告诉我们，如果<br>$$<br>D ^ { * } ( x )<br>$$<br>取得最大值，那么V这个公式将直接变成衡量<br>$$<br>P _ { \text {data} } ( x )<br>$$<br>和<br>$$<br>P _ { G } ( x )<br>$$<br>之间差距的公式。这个时候只要我们求出对应的G的最小值就搞定了，巧得不要不要的。</p>
+<p>还有更牛逼的，假设<br>$$<br>G ^ { * } = \arg \min _ { G } \max _ { D } V ( G , D )<br>$$<br>这倒公式的D定住了，我们可以把<br>$$<br>\max _ { D } V ( G , D )<br>$$<br>写成L(G)，它牛逼在哪？牛逼在于L(G)直接就是我们G网络的损失函数，我们要让L(G)取得最小值，不就是我们神经网络的目标吗！？完美！每每看到这里就不禁感慨大自然的神奇，数学的伟大和人类的渺小啥的。。。</p>
+<p>到此我们就把全部数学推导过程全部做完了，感觉真是一把老泪掉下来，不知不觉写了五千多字，应该是写过的最长的一篇博客了。到此你可能已经明白了数学怎么来的了，但其实还有另外一半，那就是实际该怎么实现，<a href="https://aichn.cn/index/article/show/id/87.html">下篇文章</a>将讨论这个问题。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/5b91f628.html">http://aichn.cn/post/5b91f628.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">-神经网络</a></div><div class="post_share"><div class="social-share" data-image="/../images/GAN%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E5%BC%8F%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC/20181224170233872.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/22f26062.html"><img class="prev-cover" src="/../images/GAN%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E5%BC%8F%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C/20181228105426838.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">GAN生成对抗式神经网络实际操作</div></div></a></div><div class="next-post pull-right"><a href="/post/a7e9e655.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Aplayer搭配MetingJS音乐插件的使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/22f26062.html" title="GAN生成对抗式神经网络实际操作"><img class="cover" src="/../images/GAN%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E5%BC%8F%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%99%85%E6%93%8D%E4%BD%9C/20181228105426838.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-24</div><div class="title">GAN生成对抗式神经网络实际操作</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

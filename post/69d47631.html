@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spring Cloud 微服务架构学习笔记与示例 | 君子兰萧宇的博客</title><meta name="keywords" content="微服务,Spring Cloud"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="本文示例基于Spring Boot 1.5.x实现，如对Spring Boot不熟悉，可以先学习我的这一篇：《Spring Boot 1.5.x 基础学习示例》。关于微服务基本概念不了解的童鞋，可以先阅读下始祖Martin Fowler的《Microservice》，本文不做介绍和描述。 一、分布式服务框架的发展1.1 第一代服务框架　　代表：Dubbo(Java)、Orleans(.Net)等"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/69d47631"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">Spring Cloud 微服务架构学习笔记与示例</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-09-28T12:10:33.000Z" title="undefined 2018-09-28 20:10:33">2018-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/">微服务架构</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本文示例基于Spring Boot 1.5.x实现，如对Spring Boot不熟悉，可以先学习我的这一篇：《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/edisonchou/p/java_spring_boot_foundation_demos.html">Spring Boot 1.5.x 基础学习示例</a>》。关于微服务基本概念不了解的童鞋，可以先阅读下始祖Martin Fowler的《<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/fzk-kENu0I22P3F2Vu7KBA">Microservice</a>》，本文不做介绍和描述。</p>
+<h1 id="一、分布式服务框架的发展"><a href="#一、分布式服务框架的发展" class="headerlink" title="一、分布式服务框架的发展"></a>一、分布式服务框架的发展</h1><h2 id="1-1-第一代服务框架"><a href="#1-1-第一代服务框架" class="headerlink" title="1.1 第一代服务框架"></a>1.1 第一代服务框架</h2><p>　　代表：Dubbo(Java)、Orleans(.Net)等</p>
+<p>　　特点：和语言绑定紧密</p>
+<h2 id="1-2-第二代服务框架"><a href="#1-2-第二代服务框架" class="headerlink" title="1.2 第二代服务框架"></a>1.2 第二代服务框架</h2><p>　　代表：Spring Cloud等</p>
+<p>　　现状：适合混合式开发（例如借助Steeltoe OSS可以让ASP.Net Core与Spring Cloud集成），正值当年</p>
+<h2 id="1-3-第三代服务框架"><a href="#1-3-第三代服务框架" class="headerlink" title="1.3 第三代服务框架"></a>1.3 第三代服务框架</h2><p>　　代表：Service Mesh（服务网格） =&gt; 例如Service Fabric、lstio、Linkerd、Conduit等</p>
+<p>　　现状：在快速发展中，更新迭代比较快</p>
+<h2 id="1-4-未来（目测不久）主流的服务架构和技术栈"><a href="#1-4-未来（目测不久）主流的服务架构和技术栈" class="headerlink" title="1.4 未来（目测不久）主流的服务架构和技术栈"></a>1.4 未来（目测不久）主流的服务架构和技术栈</h2><p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180823103510130-441053512.jpg" alt="img"></p>
+<p>　　基础的云平台为微服务提供了资源能力（计算、存储和网络等），容器作为最小工作单元被Kubernetes调度和编排，Service Mesh（服务网格）管理微服务的服务通信，最后通过API Gateway向外暴露微服务的业务接口。</p>
+<p>　　目前，我所在的项目组已经在采用这种技术架构了，服务网格采用的是Linkerd，容器编排采用的是K8S，Spring Cloud已经没用了。But，不代表Spring Cloud没有学习的意义，对于中小型项目团队，*<strong>Spring Cloud仍然是快速首选*</strong>。</p>
+<h1 id="二、Spring-Cloud-简介"><a href="#二、Spring-Cloud-简介" class="headerlink" title="二、Spring Cloud 简介"></a>二、Spring Cloud 简介</h1><h2 id="2-1-Spring-Cloud极简介绍"><a href="#2-1-Spring-Cloud极简介绍" class="headerlink" title="2.1 Spring Cloud极简介绍"></a>2.1 Spring Cloud极简介绍</h2><p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180822202553841-1217264857.jpg" alt="img"></p>
+<p> 　首先，尽管Spring Cloud带有“Cloud”这个单词，但它并不是云计算解决方案，而是在Spring Boot基础之上构建的，用于快速构建分布式系统的通用模式的工具集。</p>
+<p>　　 其次，使用Spring Cloud开发的应用程序非常适合在Docker和PaaS（比如Pivotal Cloud Foundry）上部署，所以又叫做云原生应用（Cloud Native Application）。云原生可以简单地理解为面向云环境的软件架构。</p>
+<blockquote>
+<p><strong><em>总结</em></strong> <strong>：</strong>Spring Cloud是一个基于Spring Boot实现的云原生应用开发工具，它为基于JVM的云原生应用开发中涉及的配置管理、服务发现、熔断器、智能路由、微代理、控制总线、分布式会话和集群状态管理等操作提供了一种简单的开发方式。</p>
+</blockquote>
+<p>　　Spring Cloud具有如下特点：</p>
+<ul>
+<li>约定大于配置</li>
+<li>适用于各种环境</li>
+<li>隐藏了组件的复杂性，并提供声明式、无XML式的配置方式</li>
+<li>开箱即用，快速启动</li>
+<li>组件丰富，功能齐全</li>
+<li>……</li>
+</ul>
+<p>　　Spring Cloud作为第二代微服务的代表性框架，已经在国内众多大中小型的公司有实际应用案例。许多公司的业务线全部拥抱Spring Cloud，部分公司选择部分拥抱Spring Cloud。例如，拍拍贷资深架构师杨波老师就根据自己的实际经验以及对Spring Cloud的深入调研，并结合国内一线互联网大厂的开源项目应用实践结果，认为Spring Cloud技术栈中的有些组件离生产级开发尚有一定距离，最后提出了一个可供中小团队参考的微服务架构技术栈，又被称为“中国特色的微服务架构技术栈1.0”：</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180823122622168-180774166.png" alt="img"></p>
+<p>　　上图中涉及到的组件，这里不做具体介绍，有兴趣的童鞋可以浏览波波老师的这篇文章：《<a target="_blank" rel="noopener" href="http://www.infoq.com/cn/articles/china-microservice-technique?utm_source=tuicool&utm_medium=referral">一个可供中小团队参考的微服务架构技术栈</a>》。</p>
+<h2 id="2-2-Spring-Cloud核心子项目"><a href="#2-2-Spring-Cloud核心子项目" class="headerlink" title="2.2 Spring Cloud核心子项目"></a>2.2 Spring Cloud核心子项目</h2><ul>
+<li>Spring Cloud Netflix：核心组件，可以对多个Netflix OSS开源套件进行整合，包括以下几个组件：<ul>
+<li>Eureka：服务治理组件，包含服务注册与发现</li>
+<li>Hystrix：容错管理组件，实现了熔断器</li>
+<li>Ribbon：客户端负载均衡的服务调用组件</li>
+<li>Feign：基于Ribbon和Hystrix的声明式服务调用组件</li>
+<li>Zuul：网关组件，提供智能路由、访问过滤等功能</li>
+<li>Archaius：外部化配置组件</li>
+</ul>
+</li>
+<li>Spring Cloud Config：配置管理工具，实现应用配置的外部化存储，支持客户端配置信息刷新、加密/解密配置内容等。</li>
+<li>Spring Cloud Bus：事件、消息总线，用于传播集群中的状态变化或事件，以及触发后续的处理</li>
+<li>Spring Cloud Security：基于spring security的安全工具包，为我们的应用程序添加安全控制</li>
+<li>Spring Cloud Consul : 封装了Consul操作，Consul是一个服务发现与配置工具（与Eureka作用类似），与Docker容器可以无缝集成</li>
+<li>……</li>
+</ul>
+<h1 id="三、参考学习资料"><a href="#三、参考学习资料" class="headerlink" title="三、参考学习资料"></a>三、参考学习资料</h1><p>　　<strong><em>备注：</em></strong>下面资料都是我们项目组新同事以及老同事（.Net技术背景）所采用的学习资料，<strong>并不保证适合于所有人</strong>。本示例主要也主要是基于下面的资料而写的sample code。</p>
+<p>　　（1）周立：《<a target="_blank" rel="noopener" href="https://book.douban.com/subject/30278673/">Spring Cloud与Docker 微服务架构实战</a>》</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180822203658690-695659411.jpg" alt="img"></p>
+<p>　　（2）程序猿DD：《<a target="_blank" rel="noopener" href="https://book.douban.com/subject/27025912/">Spring Cloud 微服务实战</a>》、《<a target="_blank" rel="noopener" href="http://blog.didispace.com/Spring-Cloud%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">Spring Cloud基础教程（Dalston版本）</a>（<em>强力推荐</em>）》</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180822203530287-752031402.jpg" alt="img"></p>
+<p>　　（3）纯洁的微笑，《<a target="_blank" rel="noopener" href="http://www.ityouknow.com/spring-cloud">Spring Cloud系列文章</a>》</p>
+<h1 id="四、示例结构说明"><a href="#四、示例结构说明" class="headerlink" title="四、示例结构说明"></a>四、示例结构说明</h1><h2 id="4-1-示例环境版本"><a href="#4-1-示例环境版本" class="headerlink" title="4.1 示例环境版本"></a>4.1 示例环境版本</h2><ul>
+<li><strong>Java</strong> : JDK &amp; JRE 1.8 8u151</li>
+<li><strong>Spring Boot</strong> : 1.5.15.RELEASE</li>
+<li><strong>Spring Cloud</strong> : Edgware.SR3 （*<strong>小贴士*</strong>：Spring Cloud的版本命名是以伦敦地铁站的名字来命名的）</li>
+</ul>
+<h2 id="4-2-示例地址与结构说明"><a href="#4-2-示例地址与结构说明" class="headerlink" title="4.2 示例地址与结构说明"></a>4.2 示例地址与结构说明</h2><p>　　示例地址：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples">https://github.com/EdisonChou/EDC.SpringCloud.Samples</a></p>
+<h3 id="4-2-1-服务注册与发现-基于Eureka"><a href="#4-2-1-服务注册与发现-基于Eureka" class="headerlink" title="4.2.1 服务注册与发现 - 基于Eureka"></a>4.2.1 服务注册与发现 - 基于Eureka</h3><p>　　此部分示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part1_service-register-discovery">part1_service-register-discovery</a></p>
+<p>　　此部分示例主要演示了如何基于Eureka实现服务的注册与发现，其中包括两个版本：</p>
+<p>　　① 单节点版本 （开发环境调试用） =&gt; 位于eureka-service-sn (sn代表single node)项目内</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180827150050804-810811632.png" alt="img"></p>
+<p>　　这里需要注意的地方是：在开发环境需要关闭Eureka的自我保护机制，不然你无法轻易看到服务移除的效果，需要在application.yml中如下设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  server:</span><br><span class="line">    enableSelfPreservation: false # 本地调试环境下关闭自我保护机制</span><br></pre></td></tr></table></figure>
+<p>　　这是因为Eureka考虑到生产环境中可能存在的网络分区故障，会导致微服务与Eureka Server之间无法正常通信。它的架构哲学是宁可同时保留所有微服务（健康的微服务和不健康的微服务都会保留），也不盲目注销任何健康的微服务。</p>
+<p>　　关于自我保护机制，更多内容可以参考：《<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhxdick/article/details/79153106">Spring Cloud Eureka全解之自我保护机制</a>》　</p>
+<p>　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180827151103729-1280844661.png" alt="img"></p>
+<p>　　② HA多节点版本 （部署/生产环境用） =&gt; 位于eureka-service-ha-1 &amp; eureka-service-ha-2这两个项目内</p>
+<p>　　此版本需要注意的是两个节点的application.yml保持一致，但由于其中使用了peer1和peer2的hostname，在本地开发环境需要给Windows（我假设你使用的是Windows系统）设置hosts文件如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1    peer1 peer2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><em>扩展：</em></strong>除了Eureka之外，还可以选择通用型较强的Consul，关于Consul的基本概念与服务端的安装配置可以看看我的这一篇《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/edisonchou/p/9124985.html">.Net Core微服务之基于Consul实现服务注册于发现</a>》了解一下。最后，不得不说，Spring Boot 和 Spring Cloud中核心组件封装的注解真的是太强大了，很多操作一个注解直接搞定，无须过多的coding。　　</p>
+</blockquote>
+<h3 id="4-2-2-客户端负载均衡-基于Ribbon"><a href="#4-2-2-客户端负载均衡-基于Ribbon" class="headerlink" title="4.2.2 客户端负载均衡 - 基于Ribbon"></a>4.2.2 客户端负载均衡 - 基于Ribbon</h3><p>　　此部分示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part2_client-load-balance">part2_client-load-balance</a></p>
+<p>　　此部分示例主要演示了如何基于Ribbon实现客户端的负载均衡，建议启动方式：先启动Eureka，再启动UserService和MovieService。通过访问MovieService的API接口 /log-instance 进行日志查看，测试结果如下图所示：</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180828100514390-46002450.png" alt="img"></p>
+<p>　　从上图可以看出，通过客户端的负载均衡算法，依次访问了不同的服务节点。</p>
+<h3 id="4-2-3-声明式REST调用-基于Feign"><a href="#4-2-3-声明式REST调用-基于Feign" class="headerlink" title="4.2.3 声明式REST调用 - 基于Feign"></a>4.2.3 声明式REST调用 - 基于Feign</h3><p>　　此部分示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part3_feign">part3_feign</a></p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180828143813878-505173877.png" alt="img"></p>
+<p>　　此部分示例主要演示了基于Feign如何实现声明式调用，包括以下内容：</p>
+<p>　　（1）基本整合Feign进行单参数与多参数的请求：位于movie-service这个项目内</p>
+<p>　　需要注意的就是别忘了在启动类加上@EnableFeignClients注解</p>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableFeignClients // 要使用Feign，需要加上此注解</span><br><span class="line">public class MovieServiceApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(MovieServiceApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<p>　　（2）自定义Feign配置的使用：位于movie-service-feign-customizing这个项目内</p>
+<p>　　下面的Feign接口就使用了自定义的配置类FeignConfiguration。</p>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(name = &quot;user-service&quot;, configuration = FeignConfiguration.class)</span><br><span class="line">public interface UserFeignClient &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 使用feign自带的注解@RequestLine</span><br><span class="line">     * @see https://github.com/OpenFeign/feign</span><br><span class="line">     * @param id 用户id</span><br><span class="line">     * @return 用户信息</span><br><span class="line">     */</span><br><span class="line">    @RequestLine(&quot;GET /&#123;id&#125;&quot;)</span><br><span class="line">    User findById(@Param(&quot;id&quot;) Long id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<p>　　（3）Feign的日志的使用：位于movie-service-feign-logging这个项目内</p>
+<p>　　需要注意的是：Feign虽然提供了logger，但是其日志打印只会对DEBUG级别做出响应。日志级别一共有4种类型，如下所示：</p>
+<blockquote>
+<p>Logger.Level 可选值：<br>* NONE: 不记录任何日志（默认值）<br>* BASIC: 仅记录请求方法、URL、响应状态码以及执行时间<br>* HEADERS: 记录BASIC级别的基础之上，记录请求和响应的header<br>* FULL: 记录请求和响应的header，body和元数据</p>
+</blockquote>
+<p>　　要输出日志打印，application.yml内要设置DEBUG级别：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">logging:</span><br><span class="line">  level:</span><br><span class="line">    # 将Feign接口的日志级别设置为DEBUG，因为Feign的Logger.Level只针对DEBUG做出响应</span><br><span class="line">    com.mbps.cd.movieservice.feign.UserFeignClient: DEBUG</span><br></pre></td></tr></table></figure>
+<p>　　最后，针对FULL级别的日志打印效果如下图所示：</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180828145412951-1521816745.png" alt="img"></p>
+<h3 id="4-2-4-容错处理-基于Hystrix"><a href="#4-2-4-容错处理-基于Hystrix" class="headerlink" title="4.2.4 容错处理 - 基于Hystrix"></a>4.2.4 容错处理 - 基于Hystrix</h3><p>　　此部分示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part4_hystrix">part4_hystrix</a></p>
+<p>　　此部分示例主要演示如何基于Hystrix实现容错处理，主要包括以下内容：</p>
+<p>　　（1）通用方式整合Hystrix：此示例位于movie-service项目中</p>
+<p>　　针对普通的方法，只需加上HystrixCommand注解及定义回退方法即可，例如：</p>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@HystrixCommand(fallbackMethod = &quot;findByIdFallback&quot;)</span><br><span class="line">@GetMapping(value = &quot;/user/&#123;id&#125;&quot;)</span><br><span class="line">public User findById(@PathVariable Long id) &#123;</span><br><span class="line">    return restTemplate.getForObject(&quot;http://user-service/&quot; + id, User.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public User findByIdFallback(Long id)&#123;</span><br><span class="line">    User user = new User();</span><br><span class="line">    user.setId(-1L);</span><br><span class="line">    user.setUsername(&quot;Default User&quot;);</span><br><span class="line"></span><br><span class="line">    return user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<p>　　（2）Feign使用Hystrix：此示例位于movie-service-feign-hystrix项目中</p>
+<p>　　针对Feign，它是以接口形式工作的，好在Spring Cloud已默认为Feign整合了Hystrix，不过默认是关闭的，需要手动在配置文件中开启：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  hystrix:</span><br><span class="line">    enabled: true</span><br></pre></td></tr></table></figure>
+<p>　　在之前的版本（Dalston之前的版本）中是默认开启的，至于为何要改为默认禁用，可以看看这里：<a target="_blank" rel="noopener" href="https://github.com/spring-cloud/spring-cloud-netflix/issues/1277">https://github.com/spring-cloud/spring-cloud-netflix/issues/1277</a></p>
+<p>　　然后直接在FeignClient注解中加入fallback属性即可，例如下面所示：</p>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(name = &quot;user-service&quot;, fallback = FeignClientFallback.class)</span><br><span class="line">public interface UserFeignClient &#123;</span><br><span class="line">    @GetMapping(value = &quot;/&#123;id&#125;&quot;)</span><br><span class="line">    User findById(@PathVariable(&quot;id&quot;) Long id);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">class FeignClientFallback implements UserFeignClient&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public User findById(Long id) &#123;</span><br><span class="line">        User user = new User();</span><br><span class="line">        user.setId(-1L);</span><br><span class="line">        user.setUsername(&quot;Default User&quot;);</span><br><span class="line"></span><br><span class="line">        return user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<p>　　如果想要在Feign发生回退时能够留下日志供查看回退原因，那么可以使用FallbackFactory，示例项目：movie-service-feign-fallback-factory.</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/ContractedBlock.gif" alt="img"> View Code</p>
+<p>　　当发生回退时，日志输出信息如下：</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180829105743871-715284667.png" alt="img"></p>
+<p>　　除此之外，关于Hystrix部分，还有监控的主题，这里由于我所在的项目组的技术架构中不会涉及到，也就没有弄，有兴趣的童鞋可以关注一下Hystrix自带的监控以及基于Turbine的聚合监控。参考文章：《<a target="_blank" rel="noopener" href="http://blog.didispace.com/spring-cloud-starter-dalston-5-1/">Hystrix监控面板（Dalston版）</a>》与《<a target="_blank" rel="noopener" href="http://blog.didispace.com/spring-cloud-starter-dalston-5-2/">Hystrix监控数据聚合</a>》。</p>
+<h3 id="4-2-5-API网关-基于Zuul"><a href="#4-2-5-API网关-基于Zuul" class="headerlink" title="4.2.5 API网关 - 基于Zuul"></a>4.2.5 API网关 - 基于Zuul</h3><p>　　此部分示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part5_zuul">part5_zuul</a></p>
+<p>　　此部分示例主要演示如何基于Zuul实现API网关，主要包括以下内容：</p>
+<p>　　（1）整合Zuul编写API网关：位于zuul-service项目中</p>
+<p>　　可以测试验证的内容：</p>
+<ul>
+<li>路由规则：依次启动eureka，user-service，movie-service，zuul-service，然后通过zuul访问user-service接口</li>
+<li>负载均衡：依次启动eureka，多个user-service，zuul-service，然后多次访问user-service，最后查看日志信息（两个user-service都会打印hibernate日志信息），验证是否达到负载均衡的效果。*<strong>PS*</strong>：Zuul内置了Ribbon来实现负载均衡。　　</li>
+<li>路由端点：依次启动eureka，user-service，movie-service，zuul-service，然后浏览器访问zuul-service（<a target="_blank" rel="noopener" href="http://localhost:5000/routes%EF%BC%89%E5%8F%AF%E4%BB%A5%E5%BE%97%E5%88%B0%E8%B7%AF%E7%94%B1%E7%AB%AF%E7%82%B9%E4%BF%A1%E6%81%AF">http://localhost:5000/routes）可以得到路由端点信息</a></li>
+</ul>
+<p>　　对于路由端点，需要改一下以下配置，才能正常显示路由端点信息，否则会报401的错误：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">management:</span><br><span class="line">  security:</span><br><span class="line">    enabled: false # 默认为true，改为false以便可以看到routes</span><br></pre></td></tr></table></figure>
+<ul>
+<li>路由配置：示例主要演示了路由前缀、全局敏感设置以及路由规则设置</li>
+<li>大文件上传设置：针对超大文件上传（比如500M），需要在Zuul中提升超时设置</li>
+</ul>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/ContractedBlock.gif" alt="img"> View Code</p>
+<p>　　（2）Zuul的过滤器：主要位于zuul-service-filter这个项目中</p>
+<p>　　对于Zuul的请求声明周期来说，一共有4种标准过滤器类型：</p>
+<ul>
+<li>PRE：在请求被路由之前调用，可利用这种过滤器实现身份验证、记录调试信息等操作；</li>
+<li>ROUTING：将请求路由到微服务，可利用这种过滤器用于构建发送给微服务的请求；</li>
+<li>POST：在路由到微服务以后执行，可用来为响应添加标准的HTTP Header、收集统计信息和指标、将响应从微服务发送给客户端等；</li>
+<li>ERROR：在其他阶段发生错误时执行该过滤器；　　</li>
+</ul>
+<p>　　　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180829194447438-1935637453.png" alt="img"></p>
+<p>　　此示例中演示了PRE类型的过滤器，部分场景下，想要禁用部分过滤器，只需要在配置文件中设置即可，例如这里禁用PreRequestLogFilter过滤器：</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/ContractedBlock.gif" alt="img"> View Code</p>
+<p>　　（3）Zuul的容错与回退：主要位于zuul-service-fallback这个项目中</p>
+<p>　　Zuul自身就带有Hystrix，但是*<strong>它监控的粒度是微服务级别，而不是某个API*</strong>，当某个API不可用时，会统一抛500错误码的异常页。我们可以为Zuul添加回退，以实现更友好的返回信息。实现也很简单，只需要实现FallbackProvider接口即可。这里要注意的是，对于Edgware之前的版本（即Dalston及更低版本）需要实现的是ZuulFallbackProvider接口，而Edgware及之后的版本要实现的是FallbackProvider接口。因为FallbackProvider是ZuulFallbackProvider的子接口，而它的好处就是多了一个接口可以获取可能造成回退的原因，具体可以参考这一篇文章：《<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/632f26892c44">Spring Cloud Edgware新特性之八：Zuul回退的改进</a>》。下面是本示例中访问user-service接口（user-service被我手动关闭）后的返回结果：</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180829203408560-1338574330.png" alt="img"></p>
+<p>　　（4）Zuul的高可用架构</p>
+<p>　　生产环境中一般都需要部署高可用的Zuul以避免单点故障，实际开发中有两种情况：</p>
+<p>　　① Zuul的客户端也注册到了Eureka Server上（比如：MVC App, SPA 等）</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/8-7.png" alt="img"></p>
+<p>　　此时Zuul的高可用和其他微服务没区别，都是借助Eureka和Ribbon来实现负载均衡。</p>
+<p>　　② Zuul的客户端未注册到Eureka Server上（比如手机App端等）</p>
+<p>　　现实中这种场景或许更常见，此时需要借助一个额外的负载均衡器来实现Zuul的高可用，比如：Nginx、HAProxy以及F5等。</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/8-8.png" alt="img"></p>
+<p>　　更多Zuul高可用的内容，可以浏览周立老师的这一篇：《<a target="_blank" rel="noopener" href="http://www.itmuch.com/spring-cloud/zuul/zuul-ha/">Zuul的高可用</a>》</p>
+<p>　　（5）使用Zuul聚合微服务：此示例位于zuul-service-aggregation项目中</p>
+<p>　　许多场景下可能一个外部请求要查询Zuul后端的多个服务，这时可以使用Zuul来聚合服务请求，即只需请求一次，由Zuul来请求各个服务，然后组织好数据发送给客户端（比如App客户端）。示例中主要基于RxJava与Zuul来结合实现的微服务请求的聚合。</p>
+<h3 id="4-2-6-统一配置管理-基于Spring-Cloud-Config"><a href="#4-2-6-统一配置管理-基于Spring-Cloud-Config" class="headerlink" title="4.2.6 统一配置管理 - 基于Spring Cloud Config"></a>4.2.6 统一配置管理 - 基于Spring Cloud Config</h3><p>　　Spring Cloud Config为分布式系统外部化配置提供了服务端和客户端的支持，包括Config Server和Config Client两部分，其架构图如下图所示：</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180911102332162-368646690.jpg" alt="img"></p>
+<p>　　其中，各个微服务在启动时会请求Config Server以获取所需要的配置属性，然后缓存这些属性以提高性能，如下图所示：</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180911102459754-1863677573.png" alt="img"></p>
+<p>　　此部分示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part6_config">part6_config</a></p>
+<p>　　此部分示例主要演示如何基于Spring Cloud Config实现统一配置中心，主要包括以下内容：</p>
+<p>　　（1）基本的Config Server与Config Client编写：此示例位于config-service与config-client中</p>
+<p>　　此示例需要用到一些已放到git的配置文件，这里我已将其放到了github方便大家可以直接拿来测试用，仓库地址为：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples.Config">https://github.com/EdisonChou/EDC.SpringCloud.Samples.Config</a></p>
+<blockquote>
+<p>端点与配置文件的*<strong>映射规则*</strong>如下：</p>
+<p>/{application}/{profile}[/{label}]</p>
+<p>/{application}-{profile}.yml</p>
+<p>/{label}/{application}-{profile}.yml</p>
+<p>/{application}-{profile}.properties</p>
+<p>/{label}/{application}-{profile}.properties</p>
+<p>其中，application: 表示微服务的虚拟主机名，即配置的spring.application.name</p>
+<p>profile: 表示当前的环境，dev, test or production?</p>
+<p>label: 表示git仓库分支，master or relase or others repository name? 默认是master</p>
+</blockquote>
+<p>　　项目中，config-service的配置文件如下：</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/ContractedBlock.gif" alt="img"> View Code</p>
+<p>　　启动顺序：先启动config-server，再启动config-client，因为config-client在启动时就回去config-server获取配置，如果这时config-server未启动则会报错。</p>
+<p>　　这里需要注意的就是在config-client中，对于spring cloud config的配置应该放在bootstrap.yml中而不是application.yml中，否则会不起作用。这里涉及到一个spring cloud的“引导上下文”的概念，可以参考这篇《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/niechen/p/8968204.html">深入理解Spring Cloud引导上下文</a>》来了解一下。</p>
+<p>　　（2）使用/refresh端点手动刷新配置：仍然位于config-client项目中</p>
+<p>　　要想在运行期间刷新配置，需要两点改造：加上@RefreshScope注解</p>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RefreshScope // @RefreshScope注解不能少，否则即使调用/refresh，配置也不会刷新</span><br><span class="line">public class ConfigClientController &#123;</span><br><span class="line">    @Value(&quot;$&#123;profile&#125;&quot;)</span><br><span class="line">    private String profile;</span><br><span class="line"></span><br><span class="line">    @GetMapping(&quot;/profile&quot;)</span><br><span class="line">    public String hello()&#123;</span><br><span class="line">        return this.profile;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="javascript:void(0);"><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/copycode.gif" alt="复制代码"></a></p>
+<p>　　此外，针对Spring Boot 1.5.x，还需要给config-client端关闭安全认证，否则无法正常refresh：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">management:</span><br><span class="line">  security:</span><br><span class="line">    enabled: false</span><br></pre></td></tr></table></figure>
+<p>　　之后，就可以通过对config-client发起POST请求刷新配置了：</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180911110239157-395567823.png" alt="img"></p>
+<p>　　不过，如果所有微服务都需要手动刷新配置，工作量会很大。所以，在实际环境中，一般会实现配置的自动刷新。</p>
+<p>　　（3）使用Spring Cloud Bus自动刷新配置：此示例位于config-server-cloud-bus与config-client-cloud-bus项目中</p>
+<p>　　此示例使用到的架构如下图所示，它将Config Server加入消息总线之中，并使用Config Server的/bus/refersh端点来实现配置的刷新。这样，各个微服务只需要关注自身的业务逻辑，而无需再自己手动刷新配置。</p>
+<p>　　　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180911164253270-1574652079.png" alt="img"></p>
+<blockquote>
+<p><strong><em>Tip：</em></strong>Spring Cloud Bus基于轻量级地消息代理（例如RabbitMQ、Kafka等）连接分布式系统的节点，就可以通过广播的方式来传播状态的更改（例如配置的更新）或者其他的管理指令。我们可以将Spring Cloud Bus想象成一个分布式的Spring Boot Actuator。　　</p>
+</blockquote>
+<p>　　运行顺序：先启动config-service-cloud-bus，再启动两个config-client-cloud-bus（第一个默认端口8081，第二个端口改为8082），修改github中sampleservice-foo-dev.properties中的profile值后commit &amp; push，然后POST请求config-service-cloud-bus的/bus/refersh端点，最后再次访问两个client的/profile端点进行验证。</p>
+<p>　　如果部分场景想要知道Spring Cloud Bus事件传播的细节，可以通过以下设置来跟踪事件总线：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  cloud:</span><br><span class="line">    bus:</span><br><span class="line">      trace:</span><br><span class="line">        enabled: true # 开启cloud bus跟踪</span><br></pre></td></tr></table></figure>
+<p>　　（4）与Eureka的配合使用：此示例位于config-service-eureka与config-client-eureka两个项目中</p>
+<p>　　（5）Config Server的高可用：涉及到Git仓库的高可用、RabbitMQ的高可用以及Config Server自身的高可用。</p>
+<p>　　对于Git仓库的高可用，第三方Git仓库类似于GitHub等本身已经实现了高可用，而针对自建Git仓库如GitLab，可以参考GitLab官方文档搭建高可用：<a target="_blank" rel="noopener" href="https://about.gitlab.com/high-availability/">https://about.gitlab.com/high-availability/</a></p>
+<p>　　对于Config Server自身的高可用，也可以分为未注册到Eureka和注册到Eureka两种情形，具体可以参考Zuul的高可用的架构图。</p>
+<p>　　此外，对于配置内容的加密，此示例没有涉及，它依赖于<em>JCE</em>（<em>Java Cryptography Extension</em>），可以参考这一篇《<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014792352/article/details/73163714">Spring Cloud配置文件加密</a>》了解一下。</p>
+<blockquote>
+<p><strong><em>扩展：\</em></strong>关于统一配置中心，还可以选择更好用的Apollo（携程的开源项目），可以看看我的这一篇《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/edisonchou/p/netcore_microservice_apollo_foundation.html">.Net Core微服务之基于Apollo实现统一配置中心</a>》了解一下。　　</p>
+</blockquote>
+<h3 id="4-2-7-微服务跟踪-基于Spring-Cloud-Sleuth"><a href="#4-2-7-微服务跟踪-基于Spring-Cloud-Sleuth" class="headerlink" title="4.2.7 微服务跟踪 - 基于Spring Cloud Sleuth"></a>4.2.7 微服务跟踪 - 基于Spring Cloud Sleuth</h3><p>　　首先，值得一提的是Spring Cloud Sleuth大量借用了Google Dapper，Twitter Zipkin和Apache HTrace的设计，我们得了解一些术语，例如：span、trace、annotation等，详细可以参考这篇《<a target="_blank" rel="noopener" href="https://blog.csdn.net/hry2015/article/details/78905489">Spring Cloud系列之分布式链路监控Spring Cloud Sleuth</a>》。</p>
+<p>　　此示例位于：<a target="_blank" rel="noopener" href="https://github.com/EdisonChou/EDC.SpringCloud.Samples/tree/master/src/part7_sleuth">part7_sleuth</a></p>
+<p>　　此部分示例主要演示如何基于Spring Cloud Sleuth实现分布式链路监控，主要包括以下内容：</p>
+<p>　　（1）基础整合Spring Cloud Sleuth：位于user-service-trace与movie-service-trace项目中，主要查看控制台输出日志</p>
+<p>　　（2）Spring Cloud Sleuth与Zipkin的配合使用：位于zipkin-service-server、user-service-trace-zipkin与movie-service-trace-zipkin三个项目中</p>
+<p>　　Zipkin是Twitter开源的分布式跟踪系统，基于Dapper论文设计而来，主要功能是收集系统的时序数据，从而追踪微服务架构的系统延时问题，此外还提供了一个非常友好的界面来帮助追踪分析数据。</p>
+<p>　　下图是一个接入Zipkin之后的服务调用简易流程图：</p>
+<p>　　　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180912100436938-1105881734.png" alt="img"></p>
+<p>　　运行顺序：首先运行zipkin-service-server，其次运行user-service-zipkin与movie-service-zipkin，然后访问<a target="_blank" rel="noopener" href="http://localhost:8010/user/1%E5%BE%97%E5%88%B0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%9C%EF%BC%8C%E6%9C%80%E5%90%8E%E8%AE%BF%E9%97%AEzipkin">http://localhost:8010/user/1得到数据结果，最后访问zipkin</a> server首页，填入起始时间、结束时间等筛选条件后，点击Find a trace按钮，可以看到trace列表，如下图所示：</p>
+<p><img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180912124929461-1130110818.png" alt="img"></p>
+<p>　　点击“依赖分析”，可以得到下图，有助于我们分析依赖关系：</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180912124826365-256580926.png" alt="img"></p>
+<p>　　需要注意的是，在开发调试时，因为默认的采样百分比是10%，Sleuth会忽略大量span，因此我们可以在开发环境将其设置为100%：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  sleuth:</span><br><span class="line">    sampler:</span><br><span class="line">      # 指定需采样的请求的百分比，默认是0.1（即10%），这里方便查看设为100%（实际环境不要这样设置）</span><br><span class="line">      percentage: 1.0</span><br></pre></td></tr></table></figure>
+<p>　　（3）使用RabbitMQ收集数据：此示例位于zipkin-service-server-stream与user-service-trace-zipkin-stream两个项目中</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/668104-20170919144417181-47072786.png" alt="img"></p>
+<p>　　此外，Spring Cloud Sleuth还可以与ELK配合使用，不过此示例没有涉及，感兴趣的朋友可以参考这一篇《<a target="_blank" rel="noopener" href="https://blog.csdn.net/yejingtao703/article/details/78318234">Spring Cloud Sleuth与ELK集成</a>》。当然，示例中的跟踪数据都是存放到内存中，但是跟踪数据还是建议存放到ElasticSearch中，生产环境切莫只存储到内存中。</p>
+<h1 id="推荐工具"><a href="#推荐工具" class="headerlink" title="推荐工具"></a>推荐工具</h1><p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180808003740095-518556064.jpg" alt="img"></p>
+<p>　　IDE =&gt; <a target="_blank" rel="noopener" href="https://www.jetbrains.com/idea/">Intellij Idea Community 2018</a></p>
+<p>　　(<strong><em>PS:</em></strong> 如果是.Net程序猿背景，强烈建议更改快捷键与Visual Studio保持一致，这样能加快开发效率，如不了解如何修改，可以参考邹琼俊《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiekzou/p/9202247.html">从.Net到Java - Idea and Start Spring Boot</a>》)</p>
+<p>　　<img src="/../images/SpringCloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%8E%E7%A4%BA%E4%BE%8B/381412-20180823162644740-346644119.jpg" alt="img"></p>
+<p>　　Plugin =&gt; 阿里巴巴代码规约</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/69d47631.html">http://aichn.cn/post/69d47631.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1-Spring-Cloud/">微服务,Spring Cloud</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/ac91ae90.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SpringCloud微服务：基于Nacos组件，整合Dubbo框架</div></div></a></div><div class="next-post pull-right"><a href="/post/10ecfdb3.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Springcloud 配置 | 史上最全,一文全懂</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/d41eacb4.html" title="2020周阳Spring Cloud完整版笔记一"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">2020周阳Spring Cloud完整版笔记一</div></div></a></div><div><a href="/post/ed863d59.html" title="Spring Cloud体系介绍"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">Spring Cloud体系介绍</div></div></a></div><div><a href="/post/10ecfdb3.html" title="Springcloud 配置 | 史上最全,一文全懂"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-28</div><div class="title">Springcloud 配置 | 史上最全,一文全懂</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6%E7%9A%84%E5%8F%91%E5%B1%95"><span class="toc-number">1.</span> <span class="toc-text">一、分布式服务框架的发展</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E7%AC%AC%E4%B8%80%E4%BB%A3%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 第一代服务框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E7%AC%AC%E4%BA%8C%E4%BB%A3%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 第二代服务框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E7%AC%AC%E4%B8%89%E4%BB%A3%E6%9C%8D%E5%8A%A1%E6%A1%86%E6%9E%B6"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 第三代服务框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E6%9C%AA%E6%9D%A5%EF%BC%88%E7%9B%AE%E6%B5%8B%E4%B8%8D%E4%B9%85%EF%BC%89%E4%B8%BB%E6%B5%81%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%92%8C%E6%8A%80%E6%9C%AF%E6%A0%88"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 未来（目测不久）主流的服务架构和技术栈</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Spring-Cloud-%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">二、Spring Cloud 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Spring-Cloud%E6%9E%81%E7%AE%80%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Spring Cloud极简介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Spring-Cloud%E6%A0%B8%E5%BF%83%E5%AD%90%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Spring Cloud核心子项目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8F%82%E8%80%83%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99"><span class="toc-number">3.</span> <span class="toc-text">三、参考学习资料</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%A4%BA%E4%BE%8B%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E"><span class="toc-number">4.</span> <span class="toc-text">四、示例结构说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E7%A4%BA%E4%BE%8B%E7%8E%AF%E5%A2%83%E7%89%88%E6%9C%AC"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 示例环境版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E7%A4%BA%E4%BE%8B%E5%9C%B0%E5%9D%80%E4%B8%8E%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 示例地址与结构说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-1-%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0-%E5%9F%BA%E4%BA%8EEureka"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1 服务注册与发现 - 基于Eureka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-2-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-%E5%9F%BA%E4%BA%8ERibbon"><span class="toc-number">4.2.2.</span> <span class="toc-text">4.2.2 客户端负载均衡 - 基于Ribbon</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-3-%E5%A3%B0%E6%98%8E%E5%BC%8FREST%E8%B0%83%E7%94%A8-%E5%9F%BA%E4%BA%8EFeign"><span class="toc-number">4.2.3.</span> <span class="toc-text">4.2.3 声明式REST调用 - 基于Feign</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-4-%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86-%E5%9F%BA%E4%BA%8EHystrix"><span class="toc-number">4.2.4.</span> <span class="toc-text">4.2.4 容错处理 - 基于Hystrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-5-API%E7%BD%91%E5%85%B3-%E5%9F%BA%E4%BA%8EZuul"><span class="toc-number">4.2.5.</span> <span class="toc-text">4.2.5 API网关 - 基于Zuul</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-6-%E7%BB%9F%E4%B8%80%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86-%E5%9F%BA%E4%BA%8ESpring-Cloud-Config"><span class="toc-number">4.2.6.</span> <span class="toc-text">4.2.6 统一配置管理 - 基于Spring Cloud Config</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-7-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%B7%9F%E8%B8%AA-%E5%9F%BA%E4%BA%8ESpring-Cloud-Sleuth"><span class="toc-number">4.2.7.</span> <span class="toc-text">4.2.7 微服务跟踪 - 基于Spring Cloud Sleuth</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E5%B7%A5%E5%85%B7"><span class="toc-number">5.</span> <span class="toc-text">推荐工具</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OpenWRT 配置 WireGuard 服务端及客户端配置教程 | 君子兰萧宇的博客</title><meta name="keywords" content="OpenWRT,WireGuard,服务器"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="前言去年出过一期在 OpenWRT 上部署 OpenConnect VPN 的详细教程,主要用于在外办公方便VPN 回家的使用场景.博主几乎每天使用持续了一年多,在 macOS 和 iOS 上体验都非常的稳定. 而今天的主角是已经火了几年的了WireGuard, 同样是 VPN 回家服务,在博主试用了一段时间后决定以后主用 WG 了. 由于 WireGuard 在 Linux 上安装配置较为麻烦,"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/7a74bfdf"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-21 03:20:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">OpenWRT 配置 WireGuard 服务端及客户端配置教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2019-09-28T12:10:33.000Z" title="undefined 2019-09-28 20:10:33">2019-09-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/WireGuard/">WireGuard</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>去年出过一期在 <strong>OpenWRT</strong> 上部署 <strong>OpenConnect VPN</strong> 的详细教程,主要用于在外办公方便<code>VPN 回家</code>的使用场景.博主几乎每天使用持续了一年多,在 macOS 和 iOS 上体验都非常的稳定.</p>
+<p>而今天的主角是已经火了几年的了<code>WireGuard</code>, 同样是 <strong>VPN 回家服务</strong>,在博主试用了一段时间后决定以后主用 WG 了.</p>
+<p>由于 <strong>WireGuard</strong> 在 <strong>Linux</strong> 上安装配置较为麻烦,而很多 <strong>OpenWRT</strong> 固件也都预装了 <strong>WG</strong> ,并且有图形化界面方便设置.所以博主目前推荐还是在 <strong>OpenWRT</strong> 来直接使用.</p>
+<h3 id="WireGuard-与-OpenConnect-VPN-的区别"><a href="#WireGuard-与-OpenConnect-VPN-的区别" class="headerlink" title="WireGuard 与 OpenConnect VPN 的区别"></a>WireGuard 与 OpenConnect VPN 的区别</h3><p>抛开深沉的原理,简单通俗的说明下两者的区别和使用感受:<br><code>OpenConnect VPN</code>主要是使用 TCP 协议,而<code>WireGuard</code>则是 UDP 协议.最明显使用感知就是前者需要类似拨号一样过程,在网络断开,重连等情况下并非无感.而<code>WireGuard</code>则类似于常驻后台,随用随取的感觉,体验不错.</p>
+<p>在配置方面, OpenConnect VPN 需要使用证书来提高使用安全和连接体验,而 WireGuard 则是使用点对点的加密公钥私钥的形式来配对,并且每台客户端需要单独分配 IP 和公私钥.前期配置均稍许麻烦,但两者后续使用和管理都还比较合理和方便.</p>
+<ul>
+<li>OpenConnect VPN 只需要客户端拥有证书文件即可</li>
+<li>WireGuard 只需要客户拥有配置文件即可</li>
+</ul>
+<hr>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>注意博主的 OpenWRT 是以<strong>旁路由</strong>的形式存在于家庭网络中,<strong>所以后续防火墙设置可能和把 OpenWRT 当主路由的形式不同.</strong></p>
+<h3 id="创建公钥私钥"><a href="#创建公钥私钥" class="headerlink" title="创建公钥私钥"></a>创建公钥私钥</h3><h4 id="预共享密钥"><a href="#预共享密钥" class="headerlink" title="预共享密钥"></a>预共享密钥</h4><p>通过<code>SSH</code>登陆到 OpenWRT 后台.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir wg</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建目录存放公钥私钥</span></span><br><span class="line">cd wg</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入文件夹</span></span><br><span class="line">umask 077</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置创建密钥的权限</span></span><br><span class="line">wg genpsk &gt; sharekey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建预共享密钥</span></span><br><span class="line">cat sharekey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取密钥复制保存</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1022163021.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1022163021.jpeg)</a></p>
+<h4 id="服务端公钥私钥"><a href="#服务端公钥私钥" class="headerlink" title="服务端公钥私钥"></a>服务端公钥私钥</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wg genkey | tee server_privatekey | wg pubkey &gt; server_publickey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建服务端公钥和私钥</span></span><br><span class="line">cat server_privatekey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取服务端私钥复制保存</span></span><br><span class="line">cat server_publickey</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取服务端公钥复制保存</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3790279855.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3790279855.jpeg)</a></p>
+<h4 id="客户端公钥私钥-macOS"><a href="#客户端公钥私钥-macOS" class="headerlink" title="客户端公钥私钥 ( macOS )"></a>客户端公钥私钥 ( macOS )</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">重复此操作创建每个客户端的公钥和私钥,请注意修改以下命令中的文件名,本文以 macOS 为例:</span><br><span class="line">wg genkey | tee macos_privatekey | wg pubkey &gt; macos_publickey</span><br><span class="line"># 创建 macOS 客户端公钥和私钥</span><br><span class="line">cat macos_privatekey</span><br><span class="line"># 获取 macOS 客户端私钥复制保存</span><br><span class="line">cat macos_publickey</span><br><span class="line"># 获取 macOS 客户端公钥复制保存</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/731528211.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/731528211.jpeg)</a></p>
+<h3 id="配置-OpenWRT"><a href="#配置-OpenWRT" class="headerlink" title="配置 OpenWRT"></a>配置 OpenWRT</h3><h4 id="服务端相关配置"><a href="#服务端相关配置" class="headerlink" title="服务端相关配置"></a>服务端相关配置</h4><p>登陆 OpenWRT - 网络 - 接口 - 添加新接口</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/2484939947.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/2484939947.jpeg)</a></p>
+<p>填写接口名 - 选择接口协议 - 提交</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/286965958.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/286965958.jpeg)</a></p>
+<p>基本设置 - 填写上文获取的<code>服务端私钥</code><br>自行填写一个端口号 - <code>并且在路由器映射该端口的 UDP 协议</code><br>IP 地址填写一个 VPN 专用的网段 IP - 本文以<code>192.168.100.X</code>为 WireGuard 的专用网段为例,则本 WG 服务器 IP 为<code>192.168.100.1/24</code></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1414831899.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1414831899.jpeg)</a></p>
+<p>防火墙设置 - 选择 vpn</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3137243165.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3137243165.jpeg)</a></p>
+<h4 id="客户端-Peers-区域为每个客户端添加配置"><a href="#客户端-Peers-区域为每个客户端添加配置" class="headerlink" title="客户端 Peers 区域为每个客户端添加配置"></a>客户端 Peers 区域为每个客户端添加配置</h4><p>选择<code>预共享密钥</code> - 添加</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3670085722.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3670085722.jpeg)</a></p>
+<p>公钥 - 填写上文获取的<code>macOS 客户端公钥</code><br>预共享密钥 - 填写上文获取的<code>预共享密钥</code><br>允许的 IP - 即表示为此 macOS 客户端分配固定 IP , 本文示例为 <code>192.168.100.2/32</code> , <strong>注意各客户端 IP 不能冲突</strong>.<br>持续 Keep-Alive - 填写 25</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/275719202.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/275719202.jpeg)</a></p>
+<h4 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h4><p>网络 - 防火墙 - 自定义防火墙 - 添加以下防火墙 - 重启防火墙</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iptables -t nat -A POSTROUTING -s 192.168.100.0/24 -o br-lan -j MASQUERADE</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">注意此条防火墙网段 192.168.100.0/24 需和上文服务端 IP 网段保持一致.</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>再次声明博主的 OpenWRT 是作为旁路由接入</strong>,此条防火墙不确定适用于主路由部署 WireGuard 使用.主路由用户可以尝试无需设置防火墙(经朋友测试)</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/524460402.jpg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/524460402.jpg)</a></p>
+<h4 id="重启-WireGuard"><a href="#重启-WireGuard" class="headerlink" title="重启 WireGuard"></a>重启 WireGuard</h4><p>返回网络 - 接口 - 关闭 - 连接<br>或者直接重启整个 OpenWRT 最为稳妥.</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/894597398.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/894597398.jpeg)</a></p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><h3 id="创建客户端配置文件"><a href="#创建客户端配置文件" class="headerlink" title="创建客户端配置文件"></a>创建客户端配置文件</h3><p>创建后缀为<code>.conf</code>的配置文件,例如<code>macos_wireguard.conf</code>,复制以下信息,并且修改对应的公私钥信息:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[Interface]</span><br><span class="line"><span class="attribute">Address</span> = <span class="number">192.168.100.2</span>/<span class="number">32</span></span><br><span class="line"><span class="comment"># 对应 macOS 客户段分配的 IP</span></span><br><span class="line">PrivateKey = qJHywBpl27Ao/TRse85DQ/f+kwfNGRmPDYCq0OC6uUY=</span><br><span class="line">DNS = <span class="number">192.168.1.3</span></span><br><span class="line"><span class="comment"># 本地的 DNS 服务器或者公有 DNS 服务器,例如: 114.114.114.114</span></span><br><span class="line">[Peer]</span><br><span class="line">PublicKey = u7vjXN90uJt7pRjG8tR7hb25ssYOi7PRzJ5h9Diy02I=</span><br><span class="line">AllowedIPs = <span class="number">192.168.1.0</span>/<span class="number">24</span>, <span class="number">192.168.100.0</span>/<span class="number">24</span></span><br><span class="line"><span class="comment"># macOS 如上设置可与 ClashX Pro 共存仅代理局域网,互联网走本地网络.</span></span><br><span class="line"><span class="comment"># iPhone iPad 设置为 0.0.0.0/0 全局则模式.</span></span><br><span class="line">PresharedKey = Pu5xBEBmz9ghhUMNp5o72s+w7nuLwxJJUgNk3EljFVo=</span><br><span class="line"><span class="comment"># 预共享密钥</span></span><br><span class="line">Endpoint = ddns.xxxxx.com:<span class="number">12345</span></span><br><span class="line">PersistentKeepalive = <span class="number">25</span></span><br></pre></td></tr></table></figure>
+<p>此时的配置文件是用于客户端的,所以<code>PrivateKey</code>则为 macOS 客户端的私钥,而<code>Peer</code>中的<code>PublicKey</code>则为 OpenWRT 的公钥.<strong>请注意反向思考</strong>,<code>Endpoint</code>填写家中的 IP 或者 DDNS 域名和端口.</p>
+<h4 id="AllowedIPs"><a href="#AllowedIPs" class="headerlink" title="AllowedIPs"></a>AllowedIPs</h4><p>值得注意的是<code>AllowedIPs</code>参数.针对不同场景和需求,此处可以配置不用的路由.<br>当此处为<code>0.0.0.0/0</code>时表示任意网络请求都经过 VPN 俗称全局 VPN , 由于 iPhone 同时只能有 1 个 VPN 软件在线,所以当 <code>WireGuard</code> 启动时,其他类似<code>Quanx</code>,<code>小火箭</code>等软件则无法使用,此时 iPhone 可以全局 VPN 使用家中的网络来访问一些外网.</p>
+<p>如果是 macOS 或 Windows 客户端,<code>WireGuard</code>和<code>Clash</code>等软件可以共存,此处可以设置为<code>AllowedIPs = 192.168.1.0/24, 192.168.100.0/24</code>,表示访问内网网段才会走 VPN .而其他互联网,外网等访问还是走当前网络来利用<code>Clash</code>分流.</p>
+<h3 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h3><p>在 macOS App Store 下载 <code>WireGuard</code>,从文件导入隧道.</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/2003979131.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/2003979131.jpeg)</a></p>
+<p>选择允许添加 VPN 配置</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/302243957.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/302243957.jpeg)</a></p>
+<p>连接成功</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1707328844.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1707328844.jpeg)</a></p>
+<p>在 OpenWRT 状态页面能够看到连接成功的状态信息</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1165251389.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1165251389.jpeg)</a></p>
+<h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h3><p>重复上述操作创建 iPhone 的配置文件,并上传至 iCloud 云盘.<br>在 iOS 设备 App Store 下载 <code>WireGuard</code></p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/1151510484.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/1151510484.jpeg)</a></p>
+<p>添加隧道 - 导入配置或压缩包</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3454281593.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3454281593.jpeg)</a></p>
+<p>从 iCloud 云盘中选择 iphone_wireguard.conf 配置文件</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/2279540996.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/2279540996.jpeg)</a></p>
+<p>选择允许添加 VPN 配置</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/4147645188.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/4147645188.jpeg)</a></p>
+<p>连接成功</p>
+<p><a target="_blank" rel="noopener" href="https://static.ioiox.com/usr/uploads/2021/09/3906918524.jpeg">![img](../images/OpenWRT 配置 WireGuard 服务端及客户端配置教程/3906918524.jpeg)</a></p>
+<hr>
+<h2 id><a href="#" class="headerlink" title></a></h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/7a74bfdf.html">http://aichn.cn/post/7a74bfdf.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OpenWRT-WireGuard-%E6%9C%8D%E5%8A%A1%E5%99%A8/">OpenWRT,WireGuard,服务器</a></div><div class="post_share"><div class="social-share" data-image="/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/c34d48be.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">K8S命令</div></div></a></div><div class="next-post pull-right"><a href="/post/39837a8d.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring-Cloud-Gateway 从升级到放弃</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WireGuard-%E4%B8%8E-OpenConnect-VPN-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.</span> <span class="toc-text">WireGuard 与 OpenConnect VPN 的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">2.</span> <span class="toc-text">服务端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%85%AC%E9%92%A5%E7%A7%81%E9%92%A5"><span class="toc-number">2.1.</span> <span class="toc-text">创建公钥私钥</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%84%E5%85%B1%E4%BA%AB%E5%AF%86%E9%92%A5"><span class="toc-number">2.1.1.</span> <span class="toc-text">预共享密钥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%85%AC%E9%92%A5%E7%A7%81%E9%92%A5"><span class="toc-number">2.1.2.</span> <span class="toc-text">服务端公钥私钥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%85%AC%E9%92%A5%E7%A7%81%E9%92%A5-macOS"><span class="toc-number">2.1.3.</span> <span class="toc-text">客户端公钥私钥 ( macOS )</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-OpenWRT"><span class="toc-number">2.2.</span> <span class="toc-text">配置 OpenWRT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">服务端相关配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-Peers-%E5%8C%BA%E5%9F%9F%E4%B8%BA%E6%AF%8F%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B7%BB%E5%8A%A0%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.2.</span> <span class="toc-text">客户端 Peers 区域为每个客户端添加配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">2.2.3.</span> <span class="toc-text">防火墙</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E5%90%AF-WireGuard"><span class="toc-number">2.2.4.</span> <span class="toc-text">重启 WireGuard</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">3.</span> <span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">创建客户端配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AllowedIPs"><span class="toc-number">3.1.1.</span> <span class="toc-text">AllowedIPs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#macOS"><span class="toc-number">3.2.</span> <span class="toc-text">macOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS"><span class="toc-number">3.3.</span> <span class="toc-text">iOS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text"></span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

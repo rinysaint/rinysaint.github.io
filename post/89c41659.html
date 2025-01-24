@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【数据可视化】电视产品精准营销推荐 | 君子兰萧宇的博客</title><meta name="keywords" content="大数据,数据可视化,营销推荐"><meta name="author" content="萧宇"><meta name="copyright" content="萧宇"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="获奖经历： 2017年4月:美国大学生数学建模竞赛二等奖 2017年11月:数学建模竞赛国家一等奖 2017年11月:数学竞赛国家二等奖 2018年4月:美国大学生数学建模竞赛二等奖 2018年5月:泰迪杯数据挖掘竞赛国家二等家 兴趣爱好：羽毛球，读书 个人生活照：（1-2张）  一、实验目的 1、实验背景 本实验项目来自于第六届泰迪杯数据挖掘竞赛，共包含用户观看信息和电视产品信息两组数据，通过对"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://aichn.cn/post/89c41659"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/APlayer.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-21 03:20:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-882533662c432170019ffeeab963aee8_hd.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">君子兰萧宇的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 文章</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="http://xiao.aichn.cn"><span> 论坛</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div><div id="aplayer"><script src="/js/APlayer.min.js"></script>            
+            <script src="/js/Meting.min.js"></script>            <meting-js id="6771987564" server="netease" type="playlist" order="random" autoplay="true" preload="auto" list-folded="" fixed="true"></meting-js></div></nav><div id="post-info"><h1 class="post-title">【数据可视化】电视产品精准营销推荐</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-12-23T13:06:36.000Z" title="undefined 2018-12-23 21:06:36">2018-12-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>获奖经历：</p>
+<p>2017年4月:美国大学生数学建模竞赛二等奖</p>
+<p>2017年11月:数学建模竞赛国家一等奖</p>
+<p>2017年11月:数学竞赛国家二等奖</p>
+<p>2018年4月:美国大学生数学建模竞赛二等奖</p>
+<p>2018年5月:泰迪杯数据挖掘竞赛国家二等家</p>
+<p>兴趣爱好：羽毛球，读书</p>
+<p>个人生活照：（1-2张）</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-6aa9dfa6d6d152c4f2772709a2a1645a_hd.jpg" alt="img"></p>
+<p><strong>一、实验目的</strong></p>
+<p>1、实验背景</p>
+<p>本实验项目来自于第六届泰迪杯数据挖掘竞赛，共包含用户观看信息和电视产品信息两组数据，通过对数据进行处理，实现产品的精准营销推荐，并将并将结果进行可视化展示。</p>
+<p>2、实验目的</p>
+<p>基于电视产品及用户信息数据对产品进行精准营销推荐，并将结果进行可视化展示。主要实现以下两个目的：</p>
+<p>（1）产品的精准营销推荐</p>
+<p>根据用户观看记录信息数据，分析用户的收视偏好，并给出电视产品的营销推荐方案。</p>
+<p>（2）相似偏好用户的产品打包推荐</p>
+<p>为了更好地为用户服务，扩大营销范围，利用数据对相似偏好的用户进行分类（用户标签），对产品进行分类打包（产品标签），并给出营销推荐方案。</p>
+<p>3、实验内容与要求</p>
+<p>（1）对数据进行处理，并根据用户的收视信息对用户偏好进行分析，将分析结果用图像进行表示。</p>
+<p>（2）整理产品信息，重新对产品分类，将产品类别通过可视化方式表达。</p>
+<p>（3）利用推荐算法和聚类算法对产品进行推荐，将具体过程进行展示。</p>
+<p>（4）对结果进行分析，得出精准的营销推荐方案以及有效的可视化展示结果。</p>
+<p>4、实验所用工具</p>
+<p>l Excle</p>
+<p>利用其中的统计和编程工具对数据进行处理和分析</p>
+<p>l Echarts</p>
+<p>含有多类图像，在没有可视化思路时，可以利用它寻找灵感，代码易改易实施</p>
+<p>l Rstudio</p>
+<p>其中的ggplot/echarts绘画包中图像丰富，语句简单</p>
+<p>l Microsoft Visio</p>
+<p>适合流程图说明图的绘制，简单易操作</p>
+<p><strong>二、实验过程</strong></p>
+<p>1、数据介绍</p>
+<p>数据来源于泰迪杯数据挖掘竞赛官网，包括用户收看电视的信息记录和产品的各项参数。</p>
+<p>用户信息：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-7843daa10ca16682f8ee2eec62fd3bb0_hd.jpg" alt="img"></p>
+<p>图1.用户信息数据</p>
+<p>产品信息：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-74c8bce2a6c41f42c435698510b93c2b_hd.jpg" alt="img"></p>
+<p>图2.产品信息数据</p>
+<p>2、数据清洗</p>
+<p>（1）删除重复内容，以及错误信息：对数据进行初步整理，删掉无效数据</p>
+<p>（2）提取产品标签 =TEXT(E2,”h:mm”)转化时间</p>
+<p>=TEXT(H2-G2,”[m]”)求时间差</p>
+<p>用数据透视表求频数</p>
+<p>（3）提取用户标签，分析用户偏好：将产品类别与用户信息偏好类别进行统一，在用户信息表中添加偏好类型、是否高清、时间段、观看频数、时长标签</p>
+<p>3、清洗后数据</p>
+<p>用户信息：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-77a3ca99d39565ebd4194ff15daa95e7_hd.jpg" alt="img"></p>
+<p>产品信息：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-81cdcd6f0673f75820c8b561f4ea5999_hd.jpg" alt="img"></p>
+<p>图3.数据清洗后数据</p>
+<p><strong>三、可视化展示及结果</strong></p>
+<p>1.旭日图</p>
+<p>主题：对产品类别进行展示（使用工具：Echarts ）</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-882533662c432170019ffeeab963aee8_hd.jpg" alt="img"></p>
+<p>图4.产品类别图</p>
+<p>由图可知产品主要分为两类：电影和电视剧，其中电影又分为：动作电影、恐怖电影、爱情电影、动画电影、喜剧电影与其他；</p>
+<p>电视剧又分为：抗日剧、古装剧、综艺娱乐、仙侠科幻、都市情感与动画片；</p>
+<p>电影类产品中动作类电影产品最多；其中产品“碟中谍”热度最高</p>
+<p>电视剧中古装剧产品最多，其中“独孤天下”热度最高</p>
+<p>2.嵌套环形图</p>
+<p>主题：以10853号用户为例，对用户偏好进行展示（使用工具：Echarts）</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-173e2ed83e61fafa367ab8978c6ae8c6_hd.jpg" alt="img"></p>
+<p>图5.用户偏好</p>
+<p>10853用户喜欢四类产品类型：家庭影院、纪录片、综艺娱乐、大陆剧场，其中最喜欢观看家庭影院类型产品，在众多节目中喜欢观看舌尖上的中国和味道中国等美食节目。</p>
+<p>3.碎石图</p>
+<p>主题：针对本文所研究的问题，需要对影视产品进行打包，进而以产品包为单位向用户进行推荐。为此我们引入K-means 聚类分析理论，将同种类型的产品进行打包，此时问题重点是探索所推荐的产品包中影视产品的最佳数量和产品包的最终分类结果。</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-4f03d0fca6b3b21c7c2e1a0d8f17a87f_hd.jpg" alt="img"></p>
+<p>由图可知，最佳聚类数目分别为2和6，电视剧场/欧美剧场分类中还可以将产品细分为2类，大陆剧场/日韩剧场这个分类中则可以将产品细化为6类。</p>
+<p>\4. 折线图</p>
+<p>对产品进行打包后，采用推荐算法对产品进行推荐。本项目采用协同过滤推荐算法、热点推荐算法和随机推荐算法三种推荐方式。为了实现产品的个性化推荐，自定义推荐产品包数目，通过十折交叉验证检测准确率和召回率。</p>
+<p>两个主题：</p>
+<p>（1）通过准确率和召回率对三种推荐方式进行比较。</p>
+<p>（2）选择合适的产品包推荐数目。</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-03e8ebf306066033233f7a96a0c1c571_hd.jpg" alt="img"></p>
+<p>图7.三种推荐方式对比</p>
+<p>由图知，热点推荐模型和协同过滤推荐模型的准确度和召回率均远远高于随机推荐，说明热点推荐模型和协同过滤模型对于重要价值用户的个性化推荐效果显著。其中热点推荐效模型效果好于协同过滤推荐，并且，热点推荐和协同过滤推荐在产品包推荐数目为 1 时同时达到精准率最大值，同时也是召回率最小值。当推荐打包数为 20 个时，协同过滤推荐和热点推荐的召回率均达到最大值，但此时精准率达到最小值。</p>
+<p>5.气泡图</p>
+<p>因为精准率与召回率二者评价模型的标准均为越接近于1越好，但是在保证精准率的前提下，召回率就难以得到保障，同样地在保障召回率的前提下，精准率就不能得到保障，因此，本文根据精准率和召回率计算得到平衡F分数（F1 的值，它可以同时兼顾模型的精准率和召回率，如下：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-c5702ce83ae2c8ef0ee5a8540a273172_hd.jpg" alt="img"></p>
+<p>两个主题：</p>
+<p>（1）通过可视化寻找三类推荐算法用户最佳推荐个数，根据最佳推荐个数为用户推荐产品</p>
+<p>（2）对三类推荐算法进行比较，选择平衡分数最高的推荐算法进行推荐。</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-11362594149cd0bd979a616b4275a781_hd.jpg" alt="img"></p>
+<p>图7.平衡分数</p>
+<p>由图可知热点推荐模型形状最大，其平衡分数最高，协同过滤推荐其次，随机推荐最低</p>
+<p>6.产品介绍图</p>
+<p>主题：对协同过滤推荐算法的具体过程及原理进行介绍（使用工具：Microsoft Visio）</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-2fee4e20f7b3835a3066739fa4a6c806_hd.jpg" alt="img"></p>
+<p>基于用户的协同过滤算法：我们知道樱桃小丸子喜欢葡萄、草莓、西瓜和橘子，而我们通过某种方法了解到小丸子和花伦有相似的喜好，所以我们会把小丸子喜欢的而花伦还未选择的水果（葡萄和橘子）推荐给花伦。</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-81c610cd2702a6bea1d6e68a39383292_hd.jpg" alt="img"></p>
+<p>图9.基于物品的协同过滤算法</p>
+<p>基于物品的协同过滤算法：给用户推荐那些和他们之前喜欢的物品相似的物品。比如，我们知道樱桃小丸子和小玉都喜欢葡萄和西瓜，那么我们就认为葡萄和西瓜有较高的相似度，在花伦选择了西瓜的情况下，我们会把葡萄推荐给花伦。</p>
+<p>\7. 漏斗图</p>
+<p>主题：以10853号用户为例，对推荐结果进行展示（使用工具：Echarts ）</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-760c22a1e97c9aa1f67b72823d88929f_hd.jpg" alt="img"></p>
+<p>图10.推荐结果展示</p>
+<p>根据推荐算法进行分析，共对用户10853推荐8个产品。其中英超联赛推荐指数最高，新闻联播次之。</p>
+<p><strong>四、图表制作</strong></p>
+<p>1、旭日图制作</p>
+<p>步骤：</p>
+<p>（1）对一级指标“电影/电视剧”进行修改，将data第一个name标签内容替换。</p>
+<p>（2）对二级指标“动作电影/喜剧电影等”修改，将第一个children类下的name标签替换。</p>
+<p>（3）对三级指标产品名称如“摔跤吧爸爸”等进行修改，将第二个children类下的name标签内容替换。</p>
+<p>（4）若多增加标签，则增添children[{name:’’},{name:’’}]</p>
+<p>程序：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-35229aea6165fc1e58a4fc5aae1aaaf3_hd.jpg" alt="img"></p>
+<p>图11.旭日图程序</p>
+<p>2.嵌套环形图制作</p>
+<p>步骤：</p>
+<p>（1）对图像标题进行修改</p>
+<p>（2）对图像内容进行替换，并将各部分占比进行修改</p>
+<p>程序：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-f1bb592944773ee628d96b07cbb926b4_hd.jpg" alt="img"></p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-31e971f029d030c9025dd9792b5b161c_hd.jpg" alt="img"></p>
+<p>图12.嵌套环形图程序</p>
+<p>3.碎石图制作</p>
+<p>步骤：</p>
+<p>（1）对于产品内容进行中文分词，并构成 dtm 矩阵。</p>
+<p>（2）基于dtm 矩阵，采用 Kmeans 均值聚类计算产品数目大于30的类别之间的距离，采用碎石图，得到每一个一级标签分类的最佳聚类数</p>
+<p>形成的dtm矩阵如下：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-1fba03748172a555ad72b2c51ff68ea8_hd.jpg" alt="img"></p>
+<p>图13.DTM矩阵</p>
+<p>程序：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-c733035f3d41d485489cc90934c114d9_hd.jpg" alt="img"></p>
+<p>4.折线图制作</p>
+<p>步骤：</p>
+<p>（1）采用三种推荐算法，基于用户偏好进行产品推荐。</p>
+<p>（2）通过十折交叉验证对推荐结果进行验证，得到不同推荐产品包数目的结果准确率与召回率，这里探究自定义产品包数目为（1,3,5,7, 8,10,15,20）时的准确率与召回率。</p>
+<p>（3）对三种推荐算法在不同推荐情况下的准确率与召回率进行可视化表达，探索最优算法</p>
+<p>程序：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-8a35fc29bd35c9da24d3f6156b4d0b1c_hd.jpg" alt="img"></p>
+<p>5.气泡图制作</p>
+<p>步骤：</p>
+<p>（1）导入平衡分数计算公式</p>
+<p>（2）对三类推荐算法在不同推荐情况下的平衡分数进行可视化表达，对折线图、气泡图两种表达方式进行对比，最终选择气泡图，因为其可以动态的表示每点数据情况。</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-56188e430a46333cd9b6abb378f5afd3_hd.jpg" alt="img"></p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-11362594149cd0bd979a616b4275a781_hd.jpg" alt="img"></p>
+<p>图14.推荐算法比较</p>
+<p>程序：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-11f7bd323058a8307ed1b4bc49f41741_hd.jpg" alt="img"></p>
+<p>6.产品介绍图制作</p>
+<p>步骤：</p>
+<p>（1）使用visio2003创建一个新文件</p>
+<p>（2）选择对应形状拖动进绘画板</p>
+<p>（3）文件保存，发布</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-20bdfac8ac2625f59a30d3bf3e087277_hd.jpg" alt="img"></p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-ee6d21f434a5dc1d6c922dae698cf427_hd.jpg" alt="img"></p>
+<p>图15.visio绘图</p>
+<p>7.漏斗图制作</p>
+<p>步骤：</p>
+<p>1.对legend数据框中data的内容进行修改，对图例内容进行替换。</p>
+<p>2.对图中数据进行替换，并对各数据占比进行修改，数据皆为百分制</p>
+<p>程序：</p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-a167093b48fb988b52138cad18e0d790_hd.jpg" alt="img"></p>
+<p><img src="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-78c6498505976e674e7a84f660e2d962_hd.jpg" alt="img"></p>
+<p>图16.漏斗图程序</p>
+<p><a href="http://link.zhihu.com/?target=http://weixin.qq.com/r/GT9EXHfEnyrgrTM-92oL">http://weixin.qq.com/r/GT9EXHfEnyrgrTM-92oL</a> (二维码自动识别)</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">萧宇</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://aichn.cn/post/89c41659.html">http://aichn.cn/post/89c41659.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://aichn.cn" target="_blank">君子兰萧宇的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">-大数据</a></div><div class="post_share"><div class="social-share" data-image="/../images/%E3%80%90%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E3%80%91%E7%94%B5%E8%A7%86%E4%BA%A7%E5%93%81%E7%B2%BE%E5%87%86%E8%90%A5%E9%94%80%E6%8E%A8%E8%8D%90/v2-882533662c432170019ffeeab963aee8_hd.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/c7d146d6.html"><img class="prev-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JS散度</div></div></a></div><div class="next-post pull-right"><a href="/post/39dfe659.html"><img class="next-cover" src="/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">不用Docker，实现群晖+阿里云DDNS解决动态IP访问</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/e5078155.html" title="决策树中结点的特征选择方法"><img class="cover" src="/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-12-23</div><div class="title">决策树中结点的特征选择方法</div></div></a></div><div><a href="/post/f54fd71a.html" title="无监督学习"><img class="cover" src="/../images/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/1003577-20170518151628182-1057765599.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-12-23</div><div class="title">无监督学习</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">萧宇</div><div class="author-info__description">学而不思则罔，思而不学则殆</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">163</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">87</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div></div><a class="button--animated" id="card-info-btn" href="mailto:rennyshaw@163.com"><i class="fab fa-github"></i><span>联系我</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">姓名：萧宇 - 座右铭：读万卷书，行万里路 - QQ：164840753 - 手机号：13651208086</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程"/></a><div class="content"><a class="title" href="/post/15292.html" title="Zerotier 搭建私有根服务器及创建虚拟局域网完整教程">Zerotier 搭建私有根服务器及创建虚拟局域网完整教程</a><time datetime="2023-08-18T10:08:18.000Z" title="发表于 2023-08-18 18:08:18">2023-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos"/></a><div class="content"><a class="title" href="/post/f7788cdd.html" title="在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos">在pve上直接安装macos13 Ventura 初步优化并直通显卡 蓝牙 wifi 声卡给macos</a><time datetime="2023-02-15T09:27:36.000Z" title="发表于 2023-02-15 17:27:36">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49be3a04.html" title="dockerkubeadm安装"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="dockerkubeadm安装"/></a><div class="content"><a class="title" href="/post/49be3a04.html" title="dockerkubeadm安装">dockerkubeadm安装</a><time datetime="2022-12-02T13:06:36.000Z" title="发表于 2022-12-02 21:06:36">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆"/></a><div class="content"><a class="title" href="/post/e0cfee7a.html" title="群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆">群晖NAS搭建GitServer并配置权限与SSH秘钥免密登陆</a><time datetime="2021-12-23T13:06:36.000Z" title="发表于 2021-12-23 21:06:36">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档"><img src="/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Axhub Charts Pro 帮助文档"/></a><div class="content"><a class="title" href="/post/7d9f7df6.html" title="Axhub Charts Pro 帮助文档">Axhub Charts Pro 帮助文档</a><time datetime="2019-12-23T13:06:36.000Z" title="发表于 2019-12-23 21:06:36">2019-12-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">Copyright &copy; 1993 - 2025 By 萧宇</div><div class="framework-info"><span>框架 By </span><a href="http://aichn.cn">Aichn.cn</a><span class="footer-separator">|</span><span>主题 By </span><a href="http://aichn.cn">萧宇的博客</a></div><div class="icp"><a href="https://beian.miit.gov.cn" target="_blank"><img class="lozad" data-src="/img/beian.png" onerror="onerror=null;src='/img/beian.png'" style="padding:0px;vertical-align: text-bottom;"/><span>沪ICP备18015875号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
